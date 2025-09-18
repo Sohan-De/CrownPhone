@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Crown Screens</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/checkout-styles.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <style>
+        /* Loading Overlay Styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%; 
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0, 212, 255, 0.3);
+            border-top: 4px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        .loading-content p {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+            text-align: center;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile Loading Overlay Styles */
+        @media (max-width: 768px) {
+            .loading-content {
+                padding: 2rem 1.5rem;
+                margin: 20px;
+                max-width: 90%;
+            }
+            
+            .loading-spinner {
+                width: 50px;
+                height: 50px;
+                margin-bottom: 1.2rem;
+            }
+            
+            .loading-content p {
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loading-content {
+                padding: 1.5rem 1rem;
+                margin: 15px;
+                max-width: 95%;
+            }
+            
+            .loading-spinner {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 1rem;
+            }
+            
+            .loading-content p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Success Modal Lottie Animation */
+        .success-lottie {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Profile Dropdown Styles */
+        .nav-profile {
+            position: relative;
+            display: none; /* Will be controlled by JavaScript */
+        }
+
+        .profile-dropdown {
+            position: relative;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 1rem;   
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .profile-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            border-radius: 50px;
+            z-index: -1;
+            padding: 1px;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+        }
+
+        .profile-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .profile-btn:hover::before {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+        }
+
+        .profile-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a2e;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .profile-name {
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .dropdown-arrow {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .profile-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin: 0 8px;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .item-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 8px 0;
+        }
+
+        .admin-link {
+            display: none;
+        }
+        
+        /* Profile dropdown will be controlled by JavaScript */
+        .navbar .nav-container .nav-profile {
+            display: none;
+        }
+        
+        #nav-profile {
+            display: none;
+        }
+        
+        .navbar {
+            position: relative;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        /* Neomorphism Effect for Download Me Link */
+        .nav-link.download-me-neo {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 20px;
+            margin: 0 5px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .nav-link.download-me-neo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .nav-link.download-me-neo:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                12px 12px 24px rgba(0, 0, 0, 0.4),
+                -12px -12px 24px rgba(255, 255, 255, 0.08),
+                0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .nav-link.download-me-neo:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link.download-me-neo:active {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.3),
+                -4px -4px 8px rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Icon styling for Download Me button */
+        .nav-link.download-me-neo i {
+            margin-right: 8px;
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link.download-me-neo:hover i {
+            transform: translateY(-2px) scale(1.1);
+        }
+        
+        /* Hide Home link on desktop (1025px and above) */
+        .nav-link.home-link {
+            display: none;
+        }
+        
+        /* Show Home link on tablet and mobile (1024px and below) */
+        @media (max-width: 1024px) {
+            .nav-link.home-link {
+                display: block;
+            }
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-link.download-me-neo {
+                padding: 10px 16px;
+                margin: 5px 0;
+                border-radius: 12px;
+            }
+            
+            .nav-link.download-me-neo i {
+                margin-right: 6px;
+                font-size: 0.8em;
+            }
+        }
+
+        /* Logout Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            z-index: -1;
+        }
+
+        .logout-modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* Mobile responsive styles for logout modal */
+        @media (max-width: 480px) {
+            .logout-modal-content {
+                max-width: 80vw;
+                width: 80vw;
+                margin: 0 10vw;
+                padding: 2rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 20px;
+                max-width: calc(100vw - 40px);
+                width: calc(100vw - 40px);
+            }
+            
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .logout-modal-content .modal-body p {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .logout-subtitle {
+                font-size: 0.9rem !important;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logout-confirm-btn,
+            .btn-outline {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h3 {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .logout-icon {
+            font-size: 4rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .logout-modal-content .modal-body p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .logout-subtitle {
+            color: #ccc !important;
+            font-size: 1rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .logout-confirm-btn {
+            background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+            color: #1a1a2e !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .logout-confirm-btn:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4) !important;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #fff !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: #00d4ff !important;
+            color: #00d4ff !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <div class="background-stars">
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+    </div>
+
+    <!-- Navigation Bar Component -->
+    <nav class="navbar" id="navbar-component">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none;">
+                    <h2 class="logo-text">Crown Screens</h2>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+            
+            <div class="nav-links" id="nav-links">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-title">Menu</h3>
+                </div>
+                <a href="index.html" class="nav-link home-link">Home</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#pricing" class="nav-link">Pricing</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" class="nav-link download-me-neo">
+                    <i class="fas fa-download"></i> Download Me
+                </a>
+                
+                <!-- Mobile Profile Section (shown when logged in) -->
+                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
+                    <div class="mobile-profile-header">
+                        <div class="mobile-profile-avatar">
+                            <span class="avatar-text">JD</span>
+                        </div>
+                        <div class="mobile-profile-info">
+                            <h4 class="mobile-profile-name">John Doe</h4>
+                        </div>
+                    </div>
+                    <div class="mobile-profile-actions">
+                        <a href="profile.html" class="mobile-profile-btn">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display:none;">
+                            <i class="fas fa-lock"></i>
+                            <span>Admin</span>
+                        </a>
+                        <div class="mobile-profile-divider"></div>
+                        <button class="mobile-profile-btn" id="mobile-logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Auth Buttons (shown when not logged in) -->
+                <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Desktop Auth Buttons (shown when not logged in) -->
+            <div class="nav-auth" id="nav-auth-buttons">
+                <a href="sign-in.html" class="nav-btn signin-btn">
+                    <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                    <span class="btn-text">SIGN IN</span>
+                </a>
+                <a href="sign-up.html" class="nav-btn signup-btn">
+                    <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                    <span class="btn-text">SIGN UP</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Profile Dropdown (shown when logged in) -->
+            <div class="nav-profile" id="nav-profile" style="display: none;">
+                <div class="profile-dropdown">
+                    <div class="profile-btn">
+                        <div class="profile-avatar">
+                            <span class="avatar-text">JD</span>
+                        </div>
+                        <span class="profile-name">John Doe</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="profile.html" class="dropdown-item">
+                            <span class="item-icon"><i class="fas fa-user"></i></span>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="admin-dashboard.html" class="dropdown-item admin-link" style="display:none;">
+                            <span class="item-icon"><i class="fas fa-lock"></i></span>
+                            <span>Admin</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" id="logout-btn">
+                            <span class="item-icon"><i class="fas fa-sign-out-alt"></i></span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Stars Background -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="stars3"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="checkout-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Complete Your Purchase</h1>
+            <p class="hero-subtitle">You're just one step away from unlocking premium screen sharing features</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="checkout-main">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        
+        <div class="checkout-container">
+            <!-- Order Summary Card -->
+            <div class="order-summary-card">
+                <div class="summary-header">
+                    <h2 class="summary-title">Order Summary</h2>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-badge" id="package-badge">Pro</div>
+                    <div class="package-info">
+                        <h3 id="package-name">Pro Plan</h3>
+                        <p id="package-description">Advanced screen sharing with premium features</p>
+                    </div>
+                    <div class="package-price">
+                        <span class="price-amount" id="price-amount">$9.99</span>
+                        <span class="price-period" id="price-period">/month</span>
+                    </div>
+                </div>
+                
+
+
+                <div class="total-section">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$9.99</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax:</span>
+                        <span id="tax">$0.00</span>
+                    </div>
+                    <div class="total-row total-final">
+                        <span>Total:</span>
+                        <span id="total">$9.99</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Form Card -->
+            <div class="checkout-form-card">
+                <div class="form-header">
+                    <h2 class="form-title">Payment Details</h2>
+                </div>
+                
+                <!-- Payment Method Selection -->
+                <div class="payment-method-section">
+                    <h3 class="section-title">Payment Method</h3>
+                    <div class="payment-methods">
+                        <label class="payment-method-option">
+                            <input type="radio" name="payment-method" value="stripe" checked>
+                            <span class="payment-method-card">
+                                <div class="payment-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span class="icon-fallback">💳</span>
+                                </div>
+                                <div class="payment-info">
+                                    <span class="payment-name">Credit/Debit Card</span>
+                                    <span class="payment-description">Visa, Mastercard, American Express</span>
+                                </div>
+                            </span>
+                        </label>
+                        
+                        <label class="payment-method-option">
+                            <input type="radio" name="payment-method" value="crypto">
+                            <span class="payment-method-card">
+                                <div class="payment-icon">₿</div>
+                                <div class="payment-info">
+                                    <span class="payment-name">Cryptocurrency</span>
+                                    <span class="payment-description">Bitcoin, Ethereum, USDC, USDT</span>
+                                </div>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Stripe Elements Container -->
+                <div id="stripe-container" class="stripe-container">
+                    <div class="form-group">
+                        <label class="form-label">Card Information</label>
+                        <div id="card-element" class="card-element">
+                            <!-- Stripe Card Element will be inserted here -->
+                        </div>
+                        <div id="card-errors" class="card-errors" role="alert"></div>
+                    </div>
+                </div>
+
+                <!-- Crypto Payment Container -->
+                <div id="crypto-container" class="crypto-container" style="display: none;">
+                    <div class="crypto-payment-methods">
+                        <div class="crypto-option" data-crypto="btc">
+                            <div class="crypto-icon">₿</div>
+                            <div class="crypto-info">
+                                <span class="crypto-name">Bitcoin (BTC)</span>
+                                <span class="crypto-amount" id="btc-amount">Calculating...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="crypto-option" data-crypto="eth">
+                            <div class="crypto-icon">Ξ</div>
+                            <div class="crypto-info">
+                                <span class="crypto-name">Ethereum (ETH)</span>
+                                <span class="crypto-amount" id="eth-amount">Calculating...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="crypto-option" data-crypto="usdc">
+                            <div class="crypto-icon"><i class="fas fa-gem"></i></div>
+                            <div class="crypto-info">
+                                <span class="crypto-name">USDC</span>
+                                <span class="crypto-amount" id="usdc-amount">Calculating...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="crypto-option" data-crypto="usdt">
+                            <div class="crypto-icon"><i class="fas fa-gem"></i></div>
+                            <div class="crypto-info">
+                                <span class="crypto-name">USDT</span>
+                                <span class="crypto-amount" id="usdt-amount">Calculating...</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="crypto-price-controls">
+                        <button type="button" class="refresh-prices-btn" onclick="refreshCryptoPrices()">
+                            🔄 Refresh Prices
+                        </button>
+                        <span class="price-timestamp" id="price-timestamp">Prices updated: Never</span>
+                    </div>
+                    
+                    <div class="crypto-info-section">
+                        <h4>Payment Information</h4>
+                        <div class="crypto-info">
+                            <p class="help-text"><i class="fas fa-info-circle"></i> <strong>How it works:</strong> Select your preferred cryptocurrency and click "Pay Now" to be redirected to the secure payment page.</p>
+                            <p class="help-text"><i class="fas fa-shield-alt"></i> <strong>Secure:</strong> All payments are processed directly through Zerocryptopay with 1% transaction fee.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Information -->
+                <div class="billing-section">
+                    <h3 class="section-title">Billing Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-input" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" class="form-input" placeholder="+1 (555) 123-4567">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="terms-section">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terms" required>
+                        <span class="checkmark"></span>
+                        <span class="terms-text">
+                            I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Payment Button -->
+                <button id="submit-button" class="checkout-btn" disabled>
+                    <span class="btn-text">Pay Now</span>
+                    <div class="spinner"></div>
+                </button>
+
+                <!-- Security Notice -->
+                <div class="security-notice">
+                    <div class="security-icon"><i class="fas fa-lock"></i></div>
+                    <div class="security-text">
+                        <h4>Secure Payment</h4>
+                        <p>Your payment information is encrypted and secure. We never store your card details.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 class="footer-logo-text">Crown Screens</h3>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html#features" class="footer-link">Features</a>
+                    <a href="index.html#pricing" class="footer-link">Pricing</a>
+                    <a href="index.html#contact" class="footer-link">Contact</a>
+                    <a href="index.html#download" class="footer-link">Download</a>
+                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2025 Crown Screens. Professional Screen Projection Software.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Processing your payment...</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div id="success-lottie" class="success-lottie"></div>
+            <h2>Payment Successful!</h2>
+            <p>Your license key has been sent by email, please check there. If you didn't receive it, you can contact support at <a href="mailto:support@crownscreens.com" style="color: #00d4ff; text-decoration: none;">support@crownscreens.com</a></p>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="goToHome()">Go to Home</button>
+                <button class="btn-secondary" onclick="closeSuccessModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Modal -->
+    <div id="error-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="error-icon">❌</div>
+            <h2>Payment Failed</h2>
+            <p id="error-message">There was an issue processing your payment. Please try again.</p>
+            <div class="modal-actions">
+                <button class="btn-primary" onclick="closeErrorModal()">Try Again</button>
+                <button class="btn-secondary" onclick="closeErrorModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./scripts/supabase.js"></script>
+    <script src="./scripts/key-delivery-service.js"></script>
+    <script src="./scripts/checkout.js"></script>
+    <script>
+        // Hamburger Menu Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const navLinks = document.getElementById('nav-links');
+            
+            if (hamburgerMenu && navLinks) {
+                hamburgerMenu.addEventListener('click', function() {
+                    hamburgerMenu.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                });
+                
+                // Close menu when clicking on a link
+                const mobileLinks = navLinks.querySelectorAll('.nav-link, .mobile-profile-link, .mobile-auth-btn');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        hamburgerMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    });
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!hamburgerMenu.contains(event.target) && !navLinks.contains(event.target)) {
+                        hamburgerMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
+                });
+            }
+        });
+
+        // Modal functions
+        function showLogoutModal() {
+            document.getElementById('logout-modal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function confirmLogout() {
+            try {
+                // Sign out from Supabase
+                const { error } = await supabase.auth.signOut();
+                
+                if (error) {
+                    console.error('Error signing out:', error.message);
+                    return;
+                }
+                
+                // Update UI to show logged out state
+                const navAuthButtons = document.getElementById('nav-auth-buttons');
+                const navProfile = document.getElementById('nav-profile');
+                const mobileProfileSection = document.getElementById('mobile-profile-section');
+                const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                
+                // Desktop UI updates
+                if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                if (navProfile) navProfile.style.display = 'none';
+                
+                // Mobile UI updates
+                if (mobileProfileSection) mobileProfileSection.style.setProperty('display', 'none', 'important');
+                if (mobileAuthButtons) mobileAuthButtons.style.setProperty('display', 'flex', 'important');
+                
+                // Close the modal
+                closeModal('logout-modal');
+                
+                // Close mobile menu if open
+                if (typeof closeMobileMenu === 'function') {
+                    closeMobileMenu();
+                }
+                
+                // Redirect to home page
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error during logout:', error);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const logoutModal = document.getElementById('logout-modal');
+            if (event.target === logoutModal) {
+                closeModal('logout-modal');
+            }
+        }
+
+    </script>
+    <script>
+        // Initialize Lottie animation for success modal
+        let successAnimation;
+        
+        function initSuccessLottie() {
+            const lottieContainer = document.getElementById('success-lottie');
+            if (lottieContainer && typeof lottie !== 'undefined') {
+                successAnimation = lottie.loadAnimation({
+                    container: lottieContainer,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: false,
+                    path: 'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json' // Success checkmark animation
+                });
+            }
+        }
+        
+        function showSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                // Start the Lottie animation when modal is shown
+                if (successAnimation) {
+                    successAnimation.play();
+                }
+            }
+        }
+        
+        function closeSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            if (modal) {
+                modal.style.display = 'none';
+                // Stop the Lottie animation when modal is closed
+                if (successAnimation) {
+                    successAnimation.stop();
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lottie animation
+            initSuccessLottie();
+            
+            // Initialize auth status and show/hide profile dropdown
+            checkAuthStatus();
+            
+            // Set up logout button
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+            
+            // Set up mobile logout button
+            const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+        });
+
+        // Function to initialize authentication UI - Same as home pagedfg
+        async function initializeAuthUI() {
+            try {
+                alert('Function is running! Checking user...');
+                
+                const { data: { user }, error } = await supabase.auth.getUser();
+                
+                if (error) {
+                    console.error('Error checking auth status:', error);
+                    return;
+                }
+
+                const navProfile = document.getElementById('nav-profile');
+                const profileName = document.querySelector('.profile-name');
+                const avatarText = document.querySelector('.avatar-text');
+                const adminLink = document.querySelector('.admin-link');
+
+                if (user) {
+                    // User is logged in, show profile dropdown
+                    if (navProfile) {
+                        navProfile.style.display = 'block';
+                    }
+                    
+                    // Get real user data from profiles table (same as home page)
+                    console.log('User ID:', user.id);
+                    console.log('User email:', user.email);
+                    
+                    const { data: profileData, error: profileError } = await supabase
+                        .from('profiles')
+                        .select('first_name, last_name, email, is_admin')
+                        .eq('id', user.id)
+                        .maybeSingle();
+                    
+                    console.log('Profile data:', profileData);
+                    console.log('Profile error:', profileError);
+                    
+                    if (!profileError && profileData) {
+                        // Use database profile data for real user information
+                        const dbFirstName = profileData.first_name || '';
+                        const dbLastName = profileData.last_name || '';
+                        const dbFullName = `${dbFirstName} ${dbLastName}`.trim();
+                        
+                        if (profileName) {
+                            if (dbFullName && dbFullName !== ' ') {
+                                profileName.textContent = dbFullName;
+                                console.log('✅ Updated profile name to:', dbFullName);
+                            } else {
+                                // Fallback to user metadata or email
+                                const firstName = user.user_metadata?.first_name || user.user_metadata?.firstName || '';
+                                const lastName = user.user_metadata?.last_name || user.user_metadata?.lastName || '';
+                                const fallbackName = `${firstName} ${lastName}`.trim() || user.email?.split('@')[0] || 'User';
+                                profileName.textContent = fallbackName;
+                                console.log('⚠️ Using fallback name:', fallbackName);
+                            }
+                        }
+                        
+                        if (avatarText) {
+                            if (dbFirstName && dbLastName) {
+                                avatarText.textContent = `${dbFirstName[0]}${dbLastName[0]}`.toUpperCase();
+                            } else {
+                                // Fallback to user metadata or email
+                                const firstName = user.user_metadata?.first_name || user.user_metadata?.firstName || '';
+                                const lastName = user.user_metadata?.last_name || user.user_metadata?.lastName || '';
+                                if (firstName && lastName) {
+                                    avatarText.textContent = `${firstName[0]}${lastName[0]}`.toUpperCase();
+                                } else {
+                                    avatarText.textContent = user.email?.[0]?.toUpperCase() || 'U';
+                                }
+                            }
+                        }
+                        
+                        // Show admin link if user is admin
+                        if (adminLink && profileData.is_admin === true) {
+                            adminLink.style.display = 'block';
+                        }
+                    } else {
+                        // Fallback to user metadata if no profile data
+                        if (profileName) {
+                            const firstName = user.user_metadata?.first_name || user.user_metadata?.firstName || '';
+                            const lastName = user.user_metadata?.last_name || user.user_metadata?.lastName || '';
+                            const fallbackName = `${firstName} ${lastName}`.trim() || user.email?.split('@')[0] || 'User';
+                            profileName.textContent = fallbackName;
+                        }
+                        
+                        if (avatarText) {
+                            const firstName = user.user_metadata?.first_name || user.user_metadata?.firstName || '';
+                            const lastName = user.user_metadata?.last_name || user.user_metadata?.lastName || '';
+                            if (firstName && lastName) {
+                                avatarText.textContent = `${firstName[0]}${lastName[0]}`.toUpperCase();
+                            } else {
+                                avatarText.textContent = user.email?.[0]?.toUpperCase() || 'U';
+                            }
+                        }
+                    }
+                } else {
+                    // User is not logged in, hide profile dropdown
+                    if (navProfile) navProfile.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error initializing auth UI:', error);
+            }
+        }
+    </script>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content logout-modal-content">
+            <div class="modal-header">
+                <h3>Logout Confirmation</h3>
+                <button class="close-btn" onclick="closeModal('logout-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <p>Are you sure you want to logout?</p>
+                <p class="logout-subtitle">You will be redirected to the home page.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('logout-modal')">Cancel</button>
+                <button class="btn btn-primary logout-confirm-btn" onclick="confirmLogout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

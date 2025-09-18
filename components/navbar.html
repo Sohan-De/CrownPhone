@@ -1,0 +1,108 @@
+<!-- Navigation Bar Component -->
+<nav class="navbar" id="navbar-component">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <a href="index.html" style="text-decoration: none;">
+                <h2 class="logo-text">Crown Screens</h2>
+            </a>
+        </div>
+        
+        <!-- Hamburger Menu Button -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </div>
+        
+        <div class="nav-links" id="nav-links">
+            <div class="mobile-menu-header">
+                <h3 class="mobile-menu-title">Menu</h3>
+            </div>
+            <a href="index.html#features" class="nav-link">Features</a>
+            <a href="index.html#pricing" class="nav-link">Pricing</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+            <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" class="nav-link download-me-neo">
+                <i class="fas fa-download"></i> Download Me
+            </a>
+            
+            <!-- Mobile Profile Section (shown when logged in) -->
+            <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
+                <div class="mobile-profile-header">
+                    <div class="mobile-profile-avatar">
+                        <span class="avatar-text">JD</span>
+                    </div>
+                        <div class="mobile-profile-info">
+                            <h4 class="mobile-profile-name">John Doe</h4>
+                        </div>
+                </div>
+                <div class="mobile-profile-actions">
+                    <a href="profile.html" class="mobile-profile-btn">
+                        <i class="fas fa-user"></i>
+                        <span>My Profile</span>
+                    </a>
+                    <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display:none;">
+                        <i class="fas fa-lock"></i>
+                        <span>Admin</span>
+                    </a>
+                    <div class="mobile-profile-divider"></div>
+                    <button class="mobile-profile-btn" onclick="signOut()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Auth Buttons (shown when not logged in) -->
+            <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                    <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                    <span class="btn-text">SIGN IN</span>
+                </a>
+                <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                    <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                    <span class="btn-text">SIGN UP</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Desktop Auth Buttons (shown when not logged in) -->
+        <div class="nav-auth" id="nav-auth-buttons">
+            <a href="sign-in.html" class="nav-btn signin-btn">
+                <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                <span class="btn-text">SIGN IN</span>
+            </a>
+            <a href="sign-up.html" class="nav-btn signup-btn">
+                <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                <span class="btn-text">SIGN UP</span>
+            </a>
+        </div>
+        
+        <!-- Desktop Profile Dropdown (shown when logged in) -->
+        <div class="nav-profile" id="nav-profile" style="display: none;">
+            <div class="profile-dropdown">
+                <div class="profile-btn">
+                    <div class="profile-avatar">
+                        <span class="avatar-text">JD</span>
+                    </div>
+                    <span class="profile-name">John Doe</span>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="profile.html" class="dropdown-item">
+                        <span class="item-icon"><i class="fas fa-user"></i></span>
+                        <span>My Profile</span>
+                    </a>
+                    <a href="admin-dashboard.html" class="dropdown-item admin-link" style="display:none;">
+                        <span class="item-icon"><i class="fas fa-lock"></i></span>
+                        <span>Admin</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item" id="logout-btn">
+                        <span class="item-icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

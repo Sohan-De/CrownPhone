@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Crown Screens</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./scripts/supabase.js"></script>
+    <script src="./scripts/profile.js"></script>
+    <style>
+        /* Footer copyright text in white */
+        .footer-copyright p {
+            color: white !important;
+        }
+        
+        /* Ensure footer copyright is white on all elements */
+        footer .footer-copyright p {
+            color: white !important;
+        }
+        
+        /* Neomorphism Effect for Download Me Link */
+        .nav-link.download-me-neo {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 15px;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link.download-me-neo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .nav-link.download-me-neo:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            box-shadow: 
+                12px 12px 24px rgba(0, 0, 0, 0.4),
+                -12px -12px 24px rgba(255, 255, 255, 0.08),
+                0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .nav-link.download-me-neo:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link.download-me-neo:active {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.3),
+                -4px -4px 8px rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Icon styling for Download Me button */
+        .nav-link.download-me-neo i {
+            margin-right: 8px;
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 20;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+        }
+        
+        .nav-link.download-me-neo:hover i {
+            transform: translateY(-2px) scale(1.1);
+            color: #00d4ff !important;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            -webkit-text-fill-color: #00d4ff !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+        }
+        
+        /* Hide Home link on desktop (1025px and above) */
+        .nav-link.home-link {
+            display: none;
+        }
+        
+        /* Show Home link on tablet and mobile (1024px and below) */
+        @media (max-width: 1024px) {
+            .nav-link.home-link {
+                display: block;
+            }
+        }
+        
+        /* Mobile responsive styles for Download Me button */
+        @media (max-width: 768px) {
+            .nav-link.download-me-neo {
+                background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                box-shadow: none !important;
+                padding: 10px 15px;
+                margin: 5px 0;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-link.download-me-neo::before {
+                display: none !important;
+            }
+            
+            .nav-link.download-me-neo:hover {
+                background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: 0 0 15px rgba(0, 212, 255, 0.6) !important;
+                transform: translateX(5px) !important;
+                box-shadow: none !important;
+            }
+            
+            .nav-link.download-me-neo i {
+                margin-right: 10px;
+                font-size: 1.1em;
+                background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: none !important;
+                transform: none !important;
+            }
+            
+            .nav-link.download-me-neo:hover i {
+                background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: 0 0 15px rgba(0, 212, 255, 0.6) !important;
+                transform: translateX(3px) !important;
+            }
+        }
+        
+        /* Profile page specific styles - NO navbar conflicts */
+        .profile-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        .profile-header {
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .profile-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .back-to-home:hover {
+            color: #00ff88;
+            transform: translateX(-5px);
+        }
+
+        .profile-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-tab {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .profile-tab.active {
+            color: #00d4ff;
+        }
+
+        .profile-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+        }
+
+        .profile-tab:hover {
+            color: #00ff88;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Form buttons - specific to profile page only */
+        .profile-form-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            border: none;
+            border-radius: 8px;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .profile-form-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+        }
+
+        .profile-form-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .profile-form-btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        /* Plan section styles */
+        .plan-section {
+            padding: 1rem 0;
+        }
+
+        /* Billing History styles */
+        .billing-history-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .billing-history-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .billing-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .billing-item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #00d4ff;
+            margin: 0;
+        }
+
+        .billing-item-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #00ff88;
+        }
+
+        .billing-item-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .billing-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .billing-detail-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.25rem;
+        }
+
+        .billing-detail-value {
+            font-size: 0.95rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .billing-item-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .billing-status-success {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .billing-status-pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .billing-status-failed {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+            border: 1px solid rgba(255, 71, 87, 0.3);
+        }
+
+        .billing-item-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .billing-action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .billing-action-btn.primary {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+        }
+
+        .billing-action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .billing-action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .plan-title {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .plan-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #1a1a2e;
+        }
+
+        .plan-info {
+            flex: 1;
+        }
+
+        .plan-name {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .plan-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+
+        .plan-status {
+            display: flex;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.active {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            color: #1a1a2e;
+        }
+
+
+        .plan-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .plan-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .plan-btn.primary {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            color: #1a1a2e;
+        }
+
+        .plan-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .plan-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .plan-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .profile-content {
+                padding: 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-to-home {
+                top: 1rem;
+                left: 1rem;
+            }
+            
+            .plan-actions {
+                flex-direction: column;
+            }
+            
+            .plan-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Password change styles */
+        .password-change-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .password-change-section h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .password-field-group {
+            margin-bottom: 1rem;
+        }
+
+        .password-field-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .password-field-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .password-field-group input:focus {
+            outline: none;
+            border-color: #00d4ff;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .password-field-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .form-group[style*="width: 50%"] {
+                width: 100% !important;
+            }
+        }
+
+        /* Logout Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            z-index: -1;
+        }
+
+        .logout-modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* Mobile responsive styles for logout modal */
+        @media (max-width: 480px) {
+            .logout-modal-content {
+                max-width: 80vw;
+                width: 80vw;
+                margin: 0 10vw;
+                padding: 2rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 20px;
+                max-width: calc(100vw - 40px);
+                width: calc(100vw - 40px);
+            }
+            
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .logout-modal-content .modal-body p {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .logout-subtitle {
+                font-size: 0.9rem !important;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logout-confirm-btn,
+            .btn-outline {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h3 {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .logout-icon {
+            font-size: 4rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .logout-modal-content .modal-body p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .logout-subtitle {
+            color: #ccc !important;
+            font-size: 1rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .logout-confirm-btn {
+            background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+            color: #1a1a2e !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .logout-confirm-btn:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4) !important;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #fff !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: #00d4ff !important;
+            color: #00d4ff !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars-container">
+        <div class="stars"></div>
+        <div class="stars2"></div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+        <div class="star-bg">★</div>
+    </div>
+
+    <!-- Navigation Bar Component -->
+    <nav class="navbar" id="navbar-component">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none;">
+                    <h2 class="logo-text">Crown Screens</h2>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+            
+            <div class="nav-links" id="nav-links">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-title">Menu</h3>
+                </div>
+                <a href="index.html" class="nav-link home-link">Home</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#pricing" class="nav-link">Pricing</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" class="nav-link download-me-neo">
+                    <i class="fas fa-download"></i> Download Me
+                </a>
+                
+                <!-- Mobile Profile Section (shown when logged in) -->
+                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
+                    <div class="mobile-profile-header">
+                        <div class="mobile-profile-avatar">
+                            <span class="avatar-text">JD</span>
+                        </div>
+                        <div class="mobile-profile-info">
+                            <h4 class="mobile-profile-name">John Doe</h4>
+                        </div>
+                    </div>
+                    <div class="mobile-profile-actions">
+                        <a href="profile.html" class="mobile-profile-btn">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display:none;">
+                            <i class="fas fa-lock"></i>
+                            <span>Admin</span>
+                        </a>
+                        <div class="mobile-profile-divider"></div>
+                        <button class="mobile-profile-btn" id="mobile-logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Auth Buttons (shown when not logged in) -->
+                <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Desktop Auth Buttons (shown when not logged in) -->
+            <div class="nav-auth" id="nav-auth-buttons">
+                <a href="sign-in.html" class="nav-btn signin-btn">
+                    <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                    <span class="btn-text">SIGN IN</span>
+                </a>
+                <a href="sign-up.html" class="nav-btn signup-btn">
+                    <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                    <span class="btn-text">SIGN UP</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Profile Dropdown (shown when logged in) -->
+            <div class="nav-profile" id="nav-profile" style="display: none;">
+                <div class="profile-dropdown">
+                    <div class="profile-btn">
+                        <div class="profile-avatar">
+                            <span class="avatar-text">JD</span>
+                        </div>
+                        <span class="profile-name">John Doe</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="profile.html" class="dropdown-item">
+                            <span class="item-icon"><i class="fas fa-user"></i></span>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="admin-dashboard.html" class="dropdown-item admin-link" style="display:none;">
+                            <span class="item-icon"><i class="fas fa-lock"></i></span>
+                            <span>Admin</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" id="logout-btn">
+                            <span class="item-icon"><i class="fas fa-sign-out-alt"></i></span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <a href="index.html" class="back-to-home">
+        <span>←</span>
+        <span>Back to Home</span>
+    </a>
+
+    <!-- Main Content -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1 class="profile-title">My Profile</h1>
+            <p class="profile-subtitle">Manage your account settings and preferences</p>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-card">
+                <div class="profile-tabs">
+                    <button class="profile-tab active" data-tab="profile-tab">Profile</button>
+                    <button class="profile-tab" data-tab="billing-tab">Billing</button>
+                    <button class="profile-tab" data-tab="account-tab">Account</button>
+                </div>
+
+                <div class="tab-content active" id="profile-tab">
+                    <form id="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profile-first-name" class="form-label">First Name</label>
+                                <input type="text" id="profile-first-name" class="form-input" placeholder="Your first name">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-last-name" class="form-label">Last Name</label>
+                                <input type="text" id="profile-last-name" class="form-input" placeholder="Your last name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profile-email" class="form-label">Email Address</label>
+                            <input type="email" id="profile-email" class="form-input" placeholder="your.email@example.com">
+                        </div>
+
+                        <div class="form-group" style="width: 50%;">
+                            <label for="profile-plan" class="form-label">Plan</label>
+                            <input type="text" id="profile-plan" class="form-input" placeholder="Loading plan..." readonly style="background-color: rgba(255, 255, 255, 0.1); cursor: not-allowed; width: 100%; pointer-events: none; user-select: none;">
+                        </div>
+
+                        <button type="submit" class="profile-form-btn" style="width: auto; padding: 0.8rem 2rem; font-size: 0.9rem; margin: 1rem auto; display: block;">Save Changes</button>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="billing-tab">
+                    <!-- Billing History Section -->
+                    <div class="billing-history-section" id="billing-history-section" style="margin-top: 2rem; display: block;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3 class="billing-history-title" style="color: #00d4ff; font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+                                <i class="fas fa-history"></i>
+                                Billing History
+                            </h3>
+                            <button onclick="loadBillingHistory()" style="padding: 0.5rem 1rem; background: #00d4ff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                                Refresh
+                            </button>
+                                    </div>
+                        <div class="billing-history-container">
+                            <div class="billing-history-empty" id="billing-history-empty" style="text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.6);">
+                                <i class="fas fa-receipt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                                <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">No billing history found</p>
+                                <p style="font-size: 0.9rem;">Your purchase history will appear here once you subscribe to a plan.</p>
+                                    </div>
+                            <div class="billing-history-list" id="billing-history-list" style="display: none;">
+                                <!-- Billing history items will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                <div class="tab-content" id="account-tab">
+                    <div class="password-change-section">
+                        <h3><i class="fas fa-lock"></i> Change Password</h3>
+                        
+                        <div class="password-field-group">
+                            <label for="profile-current-password">Current Password</label>
+                            <input type="password" id="profile-current-password" placeholder="Enter your current password">
+                        </div>
+                        
+                        <div class="password-field-group">
+                            <label for="profile-new-password">New Password</label>
+                            <input type="password" id="profile-new-password" placeholder="Enter your new password">
+                </div>
+
+                        <div class="password-field-group">
+                            <label for="profile-confirm-password">Confirm New Password</label>
+                            <input type="password" id="profile-confirm-password" placeholder="Confirm your new password">
+                    </div>
+
+                        <button type="button" class="profile-form-btn" id="change-password-btn" style="width: auto; padding: 0.8rem 2rem; font-size: 0.9rem; margin: 1rem auto; display: block;">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 class="footer-logo-text">Crown Screens</h3>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html#features" class="footer-link">Features</a>
+                    <a href="index.html#pricing" class="footer-link">Pricing</a>
+                    <a href="index.html#contact" class="footer-link">Contact</a>
+                    <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" class="footer-link">Download</a>
+                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2025 Crown Screens. Professional Multi-Device Management Software.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./scripts/script.js"></script>
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.profile-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    const targetContent = document.getElementById(tab.dataset.tab);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                    
+                    // Load billing history when billing tab is clicked
+                    if (tab.dataset.tab === 'billing-tab') {
+                        console.log('Billing tab clicked, loading billing history...');
+                        loadBillingHistory();
+                    }
+                });
+            });
+
+            // Authentication check and load user data
+            checkAuthStatus();
+            loadUserProfile();
+            loadUserSubscription();
+            
+            // Setup form handlers
+            setupProfileFormHandler();
+            setupChangePasswordHandler();
+            
+            // Load billing history after a short delay to ensure auth is complete
+            setTimeout(() => {
+                console.log('Loading billing history after delay...');
+                loadBillingHistory();
+            }, 1000);
+
+            // Test email field after everything loads
+            setTimeout(() => {
+                const emailInput = document.getElementById('profile-email');
+                if (emailInput) {
+                    console.log('Email input found, current value:', emailInput.value);
+                    console.log('Email input placeholder:', emailInput.placeholder);
+                } else {
+                    console.error('Email input not found in DOM');
+                }
+            }, 2000);
+
+        });
+
+        // Load user profile data from Supabase
+        async function loadUserProfile() {
+            try {
+                console.log('=== LOADING USER PROFILE ===');
+                
+                const { user, error: userError } = await getCurrentUser();
+                
+                if (userError || !user) {
+                    console.log('User not authenticated, redirecting to sign in');
+                    window.location.href = 'sign-in.html';
+                    return;
+                }
+
+                console.log('User authenticated:', user.id);
+                console.log('User email from auth:', user.email);
+
+                // Get user profile from profiles table
+                const { data: profile, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
+
+                console.log('Profile query result:', { profile, profileError });
+
+                if (profileError) {
+                    console.error('Error loading profile:', profileError.message);
+                    return;
+                }
+
+                if (profile) {
+                    console.log('Profile data loaded:', profile);
+                    updateProfileForm(profile);
+                } else {
+                    console.log('No profile found for user');
+                }
+
+            } catch (error) {
+                console.error('Error loading user profile:', error.message);
+            }
+        }
+
+        // Update profile form with user data
+        function updateProfileForm(profile) {
+            console.log('Updating profile form with data:', profile);
+            console.log('Profile email from database:', profile.email);
+            
+            // Wait a bit to ensure DOM is ready
+            setTimeout(async () => {
+                // Get current user for email fallback
+                const { user } = await getCurrentUser();
+                console.log('Current user for email fallback:', user?.email);
+                
+                // Update form inputs
+                const firstNameInput = document.getElementById('profile-first-name');
+                const lastNameInput = document.getElementById('profile-last-name');
+                const emailInput = document.getElementById('profile-email');
+
+                console.log('Form elements found:', {
+                    firstNameInput: !!firstNameInput,
+                    lastNameInput: !!lastNameInput,
+                    emailInput: !!emailInput
+                });
+
+                if (firstNameInput) {
+                    firstNameInput.value = profile.first_name || '';
+                    console.log('First name set to:', firstNameInput.value);
+                }
+                
+                if (lastNameInput) {
+                    lastNameInput.value = profile.last_name || '';
+                    console.log('Last name set to:', lastNameInput.value);
+                }
+                
+                if (emailInput) {
+                    // Use email from profiles table first, then fallback to auth user email
+                    const emailValue = profile.email || user?.email || '';
+                    console.log('Email value to set:', emailValue);
+                    console.log('Profile email:', profile.email);
+                    console.log('User email:', user?.email);
+                    
+                    emailInput.value = emailValue;
+                    emailInput.placeholder = emailValue || 'your.email@example.com';
+                    console.log('Email input value after setting:', emailInput.value);
+                }
+
+                console.log('Profile form updated successfully');
+            }, 100);
+        }
+
+        // Setup profile form submission handler
+        function setupProfileFormHandler() {
+            const profileForm = document.getElementById('profile-form');
+            
+            if (profileForm) {
+                profileForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    console.log('Profile form submitted');
+                    
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    
+                    // Show loading state
+                    submitButton.textContent = 'Saving...';
+                    submitButton.disabled = true;
+                    
+                    try {
+                        // Get form data
+                        const firstName = document.getElementById('profile-first-name').value;
+                        const lastName = document.getElementById('profile-last-name').value;
+                        const email = document.getElementById('profile-email').value;
+                        
+                        console.log('Updating profile with data:', {
+                            first_name: firstName,
+                            last_name: lastName,
+                            email: email
+                        });
+                        
+                        // Get current user
+                        const { user, error: userError } = await getCurrentUser();
+                        if (userError || !user) {
+                            throw new Error('User not authenticated');
+                        }
+                        
+                        // Update profile in Supabase
+                        const { data, error } = await supabase
+                            .from('profiles')
+                            .update({
+                                first_name: firstName,
+                                last_name: lastName,
+                                email: email,
+                                updated_at: new Date().toISOString()
+                            })
+                            .eq('id', user.id)
+                            .select()
+                            .single();
+                        
+                        if (error) {
+                            console.error('Error updating profile:', error);
+                            throw error;
+                        }
+                        
+                        console.log('Profile updated successfully:', data);
+                        
+                        // Show success message
+                        showNotification('Profile updated successfully!', 'success');
+                        
+                    } catch (error) {
+                        console.error('Error updating profile:', error.message);
+                        showNotification('Error updating profile: ' + error.message, 'error');
+                    } finally {
+                        // Reset button
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }
+                });
+            }
+        }
+
+        // Setup change password handler
+        function setupChangePasswordHandler() {
+            const changePasswordBtn = document.getElementById('change-password-btn');
+            if (changePasswordBtn) {
+                changePasswordBtn.addEventListener('click', async () => {
+                    const currentPassword = document.getElementById('profile-current-password').value;
+                    const newPassword = document.getElementById('profile-new-password').value;
+                    const confirmPassword = document.getElementById('profile-confirm-password').value;
+                    
+                    // Validate inputs
+                    if (!currentPassword || !newPassword || !confirmPassword) {
+                        showNotification('Please fill in all password fields', 'error');
+                        return;
+                    }
+                    
+                    if (newPassword !== confirmPassword) {
+                        showNotification('New passwords do not match', 'error');
+                        return;
+                    }
+                    
+                    if (newPassword.length < 6) {
+                        showNotification('New password must be at least 6 characters long', 'error');
+                        return;
+                    }
+                    
+                    try {
+                        // Show loading state
+                        changePasswordBtn.disabled = true;
+                        changePasswordBtn.textContent = 'Changing Password...';
+                        
+                        const { user } = await getCurrentUser();
+                        if (!user) {
+                            showNotification('User not authenticated', 'error');
+                            return;
+                        }
+                        
+                        // Update password using Supabase Auth
+                        const { error } = await supabase.auth.updateUser({
+                            password: newPassword
+                        });
+                        
+                        if (error) {
+                            console.error('Error changing password:', error);
+                            showNotification('Error changing password: ' + error.message, 'error');
+                        } else {
+                            showNotification('Password changed successfully!', 'success');
+                            
+                            // Clear form fields
+                            document.getElementById('profile-current-password').value = '';
+                            document.getElementById('profile-new-password').value = '';
+                            document.getElementById('profile-confirm-password').value = '';
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        showNotification('Error changing password: ' + error.message, 'error');
+                    } finally {
+                        // Reset button state
+                        changePasswordBtn.disabled = false;
+                        changePasswordBtn.textContent = 'Change Password';
+                    }
+                });
+            }
+        }
+
+        // Show notification function
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            
+            // Style the notification
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10000;
+                max-width: 300px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+            `;
+            
+            // Set background color based on type
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(45deg, #00ff88, #00d4ff)';
+            } else if (type === 'error') {
+                notification.style.background = 'linear-gradient(45deg, #ff4757, #ff6b7a)';
+            } else {
+                notification.style.background = 'linear-gradient(45deg, #00d4ff, #0099cc)';
+            }
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        // Load user subscription data from Supabase
+        async function loadUserSubscription() {
+            try {
+                const { user, error: userError } = await getCurrentUser();
+                
+                if (userError || !user) {
+                    console.log('User not authenticated, showing default plan');
+                    return;
+                }
+
+                // Get user profile with subscription data
+                const { data: profile, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
+
+                if (profileError) {
+                    console.error('Error loading profile:', profileError.message);
+                    return;
+                }
+
+                // Try to get active subscription
+                let subscription = null;
+                try {
+                    const { data: subData, error: subError } = await supabase
+                        .from('user_subscriptions')
+                        .select(`
+                            id,
+                            package_id,
+                            status,
+                            start_date,
+                            end_date,
+                            subscription_packages (
+                                id,
+                                name,
+                                price,
+                                billing_cycle,
+                                features
+                            )
+                        `)
+                        .eq('user_id', user.id)
+                        .eq('status', 'active')
+                        .maybeSingle();
+
+                    if (!subError) {
+                        subscription = subData;
+                    }
+                } catch (subError) {
+                    console.warn('Could not load subscription data:', subError.message);
+                }
+
+                // Update the plan display
+                updatePlanDisplay(profile, subscription);
+                
+                // Update the profile plan field
+                updateProfilePlanField(profile, subscription);
+                
+                // Load billing history
+                loadBillingHistory();
+
+            } catch (error) {
+                console.error('Error loading user subscription:', error.message);
+            }
+        }
+
+        // Update the plan display with real data
+        function updatePlanDisplay(profile, subscription) {
+            // Update plan name
+            const planName = document.querySelector('.plan-name');
+            const planDescription = document.querySelector('.plan-description');
+            const statusBadge = document.querySelector('.status-badge');
+
+            if (subscription && subscription.subscription_packages) {
+                // User has an active subscription
+                const packageData = subscription.subscription_packages;
+                
+                if (planName) planName.textContent = packageData.name;
+                if (planDescription) planDescription.textContent = 'Full access to all features';
+                if (statusBadge) {
+                    statusBadge.textContent = 'Active';
+                    statusBadge.className = 'status-badge active';
+                }
+
+            } else if (profile && profile.subscription_tier) {
+                // User has a subscription tier but no active subscription
+                const tier = profile.subscription_tier;
+                let planInfo = getPlanInfoByTier(tier);
+                
+                if (planName) planName.textContent = planInfo.name;
+                if (planDescription) planDescription.textContent = planInfo.description;
+                if (statusBadge) {
+                    statusBadge.textContent = 'Active';
+                    statusBadge.className = 'status-badge active';
+                }
+
+            } else {
+                // User has no subscription - show free plan
+                if (planName) planName.textContent = 'Free Plan';
+                if (planDescription) planDescription.textContent = 'Basic features with limited access';
+                if (statusBadge) {
+                    statusBadge.textContent = 'Active';
+                    statusBadge.className = 'status-badge active';
+                }
+            }
+        }
+
+        // Get plan info by subscription tier
+        function getPlanInfoByTier(tier) {
+            const plans = {
+                'free': {
+                    name: 'Free Plan',
+                    description: 'Basic features with limited access'
+                },
+                'pro': {
+                    name: 'Professional Plan',
+                    description: 'Full access to all features'
+                },
+                'business': {
+                    name: 'Business Plan',
+                    description: 'Advanced features for teams'
+                }
+            };
+            
+            return plans[tier] || plans['free'];
+        }
+
+        // Update the profile plan field with current plan information
+        function updateProfilePlanField(profile, subscription) {
+            const planInput = document.getElementById('profile-plan');
+            
+            if (!planInput) {
+                console.warn('Profile plan input not found');
+                return;
+            }
+
+            let planName = 'Free Plan';
+            let planStatus = 'Active';
+
+            if (subscription && subscription.subscription_packages) {
+                // User has an active subscription
+                const packageData = subscription.subscription_packages;
+                planName = packageData.name || 'Unknown Plan';
+                planStatus = subscription.status || 'Active';
+            } else if (profile && profile.subscription_tier) {
+                // User has a subscription tier but no active subscription
+                const tier = profile.subscription_tier;
+                let planInfo = getPlanInfoByTier(tier);
+                planName = planInfo.name;
+                planStatus = profile.subscription_status || 'Active';
+            }
+
+            // Update the plan input field
+            planInput.value = `${planName} (${planStatus})`;
+            planInput.placeholder = planName;
+            
+            console.log('Profile plan field updated:', planInput.value);
+        }
+
+        // Load billing history from Supabase
+        async function loadBillingHistory() {
+            try {
+                console.log('=== LOADING BILLING HISTORY ===');
+                
+                const { user, error: userError } = await getCurrentUser();
+                
+                if (userError || !user) {
+                    console.log('User not authenticated, hiding billing history');
+                    return;
+                }
+
+                console.log('User authenticated:', user.id);
+
+                // Get billing history from user_subscriptions table
+                const { data: billingHistory, error: billingError } = await supabase
+                    .from('user_subscriptions')
+                    .select(`
+                        id,
+                        start_date,
+                        end_date,
+                        status,
+                        created_at,
+                        payment_intent_id,
+                        payment_method,
+                        amount,
+                        currency,
+                        package_id
+                    `)
+                    .eq('user_id', user.id)
+                    .order('created_at', { ascending: false });
+
+                console.log('Billing history query result:', { billingHistory, billingError });
+
+                if (billingError) {
+                    console.error('Error loading billing history:', billingError.message);
+                    return;
+                }
+
+                console.log('Billing history data:', billingHistory);
+                console.log('Number of billing records:', billingHistory ? billingHistory.length : 0);
+
+                // Show billing history section
+                const billingHistorySection = document.getElementById('billing-history-section');
+                if (billingHistorySection) {
+                    billingHistorySection.style.display = 'block';
+                    console.log('Billing history section made visible');
+                } else {
+                    console.error('Billing history section not found!');
+                }
+
+                // Update billing history display with real data
+                updateBillingHistoryDisplay(billingHistory || []);
+
+            } catch (error) {
+                console.error('Error loading billing history:', error.message);
+            }
+        }
+
+        // Update billing history display
+        function updateBillingHistoryDisplay(billingHistory) {
+            console.log('=== UPDATE BILLING HISTORY DISPLAY ===');
+            console.log('Billing history received:', billingHistory);
+            
+            const emptyState = document.getElementById('billing-history-empty');
+            const historyList = document.getElementById('billing-history-list');
+
+            console.log('Empty state element:', emptyState);
+            console.log('History list element:', historyList);
+
+            if (!billingHistory || billingHistory.length === 0) {
+                console.log('No billing history data, showing empty state');
+                // Show empty state
+                if (emptyState) {
+                    emptyState.style.display = 'block';
+                    console.log('Empty state made visible');
+                }
+                if (historyList) {
+                    historyList.style.display = 'none';
+                    console.log('History list hidden');
+                }
+                return;
+            }
+
+            console.log('Billing history has data, showing history list');
+            // Hide empty state and show history list
+            if (emptyState) {
+                emptyState.style.display = 'none';
+                console.log('Empty state hidden');
+            }
+            if (historyList) {
+                historyList.style.display = 'block';
+                console.log('History list made visible');
+                
+                // Clear existing content
+                historyList.innerHTML = '';
+
+                // Create billing history items
+                billingHistory.forEach((item, index) => {
+                    console.log(`Creating billing history item ${index}:`, item);
+                    const historyItem = createBillingHistoryItem(item, index);
+                    historyList.appendChild(historyItem);
+                });
+                
+                console.log('All billing history items created and added to DOM');
+            }
+        }
+
+        // Create a billing history item element
+        function createBillingHistoryItem(item, index) {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'billing-history-item';
+
+            // Use package_id to determine plan name if no package data
+            const getPlanName = (packageId) => {
+                if (packageId === '00000000-0000-0000-0000-000000000000') {
+                    return 'Professional Plan'; // Default for mock packages
+                }
+                
+                // Check if it's a converted numeric ID (format: 00000003-0000-0000-0000-000000000000)
+                if (packageId && packageId.includes('-0000-0000-0000-000000000000')) {
+                    const numericPart = packageId.split('-')[0];
+                    const numericId = parseInt(numericPart, 10);
+                    
+                    // Map numeric IDs to plan names
+                    switch (numericId) {
+                        case 1: return 'Free Plan';
+                        case 2: return 'Professional Plan';
+                        case 3: return 'Business Plan';
+                        default: return 'Subscription Plan';
+                    }
+                }
+                
+                // You can add more logic here to map package IDs to names
+                return 'Subscription Plan';
+            };
+
+            const planName = getPlanName(item.package_id);
+            const startDate = new Date(item.start_date);
+            const endDate = item.end_date ? new Date(item.end_date) : null;
+            const createdDate = new Date(item.created_at);
+
+            // Format dates
+            const formatDate = (date) => {
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            };
+
+            // Get status styling
+            const getStatusClass = (status) => {
+                switch (status) {
+                    case 'active': return 'billing-status-success';
+                    case 'pending': return 'billing-status-pending';
+                    case 'cancelled': return 'billing-status-failed';
+                    default: return 'billing-status-pending';
+                }
+            };
+
+            // Get status text
+            const getStatusText = (status) => {
+                switch (status) {
+                    case 'active': return 'Active';
+                    case 'pending': return 'Pending';
+                    case 'cancelled': return 'Cancelled';
+                    default: return 'Unknown';
+                }
+            };
+
+            historyItem.innerHTML = `
+                <div class="billing-item-header">
+                    <h4 class="billing-item-title">${planName}</h4>
+                    <div class="billing-item-amount">$${item.amount || '0'}</div>
+                </div>
+                
+                <div class="billing-item-details">
+                    <div class="billing-detail">
+                        <span class="billing-detail-label">Plan</span>
+                        <span class="billing-detail-value">${planName}</span>
+                    </div>
+                    <div class="billing-detail">
+                        <span class="billing-detail-label">Billing Cycle</span>
+                        <span class="billing-detail-value">Monthly</span>
+                    </div>
+                    <div class="billing-detail">
+                        <span class="billing-detail-label">Start Date</span>
+                        <span class="billing-detail-value">${formatDate(startDate)}</span>
+                    </div>
+                    <div class="billing-detail">
+                        <span class="billing-detail-label">End Date</span>
+                        <span class="billing-detail-value">${endDate ? formatDate(endDate) : 'N/A'}</span>
+                    </div>
+                    <div class="billing-detail">
+                        <span class="billing-detail-label">Purchase Date</span>
+                        <span class="billing-detail-value">${formatDate(createdDate)}</span>
+                    </div>
+                    <div class="billing-detail">
+                        <span class="billing-detail-label">Payment Method</span>
+                        <span class="billing-detail-value">${item.payment_method || 'Card'}</span>
+                    </div>
+                    <div class="billing-detail">
+                        <span class="billing-detail-label">Status</span>
+                        <span class="billing-item-status ${getStatusClass(item.status)}">
+                            <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
+                            ${getStatusText(item.status)}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="billing-item-actions">
+                    <button class="billing-action-btn primary" onclick="viewInvoice('${item.id}')">
+                        <i class="fas fa-download"></i>
+                        <span>Download Invoice</span>
+                    </button>
+                    <button class="billing-action-btn secondary" onclick="viewPlanDetails('${item.id}')">
+                        <i class="fas fa-info-circle"></i>
+                        <span>View Details</span>
+                    </button>
+                </div>
+            `;
+
+            return historyItem;
+        }
+
+        // View invoice function
+        function viewInvoice(subscriptionId) {
+            // This would typically generate or download an invoice
+            console.log('Viewing invoice for subscription:', subscriptionId);
+            alert('Invoice download functionality would be implemented here. Subscription ID: ' + subscriptionId);
+        }
+
+        // View plan details function
+        function viewPlanDetails(subscriptionId) {
+            // This would show detailed plan information
+            console.log('Viewing plan details for subscription:', subscriptionId);
+            alert('Plan details functionality would be implemented here. Subscription ID: ' + subscriptionId);
+        }
+
+        // Modal functions
+        function showLogoutModal() {
+            document.getElementById('logout-modal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function confirmLogout() {
+            try {
+                // Sign out from Supabase
+                const { error } = await signOut();
+                
+                if (error) {
+                    console.error('Error signing out:', error.message);
+                    return;
+                }
+                
+                // Update UI to show logged out state
+                const navAuthButtons = document.getElementById('nav-auth-buttons');
+                const navProfile = document.getElementById('nav-profile');
+                const mobileProfileSection = document.getElementById('mobile-profile-section');
+                const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                
+                // Desktop UI updates
+                if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                if (navProfile) navProfile.style.display = 'none';
+                
+                // Mobile UI updates
+                if (mobileProfileSection) mobileProfileSection.style.setProperty('display', 'none', 'important');
+                if (mobileAuthButtons) mobileAuthButtons.style.setProperty('display', 'flex', 'important');
+                
+                // Close the modal
+                closeModal('logout-modal');
+                
+                // Close mobile menu if open
+                if (typeof closeMobileMenu === 'function') {
+                    closeMobileMenu();
+                }
+                
+                // Redirect to home page
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error during logout:', error);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const logoutModal = document.getElementById('logout-modal');
+            if (event.target === logoutModal) {
+                closeModal('logout-modal');
+            }
+        }
+
+        // Initialize logout button handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+            
+            // Set up mobile logout button
+            const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+        });
+    </script>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content logout-modal-content">
+            <div class="modal-header">
+                <h3>Logout Confirmation</h3>
+                <button class="close-btn" onclick="closeModal('logout-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <p>Are you sure you want to logout?</p>
+                <p class="logout-subtitle">You will be redirected to the home page.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('logout-modal')">Cancel</button>
+                <button class="btn btn-primary logout-confirm-btn" onclick="confirmLogout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

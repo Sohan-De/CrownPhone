@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Crown Screens</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        /* Terms of Service Page Styles - Override main styles */
+        body.terms-page {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            color: white !important;
+            min-height: 100vh !important;
+            font-family: 'Poppins', sans-serif !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        body.terms-page .main-content {
+            opacity: 1 !important;
+            transform: none !important;
+            display: block !important;
+        }
+        
+        /* Ensure content visibility */
+        .terms-container {
+            position: relative !important;
+            z-index: 10 !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        .terms-content {
+            position: relative !important;
+            z-index: 10 !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+        
+        /* Override any loader styles */
+        body.terms-page .loader-overlay {
+            display: none !important;
+        }
+        
+        /* Neomorphism Effect for Download Me Link */
+        .nav-link.download-me-neo {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+            padding: 12px 20px;
+            margin: 0 5px;
+            border-radius: 15px;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.05),
+                0 0 15px rgba(0, 212, 255, 0.2);
+        }
+        
+        .nav-link.download-me-neo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .nav-link.download-me-neo:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link.download-me-neo:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link.download-me-neo:active {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.3),
+                -4px -4px 8px rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Icon styling for Download Me button */
+        .nav-link.download-me-neo i {
+            margin-right: 8px;
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 20;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
+        }
+        
+        .nav-link.download-me-neo:hover i {
+            transform: translateY(-2px) scale(1.1);
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        
+        /* Hide Home link on desktop (1025px and above) */
+        .nav-link.home-link {
+            display: none;
+        }
+        
+        /* Show Home link on tablet and mobile (1024px and below) */
+        @media (max-width: 1024px) {
+            .nav-link.home-link {
+                display: block;
+            }
+        }
+        
+        /* Mobile responsive styles for Download Me button */
+        @media (max-width: 768px) {
+            .nav-link.download-me-neo {
+                background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                box-shadow: none !important;
+                padding: 10px 15px;
+                margin: 5px 0;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-link.download-me-neo::before {
+                display: none !important;
+            }
+            
+            .nav-link.download-me-neo:hover {
+                background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: 0 0 15px rgba(0, 212, 255, 0.6) !important;
+                transform: translateX(5px) !important;
+                box-shadow: none !important;
+            }
+            
+            .nav-link.download-me-neo i {
+                margin-right: 10px;
+                font-size: 1.1em;
+                background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: none !important;
+                transform: none !important;
+            }
+            
+            .nav-link.download-me-neo:hover i {
+                background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: 0 0 15px rgba(0, 212, 255, 0.6) !important;
+                transform: translateX(3px) !important;
+            }
+        }
+        
+        /* Terms container styles - matching nav container */
+        .terms-container {
+            max-width: 1200px !important;
+            margin: 0 auto !important;
+            padding: 2rem !important;
+            margin-top: 100px !important;
+            position: relative !important;
+            z-index: 10 !important;
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        .terms-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .terms-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .terms-subtitle {
+            font-size: 1.2rem;
+            color: #b8c5d6;
+            margin-bottom: 2rem;
+        }
+
+        .last-updated {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        .terms-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .terms-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .terms-section h2 {
+            font-size: 1.8rem;
+            color: #00d4ff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .terms-section h3 {
+            font-size: 1.4rem;
+            color: #00ff88;
+            margin-bottom: 0.8rem;
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+
+        .terms-section p {
+            line-height: 1.7;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }
+
+        .terms-section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .terms-section li {
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-text {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .warning-text {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .important-text {
+            color: #ffd93d;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            color: #00d4ff;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: #00ff88;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #00d4ff;
+        }
+
+        .prohibited-list {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .prohibited-list h4 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        /* Mobile Responsive - matching nav container */
+        @media (max-width: 768px) {
+            .terms-container {
+                padding: 0 1rem;
+                margin-top: 80px;
+            }
+
+            .terms-title {
+                font-size: 2.5rem;
+            }
+
+            .terms-content {
+                padding: 2rem;
+            }
+
+            .terms-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .terms-section h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terms-container {
+                padding: 0 0.5rem;
+            }
+
+            .terms-title {
+                font-size: 2rem;
+            }
+
+            .terms-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Very small mobile devices (under 370px) */
+        @media (max-width: 370px) {
+            .terms-container {
+                padding: 0 0.25rem;
+            }
+
+            .terms-content {
+                padding: 1rem;
+                margin: 0 5px;
+            }
+
+            .contact-info {
+                padding: 1rem;
+                margin: 1rem 0;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .contact-info h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .contact-info p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+                margin-bottom: 0.4rem;
+            }
+
+            .contact-info a {
+                word-break: break-all;
+                font-size: 0.85rem;
+            }
+
+            .terms-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .terms-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .terms-section p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .terms-section ul {
+                margin-left: 1rem;
+            }
+
+            .terms-section li {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+        }
+
+        /* Logout Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            z-index: -1;
+        }
+
+        .logout-modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* Mobile responsive styles for logout modal */
+        @media (max-width: 480px) {
+            .logout-modal-content {
+                max-width: 80vw;
+                width: 80vw;
+                margin: 0 10vw;
+                padding: 2rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 20px;
+                max-width: calc(100vw - 40px);
+                width: calc(100vw - 40px);
+            }
+            
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .logout-modal-content .modal-body p {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .logout-subtitle {
+                font-size: 0.9rem !important;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .logout-confirm-btn,
+            .btn-outline {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h3 {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .logout-icon {
+            font-size: 4rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .logout-modal-content .modal-body p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .logout-subtitle {
+            color: #ccc !important;
+            font-size: 1rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .logout-confirm-btn {
+            background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+            color: #1a1a2e !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .logout-confirm-btn:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4) !important;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #fff !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: #00d4ff !important;
+            color: #00d4ff !important;
+        }
+    </style>
+</head>
+<body class="terms-page">
+    <!-- Global Background Animation -->
+    <div class="global-background">
+        <div class="background-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="background-stars">
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar Component -->
+    <nav class="navbar" id="navbar-component">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none;">
+                    <h2 class="logo-text">Crown Screens</h2>
+                </a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+            
+            <div class="nav-links" id="nav-links">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-title">Menu</h3>
+                </div>
+                <a href="index.html" class="nav-link home-link">Home</a>
+                <a href="index.html#features" class="nav-link">Features</a>
+                <a href="index.html#pricing" class="nav-link">Pricing</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" class="nav-link download-me-neo">
+                    <i class="fas fa-download"></i> Download Me
+                </a>
+                
+                <!-- Mobile Profile Section (shown when logged in) -->
+                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
+                    <div class="mobile-profile-header">
+                        <div class="mobile-profile-avatar">
+                            <span class="avatar-text">JD</span>
+                        </div>
+                        <div class="mobile-profile-info">
+                            <h4 class="mobile-profile-name">John Doe</h4>
+                        </div>
+                    </div>
+                    <div class="mobile-profile-actions">
+                        <a href="profile.html" class="mobile-profile-btn">
+                            <i class="fas fa-user"></i>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display:none;">
+                            <i class="fas fa-lock"></i>
+                            <span>Admin</span>
+                        </a>
+                        <div class="mobile-profile-divider"></div>
+                        <button class="mobile-profile-btn" id="mobile-logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Auth Buttons (shown when not logged in) -->
+                <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Desktop Auth Buttons (shown when not logged in) -->
+            <div class="nav-auth" id="nav-auth-buttons">
+                <a href="sign-in.html" class="nav-btn signin-btn">
+                    <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                    <span class="btn-text">SIGN IN</span>
+                </a>
+                <a href="sign-up.html" class="nav-btn signup-btn">
+                    <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                    <span class="btn-text">SIGN UP</span>
+                </a>
+            </div>
+            
+            <!-- Desktop Profile Dropdown (shown when logged in) -->
+            <div class="nav-profile" id="nav-profile" style="display: none;">
+                <div class="profile-dropdown">
+                    <div class="profile-btn">
+                        <div class="profile-avatar">
+                            <span class="avatar-text">JD</span>
+                        </div>
+                        <span class="profile-name">John Doe</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="profile.html" class="dropdown-item">
+                            <span class="item-icon"><i class="fas fa-user"></i></span>
+                            <span>My Profile</span>
+                        </a>
+                        <a href="admin-dashboard.html" class="dropdown-item admin-link" style="display:none;">
+                            <span class="item-icon"><i class="fas fa-lock"></i></span>
+                            <span>Admin</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" id="logout-btn">
+                            <span class="item-icon"><i class="fas fa-sign-out-alt"></i></span>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="terms-container">
+            <div class="terms-header">
+                <h1 class="terms-title">Terms of Service</h1>
+                <p class="terms-subtitle">Please read these terms carefully before using our services.</p>
+            </div>
+
+            <div class="terms-content">
+                <div class="terms-section">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>By accessing and using Crown Screens ("Service"), you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+                    
+                    <h3>Agreement to Terms</h3>
+                    <p>These Terms of Service ("Terms") govern your use of our website and services. By using our services, you agree to these terms in full.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>2. Description of Service</h2>
+                    <p>Crown Screens provides professional multi-device management software that allows users to:</p>
+                    
+                    <ul>
+                        <li>Manage multiple devices from a single interface</li>
+                        <li>Project content across different screens</li>
+                        <li>Monitor and control device performance</li>
+                        <li>Access advanced analytics and reporting</li>
+                        <li>Utilize enterprise-grade security features</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>3. User Accounts</h2>
+                    <p>To access certain features of our service, you must create an account. You are responsible for:</p>
+                    
+                    <h3>Account Security</h3>
+                    <ul>
+                        <li>Maintaining the confidentiality of your account credentials</li>
+                        <li>All activities that occur under your account</li>
+                        <li>Notifying us immediately of any unauthorized use</li>
+                        <li>Providing accurate and current information</li>
+                    </ul>
+                    
+                    <h3>Account Termination</h3>
+                    <p>We reserve the right to terminate accounts that violate these terms or engage in prohibited activities.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>4. Payment Terms</h2>
+                    <p>Our service operates on a subscription-based model with the following terms:</p>
+                    
+                    <h3>Subscription Fees</h3>
+                    <ul>
+                        <li>Fees are charged in advance on a recurring basis</li>
+                        <li>All fees are non-refundable unless otherwise stated</li>
+                        <li>Prices may change with 30 days' notice</li>
+                        <li>Payment is due immediately upon subscription</li>
+                    </ul>
+                    
+                    <h3>Billing and Renewal</h3>
+                    <p>Subscriptions automatically renew unless cancelled before the renewal date. You can cancel your subscription at any time through your account settings.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>5. Acceptable Use Policy</h2>
+                    <p>You agree to use our service only for lawful purposes and in accordance with these terms. You may not:</p>
+                    
+                    <div class="prohibited-list">
+                        <h4>Prohibited Activities</h4>
+                        <ul>
+                            <li>Use the service for any illegal or unauthorized purpose</li>
+                            <li>Attempt to gain unauthorized access to our systems</li>
+                            <li>Interfere with or disrupt the service or servers</li>
+                            <li>Transmit viruses, malware, or harmful code</li>
+                            <li>Violate any applicable laws or regulations</li>
+                            <li>Infringe on intellectual property rights</li>
+                            <li>Harass, abuse, or harm other users</li>
+                            <li>Use automated systems to access the service</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="terms-section">
+                    <h2>6. Intellectual Property Rights</h2>
+                    <p>The service and its original content, features, and functionality are owned by Crown Screens and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
+                    
+                    <h3>Your Content</h3>
+                    <p>You retain ownership of content you upload or create using our service. By using our service, you grant us a license to use, store, and process your content as necessary to provide the service.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>7. Privacy and Data Protection</h2>
+                    <p>Your privacy is important to us. Our collection and use of personal information is governed by our <a href="privacy-policy.html" class="highlight-text">Privacy Policy</a>, which is incorporated into these terms by reference.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>8. Service Availability</h2>
+                    <p>We strive to provide continuous service availability, but we cannot guarantee uninterrupted access. We may:</p>
+                    
+                    <ul>
+                        <li>Perform scheduled maintenance with advance notice</li>
+                        <li>Implement emergency maintenance as needed</li>
+                        <li>Suspend service for security or legal reasons</li>
+                        <li>Modify or discontinue features with notice</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>9. Limitation of Liability</h2>
+                    <p class="warning-text">To the maximum extent permitted by law, Crown Screens shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.</p>
+                    
+                    <h3>Service Disclaimer</h3>
+                    <p>The service is provided "as is" and "as available" without warranties of any kind, either express or implied.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>10. Indemnification</h2>
+                    <p>You agree to defend, indemnify, and hold harmless Crown Screens and its affiliates from any claims, damages, or expenses arising from your use of the service or violation of these terms.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>11. Termination</h2>
+                    <p>We may terminate or suspend your account immediately, without prior notice, for conduct that we believe violates these terms or is harmful to other users, us, or third parties.</p>
+                    
+                    <h3>Effect of Termination</h3>
+                    <p>Upon termination, your right to use the service will cease immediately. We may delete your account and data at our discretion.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>12. Governing Law</h2>
+                    <p>These terms shall be governed by and construed in accordance with the laws of [Your Jurisdiction], without regard to conflict of law principles.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>13. Changes to Terms</h2>
+                    <p>We reserve the right to modify these terms at any time. We will notify users of any material changes by posting the new terms on this page and updating the "Last updated" date.</p>
+                    
+                    <p class="important-text">Your continued use of the service after any modifications constitutes acceptance of the new terms.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>14. Severability</h2>
+                    <p>If any provision of these terms is held to be invalid or unenforceable, the remaining provisions will remain in full force and effect.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>15. Entire Agreement</h2>
+                    <p>These terms, together with our Privacy Policy, constitute the entire agreement between you and Crown Screens regarding the use of our service.</p>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>If you have any questions about these Terms of Service, please contact us:</p>
+                    <p><strong>Email:</strong> <a href="mailto:legal@crownscreens.com">legal@crownscreens.com</a></p>
+                    <p><strong>Support:</strong> <a href="mailto:support@crownscreens.com">support@crownscreens.com</a></p>
+                    <p><strong>Address:</strong> Crown Screens Legal Team, [Your Business Address]</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 class="footer-logo-text">Crown Screens</h3>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html#features" class="footer-link">Features</a>
+                    <a href="index.html#pricing" class="footer-link">Pricing</a>
+                    <a href="index.html#contact" class="footer-link">Contact</a>
+                    <a href="index.html#download" class="footer-link">Download</a>
+                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                    <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2025 Crown Screens. Professional Multi-Device Management Software.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase Configuration -->
+    <script src="./scripts/supabase.js"></script>
+    
+    <script src="./scripts/script.js"></script>
+    <script>
+        // Ensure terms of service page loads properly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide any loader overlays
+            const loaders = document.querySelectorAll('.loader-overlay, .loading-overlay');
+            loaders.forEach(loader => {
+                loader.style.display = 'none';
+            });
+            
+            // Ensure main content is visible
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.style.opacity = '1';
+                mainContent.style.transform = 'none';
+                mainContent.style.display = 'block';
+            }
+            
+            // Ensure terms container is visible
+            const termsContainer = document.querySelector('.terms-container');
+            if (termsContainer) {
+                termsContainer.style.display = 'block';
+                termsContainer.style.visibility = 'visible';
+                termsContainer.style.opacity = '1';
+            }
+            
+            // Check authentication status
+            checkAuthStatus();
+        });
+        
+        // Check authentication status and update UI
+        async function checkAuthStatus() {
+            try {
+                const { data: { user } } = await supabase.auth.getUser();
+                
+                if (user) {
+                    // User is logged in - show profile dropdown, hide auth buttons
+                    await showProfileDropdown(user);
+                } else {
+                    // User is not logged in - show auth buttons, hide profile dropdown
+                    showAuthButtons();
+                }
+            } catch (error) {
+                console.error('Error checking auth status:', error);
+                showAuthButtons();
+            }
+        }
+        
+        // Show profile dropdown for logged in user
+        async function showProfileDropdown(user) {
+            // Hide auth buttons
+            const authButtons = document.getElementById('nav-auth-buttons');
+            const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+            if (authButtons) authButtons.style.display = 'none';
+            if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+            
+            // Show profile dropdown
+            const profileDropdown = document.getElementById('nav-profile');
+            const mobileProfileSection = document.getElementById('mobile-profile-section');
+            if (profileDropdown) profileDropdown.style.display = 'block';
+            if (mobileProfileSection) mobileProfileSection.style.display = 'block';
+            
+            // Update user info
+            updateUserInfo(user);
+            
+            // Check admin status and show admin links
+            await checkAdminStatus(user);
+        }
+        
+        // Show auth buttons for non-logged in user
+        function showAuthButtons() {
+            // Show auth buttons
+            const authButtons = document.getElementById('nav-auth-buttons');
+            const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+            if (authButtons) authButtons.style.display = 'flex';
+            if (mobileAuthButtons) mobileAuthButtons.style.display = 'block';
+            
+            // Hide profile dropdown
+            const profileDropdown = document.getElementById('nav-profile');
+            const mobileProfileSection = document.getElementById('mobile-profile-section');
+            if (profileDropdown) profileDropdown.style.display = 'none';
+            if (mobileProfileSection) mobileProfileSection.style.display = 'none';
+        }
+        
+        // Update user information in the UI
+        async function updateUserInfo(user) {
+            try {
+                // Get user profile from database
+                const { data: profile, error } = await supabase
+                    .from('profiles')
+                    .select('first_name, last_name')
+                    .eq('id', user.id)
+                    .single();
+
+                let displayName = user.email?.split('@')[0] || 'User';
+                let userInitials = displayName.substring(0, 2).toUpperCase();
+
+                if (profile && !error) {
+                    const firstName = profile.first_name || '';
+                    const lastName = profile.last_name || '';
+                    if (firstName || lastName) {
+                        displayName = `${firstName} ${lastName}`.trim();
+                        userInitials = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase() || userInitials;
+                    }
+                }
+                
+                // Update desktop profile
+                const profileName = document.querySelector('.profile-name');
+                const profileAvatar = document.querySelector('.nav-profile .avatar-text');
+                if (profileName) profileName.textContent = displayName;
+                if (profileAvatar) profileAvatar.textContent = userInitials;
+                
+                // Update mobile profile
+                const mobileProfileName = document.querySelector('.mobile-profile-name');
+                const mobileProfileAvatar = document.querySelector('.mobile-profile-avatar .avatar-text');
+                if (mobileProfileName) mobileProfileName.textContent = displayName;
+                if (mobileProfileAvatar) mobileProfileAvatar.textContent = userInitials;
+            } catch (error) {
+                console.error('Error updating user info:', error);
+                // Fallback to email-based name
+                const userEmail = user.email || '';
+                const userName = userEmail.split('@')[0] || 'User';
+                const userInitials = userName.substring(0, 2).toUpperCase();
+                
+                const profileName = document.querySelector('.profile-name');
+                const profileAvatar = document.querySelector('.nav-profile .avatar-text');
+                if (profileName) profileName.textContent = userName;
+                if (profileAvatar) profileAvatar.textContent = userInitials;
+                
+                const mobileProfileName = document.querySelector('.mobile-profile-name');
+                const mobileProfileAvatar = document.querySelector('.mobile-profile-avatar .avatar-text');
+                if (mobileProfileName) mobileProfileName.textContent = userName;
+                if (mobileProfileAvatar) mobileProfileAvatar.textContent = userInitials;
+            }
+        }
+        
+        // Check admin status and show admin links
+        async function checkAdminStatus(user) {
+            try {
+                const { data: profile, error } = await supabase
+                    .from('profiles')
+                    .select('is_admin')
+                    .eq('id', user.id)
+                    .single();
+
+                if (profile && !error && profile.is_admin) {
+                    // Show admin links
+                    const adminLinks = document.querySelectorAll('.admin-link');
+                    adminLinks.forEach(link => {
+                        link.style.display = 'block';
+                    });
+                } else {
+                    // Hide admin links
+                    const adminLinks = document.querySelectorAll('.admin-link');
+                    adminLinks.forEach(link => {
+                        link.style.display = 'none';
+                    });
+                }
+            } catch (error) {
+                console.error('Error checking admin status:', error);
+                // Hide admin links on error
+                const adminLinks = document.querySelectorAll('.admin-link');
+                adminLinks.forEach(link => {
+                    link.style.display = 'none';
+                });
+            }
+        }
+        
+        
+        // Modal functions
+        function showLogoutModal() {
+            document.getElementById('logout-modal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function confirmLogout() {
+            try {
+                // Sign out from Supabase
+                const { error } = await supabase.auth.signOut();
+                
+                if (error) {
+                    console.error('Error signing out:', error.message);
+                    return;
+                }
+                
+                // Update UI to show logged out state
+                const navAuthButtons = document.getElementById('nav-auth-buttons');
+                const navProfile = document.getElementById('nav-profile');
+                const mobileProfileSection = document.getElementById('mobile-profile-section');
+                const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                
+                // Desktop UI updates
+                if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                if (navProfile) navProfile.style.display = 'none';
+                
+                // Mobile UI updates
+                if (mobileProfileSection) mobileProfileSection.style.setProperty('display', 'none', 'important');
+                if (mobileAuthButtons) mobileAuthButtons.style.setProperty('display', 'flex', 'important');
+                
+                // Close the modal
+                closeModal('logout-modal');
+                
+                // Close mobile menu if open
+                if (typeof closeMobileMenu === 'function') {
+                    closeMobileMenu();
+                }
+                
+                // Redirect to home page
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error during logout:', error);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const logoutModal = document.getElementById('logout-modal');
+            if (event.target === logoutModal) {
+                closeModal('logout-modal');
+            }
+        }
+
+        // Initialize logout button handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desktop logout button
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+            
+            // Mobile logout button
+            const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+        });
+    </script>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content logout-modal-content">
+            <div class="modal-header">
+                <h3>Logout Confirmation</h3>
+                <button class="close-btn" onclick="closeModal('logout-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <p>Are you sure you want to logout?</p>
+                <p class="logout-subtitle">You will be redirected to the home page.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('logout-modal')">Cancel</button>
+                <button class="btn btn-primary logout-confirm-btn" onclick="confirmLogout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,2559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Crown Screens - Professional Multi-Device Management Software</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/contact-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* iOS Safari Fixes for Background and Gradients */
+        body {
+            -webkit-background-attachment: fixed;
+            background-attachment: fixed;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background-size: 100% 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Fix for iOS Safari backdrop-filter issues */
+        .main-content {
+            background: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Ensure background elements are visible on iOS */
+        .global-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+        }
+        
+        /* iOS-specific fixes for hero section */
+        .hero-section {
+            background: transparent;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-container {
+            background: transparent;
+            position: relative;
+            z-index: 3;
+        }
+        
+        /* Fix for iOS Safari gradient rendering */
+        @supports (-webkit-backdrop-filter: blur(20px)) {
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+                z-index: -1;
+            }
+        }
+        
+        /* Couleurs uniformes pour les étapes du guide - Vert comme les fonctionnalités */
+        .guide-step .step-icon i {
+            color: #00ff88 !important;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.5));
+        }
+         
+        /* Animation hover pour les icônes */
+        .step-icon i {
+            transition: all 0.3s ease;
+        }
+        
+        .step-icon:hover i {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
+        }
+        
+        /* Couleurs uniformes pour les icônes des plans - Vert comme les autres */
+        .plan-icon i {
+            color: #00ff88 !important;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.5));
+        }
+        
+        /* Supprimer les animations de vol des icônes */
+        .feature-icon {
+            animation: none !important;
+        }
+        
+        .faq-icon-text i {
+            animation: none !important;
+        }
+        
+        .plan-icon i {
+            animation: none !important;
+        }
+        
+        /* Footer copyright text in white */
+        .footer-copyright p {
+            color: white !important;
+        }
+        
+        /* Ensure footer copyright is white on all elements */
+        footer .footer-copyright p {
+            color: white !important;
+        }
+        
+        /* Neomorphism Effect for Download Me Link */
+        .nav-link.download-me-neo {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            border: none;
+            border-radius: 15px;
+            padding: 12px 20px;
+            margin: 0 5px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 10;
+        }
+        
+        .nav-link.download-me-neo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        
+        .nav-link.download-me-neo:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 
+                12px 12px 24px rgba(0, 0, 0, 0.4),
+                -12px -12px 24px rgba(255, 255, 255, 0.08),
+                0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .nav-link.download-me-neo:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link.download-me-neo:active {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 
+                4px 4px 8px rgba(0, 0, 0, 0.3),
+                -4px -4px 8px rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Icon styling for Download Me button */
+        .nav-link.download-me-neo i {
+            margin-right: 8px;
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 20;
+            color: #00d4ff !important;
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+            -webkit-text-fill-color: #00d4ff !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+        }
+        
+        .nav-link.download-me-neo:hover i {
+            transform: translateY(-2px) scale(1.1);
+            color: #00d4ff !important;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            -webkit-text-fill-color: #00d4ff !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+        }
+        
+        /* Hide Home link on desktop (1025px and above) */
+        .nav-link.home-link {
+            display: none;
+        }
+        
+        /* Show Home link on tablet and mobile (1024px and below) */
+        @media (max-width: 1024px) {
+            .nav-link.home-link {
+                display: block;
+            }
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            /* Fix all mobile nav-link colors to use gradient */
+            .nav-link {
+                background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+            }
+            
+            .nav-link:hover {
+                background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+            }
+            
+            .nav-link.download-me-neo {
+                background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                border: none !important;
+                border-radius: 0 !important;
+                padding: 0.5rem 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                position: relative;
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-link.download-me-neo::before {
+                display: none !important;
+            }
+            
+            .nav-link.download-me-neo:hover {
+                background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                transform: translateX(5px) !important;
+                box-shadow: none !important;
+            }
+            
+            .nav-link.download-me-neo i {
+                margin-right: 10px;
+                font-size: 1.1em;
+                background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: none !important;
+                transform: none !important;
+            }
+            
+            .nav-link.download-me-neo:hover i {
+                background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+                color: transparent !important;
+                text-shadow: 0 0 15px rgba(0, 212, 255, 0.6) !important;
+                transform: none !important;
+            }
+        }
+        
+        /* Neomorphism Effect for Demo Video Section */
+        .video-placeholder {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.4),
+                -20px -20px 40px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .video-placeholder:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 
+                25px 25px 50px rgba(0, 0, 0, 0.5),
+                -25px -25px 50px rgba(255, 255, 255, 0.08),
+                0 0 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .video-placeholder:hover::before {
+            opacity: 1;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            z-index: 2;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            box-shadow: 
+                inset 8px 8px 16px rgba(0, 0, 0, 0.3),
+                inset -8px -8px 16px rgba(255, 255, 255, 0.05);
+        }
+        
+        .hero-video-animation {
+            /* Slide up animation for desktop */
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideUpFadeIn 1.2s ease-out 0.8s forwards;
+        }
+        
+        @keyframes slideUpFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .video-overlay {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            border-radius: 20px;
+            box-shadow: 
+                10px 10px 20px rgba(0, 0, 0, 0.3),
+                -10px -10px 20px rgba(255, 255, 255, 0.05);
+        }
+        
+        .play-button {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            border: none;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                15px 15px 30px rgba(0, 0, 0, 0.4),
+                -15px -15px 30px rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .play-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(145deg, #00d4ff, #00ff88);
+            border-radius: 50%;
+            box-shadow: 
+                inset 8px 8px 16px rgba(0, 0, 0, 0.3),
+                inset -8px -8px 16px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .play-button svg {
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                20px 20px 40px rgba(0, 0, 0, 0.5),
+                -20px -20px 40px rgba(255, 255, 255, 0.08),
+                0 0 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        .play-button:hover::before {
+            background: linear-gradient(145deg, #00ff88, #00d4ff);
+            box-shadow: 
+                inset 10px 10px 20px rgba(0, 0, 0, 0.4),
+                inset -10px -10px 20px rgba(255, 255, 255, 0.15);
+        }
+        
+        .play-button:hover svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+        }
+        
+        .play-button:active {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.4),
+                -8px -8px 16px rgba(255, 255, 255, 0.05);
+        }
+        
+        .play-button:active::before {
+            background: linear-gradient(145deg, #00d4ff, #00ff88);
+            box-shadow: 
+                inset 6px 6px 12px rgba(0, 0, 0, 0.3),
+                inset -6px -6px 12px rgba(255, 255, 255, 0.1);
+        }
+        
+        .video-info {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            box-shadow: 
+                inset 4px 4px 8px rgba(0, 0, 0, 0.3),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+        }
+        
+        .video-title {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .video-duration {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .video-device-frame {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e32);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 
+                inset 6px 6px 12px rgba(0, 0, 0, 0.3),
+                inset -6px -6px 12px rgba(255, 255, 255, 0.05);
+        }
+        
+        .device-screen {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 10px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 4px 4px 8px rgba(0, 0, 0, 0.4),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+        }
+        
+        .device-screen::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            border-radius: 50%;
+            box-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.3),
+                -8px -8px 16px rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .device-screen::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-45%, -50%);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        /* Mobile responsive for demo video */
+        @media (max-width: 768px) {
+            /* Force mobile layout with stronger CSS */
+            .hero-content {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+                padding: 2rem 1rem !important;
+                align-items: center !important;
+            }
+            
+            .hero-text {
+                order: 1 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                text-align: center !important;
+                margin-bottom: 0 !important;
+                display: block !important;
+                position: relative !important;
+                z-index: 10 !important;
+            }
+            
+            .hero-image {
+                order: 2!important;
+                width: 100% !important;
+                max-width: 400px !important;
+                margin: 0 auto !important;
+                display: block !important;
+                position: relative !important;
+                z-index: 5 !important;
+            }
+            
+            .video-placeholder {
+                padding: 20px;
+                border-radius: 20px;
+                margin: 0 auto;
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .play-button {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .play-button::before {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .video-title {
+                font-size: 1rem;
+            }
+            
+            .device-screen {
+                height: 150px;
+            }
+            
+            /* Mobile video wrapper animation */
+            .hero-video-animation {
+                opacity: 0;
+                transform: translateY(30px);
+                animation: slideUpFadeInMobile 1s ease-out 0.6s forwards;
+            }
+            
+            @keyframes slideUpFadeInMobile {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+        
+        /* Tablet responsive for demo video */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .hero-video-animation {
+                opacity: 0;
+                transform: translateY(40px);
+                animation: slideUpFadeInTablet 1.1s ease-out 0.7s forwards;
+            }
+            
+            @keyframes slideUpFadeInTablet {
+                from {
+                    opacity: 0;
+                    transform: translateY(40px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+        
+        /* Extra specific mobile fixes for very small screens */
+        @media (max-width: 600px) {
+            .hero-content {
+                flex-direction:  column-reverse!important;
+                display: flex !important;
+            }
+            
+            .hero-text {
+                order: 1 !important;
+                display: block !important;
+                position: static !important;
+            }
+            
+            .hero-image {
+                order: 2 !important;
+                display: block !important;
+                position: static !important;
+            }
+        }
+        
+        /* Additional mobile fixes for smaller screens */
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 1.5rem 1rem !important;
+                gap: 1.5rem !important;
+                flex-direction: column !important;
+                display: flex !important;
+            }
+            
+            .hero-text {
+                order: 1 !important;
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+            }
+            
+            .hero-image {
+                order: 2 !important;
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+            }
+            
+            .video-placeholder {
+                padding: 15px;
+                border-radius: 15px;
+            }
+            
+            .play-button {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .play-button::before {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .device-screen {
+                height: 120px;
+            }
+        }
+        
+        /* Override any conflicting CSS from main stylesheet */
+        @media (max-width: 768px) {
+            .hero .hero-content {
+                flex-direction: column !important;
+                display: flex !important;
+            }
+            
+            .hero .hero-text {
+                order: 1 !important;
+                display: block !important;
+                position: static !important;
+            }
+            
+            .hero .hero-image {
+                order: 2 !important;
+                display: block !important;
+                position: static !important;
+            }
+        }
+        
+        /* ULTRA AGGRESSIVE MOBILE FIXES - MUST BE LAST */
+        @media (max-width: 768px) {
+            /* Force hero section to be column layout */
+            section.hero .container .hero-content {
+                display: flex !important;
+                flex-direction: column !important;
+                flex-wrap: nowrap !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                gap: 2rem !important;
+                padding: 2rem 1rem !important;
+            }
+            
+            /* Force text content to be first */
+            section.hero .container .hero-content .hero-text {
+                order: 1 !important;
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                text-align: center !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                clear: both !important;
+            }
+            
+            /* Force image/video content to be second */
+            section.hero .container .hero-content .hero-image {
+                order: 2 !important;
+                display: block !important;
+                position: static !important;
+                width: 100% !important;
+                max-width: 400px !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+                float: none !important;
+                clear: both !important;
+            }
+            
+            /* Ensure video placeholder is properly contained */
+            section.hero .container .hero-content .hero-image .video-placeholder {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 auto !important;
+            }
+        }
+        
+        /* Extra aggressive for very small screens */
+        @media (max-width: 600px) {
+            .hero-section .hero-container {
+                flex-direction: column !important;
+                display: flex !important;
+            }
+            
+            .hero-section .hero-container .hero-content {
+                order: 1 !important;
+                display: block !important;
+                position: static !important;
+            }
+            
+            .hero-section .hero-container .video-wrapper {
+                order: 2 !important;
+                display: block !important;
+                position: static !important;
+            }
+        }
+        
+        /* NUCLEAR OPTION - FORCE MOBILE LAYOUT */
+        @media (max-width: 768px) {
+            .hero-section .hero-container {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+                padding: 2rem 1rem !important;
+            }
+            
+            .hero-section .hero-container .hero-content {
+                order: 1 !important;
+                display: block !important;
+                width: 100% !important;
+                text-align: center !important;
+            }
+            
+            .hero-section .hero-container .video-wrapper {
+                order: 2 !important;
+                display: block !important;
+                width: 100% !important;
+                max-width: 400px !important;
+                margin: 0 auto !important;
+            }
+            
+            /* Center video info on mobile with less spacing */
+            .video-info {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                padding: 10px 15px !important;
+                margin-top: 10px !important;
+                gap: 3px !important;
+            }
+            
+            .video-title {
+                font-size: 0.9rem !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .video-duration {
+                font-size: 0.8rem !important;
+                opacity: 0.8 !important;
+            }
+            
+            /* Hide any conflicting elements */
+            .hero-section .hero-container > *:not(.hero-content):not(.video-wrapper) {
+                display: none !important;
+            }
+        }
+
+        /* Logout Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+            z-index: -1;
+        }
+
+        .logout-modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+
+        /* Mobile responsive styles for logout modal */
+        @media (max-width: 480px) {
+            .logout-modal-content {
+                max-width: 80vw;
+                width: 80vw;
+                margin: 0 10vw;
+                padding: 2rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin: 20px;
+                max-width: calc(100vw - 40px);
+                width: calc(100vw - 40px);
+            }
+            
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .logout-modal-content .modal-body p {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .logout-subtitle {
+                font-size: 0.9rem !important;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .logout-icon {
+                font-size: 3rem;
+                margin-bottom: 15px;
+            }
+        }
+
+        /* Very small mobile devices (under 390px) - Contact section */
+        @media (max-width: 390px) {
+            .contact-container {
+                padding: 0 0.25rem;
+            }
+
+            .contact-content {
+                padding: 0 5px;
+            }
+
+            .contact-info {
+                padding: 1rem;
+                margin: 1rem 0;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .contact-info-header h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .contact-info-header p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+                margin-bottom: 0.4rem;
+            }
+
+            .contact-method {
+                padding: 0.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .method-title {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .method-description {
+                font-size: 0.85rem;
+                line-height: 1.4;
+                margin-bottom: 0.5rem;
+            }
+
+            .method-link {
+                font-size: 0.8rem;
+                word-break: break-all;
+                overflow-wrap: break-word;
+            }
+
+            .contact-title {
+                font-size: 2rem;
+            }
+
+            .contact-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-header h3 {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00d4ff;
+        }
+
+        .logout-icon {
+            font-size: 4rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .logout-modal-content .modal-body p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .logout-subtitle {
+            color: #ccc !important;
+            font-size: 1rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .logout-confirm-btn {
+            background: linear-gradient(45deg, #00d4ff, #00ff88) !important;
+            color: #1a1a2e !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .logout-confirm-btn:hover {
+            background: linear-gradient(45deg, #00ff88, #00d4ff) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4) !important;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #fff !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: #00d4ff !important;
+            color: #00d4ff !important;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./scripts/supabase.js"></script>
+    
+    <!-- Mobile Layout Fix Script -->
+    <script>
+        // iOS Safari detection and fixes
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+        
+        function fixIOSBackground() {
+            if (isIOS()) {
+                // Force background on body for iOS
+                document.body.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+                document.body.style.backgroundAttachment = 'scroll';
+                document.body.style.webkitBackgroundAttachment = 'scroll';
+                
+                // Ensure global background is visible
+                const globalBg = document.querySelector('.global-background');
+                if (globalBg) {
+                    globalBg.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+                    globalBg.style.position = 'fixed';
+                    globalBg.style.top = '0';
+                    globalBg.style.left = '0';
+                    globalBg.style.width = '100%';
+                    globalBg.style.height = '100%';
+                    globalBg.style.zIndex = '-1';
+                }
+                
+                // Fix hero section background
+                const heroSection = document.querySelector('.hero-section');
+                if (heroSection) {
+                    heroSection.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+                    heroSection.style.backgroundAttachment = 'scroll';
+                    heroSection.style.webkitBackgroundAttachment = 'scroll';
+                }
+            }
+        }
+        
+        function fixMobileLayout() {
+            if (window.innerWidth <= 768) {
+                const heroContainer = document.querySelector('.hero-container');
+                const heroContent = document.querySelector('.hero-content');
+                const videoWrapper = document.querySelector('.video-wrapper');
+                
+                if (heroContainer && heroContent && videoWrapper) {
+                    // Force container to be column layout
+                    heroContainer.style.display = 'flex';
+                    heroContainer.style.flexDirection = 'column';
+                    heroContainer.style.gap = '2rem';
+                    heroContainer.style.alignItems = 'center';
+                    heroContainer.style.padding = '2rem 1rem';
+                    
+                    // Force content to be first
+                    heroContent.style.order = '1';
+                    heroContent.style.display = 'block';
+                    heroContent.style.position = 'static';
+                    heroContent.style.width = '100%';
+                    heroContent.style.textAlign = 'center';
+                    
+                    // Force video wrapper to be second
+                    videoWrapper.style.order = '2';
+                    videoWrapper.style.display = 'block';
+                    videoWrapper.style.position = 'static';
+                    videoWrapper.style.width = '100%';
+                    videoWrapper.style.maxWidth = '400px';
+                    videoWrapper.style.margin = '0 auto';
+                }
+            }
+        }
+        
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            fixIOSBackground();
+            fixMobileLayout();
+        });
+        
+        // Run on window resize
+        window.addEventListener('resize', function() {
+            fixIOSBackground();
+            fixMobileLayout();
+        });
+        
+        // Run after a short delay to ensure all CSS is loaded
+        setTimeout(function() {
+            fixIOSBackground();
+            fixMobileLayout();
+        }, 100);
+        
+        // Run multiple times to ensure it sticks
+        setTimeout(function() {
+            fixIOSBackground();
+            fixMobileLayout();
+        }, 500);
+        setTimeout(function() {
+            fixIOSBackground();
+            fixMobileLayout();
+        }, 1000);
+    </script>
+</head>
+<body>
+    <!-- Global Background Animation -->
+    <div class="global-background">
+        <div class="background-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="background-stars">
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+        </div>
+    </div>
+
+    <!-- Loader Overlay -->
+    <div id="loader-overlay" class="loader-overlay">
+        <!-- Loader Background Elements -->
+        <div class="loader-background">
+            <div class="background-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="background-stars">
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+                <div class="star-bg">★</div>
+            </div>
+        </div>
+        <div class="loader-container">
+            <div id="lottie-container" class="lottie-container"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="main-content hidden">
+        <!-- Background Elements -->
+        <div class="background-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="background-stars">
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+        </div>
+        
+        <!-- Navigation Bar Component -->
+        <nav class="navbar" id="navbar-component">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="index.html" style="text-decoration: none;">
+                        <h2 class="logo-text">Crown Screens</h2>
+                    </a>
+                </div>
+                
+                <!-- Hamburger Menu Button -->
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </div>
+                
+                <div class="nav-links" id="nav-links">
+                    <div class="mobile-menu-header">
+                        <h3 class="mobile-menu-title">Menu</h3>
+                    </div>
+                    <a href="index.html" class="nav-link home-link">Home</a>
+                    <a href="index.html#features" class="nav-link">Features</a>
+                    <a href="index.html#pricing" class="nav-link">Pricing</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                    <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" class="nav-link download-me-neo">
+                        <i class="fas fa-download"></i> Download Me
+                    </a>
+                    
+                    <!-- Mobile Profile Section (shown when logged in) -->
+                    <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
+                        <div class="mobile-profile-header">
+                            <div class="mobile-profile-avatar">
+                                <span class="avatar-text">JD</span>
+                            </div>
+                            <div class="mobile-profile-info">
+                                <h4 class="mobile-profile-name">John Doe</h4>
+                            </div>
+                        </div>
+                        <div class="mobile-profile-actions">
+                            <a href="profile.html" class="mobile-profile-btn">
+                                <i class="fas fa-user"></i>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display:none;">
+                                <i class="fas fa-lock"></i>
+                                <span>Admin</span>
+                            </a>
+                            <div class="mobile-profile-divider"></div>
+                            <button class="mobile-profile-btn" id="mobile-logout-btn">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile Auth Buttons (shown when not logged in) -->
+                    <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                        <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                            <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                            <span class="btn-text">SIGN IN</span>
+                        </a>
+                        <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                            <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                            <span class="btn-text">SIGN UP</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Desktop Auth Buttons (shown when not logged in) -->
+                <div class="nav-auth" id="nav-auth-buttons">
+                    <a href="sign-in.html" class="nav-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="nav-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Profile Dropdown (shown when logged in) -->
+                <div class="nav-profile" id="nav-profile" style="display: none;">
+                    <div class="profile-dropdown">
+                        <div class="profile-btn">
+                            <div class="profile-avatar">
+                                <span class="avatar-text">JD</span>
+                            </div>
+                            <span class="profile-name">John Doe</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="profile.html" class="dropdown-item">
+                                <span class="item-icon"><i class="fas fa-user"></i></span>
+                                <span>My Profile</span>
+                            </a>
+                            <a href="admin-dashboard.html" class="dropdown-item admin-link" style="display:none;">
+                                <span class="item-icon"><i class="fas fa-lock"></i></span>
+                                <span>Admin</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" id="logout-btn">
+                                <span class="item-icon"><i class="fas fa-sign-out-alt"></i></span>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <!-- Left Content -->
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="title-normal">Professional</span>
+                        <span class="title-highlight">Multi-Device Management</span>
+                        <span class="title-normal">Software</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Control up to 100 devices simultaneously from a single dashboard. Perfect for enterprise management, testing, and bulk operations.
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <div class="hero-buttons-row">
+                            <button class="hero-btn primary" onclick="window.open('https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view', '_blank')">
+                                <span class="btn-icon"><i class="fas fa-download"></i></span>
+                                <span class="btn-text">DOWNLOAD NOW</span>
+                            </button>
+                            <button class="hero-btn outline">
+                                <span class="btn-icon"><i class="fas fa-book"></i></span>
+                                <span class="btn-text">SETUP GUIDE</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Video Placeholder -->
+                
+                        <div class="video-wrapper hero-video-animation">
+                            <div class="video-overlay" id="video-overlay">
+                                <button class="play-button" id="play-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+                                        <circle cx="12" cy="12" r="11" fill="#00d4ff" fill-opacity="0.2"/>
+                                        <circle cx="12" cy="12" r="8" fill="#00d4ff" fill-opacity="0.4"/>
+                                        <path d="M16 12l-6 4V8z" fill="#ffffff"/>
+                                    </svg>
+                                </button>
+                                <div class="video-info">
+                                    <span class="video-title">Watch Demo</span>
+                                    <span class="video-duration">1:45</span>
+                                </div>
+                            </div>
+                            <div class="video-thumbnail" id="video-thumbnail">
+                                <div class="video-device-frame">
+                                    <div class="device-screen"></div>
+                                    <div class="device-reflection"></div>
+                                </div>
+                            </div>
+                            <div class="youtube-embed" id="youtube-embed" style="display: none;">
+                                <iframe 
+                                    id="youtube-player"
+                                    width="100%" 
+                                    height="100%" 
+                                    src="https://www.youtube.com/embed/uHxZMmvQXHQ?enablejsapi=1&rel=0&modestbranding=1&autoplay=0" 
+                                    title="Demo Video"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                   
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <div class="features-container">
+                    <div class="features-header">
+                        <h2 class="features-title">Why Choose <span class="highlight-text">Crown Screens</span>?</h2>
+                        <p class="features-subtitle">Professional multi-device management with enterprise-level control</p>
+                </div>
+                
+                    <div class="features-showcase">
+                    <!-- Feature 1: Centralized Dashboard -->
+                    <div class="feature-showcase-item" data-feature="dashboard">
+                        <div class="feature-visual">
+                            <div class="feature-circle">
+                                <div class="feature-icon-wrapper">
+                                    <span class="feature-icon"><i class="fas fa-desktop"></i></span>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="dashboard-indicator">
+                                    <div class="screen-grid">
+                                        <div class="screen-item"></div>
+                                        <div class="screen-item"></div>
+                                        <div class="screen-item"></div>
+                                        <div class="screen-item"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-header">
+                                <h3 class="feature-title">Centralized Dashboard</h3>
+                            </div>
+                            <p class="feature-description">Monitor and control all your devices from a single, intuitive dashboard.</p>
+                            <div class="feature-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">1</span>
+                                    <span class="stat-label">Dashboard</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">100+</span>
+                                    <span class="stat-label">Devices</span>
+                                </div>
+                            </div>
+                            <div class="feature-action">
+                                <button class="feature-btn" onclick="showFeatureDemo('dashboard')">
+                                    <span class="btn-text">See in Action</span>
+                                    <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: Real-Time Monitoring -->
+                    <div class="feature-showcase-item" data-feature="monitoring">
+                        <div class="feature-visual">
+                            <div class="feature-circle">
+                                <div class="feature-icon-wrapper">
+                                    <span class="feature-icon"><i class="fas fa-chart-line"></i></span>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="monitoring-indicator">
+                                    <div class="activity-bars">
+                                        <div class="activity-bar"></div>
+                                        <div class="activity-bar"></div>
+                                        <div class="activity-bar"></div>
+                                        <div class="activity-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-header">
+                                <h3 class="feature-title">Real-Time Monitoring</h3>
+                            </div>
+                            <p class="feature-description">Monitor device status, performance, and activity in real-time.</p>
+                            <div class="feature-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">Live</span>
+                                    <span class="stat-label">Updates</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">24/7</span>
+                                    <span class="stat-label">Monitoring</span>
+                                </div>
+                            </div>
+                            <div class="feature-action">
+                                <button class="feature-btn" onclick="showFeatureDemo('monitoring')">
+                                    <span class="btn-text">See in Action</span>
+                                    <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 3: Bulk Operations -->
+                    <div class="feature-showcase-item" data-feature="bulk">
+                        <div class="feature-visual">
+                            <div class="feature-circle">
+                                <div class="feature-icon-wrapper">
+                                    <span class="feature-icon"><i class="fas fa-bolt"></i></span>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="bulk-indicator">
+                                    <div class="bulk-devices">
+                                        <div class="device-group"></div>
+                                        <div class="device-group"></div>
+                                    </div>
+                                    <div class="sync-arrow"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-header">
+                                <h3 class="feature-title">Bulk Operations</h3>
+                            </div>
+                            <p class="feature-description">Execute commands and updates across multiple devices simultaneously.</p>
+                            <div class="feature-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">Mass</span>
+                                    <span class="stat-label">Updates</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">Sync</span>
+                                    <span class="stat-label">Commands</span>
+                                </div>
+                            </div>
+                            <div class="feature-action">
+                                <button class="feature-btn" onclick="showFeatureDemo('bulk')">
+                                    <span class="btn-text">See in Action</span>
+                                    <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 4: Multi-Device Control -->
+                    <div class="feature-showcase-item" data-feature="multi-device">
+                        <div class="feature-visual">
+                            <div class="feature-circle">
+                                <div class="feature-icon-wrapper">
+                                    <span class="feature-icon"><i class="fas fa-mobile-alt"></i></span>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="multi-device-indicator">
+                                    <div class="device-grid">
+                                        <div class="device-item"></div>
+                                        <div class="device-item"></div>
+                                        <div class="device-item"></div>
+                                        <div class="device-item"></div>
+                                        <div class="device-item"></div>
+                                        <div class="device-item"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-header">
+                                <h3 class="feature-title">Multi-Device Control</h3>
+                            </div>
+                            <p class="feature-description">Control up to 100 devices simultaneously from a single dashboard.</p>
+                            <div class="feature-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">100+</span>
+                                    <span class="stat-label">Devices</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">Real-time</span>
+                                    <span class="stat-label">Control</span>
+                                </div>
+                            </div>
+                            <div class="feature-action">
+                                <button class="feature-btn" onclick="showFeatureDemo('multi-device')">
+                                    <span class="btn-text">See in Action</span>
+                                    <span class="btn-arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 5: Analytics & Reports -->
+                    <div class="feature-showcase-item" data-feature="analytics">
+                        <div class="feature-visual">
+                            <div class="feature-circle">
+                                <div class="feature-icon-wrapper">
+                                    <span class="feature-icon"><i class="fas fa-chart-bar"></i></span>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="analytics-indicator">
+                                    <div class="chart-bars">
+                                        <div class="chart-bar"></div>
+                                        <div class="chart-bar"></div>
+                                        <div class="chart-bar"></div>
+                                        <div class="chart-bar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-header">
+                                <h3 class="feature-title">Analytics & Reports</h3>
+                            </div>
+                            <p class="feature-description">Comprehensive analytics and detailed reports on device performance.</p>
+                            <div class="feature-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">Real-time</span>
+                                    <span class="stat-label">Analytics</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">Detailed</span>
+                                    <span class="stat-label">Reports</span>
+                                </div>
+                            </div>
+                            <div class="feature-action">
+                                <button class="feature-btn" onclick="showFeatureDemo('analytics')">
+                                    <span class="btn-text">See in Action</span>
+                                    <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 6: Enterprise Security -->
+                    <div class="feature-showcase-item" data-feature="security">
+                        <div class="feature-visual">
+                            <div class="feature-circle">
+                                <div class="feature-icon-wrapper">
+                                    <span class="feature-icon"><i class="fas fa-shield-alt"></i></span>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="security-indicator">
+                                    <div class="shield-icon"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <div class="feature-header">
+                                <h3 class="feature-title">Enterprise Security</h3>
+                            </div>
+                            <p class="feature-description">Bank-level security with role-based access control and audit trails.</p>
+                            <div class="feature-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">256-bit</span>
+                                    <span class="stat-label">Encryption</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-value">RBAC</span>
+                                    <span class="stat-label">Access</span>
+                                </div>
+                            </div>
+                            <div class="feature-action">
+                                <button class="feature-btn" onclick="showFeatureDemo('security')">
+                                    <span class="btn-text">See in Action</span>
+                                    <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Guide Section -->
+        <section id="guide" class="guide-section">
+            <div class="guide-container">
+                <div class="guide-header">
+                    <h2 class="guide-title">Get Started in <span class="highlight-text">4 Steps</span></h2>
+                    <p class="guide-subtitle">Transform your setup experience with our streamlined process</p>
+                </div>
+                
+                <div class="guide-timeline">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="guide-step">
+                        <div class="step-visual">
+                            <div class="step-circle">
+                                <span class="step-number">1</span>
+                                <div class="step-pulse"></div>
+                            </div>
+                            <div class="step-connector"></div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-icon"><i class="fas fa-download"></i></div>
+                                <h3 class="step-title">Download & Install</h3>
+                            </div>
+                            <p class="step-description">Get Crown Screens on your PC with our smart installer that handles everything automatically.</p>
+                            <div class="step-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 25%"></div>
+                                </div>
+                                <span class="progress-text">25% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-visual">
+                            <div class="step-circle">
+                                <span class="step-number">2</span>
+                                <div class="step-pulse"></div>
+                            </div>
+                            <div class="step-connector"></div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-icon"><i class="fas fa-cog"></i></div>
+                                <h3 class="step-title">Enable Developer Mode</h3>
+                            </div>
+                            <p class="step-description">Unlock your Android's potential by enabling USB debugging in just a few taps.</p>
+                            <div class="step-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 50%"></div>
+                                </div>
+                                <span class="progress-text">50% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-visual">
+                            <div class="step-circle">
+                                <span class="step-number">3</span>
+                                <div class="step-pulse"></div>
+                            </div>
+                            <div class="step-connector"></div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-icon"><i class="fas fa-link"></i></div>
+                                <h3 class="step-title">Connect & Sync</h3>
+                            </div>
+                            <p class="step-description">Link your devices seamlessly via USB or WiFi for instant mirroring capability.</p>
+                            <div class="step-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                                <span class="progress-text">75% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-step">
+                        <div class="step-visual">
+                            <div class="step-circle">
+                                <span class="step-number">4</span>
+                                <div class="step-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-header">
+                                <div class="step-icon"><i class="fas fa-play"></i></div>
+                                <h3 class="step-title">Start Mirroring</h3>
+                            </div>
+                            <p class="step-description">Launch Crown Screens and experience professional multi-device management instantly.</p>
+                            <div class="step-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-text">100% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-cta">
+                    <button class="guide-cta-btn" onclick="window.open('https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view', '_blank')">
+                        <span class="btn-glow"></span>
+                        <span class="btn-content">
+                            <span class="btn-icon"><i class="fas fa-book"></i></span>
+                            <span class="btn-text">View Complete Guide</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing-section">
+            <div class="pricing-container">
+                <div class="pricing-header">
+                    <h2 class="pricing-title">Choose Your <span class="highlight-text">Plan</span></h2>
+                    <p class="pricing-subtitle">Flexible pricing options to suit your needs</p>
+                </div>
+                
+                <div class="pricing-cards" id="pricing-cards-container">
+                    <!-- Plans will be loaded dynamically from Supabase -->
+                    <div class="pricing-loading">
+                        <div class="loading-spinner"></div>
+                        <p>Loading pricing plans...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section">
+            <div class="faq-container">
+                <div class="faq-header">
+                    <h2 class="faq-title">Frequently Asked <span class="highlight-text">Questions</span></h2>
+                    <p class="faq-subtitle">Everything you need to know about Crown Screens</p>
+                </div>
+                
+                <div class="faq-grid">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item" data-faq="1">
+                        <div class="faq-question">
+                            <div class="faq-icon">
+                                <span class="faq-icon-text"><i class="fas fa-bolt"></i></span>
+                                <div class="faq-icon-glow"></div>
+                            </div>
+                            <h3 class="faq-question-text">How does Crown Screens work?</h3>
+                            <div class="faq-toggle">
+                                <span class="toggle-line"></span>
+                                <span class="toggle-line"></span>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                <p>Crown Screens uses advanced device management technology to create a centralized control system for multiple devices. Simply connect your devices via USB or WiFi, and you can monitor and control up to 100 devices simultaneously from a single dashboard.</p>
+                                <div class="answer-features">
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-bolt"></i></span>
+                                        <span>Instant connection</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-check-circle"></i></span>
+                                        <span>HD quality output</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-lock"></i></span>
+                                        <span>Secure & private</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item" data-faq="2">
+                        <div class="faq-question">
+                            <div class="faq-icon">
+                                <span class="faq-icon-text"><i class="fas fa-mobile-alt"></i></span>
+                                <div class="faq-icon-glow"></div>
+                            </div>
+                            <h3 class="faq-question-text">What devices are supported?</h3>
+                            <div class="faq-toggle">
+                                <span class="toggle-line"></span>
+                                <span class="toggle-line"></span>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                <p>Crown Screens supports all Android devices running Android 5.0 and above. For PC, we support Windows 10/11, macOS 10.14+, and Linux distributions. The software automatically detects your devices and optimizes settings for the best performance.</p>
+                                <div class="answer-features">
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-mobile-alt"></i></span>
+                                        <span>Android 5.0+</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fab fa-windows"></i></span>
+                                        <span>Windows 10/11</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fab fa-apple"></i></span>
+                                        <span>macOS 10.14+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item" data-faq="3">
+                        <div class="faq-question">
+                            <div class="faq-icon">
+                                <span class="faq-icon-text"><i class="fas fa-gift"></i></span>
+                                <div class="faq-icon-glow"></div>
+                            </div>
+                            <h3 class="faq-question-text">Is there a free trial available?</h3>
+                            <div class="faq-toggle">
+                                <span class="toggle-line"></span>
+                                <span class="toggle-line"></span>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                <p>Yes! We offer a 7-day free trial with full access to all features. No credit card required. Experience the full power of Crown Screens before making your decision. After the trial, you can choose from our flexible pricing plans.</p>
+                                <div class="answer-features">
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-gift"></i></span>
+                                        <span>7-day free trial</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-credit-card"></i></span>
+                                        <span>No credit card</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-star"></i></span>
+                                        <span>Full features</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item" data-faq="4">
+                        <div class="faq-question">
+                            <div class="faq-icon">
+                                <span class="faq-icon-text"><i class="fas fa-desktop"></i></span>
+                                <div class="faq-icon-glow"></div>
+                            </div>
+                            <h3 class="faq-question-text">Can I monitor multiple devices simultaneously?</h3>
+                            <div class="faq-toggle">
+                                <span class="toggle-line"></span>
+                                <span class="toggle-line"></span>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                <p>Absolutely! Crown Screens includes built-in multi-device monitoring capabilities. You can monitor and control up to 100 devices simultaneously from a single dashboard. Perfect for enterprise management, testing, and bulk operations.</p>
+                                <div class="answer-features">
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-desktop"></i></span>
+                                        <span>Multi-device monitoring</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-chart-line"></i></span>
+                                        <span>Real-time analytics</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-cogs"></i></span>
+                                        <span>Built-in feature</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="faq-item" data-faq="5">
+                        <div class="faq-question">
+                            <div class="faq-icon">
+                                <span class="faq-icon-text"><i class="fas fa-lock"></i></span>
+                                <div class="faq-icon-glow"></div>
+                            </div>
+                            <h3 class="faq-question-text">How secure is my data?</h3>
+                            <div class="faq-toggle">
+                                <span class="toggle-line"></span>
+                                <span class="toggle-line"></span>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                <p>Your privacy and security are our top priorities. Crown Screens uses 256-bit encryption and processes all data locally on your device. We never store, transmit, or access your personal information or device content.</p>
+                                <div class="answer-features">
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-lock"></i></span>
+                                        <span>256-bit encryption</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-home"></i></span>
+                                        <span>Local processing</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-shield-alt"></i></span>
+                                        <span>Zero data collection</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div class="faq-item" data-faq="6">
+                        <div class="faq-question">
+                            <div class="faq-icon">
+                                <span class="faq-icon-text"><i class="fas fa-comments"></i></span>
+                                <div class="faq-icon-glow"></div>
+                            </div>
+                            <h3 class="faq-question-text">What if I need technical support?</h3>
+                            <div class="faq-toggle">
+                                <span class="toggle-line"></span>
+                                <span class="toggle-line"></span>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="answer-content">
+                                <p>We provide comprehensive technical support for all users. Free trial users get email support, while Professional and Enterprise users receive priority support with faster response times and dedicated assistance.</p>
+                                <div class="answer-features">
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-envelope"></i></span>
+                                        <span>Email support</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-bolt"></i></span>
+                                        <span>Priority response</span>
+                                    </div>
+                                    <div class="answer-feature">
+                                        <span class="feature-dot"><i class="fas fa-user-tie"></i></span>
+                                        <span>Expert assistance</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-cta">
+                    <div class="faq-cta-content">
+                        <h3 class="faq-cta-title">Still have <span class="highlight-text">questions</span>?</h3>
+                        <p class="faq-cta-text">Our support team is here to help you get the most out of Crown Screens</p>
+                        <button class="faq-cta-btn" onclick="scrollToContact()">
+                            <span class="btn-icon"><i class="fas fa-comments"></i></span>
+                            Contact Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="download-section">
+            <div class="download-container">
+                <div class="download-header">
+                    <h2 class="download-title">Ready to Manage Your <span class="highlight-text">Devices</span>?</h2>
+                    <p class="download-description">Download Crown Screens today and experience professional multi-device management technology.</p>
+                </div>
+                <div class="download-buttons">
+                    <button class="download-btn-main android">
+                        <span class="play-icon">▶</span>
+                        <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" style="color: inherit; text-decoration: none;">Download Crown Screens</a>
+                    </button>
+                    <button class="download-btn-main ios" onclick="scrollToHero()">
+                        <span class="apple-icon"><i class="fas fa-mobile-alt"></i></span>
+                        View Demo
+                    </button>
+                </div>
+                <p class="download-disclaimer">Free trial available • Professional features unlocked</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h2 class="contact-title">Get in <span class="highlight-text">Touch</span></h2>
+                    <p class="contact-subtitle">Have questions? We're here to help you succeed with Crown Screens</p>
+                </div>
+                
+                <div class="contact-content">
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <div class="contact-info-header">
+                            <h3 class="info-title">Contact Information</h3>
+                            <p class="info-subtitle">Reach out to us through any of these channels</p>
+                        </div>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="method-content">
+                                    <h4 class="method-title">Email Support</h4>
+                                    <p class="method-description">Get help with technical issues and general inquiries</p>
+                                    <a href="mailto:support@crownscreens.com" class="method-link">support@crownscreens.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="method-content">
+                                    <h4 class="method-title">Phone Support</h4>
+                                    <p class="method-description">Speak directly with our technical support team</p>
+                                    <a href="tel:+1-555-0123" class="method-link">+1 (555) 012-3456</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="method-content">
+                                    <h4 class="method-title">Business Hours</h4>
+                                    <p class="method-description">Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                                    <span class="method-link">Weekend: Emergency support only</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form -->
+                    <div class="contact-form-container">
+                        <div class="form-header">
+                            <div class="form-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="form-header-content">
+                                <h3 class="form-title">Send us a Message</h3>
+                                <p class="form-subtitle">Fill out the form below and we'll get back to you within 24 hours</p>
+                            </div>
+                        </div>
+                        
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-group">
+                                <label for="contact-name" class="form-label">Full Name *</label>
+                                <input type="text" id="contact-name" name="name" class="form-input" required>
+                                <div class="input-error" id="name-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email" class="form-label">Email Address *</label>
+                                <input type="email" id="contact-email" name="email" class="form-input" required>
+                                <div class="input-error" id="email-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-company" class="form-label">Company (Optional)</label>
+                                <input type="text" id="contact-company" name="company" class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-subject" class="form-label">Subject *</label>
+                                <select id="contact-subject" name="subject" class="form-select" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="sales">Sales Question</option>
+                                    <option value="billing">Billing Support</option>
+                                    <option value="feature">Feature Request</option>
+                                    <option value="bug">Bug Report</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <div class="input-error" id="subject-error"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-message" class="form-label">Message *</label>
+                                <textarea id="contact-message" name="message" class="form-textarea" rows="5" placeholder="Please describe your inquiry in detail..." required></textarea>
+                                <div class="input-error" id="message-error"></div>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="contact-newsletter" name="newsletter" class="form-checkbox">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">Subscribe to our newsletter for updates and tips</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="contact-privacy" name="privacy" class="form-checkbox" required>
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">I agree to the <a href="#" class="privacy-link">Privacy Policy</a> and <a href="#" class="privacy-link">Terms of Service</a> *</span>
+                                </label>
+                                <div class="input-error" id="privacy-error"></div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="form-submit-btn">
+                                    <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                                    <span class="btn-text">Send Message</span>
+                                    <div class="btn-loading" id="form-loading">
+                                        <div class="loading-spinner"></div>
+                                    </div>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="form-success" id="form-success" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4 class="success-title">Message Sent Successfully!</h4>
+                            <p class="success-message">Thank you for contacting us. We'll get back to you within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <a href="index.html" style="text-decoration: none;">
+                            <h3 class="footer-logo-text">Crown Screens</h3>
+                        </a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#features" class="footer-link">Features</a>
+                        <a href="#pricing" class="footer-link">Pricing</a>
+                        <a href="#contact" class="footer-link">Contact</a>
+                        <a href="#download" class="footer-link">Download</a>
+                        <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+                        <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>© 2025 Crown Screens. Professional Multi-Device Management Software.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/pricing-connector.js"></script>
+    <script src="./scripts/form-email-service.js"></script>
+    <script src="./scripts/admin-fix.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize auth status
+            checkAuthStatus();
+            
+            // Set up logout button
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+            
+            // Contact form functionality
+            initializeContactForm();
+            
+            // Smooth scrolling for contact link
+            initializeSmoothScrolling();
+        });
+        
+        function initializeContactForm() {
+            const contactForm = document.getElementById('contact-form');
+            const formLoading = document.getElementById('form-loading');
+            const formSuccess = document.getElementById('form-success');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleContactFormSubmit);
+            }
+            
+        }
+        
+        async function handleContactFormSubmit(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(e.target);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            // Validate form
+            if (!validateContactForm(formObject)) {
+                return;
+            }
+            
+            // Show loading state
+            showFormLoading(true);
+            
+            try {
+                // Initialize form email service
+                const formEmailService = new FormEmailService();
+                
+                // Send contact form email to admin
+                const emailResult = await formEmailService.sendContactForm(formObject);
+                
+                if (emailResult.success) {
+                    console.log('✅ Contact form email sent successfully');
+                    showFormLoading(false);
+                    showFormSuccess();
+                    resetForm();
+                } else {
+                    console.error('❌ Failed to send contact form email:', emailResult.error);
+                    showFormLoading(false);
+                    showFormError('Failed to send message. Please try again or contact us directly.');
+                }
+            } catch (error) {
+                console.error('❌ Error in contact form submission:', error);
+                showFormLoading(false);
+                showFormError('An error occurred. Please try again or contact us directly.');
+            }
+        }
+        
+        function validateContactForm(data) {
+            let isValid = true;
+            
+            // Clear previous errors
+            clearFormErrors();
+            
+            // Validate name
+            if (!data.name || data.name.trim().length < 2) {
+                showFieldError('name-error', 'Please enter your full name');
+                isValid = false;
+            }
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!data.email || !emailRegex.test(data.email)) {
+                showFieldError('email-error', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            // Validate subject
+            if (!data.subject) {
+                showFieldError('subject-error', 'Please select a subject');
+                isValid = false;
+            }
+            
+            // Validate message
+            if (!data.message || data.message.trim().length < 10) {
+                showFieldError('message-error', 'Please enter a message (at least 10 characters)');
+                isValid = false;
+            }
+            
+            // Validate privacy checkbox
+            if (!data.privacy) {
+                showFieldError('privacy-error', 'Please accept the Privacy Policy and Terms of Service');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showFieldError(errorId, message) {
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.add('show');
+            }
+        }
+        
+        function clearFormErrors() {
+            const errorElements = document.querySelectorAll('.input-error');
+            errorElements.forEach(element => {
+                element.textContent = '';
+                element.classList.remove('show');
+            });
+        }
+        
+        function showFormLoading(show) {
+            const formLoading = document.getElementById('form-loading');
+            const submitBtn = document.querySelector('.form-submit-btn');
+            
+            if (show) {
+                formLoading.classList.add('show');
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+            } else {
+                formLoading.classList.remove('show');
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }
+        }
+        
+        function showFormSuccess() {
+            const form = document.getElementById('contact-form');
+            const formSuccess = document.getElementById('form-success');
+            
+            form.style.display = 'none';
+            formSuccess.style.display = 'block';
+            
+            // Scroll to success message
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function showFormError(message) {
+            // Create or update error message
+            let errorDiv = document.getElementById('form-error');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.id = 'form-error';
+                errorDiv.className = 'form-error';
+                errorDiv.style.cssText = `
+                    background: rgba(255, 71, 87, 0.1);
+                    border: 1px solid #ff4757;
+                    color: #ff4757;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    margin: 1rem 0;
+                    text-align: center;
+                `;
+                
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.parentNode.insertBefore(errorDiv, contactForm.nextSibling);
+                }
+            }
+            
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        function resetForm() {
+            const form = document.getElementById('contact-form');
+            form.reset();
+            
+            // Reset form display after 5 seconds
+            setTimeout(() => {
+                const formSuccess = document.getElementById('form-success');
+                form.style.display = 'block';
+                formSuccess.style.display = 'none';
+            }, 5000);
+        }
+        
+        function initializeSmoothScrolling() {
+            // Get all contact links
+            const contactLinks = document.querySelectorAll('a[href="#contact"]');
+            
+            contactLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the contact section
+                    const contactSection = document.getElementById('contact');
+                    
+                    if (contactSection) {
+                        // Smooth scroll to contact section
+                        contactSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Close mobile menu if open
+                        const navLinks = document.getElementById('nav-links');
+                        const hamburgerMenu = document.getElementById('hamburger-menu');
+                        
+                        if (navLinks && hamburgerMenu) {
+                            navLinks.classList.remove('active');
+                            hamburgerMenu.classList.remove('active');
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content logout-modal-content">
+            <div class="modal-header">
+                <h3>Logout Confirmation</h3>
+                <button class="close-btn" onclick="closeModal('logout-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <p>Are you sure you want to logout?</p>
+                <p class="logout-subtitle">You will be redirected to the home page.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('logout-modal')">Cancel</button>
+                <button class="btn btn-primary logout-confirm-btn" onclick="confirmLogout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
