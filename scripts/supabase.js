@@ -1,6 +1,6 @@
 // Initialize Supabase client
-const SUPABASE_URL = 'https://hyimlsdqexkbltlhjctp.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5aW1sc2RxZXhrYmx0bGhqY3RwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MzU2MzYsImV4cCI6MjA3MDUxMTYzNn0.ALZNJUleYo4qzexjLCcoRRxg4xJDH6EW6KaHZHI-VmI';
+const SUPABASE_URL = 'https://msgvsoyclgbjthvjuidg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zZ3Zzb3ljbGdianRodmp1aWRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MTQ4MDcsImV4cCI6MjA3NDM5MDgwN30.VuUbsK_FOrN3dQsSDA8bT1yLlCxE7zie5OwB5qEhQ8M';
 
 // Create Supabase client - wait for library to be available
 let supabase = null;
@@ -44,6 +44,14 @@ async function signUp(email, password, userData = {}) {
         });
         
         if (error) throw error;
+        // Create a profile row for the new user (id = auth user id)
+        try {
+            if (data && data.user) {
+                await ensureProfileExists(data.user);
+            }
+        } catch (e) {
+            console.warn('Profile creation warning:', e?.message || e);
+        }
         return { data, error: null };
     } catch (error) {
         console.error('Error signing up:', error.message);
@@ -148,6 +156,8 @@ async function checkAuthStatus() {
     const navProfile = document.getElementById('nav-profile');
     
     if (user) {
+        // Ensure profile exists for logged-in user
+        try { await ensureProfileExists(user); } catch (e) { console.warn('ensureProfileExists failed:', e?.message || e); }
         // User is logged in
         if (navAuthButtons) navAuthButtons.style.display = 'none';
         if (navProfile) {
@@ -286,6 +296,32 @@ async function isUserAdmin() {
     } catch (error) {
         console.error('Error checking admin status:', error.message);
         return { isAdmin: false, error };
+    }
+}
+
+// Ensure a profile row exists for a given auth user
+async function ensureProfileExists(user) {
+    if (!supabase || !user?.id) return;
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('id', user.id)
+        .maybeSingle();
+    if (error) throw error;
+    if (!data) {
+        const defaultProfile = {
+            id: user.id,
+            first_name: user.user_metadata?.first_name || '',
+            last_name: user.user_metadata?.last_name || '',
+            email: user.email || null,
+            is_admin: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+        };
+        const { error: insertError } = await supabase
+            .from('profiles')
+            .insert(defaultProfile);
+        if (insertError) throw insertError;
     }
 }
 

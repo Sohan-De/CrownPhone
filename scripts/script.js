@@ -1998,15 +1998,15 @@ async function initializePricingPlans() {
         
         // Check if Supabase is available and ready
         if (typeof isSupabaseReady === 'function' && !isSupabaseReady()) {
-            console.warn('Supabase not ready, showing fallback plans');
-            showFallbackPlans(container);
+            console.warn('Supabase not ready, showing no plans message');
+            showNoPlansMessage(container);
             return;
         }
 
         // Check if supabase object exists
         if (typeof supabase === 'undefined' || !supabase) {
-            console.warn('Supabase object not available, showing fallback plans');
-            showFallbackPlans(container);
+            console.warn('Supabase object not available, showing no plans message');
+            showNoPlansMessage(container);
             return;
         }
 
@@ -2026,8 +2026,8 @@ async function initializePricingPlans() {
         }
 
         if (!plans || plans.length === 0) {
-            console.log('No plans found in Supabase, showing fallback plans');
-            showFallbackPlans(container);
+            console.log('No plans found in Supabase, showing no plans message');
+            showNoPlansMessage(container);
             return;
         }
 
