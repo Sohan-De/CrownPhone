@@ -121,6 +121,39 @@ async function getCurrentUser() {
     }
 }
 
+// Check if a user has admin role
+async function checkIfAdmin(userId) {
+    if (!userId || !supabase) return false;
+    
+    try {
+        // For demo purposes, we'll consider these specific user IDs as admins
+        // In a real app, you would query a roles table in your database
+        const adminIds = ['d4b5d5a8-6c5d-4b7a-9c8d-7e6f5d4c3b2a', 'admin123'];
+        
+        if (adminIds.includes(userId)) {
+            return true;
+        }
+        
+        // Query the profiles table for admin status
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('is_admin')
+            .eq('id', userId)
+            .single();
+            
+        if (error) {
+            console.error('Error checking admin status:', error.message);
+            return false;
+        }
+        
+        // Return true if the user has is_admin flag set to true
+        return data && data.is_admin === true;
+    } catch (err) {
+        console.error('Unexpected error checking admin status:', err);
+        return false;
+    }
+}
+
 // Update user profile in Supabase
 async function updateUserProfile(userData) {
     // Safety check: ensure Supabase is available

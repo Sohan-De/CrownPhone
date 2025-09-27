@@ -128,120 +128,23 @@ function initializeHamburgerMenu() {
     }
 }
 
-// Initialize Video Placeholder
+// Initialize Hero Image
 function initializeVideoPlaceholder() {
-    const playButton = document.getElementById('play-button');
-    const videoOverlay = document.getElementById('video-overlay');
-    const videoThumbnail = document.getElementById('video-thumbnail');
-    const youtubeEmbed = document.getElementById('youtube-embed');
+    // Function simplified since we're now using a static image
+    console.log('Hero image initialized');
     
-    if (playButton && videoOverlay && videoThumbnail && youtubeEmbed) {
-        // Pre-load YouTube iframe API
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // Add any image enhancement or animation code here if needed
+    const heroImage = document.querySelector('.hero-image-container img');
+    if (heroImage) {
+        // Optional: Add hover effect to the image
+        heroImage.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.02)';
+            this.style.transition = 'transform 0.3s ease';
+        });
         
-        // Get the iframe
-        const iframe = youtubeEmbed.querySelector('iframe');
-        let player;
-        
-        // Function to play video with a single click
-        function playVideo() {
-            // Hide overlay and thumbnail
-            videoOverlay.style.display = 'none';
-            videoThumbnail.style.display = 'none';
-            
-            // Show YouTube embed
-            youtubeEmbed.style.display = 'block';
-            
-            // Add a subtle fade-in effect
-            youtubeEmbed.style.opacity = '0';
-            youtubeEmbed.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(() => {
-                youtubeEmbed.style.opacity = '1';
-                
-                // Play the video automatically
-                if (window.YT && window.YT.Player) {
-                    if (!player) {
-                        player = new YT.Player(iframe, {
-                            events: {
-                                'onReady': function(event) {
-                                    event.target.playVideo();
-                                }
-                            }
-                        });
-                    } else {
-                        player.playVideo();
-                    }
-                } else {
-                    // Fallback if YouTube API isn't loaded yet
-                    const videoSrc = iframe.src;
-                    if (videoSrc.indexOf('autoplay=1') === -1) {
-                        iframe.src = videoSrc + (videoSrc.indexOf('?') > -1 ? '&' : '?') + 'autoplay=1';
-                    }
-                }
-            }, 100);
-            
-            // Add close button to video if it doesn't exist yet
-            if (!youtubeEmbed.querySelector('.video-close-btn')) {
-                const closeBtn = document.createElement('button');
-                closeBtn.className = 'video-close-btn';
-                closeBtn.innerHTML = '&times;';
-                closeBtn.style.cssText = `
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background: rgba(0, 0, 0, 0.7);
-                    color: white;
-                    border: none;
-                    border-radius: 50%;
-                    width: 30px;
-                    height: 30px;
-                    font-size: 20px;
-                    cursor: pointer;
-                    z-index: 10;
-                    transition: all 0.3s ease;
-                `;
-                
-                closeBtn.addEventListener('mouseenter', function() {
-                    this.style.background = 'rgba(0, 0, 0, 0.9)';
-                    this.style.transform = 'scale(1.1)';
-                });
-                
-                closeBtn.addEventListener('mouseleave', function() {
-                    this.style.background = 'rgba(0, 0, 0, 0.7)';
-                    this.style.transform = 'scale(1)';
-                });
-                
-                closeBtn.addEventListener('click', function() {
-                    // Show overlay and thumbnail again
-                    videoOverlay.style.display = 'flex';
-                    videoThumbnail.style.display = 'block';
-                    
-                    // Hide YouTube embed
-                    youtubeEmbed.style.display = 'none';
-                    
-                    // Pause the video
-                    if (player && player.pauseVideo) {
-                        player.pauseVideo();
-                    } else {
-                        // Fallback
-                        const videoSrc = iframe.src;
-                        iframe.src = videoSrc.replace('autoplay=1', 'autoplay=0');
-                    }
-                });
-                
-                youtubeEmbed.appendChild(closeBtn);
-            }
-        }
-        
-        // Add click event to play button
-        playButton.addEventListener('click', playVideo);
-        
-        // Also make the entire overlay clickable
-        videoOverlay.addEventListener('click', playVideo);
+        heroImage.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
     }
 }
 

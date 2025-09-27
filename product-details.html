@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Products - CrownPhone</title>
+    <link rel="icon" type="image/png" href="fevp.png">
+    <link rel="apple-touch-icon" href="fevp.png">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./scripts/supabase.js"></script>
+    <script src="./scripts/script.js"></script>
+    <style>
+        /* Override footer link styles */
+        .footer-link::after {
+            display: none !important;
+            content: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: none !important;
+        }
+        .footer-link:hover::after {
+            display: none !important;
+            width: 0 !important;
+            background: none !important;
+        }
+        
+        /* Override footer top border */
+        .footer::before {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+        }
+        
+        /* Override any horizontal rules in the footer */
+        .footer hr {
+            border: none !important;
+            height: 1px !important;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+            margin: 15px 0 !important;
+        }
+        
+        /* Override the line above copyright text */
+        .footer-copyright::before {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+        }
+        
+        /* Desktop Navigation Links */
+        @media (min-width: 992px) {
+            .desktop-nav-links {
+                display: flex !important;
+                justify-content: center;
+                flex: 1;
+                gap: 30px;
+                margin: 0 20px;
+            }
+            
+            /* Hide the mobile nav links on desktop */
+            .nav-links {
+                display: none !important;
+            }
+        }
+        
+        /* Hamburger menu styling override */
+        .hamburger-line {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;
+        }
+        
+        /* Fix hamburger menu positioning */
+        @media (max-width: 991px) {
+            .nav-container {
+                padding-right: 15px !important;
+            }
+            
+            .hamburger-menu {
+                margin-right: 0 !important;
+                margin-left: auto !important;
+                position: relative !important;
+                right: 0 !important;
+            }
+        }
+        
+        /* Dark navbar to match body */
+        .navbar {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.95) 50%, rgba(17, 17, 17, 0.95) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
+        }
+        
+        /* Logo styling */
+        .logo-text {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
+        }
+        
+        .nav-logo:hover .logo-text {
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.4) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important;
+        }
+        
+        .footer-logo:hover .footer-logo-text {
+            text-shadow: none !important;
+            filter: none !important;
+        }
+
+        /* Navigation Link Hover Effects */
+        .nav-link:hover, .nav-link.active {
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) !important;
+        }
+        
+        /* Override default hover underline */
+        .nav-link::after {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            height: 2.5px !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.4) !important;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+        }
+
+        /* Enhanced profile and admin icon styling */
+        .profile-link i, .mobile-profile-link i, 
+        .admin-link i, .mobile-admin-link i {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-link:hover i, .mobile-profile-link:hover i,
+        .admin-link:hover i, .mobile-admin-link:hover i {
+            text-shadow: 0 0 12px rgba(255, 0, 0, 0.6) !important;
+            filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.5)) !important;
+            transform: scale(1.1);
+        }
+
+        /* Product List Container */
+        .products-container {
+            min-height: 100vh;
+            padding-top: 120px;
+            position: relative;
+        }
+
+        /* Header Section */
+        .products-header {
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .products-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .products-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Filter and Search Bar */
+        .products-controls {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(30, 30, 30, 0.6);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            background: rgba(30, 30, 30, 0.8);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff0000;
+            font-size: 1.2rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(30, 30, 30, 0.6);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            border-color: transparent;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+         /* Product Card - Match Home Page Design */
+         .product-card {
+             background: rgba(20, 20, 20, 0.7);
+            border-radius: 12px;
+             overflow: hidden;
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+             position: relative;
+             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+         }
+
+         .product-card:hover {
+             transform: translateY(-10px);
+             box-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
+         }
+
+        /* Product Image Container */
+        .product-image-container {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-badge.bestseller {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+        }
+
+        .product-actions {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            transition: bottom 0.3s ease;
+        }
+
+        .product-card:hover .product-actions {
+            bottom: 0;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            transform: translateY(-5px);
+        }
+
+        /* Product Content - Match Home Page */
+        .product-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            height: 280px; /* Fixed height for product content */
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .rating-count {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1; /* Take up available space */
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            line-clamp: 3; /* Standard property for compatibility */
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            margin-top: auto; /* Push to bottom */
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .product-old-price {
+            font-size: 1rem;
+            color: #a0a0a0;
+            text-decoration: line-through;
+        }
+
+        .product-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-btn:hover {
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            position: relative;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .features-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .features-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+
+        /* Loading States */
+        .loading-skeleton {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+            height: 20px;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .products-title {
+                font-size: 2.5rem;
+            }
+
+            .products-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-bar {
+                max-width: none;
+            }
+
+            .filter-buttons {
+            justify-content: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem 2rem;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .features-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Back to Home Button */
+        .back-to-home {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .back-to-home:hover {
+            color: #ff4500;
+            transform: translateX(-5px);
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #00d4ff;
+        }
+
+        .footer-copyright p {
+            color: rgba(255, 255, 255, 0.5);
+            margin: 0;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), rgba(139, 0, 0, 0.1));
+            z-index: -1;
+        }
+
+        .logout-modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .modal-header h3 {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
+        }
+
+        .logout-icon {
+            font-size: 4rem;
+            color: #ff0000;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .logout-modal-content .modal-body p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .logout-subtitle {
+            color: #ccc !important;
+            font-size: 1rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .modal-footer {
+            display: flex;
+                justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .logout-confirm-btn {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .logout-confirm-btn:hover {
+            background: linear-gradient(45deg, #ff0000, #ff4500) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4) !important;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 1px solid rgba(255, 0, 0, 0.3) !important;
+            color: #fff !important;
+            padding: 12px 24px !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            min-width: 120px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 0, 0, 0.1) !important;
+            border-color: #ff0000 !important;
+            color: #ff0000 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar Component -->
+    <nav class="navbar" id="navbar-component">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none;">
+                    <h2 class="logo-text"><img src="fevp.png" alt="CrownPhone" style="height:24px;width:24px;vertical-align:middle;margin-right:8px;">CrownPhone</h2>
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation Links -->
+            <div class="desktop-nav-links">
+                <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-details.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
+            
+            <div class="nav-links" id="nav-links" style="display: flex; justify-content: center; flex: 1;">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-title">Menu</h3>
+                </div>
+                <!-- Mobile Profile Link (shown when logged in on mobile only) -->
+                <a href="profile.html" class="nav-link mobile-profile-link" id="mobile-profile-link" style="font-weight: 500; display: none; border-bottom: 1px solid rgba(255, 0, 0, 0.3); margin-bottom: 5px; padding-bottom: 5px; display: none;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem;"></i></a>
+                
+                <!-- Mobile Admin Link (shown when logged in as admin on mobile only) -->
+                <a href="admin-dashboard.html" class="nav-link mobile-admin-link" id="mobile-admin-link" style="font-weight: 500; display: none; border-bottom: 1px solid rgba(255, 0, 0, 0.3); margin-bottom: 10px; padding-bottom: 10px; display: none;" title="Admin Dashboard"><i class="fas fa-shield-alt" style="font-size: 1.2rem;"></i></a>
+                <a href="index.html" class="nav-link home-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-details.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+                
+                <!-- Mobile Auth Buttons (shown when not logged in) -->
+                <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                </a>
+            </div>
+            
+            </div>
+            
+            
+            <!-- Right side navigation items -->
+            <div class="nav-right" style="display: flex; align-items: center;">
+                <!-- Profile Link (shown when logged in) -->
+                <a href="profile.html" class="nav-link profile-link" id="nav-profile-link" style="font-weight: 500; display: none; margin-right: 15px;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem;"></i></a>
+                
+                <!-- Admin Dashboard Link (shown only when logged in as admin) -->
+                <a href="admin-dashboard.html" class="nav-link admin-link" id="nav-admin-link" style="font-weight: 500; display: none; margin-right: 15px;" title="Admin Dashboard"><i class="fas fa-shield-alt" style="font-size: 1.2rem;"></i></a>
+                
+                <!-- Desktop Auth Buttons (shown when not logged in) -->
+            <div class="nav-auth" id="nav-auth-buttons">
+                <a href="sign-in.html" class="nav-btn signin-btn">
+                    <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                    <span class="btn-text">SIGN IN</span>
+                </a>
+                <a href="sign-up.html" class="nav-btn signup-btn">
+                    <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                    <span class="btn-text">SIGN UP</span>
+                </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Products Container -->
+    <div class="products-container">
+        <!-- Header Section -->
+        <div class="products-header">
+            <h1 class="products-title">Our Products</h1>
+            <p class="products-subtitle">
+                Discover our comprehensive suite of screen mirroring and projection solutions designed for professionals, creators, and businesses.
+            </p>
+                </div>
+                
+        <!-- Filter and Search Controls -->
+        <div class="products-controls">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
+                </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="software">Software</button>
+                <button class="filter-btn" data-filter="hardware">Hardware</button>
+                <button class="filter-btn" data-filter="subscription">Subscriptions</button>
+                <button class="filter-btn" data-filter="accessories">Accessories</button>
+                </div>
+            </div>
+            
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+             <!-- Product 1: Crown Phone Pro -->
+             <div class="product-card fade-in" data-category="software" data-name="Crown Phone Pro">
+                 <div class="product-badge">Featured</div>
+                 <div class="product-image-container">
+                     <img src="Front.png" alt="Crown Phone Pro" class="product-image">
+                     <div class="product-actions">
+                         <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
+                         <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                         <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                 <div class="product-content">
+                     <h3 class="product-name">Crown Phone Pro</h3>
+                     <div class="product-rating">
+                    <i class="fas fa-star"></i>
+                         <i class="fas fa-star"></i>
+                         <i class="fas fa-star"></i>
+                         <i class="fas fa-star"></i>
+                         <i class="fas fa-star-half-alt"></i>
+                         <span class="rating-count">(128)</span>
+                        </div>
+                     <p class="product-description">Professional screen mirroring software with ultra-low latency and 4K support. Perfect for presentations, gaming, and content creation.</p>
+                     <div class="product-price-container">
+                         <span class="product-price">$29.99</span>
+                         <span class="product-old-price">$49.99</span>
+                    </div>
+                     <button class="product-btn">Add to Cart</button>
+                </div>
+                </div>
+                
+            <!-- Product 2: Crown Phone Business -->
+            <div class="product-card fade-in" data-category="software" data-name="Crown Phone Business">
+                <div class="product-badge">New</div>
+                <div class="product-image-container">
+                    <img src="Front.png" alt="Crown Phone Business" class="product-image">
+                    <div class="product-actions">
+                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
+                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                        <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+            </div>
+                    </div>
+                <div class="product-content">
+                    <h3 class="product-name">Crown Phone Business</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(95)</span>
+                </div>
+                    <p class="product-description">Enterprise-grade screen mirroring solution with team management, analytics, and custom integrations for large organizations.</p>
+                     <div class="product-price-container">
+                         <span class="product-price">$99.99</span>
+                         <span class="product-old-price">$149.99</span>
+                     </div>
+                     <button class="product-btn">Add to Cart</button>
+                </div>
+                </div>
+                
+        
+                
+            <!-- Product 4: Wireless Adapter -->
+            <div class="product-card fade-in" data-category="hardware" data-name="Wireless Adapter">
+                <div class="product-badge bestseller">Best Seller</div>
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Wireless Adapter Pro" class="product-image">
+                    <div class="product-actions">
+                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
+                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                        <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Wireless Adapter Pro</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span class="rating-count">(87)</span>
+            </div>
+                    <p class="product-description">High-speed wireless adapter for seamless screen mirroring without cables. Supports up to 4K resolution with minimal latency.</p>
+                     <div class="product-price-container">
+                         <span class="product-price">$79.99</span>
+                         <span class="product-old-price">$99.99</span>
+                     </div>
+                     <button class="product-btn">Add to Cart</button>
+                </div>
+                </div>
+                
+            <!-- Product 5: Professional Subscription -->
+            <div class="product-card fade-in" data-category="subscription" data-name="Professional Subscription">
+                <div class="product-badge">Popular</div>
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Professional Subscription" class="product-image">
+                    <div class="product-actions">
+                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
+                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                        <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <h3 class="product-name">Professional Subscription</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span class="rating-count">(156)</span>
+                    </div>
+                    <p class="product-description">Monthly subscription with premium features, cloud storage, and priority support. Cancel anytime.</p>
+                    <div class="product-price-container">
+                        <span class="product-price">$19.99/mo</span>
+                    </div>
+                     <button class="product-btn">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Product 6: Premium Cable Set -->
+            <div class="product-card fade-in" data-category="accessories" data-name="Premium Cable Set">
+                <div class="product-image-container">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Premium Cable Set" class="product-image">
+                    <div class="product-actions">
+                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
+                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                        <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </div>
+                <div class="product-content">
+                    <h3 class="product-name">Premium Cable Set</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span class="rating-count">(73)</span>
+                        </div>
+                    <p class="product-description">High-quality USB-C to USB-C and USB-C to HDMI cables for reliable wired connections with superior durability.</p>
+                     <div class="product-price-container">
+                         <span class="product-price">$39.99</span>
+                         <span class="product-old-price">$59.99</span>
+                    </div>
+                     <button class="product-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html" style="text-decoration: none;">
+                    <h3 class="footer-logo-text"><img src="fevp.png" alt="CrownPhone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">CrownPhone</h3>
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Home<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="product-details.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Products<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="index.html#guide" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Guide<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="index.html#contact" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Contact<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="privacy-policy.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Privacy Policy<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="terms-of-service.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Terms of Service<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2025 CrownPhone. Professional Multi-Device Management Software.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content logout-modal-content">
+            <div class="modal-header">
+                <h3>Logout Confirmation</h3>
+                <button class="close-btn" onclick="closeModal('logout-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="logout-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <p>Are you sure you want to logout?</p>
+                <p class="logout-subtitle">You will be redirected to the home page.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal('logout-modal')">Cancel</button>
+                <button class="btn btn-primary logout-confirm-btn" onclick="confirmLogout()">Yes, Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product filtering and search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                filterProducts(searchTerm);
+            });
+
+            // Filter functionality
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    filterProducts('', filter);
+                });
+            });
+
+            function filterProducts(searchTerm = '', category = 'all') {
+                productCards.forEach(card => {
+                    const productName = card.getAttribute('data-name').toLowerCase();
+                    const productCategory = card.getAttribute('data-category');
+                    
+                    const matchesSearch = productName.includes(searchTerm);
+                    const matchesCategory = category === 'all' || productCategory === category;
+                    
+                    if (matchesSearch && matchesCategory) {
+                        card.style.display = 'block';
+                        card.classList.add('fade-in');
+                    } else {
+                        card.style.display = 'none';
+                        card.classList.remove('fade-in');
+                    }
+                });
+            }
+
+            // Add smooth scroll animation for product cards
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            productCards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+
+        // Product demo functionality
+        function showProductDemo(productId) {
+            // Create demo modal
+            const modal = document.createElement('div');
+            modal.className = 'demo-modal';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                backdrop-filter: blur(10px);
+            `;
+
+            modal.innerHTML = `
+                <div style="
+                    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+                    border-radius: 20px;
+                    padding: 2rem;
+                    max-width: 600px;
+                    width: 90%;
+                    border: 2px solid rgba(0, 212, 255, 0.3);
+                    position: relative;
+                ">
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        position: absolute;
+                        top: 1rem;
+                        right: 1rem;
+                        background: none;
+                        border: none;
+                        color: #00d4ff;
+                        font-size: 1.5rem;
+                        cursor: pointer;
+                    ">&times;</button>
+                    
+                    <h2 style="
+                        color: #00d4ff;
+                        margin-bottom: 1rem;
+                        text-align: center;
+                    ">Product Demo</h2>
+                    
+                    <div style="
+                        background: rgba(0, 0, 0, 0.3);
+                        border-radius: 10px;
+                        padding: 2rem;
+                        text-align: center;
+                        margin-bottom: 1rem;
+                    ">
+                        <div style="
+                            color: #00ff88;
+                            font-size: 3rem;
+                            margin-bottom: 1rem;
+                        "><i class="fas fa-play-circle"></i></div>
+                        <p style="color: white; margin-bottom: 1rem;">
+                            Experience ${productId} in action with our interactive demo.
+                        </p>
+                        <button style="
+                            background: linear-gradient(45deg, #00d4ff, #00ff88);
+                            border: none;
+                            padding: 1rem 2rem;
+                            border-radius: 8px;
+                            color: #1a1a2e;
+                            font-weight: 600;
+                            cursor: pointer;
+                            margin-right: 1rem;
+                        " onclick="startDemo('${productId}')">
+                            <i class="fas fa-play"></i> Start Demo
+                        </button>
+                        <button style="
+                            background: rgba(255, 255, 255, 0.1);
+                            border: 1px solid rgba(0, 212, 255, 0.3);
+                            padding: 1rem 2rem;
+                            border-radius: 8px;
+                            color: white;
+                            font-weight: 600;
+                            cursor: pointer;
+                        " onclick="this.parentElement.parentElement.parentElement.remove()">
+                            <i class="fas fa-times"></i> Close
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        function startDemo(productId) {
+            // Demo functionality would be implemented here
+            alert(`Starting demo for ${productId}. This would show an interactive demonstration of the product features.`);
+        }
+
+        // Add hover effects and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.product-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Modal functions
+        function showLogoutModal() {
+            document.getElementById('logout-modal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        async function confirmLogout() {
+            try {
+                // Sign out from Supabase
+                const { error } = await signOut();
+                
+                if (error) {
+                    console.error('Error signing out:', error.message);
+                    return;
+                }
+                
+                // Update UI to show logged out state
+                const navAuthButtons = document.getElementById('nav-auth-buttons');
+                const navProfile = document.getElementById('nav-profile');
+                const mobileProfileSection = document.getElementById('mobile-profile-section');
+                const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                
+                // Desktop UI updates
+                if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                if (navProfile) navProfile.style.display = 'none';
+                
+                // Mobile UI updates
+                if (mobileProfileSection) mobileProfileSection.style.setProperty('display', 'none', 'important');
+                if (mobileAuthButtons) mobileAuthButtons.style.setProperty('display', 'flex', 'important');
+                
+                // Close the modal
+                closeModal('logout-modal');
+                
+                // Close mobile menu if open
+                if (typeof closeMobileMenu === 'function') {
+                    closeMobileMenu();
+                }
+                
+                // Redirect to home page
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error during logout:', error);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const logoutModal = document.getElementById('logout-modal');
+            if (event.target === logoutModal) {
+                closeModal('logout-modal');
+            }
+        }
+
+        // Initialize logout button handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+            
+            // Set up mobile logout button
+            const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+            if (mobileLogoutBtn) {
+                mobileLogoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLogoutModal();
+                });
+            }
+
+            // Initialize authentication status
+            checkAuthStatus();
+            
+            // Add admin setup button for testing (remove in production)
+            addAdminSetupButton();
+        });
+
+        // Check authentication status and update UI
+        async function checkAuthStatus() {
+            try {
+                const user = await getCurrentUser();
+                const navAuthButtons = document.getElementById('nav-auth-buttons');
+                const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                const profileLink = document.getElementById('nav-profile-link');
+                const mobileProfileLink = document.getElementById('mobile-profile-link');
+                const adminLink = document.getElementById('nav-admin-link');
+                const mobileAdminLink = document.getElementById('mobile-admin-link');
+                
+                if (user) {
+                    // User is logged in
+                    if (navAuthButtons) navAuthButtons.style.display = 'none';
+                    if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+                    
+                    // Show profile links
+                    if (profileLink) profileLink.style.display = 'block';
+                    if (mobileProfileLink) mobileProfileLink.style.display = 'block';
+                    
+                    // Check if user is admin
+                    const { isAdmin, error: adminError } = await isUserAdmin();
+                    console.log('Admin check result:', { isAdmin, adminError, userId: user.id });
+                    
+                    if (isAdmin) {
+                        if (adminLink) adminLink.style.display = 'block';
+                        if (mobileAdminLink) mobileAdminLink.style.display = 'block';
+                        console.log('Admin links shown for user:', user.id);
+                    } else {
+                        if (adminLink) adminLink.style.display = 'none';
+                        if (mobileAdminLink) mobileAdminLink.style.display = 'none';
+                        console.log('Admin links hidden for user:', user.id);
+                    }
+                } else {
+                    // User is not logged in
+                    if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                    if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
+                    if (profileLink) profileLink.style.display = 'none';
+                    if (mobileProfileLink) mobileProfileLink.style.display = 'none';
+                    if (adminLink) adminLink.style.display = 'none';
+                    if (mobileAdminLink) mobileAdminLink.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error checking auth status:', error);
+                // Show auth buttons by default if there's an error
+                const navAuthButtons = document.getElementById('nav-auth-buttons');
+                const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
+            }
+        }
+
+        // Function to add admin setup button for testing
+        function addAdminSetupButton() {
+            // Only add if user is logged in and not already admin
+            setTimeout(async () => {
+                try {
+                    const user = await getCurrentUser();
+                    if (user) {
+                        const { isAdmin } = await isUserAdmin();
+                        if (!isAdmin) {
+                            // Create a temporary admin setup button
+                            const adminSetupBtn = document.createElement('button');
+                            adminSetupBtn.textContent = 'Make Me Admin (Testing)';
+                            adminSetupBtn.style.cssText = `
+                                position: fixed;
+                                top: 10px;
+                                right: 10px;
+                                z-index: 10000;
+                                background: linear-gradient(45deg, #8B0000, #ff0000);
+                                color: white;
+                                border: none;
+                                padding: 10px 15px;
+                                border-radius: 5px;
+                                font-size: 12px;
+                                cursor: pointer;
+                                box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+                            `;
+                            
+                            adminSetupBtn.onclick = async () => {
+                                try {
+                                    // Update user profile to set admin status
+                                    const { data, error } = await supabase
+                                        .from('profiles')
+                                        .update({ is_admin: true })
+                                        .eq('id', user.id);
+                                    
+                                    if (error) {
+                                        console.error('Error setting admin status:', error);
+                                        alert('Error setting admin status: ' + error.message);
+                                    } else {
+                                        console.log('Admin status set successfully');
+                                        alert('You are now an admin! Refresh the page to see admin links.');
+                                        adminSetupBtn.remove();
+                                    }
+                                } catch (error) {
+                                    console.error('Error:', error);
+                                    alert('Error: ' + error.message);
+                                }
+                            };
+                            
+                            document.body.appendChild(adminSetupBtn);
+                            
+                            // Remove button after 30 seconds
+                            setTimeout(() => {
+                                if (adminSetupBtn.parentNode) {
+                                    adminSetupBtn.remove();
+                                }
+                            }, 30000);
+                        }
+                    }
+                } catch (error) {
+                    console.log('Could not add admin setup button:', error);
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
