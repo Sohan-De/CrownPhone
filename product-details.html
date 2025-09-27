@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>CrownPhone Pro - Professional Screen Mirroring Software | CrownPhone</title>
+    <link rel="icon" type="image/png" href="fevp.png">
+    <link rel="apple-touch-icon" href="fevp.png">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./scripts/supabase.js"></script>
+    <script src="./scripts/script.js"></script>
+    <style>
+        /* Product Details Page Styles */
+        .product-details-container {
+            min-height: 100vh;
+            padding-top: 100px;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .product-details-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(139, 0, 0, 0.1) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-link {
+            color: #ff0000;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .breadcrumb-link:hover {
+            color: #ff4500;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+        }
+
+        .breadcrumb-separator {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Main Product Section */
+        .product-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Product Images Section */
+        .product-images {
+            position: sticky;
+            top: 120px;
+        }
+
+        .main-image-container {
+            position: relative;
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        .image-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 3;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .zoom-icon {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .zoom-icon:hover {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            transform: scale(1.1);
+        }
+
+        /* Thumbnail Images */
+        .thumbnail-images {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Product Info Section */
+        .product-info {
+            color: white;
+        }
+
+        .product-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .product-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        /* Rating Section */
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.2rem;
+            color: #FFD700;
+            font-size: 1.2rem;
+        }
+
+        .rating-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .reviews-link {
+            color: #ff0000;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .reviews-link:hover {
+            color: #ff4500;
+        }
+
+        /* Price Section */
+        .price-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(20, 20, 20, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .current-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ff0000;
+        }
+
+        .original-price {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+        }
+
+        .price-details {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            transform: translateY(-2px);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-action {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .quick-action:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            transform: translateY(-2px);
+        }
+
+        .quick-action i {
+            font-size: 1.5rem;
+            color: #ff0000;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .quick-action span {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Product Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            border-color: rgba(255, 0, 0, 0.3);
+            background: rgba(20, 20, 20, 0.7);
+        }
+
+        .feature-icon {
+            color: #ff0000;
+            font-size: 1.2rem;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Tabs Section */
+        .product-tabs {
+            margin-top: 4rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .tab-button {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-button.active,
+        .tab-button:hover {
+            color: #ff0000;
+            border-bottom-color: #ff0000;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            background: rgba(20, 20, 20, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Specifications Table */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .specs-table td {
+            padding: 1rem;
+            vertical-align: top;
+        }
+
+        .specs-table td:first-child {
+            font-weight: 600;
+            color: #ff0000;
+            width: 30%;
+        }
+
+        .specs-table td:last-child {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Reviews Section */
+        .reviews-container {
+            margin-top: 2rem;
+        }
+
+        .review-item {
+            background: rgba(20, 20, 20, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: white;
+        }
+
+        .review-date {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Related Products */
+        .related-products {
+            margin-top: 6rem;
+            padding: 4rem 0;
+            background: rgba(10, 10, 10, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .related-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .related-card {
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .related-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.2);
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .related-content {
+            padding: 1.5rem;
+        }
+
+        .related-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ff0000;
+            margin-bottom: 1rem;
+        }
+
+        .related-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .related-btn:hover {
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Image Zoom Modal */
+        .zoom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+        }
+
+        .zoom-modal.active {
+            display: flex;
+        }
+
+        .zoom-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .zoom-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-zoom {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-zoom:hover {
+            color: #ff0000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-images {
+                position: static;
+            }
+
+            .product-title {
+                font-size: 2.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-main {
+                padding: 0 1rem 2rem;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .main-image-container {
+                padding: 1rem;
+            }
+
+            .main-image {
+                height: 300px;
+            }
+
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+
+            .tab-button {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-skeleton {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Navbar Styling Override */
+        .navbar {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.95) 50%, rgba(17, 17, 17, 0.95) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .logo-text {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) !important;
+        }
+
+        .nav-link::after {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            height: 2.5px !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.4) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar-component">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html" style="text-decoration: none;">
+                    <h2 class="logo-text"><img src="fevp.png" alt="CrownPhone" style="height:24px;width:24px;vertical-align:middle;margin-right:8px;">CrownPhone</h2>
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation Links -->
+            <div class="desktop-nav-links" style="display: flex; justify-content: center; flex: 1; gap: 30px; margin: 0 20px;">
+                <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+            </div>
+            
+            <div class="nav-links" id="nav-links" style="display: none;">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-title">Menu</h3>
+                </div>
+                <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+                
+                <!-- Mobile Auth Buttons -->
+                <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Right side navigation items -->
+            <div class="nav-right" style="display: flex; align-items: center;">
+                <!-- Profile Link (shown when logged in) -->
+                <a href="profile.html" class="nav-link profile-link" id="nav-profile-link" style="font-weight: 500; display: none; margin-right: 15px;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i></a>
+                
+                <!-- Shopping Cart Link -->
+                <a href="#" class="nav-link cart-link" id="nav-cart-link" style="font-weight: 500; margin-right: 15px; position: relative;" title="Shopping Cart" onclick="showCart()">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
+                    <span class="cart-counter" id="cart-counter" style="position: absolute; top: -8px; right: -8px; background: linear-gradient(45deg, #8B0000, #ff0000); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; display: none;">0</span>
+                </a>
+                
+                <!-- Admin Dashboard Link (shown only when logged in as admin) -->
+                <a href="admin-dashboard.html" class="nav-link admin-link" id="nav-admin-link" style="font-weight: 500; display: none; margin-right: 15px;" title="Admin Dashboard"><i class="fas fa-shield-alt" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i></a>
+                
+                <!-- Desktop Auth Buttons (shown when not logged in) -->
+                <div class="nav-auth" id="nav-auth-buttons">
+                    <a href="sign-in.html" class="nav-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="nav-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Details Container -->
+    <div class="product-details-container">
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb">
+            <nav class="breadcrumb-nav">
+                <a href="index.html" class="breadcrumb-link">Home</a>
+                <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                <a href="product-list.html" class="breadcrumb-link">Products</a>
+                <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                <span>CrownPhone Pro</span>
+            </nav>
+        </div>
+
+        <!-- Main Product Section -->
+        <div class="product-main">
+            <div class="product-grid">
+                <!-- Product Images -->
+                <div class="product-images">
+                    <div class="main-image-container">
+                        <div class="image-badge">Featured</div>
+                        <img src="Front.png" alt="CrownPhone Pro" class="main-image" id="mainImage">
+                        <button class="zoom-icon" onclick="openZoom()">
+                            <i class="fas fa-search-plus"></i>
+                        </button>
+                    </div>
+                    <div class="thumbnail-images">
+                        <img src="Front.png" alt="Front View" class="thumbnail active" onclick="changeImage(this, 'Front.png')">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Side View" class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Interface" class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dashboard" class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">
+                    </div>
+                </div>
+
+                <!-- Product Information -->
+                <div class="product-info">
+                    <h1 class="product-title">CrownPhone Pro</h1>
+                    <p class="product-subtitle">Professional Screen Mirroring Software with Ultra-Low Latency and 4K Support</p>
+
+                    <!-- Rating Section -->
+                    <div class="rating-section">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.8 out of 5</span>
+                        <a href="#reviews" class="reviews-link">(128 reviews)</a>
+                    </div>
+
+                    <!-- Price Section -->
+                    <div class="price-section">
+                        <div class="price-container">
+                            <span class="current-price">$29.99</span>
+                            <span class="original-price">$49.99</span>
+                            <span class="discount-badge">40% OFF</span>
+                        </div>
+                        <p class="price-details">One-time purchase • Lifetime license • Free updates</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="addToCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                        <button class="btn-secondary" onclick="buyNow()">
+                            <i class="fas fa-bolt"></i>
+                            Buy Now
+                        </button>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <div class="quick-action" onclick="showDemo()">
+                            <i class="fas fa-play"></i>
+                            <span>Live Demo</span>
+                        </div>
+                        <div class="quick-action" onclick="downloadTrial()">
+                            <i class="fas fa-download"></i>
+                            <span>Free Trial</span>
+                        </div>
+                        <div class="quick-action" onclick="addToWishlist()">
+                            <i class="fas fa-heart"></i>
+                            <span>Wishlist</span>
+                        </div>
+                        <div class="quick-action" onclick="shareProduct()">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </div>
+                    </div>
+
+                    <!-- Key Features -->
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <i class="fas fa-tachometer-alt feature-icon"></i>
+                            <span class="feature-text">Ultra-Low Latency (&lt;10ms)</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-tv feature-icon"></i>
+                            <span class="feature-text">4K Resolution Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-gamepad feature-icon"></i>
+                            <span class="feature-text">Gaming Optimized</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-record-vinyl feature-icon"></i>
+                            <span class="feature-text">Screen Recording</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <span class="feature-text">Secure Connection</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-headset feature-icon"></i>
+                            <span class="feature-text">24/7 Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="showTab('description')">Description</button>
+                    <button class="tab-button" onclick="showTab('specifications')">Specifications</button>
+                    <button class="tab-button" onclick="showTab('reviews')">Reviews</button>
+                    <button class="tab-button" onclick="showTab('support')">Support</button>
+                </div>
+
+                <!-- Description Tab -->
+                <div id="description" class="tab-content active">
+                    <h3>Product Description</h3>
+                    <p>CrownPhone Pro is the ultimate professional screen mirroring software designed for creators, presenters, and professionals who demand the highest quality and performance. With ultra-low latency technology and 4K resolution support, you can mirror your Android device to your PC with unprecedented clarity and responsiveness.</p>
+                    
+                    <h4>Key Benefits:</h4>
+                    <ul>
+                        <li><strong>Professional Quality:</strong> Experience crystal-clear 4K mirroring with HDR support for the most demanding applications.</li>
+                        <li><strong>Zero Input Lag:</strong> Our proprietary technology ensures sub-10ms latency for real-time interaction and gaming.</li>
+                        <li><strong>Universal Compatibility:</strong> Works with all Android devices and Windows PCs with seamless plug-and-play setup.</li>
+                        <li><strong>Advanced Features:</strong> Built-in screen recording, live streaming capabilities, and custom branding options.</li>
+                        <li><strong>Enterprise Ready:</strong> Secure connections, team management, and analytics dashboard included.</li>
+                    </ul>
+
+                    <h4>Perfect For:</h4>
+                    <ul>
+                        <li>Content creators and streamers</li>
+                        <li>Business presentations and demos</li>
+                        <li>Mobile gaming and esports</li>
+                        <li>Educational institutions</li>
+                        <li>App developers and testers</li>
+                    </ul>
+                </div>
+
+                <!-- Specifications Tab -->
+                <div id="specifications" class="tab-content">
+                    <h3>Technical Specifications</h3>
+                    <table class="specs-table">
+                        <tr>
+                            <td>System Requirements</td>
+                            <td>Windows 10/11, Android 5.0+</td>
+                        </tr>
+                        <tr>
+                            <td>Maximum Resolution</td>
+                            <td>4K (3840×2160) @ 60fps</td>
+                        </tr>
+                        <tr>
+                            <td>Latency</td>
+                            <td>Sub-10ms (USB), &lt;20ms (WiFi)</td>
+                        </tr>
+                        <tr>
+                            <td>Connection Types</td>
+                            <td>USB-C, USB 2.0/3.0, WiFi 5/6</td>
+                        </tr>
+                        <tr>
+                            <td>Audio Support</td>
+                            <td>High-fidelity stereo, 5.1 surround</td>
+                        </tr>
+                        <tr>
+                            <td>Recording Formats</td>
+                            <td>MP4, AVI, MOV (H.264/H.265)</td>
+                        </tr>
+                        <tr>
+                            <td>Streaming Support</td>
+                            <td>YouTube, Twitch, Facebook Live</td>
+                        </tr>
+                        <tr>
+                            <td>Device Support</td>
+                            <td>Unlimited simultaneous connections</td>
+                        </tr>
+                        <tr>
+                            <td>License Type</td>
+                            <td>Lifetime license with free updates</td>
+                        </tr>
+                        <tr>
+                            <td>Support</td>
+                            <td>24/7 priority email and chat support</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Reviews Tab -->
+                <div id="reviews" class="tab-content">
+                    <h3>Customer Reviews</h3>
+                    <div class="reviews-container">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">JD</div>
+                                    <div>
+                                        <div class="reviewer-name">John Developer</div>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-date">2 days ago</div>
+                            </div>
+                            <p class="review-text">Absolutely amazing software! The latency is so low I can actually play mobile games on my PC without any lag. The 4K quality is stunning and the setup was incredibly easy. Worth every penny!</p>
+                        </div>
+
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">SM</div>
+                                    <div>
+                                        <div class="reviewer-name">Sarah Marketing</div>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-date">1 week ago</div>
+                            </div>
+                            <p class="review-text">Perfect for business presentations! I can now demo our mobile app to clients on the big screen with perfect quality. The recording feature is a bonus for creating training materials.</p>
+                        </div>
+
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <div class="reviewer-avatar">MG</div>
+                                    <div>
+                                        <div class="reviewer-name">Mike Gamer</div>
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="review-date">2 weeks ago</div>
+                            </div>
+                            <p class="review-text">Great for streaming mobile games! The quality is excellent and my viewers love the crisp display. Only minor issue is occasional WiFi hiccups, but USB connection is rock solid.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Tab -->
+                <div id="support" class="tab-content">
+                    <h3>Support & Resources</h3>
+                    <div class="support-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        <div class="support-item" style="background: rgba(20, 20, 20, 0.5); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.2);">
+                            <h4 style="color: #ff0000; margin-bottom: 1rem;"><i class="fas fa-book"></i> Documentation</h4>
+                            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Comprehensive guides and tutorials to get you started quickly.</p>
+                            <a href="#" class="support-link" style="color: #ff0000; text-decoration: none;">View Documentation →</a>
+                        </div>
+                        
+                        <div class="support-item" style="background: rgba(20, 20, 20, 0.5); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.2);">
+                            <h4 style="color: #ff0000; margin-bottom: 1rem;"><i class="fas fa-video"></i> Video Tutorials</h4>
+                            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Step-by-step video guides for all features and use cases.</p>
+                            <a href="#" class="support-link" style="color: #ff0000; text-decoration: none;">Watch Tutorials →</a>
+                        </div>
+                        
+                        <div class="support-item" style="background: rgba(20, 20, 20, 0.5); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.2);">
+                            <h4 style="color: #ff0000; margin-bottom: 1rem;"><i class="fas fa-headset"></i> Live Support</h4>
+                            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">24/7 priority support via email and live chat for Pro users.</p>
+                            <a href="#" class="support-link" style="color: #ff0000; text-decoration: none;">Contact Support →</a>
+                        </div>
+                        
+                        <div class="support-item" style="background: rgba(20, 20, 20, 0.5); padding: 2rem; border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.2);">
+                            <h4 style="color: #ff0000; margin-bottom: 1rem;"><i class="fas fa-users"></i> Community</h4>
+                            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Join our community forum to share tips and get help from other users.</p>
+                            <a href="#" class="support-link" style="color: #ff0000; text-decoration: none;">Join Community →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="related-products">
+                <h2 class="related-title">You Might Also Like</h2>
+                <div class="related-grid">
+                    <div class="related-card">
+                        <img src="Front.png" alt="CrownPhone Business" class="related-image">
+                        <div class="related-content">
+                            <h3 class="related-name">CrownPhone Business</h3>
+                            <p class="related-price">$99.99</p>
+                            <button class="related-btn" onclick="viewProduct('business')">View Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="related-card">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wireless Adapter Pro" class="related-image">
+                        <div class="related-content">
+                            <h3 class="related-name">Wireless Adapter Pro</h3>
+                            <p class="related-price">$79.99</p>
+                            <button class="related-btn" onclick="viewProduct('adapter')">View Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="related-card">
+                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Premium Cable Set" class="related-image">
+                        <div class="related-content">
+                            <h3 class="related-name">Premium Cable Set</h3>
+                            <p class="related-price">$39.99</p>
+                            <button class="related-btn" onclick="viewProduct('cables')">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div class="zoom-modal" id="zoomModal">
+        <div class="zoom-content">
+            <button class="close-zoom" onclick="closeZoom()">&times;</button>
+            <img src="" alt="Zoomed Image" class="zoom-image" id="zoomImage">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="index.html" style="text-decoration: none;">
+                        <h3 class="footer-logo-text"><img src="fevp.png" alt="CrownPhone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">CrownPhone</h3>
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Home<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="product-list.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Products<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="index.html#guide" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Guide<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="index.html#contact" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Contact<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="privacy-policy.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Privacy Policy<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="terms-of-service.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Terms of Service<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2025 CrownPhone. Professional Multi-Device Management Software.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Product Details Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProductDetails();
+            checkAuthStatus();
+            loadProductData();
+        });
+
+        function initializeProductDetails() {
+            // Initialize any animations or interactions
+            console.log('Product details page loaded');
+        }
+
+        // Load product data based on URL parameter
+        function loadProductData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id') || 'crownphone-pro';
+            
+            // Product data mapping
+            const products = {
+                'crownphone-pro': {
+                    title: 'CrownPhone Pro',
+                    subtitle: 'Professional Screen Mirroring Software with Ultra-Low Latency and 4K Support',
+                    price: 29.99,
+                    originalPrice: 49.99,
+                    discount: 40,
+                    image: 'Front.png',
+                    badge: 'Featured',
+                    rating: 4.8,
+                    reviews: 128,
+                    features: [
+                        'Ultra-Low Latency (<10ms)',
+                        '4K Resolution Support',
+                        'Gaming Optimized',
+                        'Screen Recording',
+                        'Secure Connection',
+                        '24/7 Support'
+                    ]
+                },
+                'crownphone-business': {
+                    title: 'CrownPhone Business',
+                    subtitle: 'Enterprise-grade screen mirroring solution with team management and analytics',
+                    price: 99.99,
+                    originalPrice: 149.99,
+                    discount: 33,
+                    image: 'Front.png',
+                    badge: 'Enterprise',
+                    rating: 4.9,
+                    reviews: 95,
+                    features: [
+                        'Team Management',
+                        'Analytics Dashboard',
+                        'Custom Integrations',
+                        'Priority Support',
+                        'Multi-device Support',
+                        'Advanced Security'
+                    ]
+                },
+                'wireless-adapter': {
+                    title: 'Wireless Adapter Pro',
+                    subtitle: 'High-speed wireless adapter for seamless screen mirroring without cables',
+                    price: 79.99,
+                    originalPrice: 99.99,
+                    discount: 20,
+                    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    badge: 'Best Seller',
+                    rating: 4.7,
+                    reviews: 87,
+                    features: [
+                        'Wireless Connection',
+                        '4K Resolution',
+                        'Minimal Latency',
+                        'Plug & Play',
+                        'Universal Compatibility',
+                        'Long Range'
+                    ]
+                },
+                'professional-subscription': {
+                    title: 'Professional Subscription',
+                    subtitle: 'Monthly subscription with premium features and cloud storage',
+                    price: 19.99,
+                    originalPrice: null,
+                    discount: 0,
+                    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    badge: 'Popular',
+                    rating: 4.6,
+                    reviews: 156,
+                    features: [
+                        'Cloud Storage',
+                        'Priority Support',
+                        'Advanced Features',
+                        'Regular Updates',
+                        'Cancel Anytime',
+                        'Multi-platform Access'
+                    ]
+                },
+                'premium-cables': {
+                    title: 'Premium Cable Set',
+                    subtitle: 'High-quality USB-C and HDMI cables for reliable wired connections',
+                    price: 39.99,
+                    originalPrice: 59.99,
+                    discount: 33,
+                    image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                    badge: 'Premium',
+                    rating: 4.4,
+                    reviews: 73,
+                    features: [
+                        'USB-C to USB-C',
+                        'USB-C to HDMI',
+                        'Superior Durability',
+                        'Fast Data Transfer',
+                        'Gold-plated Connectors',
+                        'Lifetime Warranty'
+                    ]
+                }
+            };
+
+            const product = products[productId] || products['crownphone-pro'];
+            
+            // Update page content
+            updateProductInfo(product);
+            updateImages(product);
+            updateBreadcrumb(product);
+        }
+
+        function updateProductInfo(product) {
+            // Update title and subtitle
+            document.querySelector('.product-title').textContent = product.title;
+            document.querySelector('.product-subtitle').textContent = product.subtitle;
+            
+            // Update rating
+            const stars = document.querySelectorAll('.rating-section .stars i');
+            const ratingValue = Math.floor(product.rating);
+            const hasHalfStar = product.rating % 1 >= 0.5;
+            
+            stars.forEach((star, index) => {
+                if (index < ratingValue) {
+                    star.className = 'fas fa-star';
+                } else if (index === ratingValue && hasHalfStar) {
+                    star.className = 'fas fa-star-half-alt';
+                } else {
+                    star.className = 'far fa-star';
+                }
+            });
+            
+            // Update rating text
+            document.querySelector('.rating-text').textContent = `${product.rating} out of 5`;
+            document.querySelector('.reviews-link').textContent = `(${product.reviews} reviews)`;
+            
+            // Update pricing
+            document.querySelector('.current-price').textContent = `$${product.price}`;
+            if (product.originalPrice) {
+                document.querySelector('.original-price').textContent = `$${product.originalPrice}`;
+                document.querySelector('.discount-badge').textContent = `${product.discount}% OFF`;
+                document.querySelector('.price-details').textContent = 'One-time purchase • Lifetime license • Free updates';
+            } else {
+                document.querySelector('.original-price').style.display = 'none';
+                document.querySelector('.discount-badge').style.display = 'none';
+                document.querySelector('.price-details').textContent = 'Monthly subscription • Cancel anytime • Free updates';
+            }
+            
+            // Update features
+            const featuresGrid = document.querySelector('.features-grid');
+            featuresGrid.innerHTML = '';
+            product.features.forEach(feature => {
+                const featureItem = document.createElement('div');
+                featureItem.className = 'feature-item';
+                featureItem.innerHTML = `
+                    <i class="fas fa-check feature-icon"></i>
+                    <span class="feature-text">${feature}</span>
+                `;
+                featuresGrid.appendChild(featureItem);
+            });
+            
+            // Update page title
+            document.title = `${product.title} | CrownPhone`;
+        }
+
+        function updateImages(product) {
+            // Update main image
+            document.getElementById('mainImage').src = product.image;
+            
+            // Update thumbnails (keep first one as main image)
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails[0].src = product.image;
+            thumbnails[0].classList.add('active');
+            
+            // Update badge
+            document.querySelector('.image-badge').textContent = product.badge;
+        }
+
+        function updateBreadcrumb(product) {
+            const breadcrumbNav = document.querySelector('.breadcrumb-nav');
+            breadcrumbNav.innerHTML = `
+                <a href="index.html" class="breadcrumb-link">Home</a>
+                <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                <a href="product-list.html" class="breadcrumb-link">Products</a>
+                <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                <span>${product.title}</span>
+            `;
+        }
+
+        // Image Gallery Functions
+        function changeImage(thumbnail, imageSrc) {
+            const mainImage = document.getElementById('mainImage');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            // Update main image
+            mainImage.src = imageSrc;
+            
+            // Update active thumbnail
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            thumbnail.classList.add('active');
+        }
+
+        function openZoom() {
+            const mainImage = document.getElementById('mainImage');
+            const zoomModal = document.getElementById('zoomModal');
+            const zoomImage = document.getElementById('zoomImage');
+            
+            zoomImage.src = mainImage.src;
+            zoomModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeZoom() {
+            const zoomModal = document.getElementById('zoomModal');
+            zoomModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Tab Functions
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            // Hide all tabs
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Product Action Functions
+        function addToCart() {
+            // Simulate adding to cart
+            showNotification('Product added to cart!', 'success');
+            
+            // In a real application, you would:
+            // 1. Add the product to the cart in localStorage or send to server
+            // 2. Update cart counter in navigation
+            // 3. Show cart sidebar or redirect to cart page
+        }
+
+        function buyNow() {
+            // Redirect to checkout with this product
+            const productData = {
+                id: 'crownphone-pro',
+                name: 'CrownPhone Pro',
+                price: 29.99,
+                quantity: 1
+            };
+            
+            // Store product data and redirect to checkout
+            localStorage.setItem('checkoutProduct', JSON.stringify(productData));
+            window.location.href = 'checkout.html?package=pro';
+        }
+
+        function showDemo() {
+            // Show demo modal or redirect to demo page
+            showNotification('Demo feature coming soon!', 'info');
+        }
+
+        function downloadTrial() {
+            // Redirect to trial download
+            window.open('https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view', '_blank');
+        }
+
+        function addToWishlist() {
+            // Add to wishlist
+            showNotification('Added to wishlist!', 'success');
+        }
+
+        function shareProduct() {
+            // Share product
+            if (navigator.share) {
+                navigator.share({
+                    title: 'CrownPhone Pro - Professional Screen Mirroring Software',
+                    text: 'Check out this amazing screen mirroring software!',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard
+                navigator.clipboard.writeText(window.location.href);
+                showNotification('Product link copied to clipboard!', 'success');
+            }
+        }
+
+        function viewProduct(productId) {
+            // Navigate to other product details
+            window.location.href = `product-details.html?id=${productId}`;
+        }
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(45deg, #00ff88, #00d4ff)' : 
+                             type === 'error' ? 'linear-gradient(45deg, #ff0000, #ff4500)' : 
+                             'linear-gradient(45deg, #8B0000, #ff0000)'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                z-index: 10000;
+                font-weight: 600;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Close zoom modal when clicking outside
+        document.getElementById('zoomModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeZoom();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeZoom();
+            }
+        });
+
+        // Authentication status check
+        async function checkAuthStatus() {
+            try {
+                if (typeof getCurrentUser === 'function') {
+                    const { user } = await getCurrentUser();
+                    const navAuthButtons = document.getElementById('nav-auth-buttons');
+                    const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                    const profileLink = document.getElementById('nav-profile-link');
+                    const adminLink = document.getElementById('nav-admin-link');
+                    
+                    if (user) {
+                        // User is logged in
+                        if (navAuthButtons) navAuthButtons.style.display = 'none';
+                        if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+                        if (profileLink) profileLink.style.display = 'block';
+                        
+                        // Check if user is admin
+                        if (typeof isUserAdmin === 'function') {
+                            const { isAdmin } = await isUserAdmin();
+                            if (adminLink) {
+                                adminLink.style.display = isAdmin ? 'block' : 'none';
+                            }
+                        }
+                    } else {
+                        // User is not logged in
+                        if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                        if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
+                        if (profileLink) profileLink.style.display = 'none';
+                        if (adminLink) adminLink.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.log('Auth check not available:', error);
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Product page analytics (placeholder)
+        function trackProductView() {
+            // In a real application, you would track product views here
+            console.log('Product view tracked: CrownPhone Pro');
+        }
+
+        // Initialize product tracking
+        trackProductView();
+
+        // Shopping Cart Functions
+        function showCart() {
+            // Get cart from localStorage
+            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+            
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Create cart modal
+            const modal = document.createElement('div');
+            modal.className = 'cart-modal-overlay';
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(10px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+            
+            modal.innerHTML = `
+                <div class="cart-modal-content" style="
+                    background: linear-gradient(145deg, #1a1a2e, #16213e);
+                    border-radius: 20px;
+                    padding: 2rem;
+                    max-width: 500px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                    position: relative;
+                ">
+                    <div class="cart-modal-header" style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 20px;
+                        padding-bottom: 15px;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    ">
+                        <h3 style="
+                            background: linear-gradient(45deg, #8B0000, #ff0000);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                            margin: 0;
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                        ">Shopping Cart</h3>
+                        <button class="close-cart-btn" onclick="closeCart()" style="
+                            background: none;
+                            border: none;
+                            color: #ccc;
+                            font-size: 24px;
+                            cursor: pointer;
+                            padding: 5px;
+                            border-radius: 50%;
+                            transition: all 0.3s ease;
+                        ">&times;</button>
+                    </div>
+                    <div class="cart-items" id="cart-items">
+                        ${cart.map((item, index) => `
+                            <div class="cart-item" style="
+                                display: flex;
+                                align-items: center;
+                                padding: 1rem;
+                                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                                gap: 1rem;
+                            ">
+                                <div class="item-info" style="flex: 1;">
+                                    <h4 style="color: white; margin: 0 0 0.5rem 0; font-size: 1rem;">${getProductName(item.id)}</h4>
+                                    <p style="color: #ccc; margin: 0; font-size: 0.9rem;">$${item.price} × ${item.quantity}</p>
+                                </div>
+                                <div class="item-total" style="color: white; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</div>
+                                <button onclick="removeFromCart(${index})" style="
+                                    background: linear-gradient(45deg, #8B0000, #ff0000);
+                                    border: none;
+                                    color: white;
+                                    padding: 0.5rem;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    font-size: 0.8rem;
+                                ">Remove</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="cart-footer" style="
+                        margin-top: 20px;
+                        padding-top: 15px;
+                        border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    ">
+                        <div class="cart-total" style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 20px;
+                            font-size: 1.2rem;
+                            font-weight: 700;
+                            color: white;
+                        ">
+                            <span>Total:</span>
+                            <span>$${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</span>
+                        </div>
+                        <button onclick="proceedToCheckout()" style="
+                            width: 100%;
+                            padding: 12px;
+                            background: linear-gradient(45deg, #8B0000, #ff0000);
+                            border: none;
+                            border-radius: 8px;
+                            color: white;
+                            font-weight: 600;
+                            font-size: 1rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                        ">Proceed to Checkout</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function closeCart() {
+            const modal = document.querySelector('.cart-modal-overlay');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+            cart.splice(index, 1);
+            localStorage.setItem('crownphone_cart', JSON.stringify(cart));
+            
+            // Update cart counter
+            updateCartCounter();
+            
+            // Refresh cart modal
+            closeCart();
+            showCart();
+        }
+
+        function proceedToCheckout() {
+            // Navigate to checkout page
+            window.location.href = 'checkout.html';
+        }
+
+        function getProductName(productId) {
+            const productNames = {
+                'crownphone-pro': 'CrownPhone Pro',
+                'crownphone-business': 'CrownPhone Business',
+                'wireless-adapter': 'Wireless Adapter Pro',
+                'professional-subscription': 'Professional Subscription',
+                'premium-cables': 'Premium Cable Set'
+            };
+            return productNames[productId] || 'Unknown Product';
+        }
+
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCounter = document.getElementById('cart-counter');
+            
+            if (cartCounter) {
+                cartCounter.textContent = totalItems;
+                cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
+
+        // Initialize cart counter on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCounter();
+        });
+    </script>
+</body>
+</html>
