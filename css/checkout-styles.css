@@ -16,7 +16,7 @@
     position: absolute;
     width: 4px;
     height: 4px;
-    background: #00d4ff;
+    background: #ff0000;
     border-radius: 50%;
     animation: twinkle 2s ease-in-out infinite;
 }
@@ -55,7 +55,7 @@
 
 .star-bg {
     position: absolute;
-    color: #00d4ff;
+    color: #ff0000;
     font-size: 1.5rem;
     animation: twinkle 3s ease-in-out infinite;
 }
@@ -91,7 +91,7 @@
 
 .shape {
     position: absolute;
-    background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+    background: linear-gradient(45deg, rgba(255, 0, 0, 0.1), rgba(139, 0, 0, 0.1));
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
 }
@@ -180,7 +180,7 @@
     font-weight: 800;
     margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -231,7 +231,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     border-radius: 24px;
     z-index: -1;
     padding: 1px;
@@ -248,7 +248,7 @@
     margin-bottom: 32px;
     padding-bottom: 20px;
     border-bottom: 1px solid;
-    border-image: linear-gradient(45deg, #00d4ff, #00ff88) 1;
+    border-image: linear-gradient(45deg, #ff0000, #8B0000) 1;
 }
 
 .summary-title {
@@ -257,7 +257,7 @@
     font-weight: 700;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -266,8 +266,8 @@
 
 /* Package Card */
 .package-card {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%);
+    border: 1px solid rgba(255, 0, 0, 0.2);
     border-radius: 20px;
     padding: 24px;
     margin-bottom: 32px;
@@ -282,23 +282,9 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
 }
 
-.package-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
-    color: #1a1a2e;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-family: 'Poppins', sans-serif;
-}
 
 .package-info h3 {
     color: #fff;
@@ -323,12 +309,12 @@
 }
 
 .price-amount {
-    color: #00d4ff;
+    color: #ff0000;
     font-size: 36px;
     font-weight: 800;
     display: inline;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -352,7 +338,7 @@
     font-weight: 600;
     margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -373,7 +359,7 @@
 }
 
 .feature-icon {
-    color: #00ff88;
+    color: #8B0000;
     font-weight: bold;
     font-size: 16px;
 }
@@ -381,7 +367,7 @@
 /* Total Section */
 .total-section {
     border-top: 1px solid;
-    border-image: linear-gradient(45deg, #00d4ff, #00ff88) 1;
+    border-image: linear-gradient(45deg, #ff0000, #8B0000) 1;
     padding-top: 20px;
 }
 
@@ -399,9 +385,9 @@
     font-size: 20px;
     font-weight: 700;
     border-top: 1px solid;
-    border-image: linear-gradient(45deg, #00d4ff, #00ff88) 1;
+    border-image: linear-gradient(45deg, #ff0000, #8B0000) 1;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -428,7 +414,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #8B0000, #ff0000);
     border-radius: 24px;
     z-index: -1;
     padding: 1px;
@@ -445,7 +431,7 @@
     margin-bottom: 32px;
     padding-bottom: 20px;
     border-bottom: 1px solid;
-    border-image: linear-gradient(45deg, #00d4ff, #00ff88) 1;
+    border-image: linear-gradient(45deg, #ff0000, #8B0000) 1;
 }
 
 .form-title {
@@ -454,7 +440,7 @@
     font-weight: 700;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -470,7 +456,7 @@
     position: absolute;
     top: -10px;
     left: 15px;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -504,8 +490,8 @@
 }
 
 .card-element:focus-within {
-    border-color: rgba(0, 212, 255, 0.5);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    border-color: rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 .card-errors {
@@ -547,8 +533,8 @@
 
 .fallback-input:focus {
     outline: none;
-    border-color: rgba(0, 212, 255, 0.5);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    border-color: rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 .fallback-note {
@@ -569,7 +555,7 @@
     font-weight: 600;
     margin-bottom: 24px;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -604,8 +590,8 @@
 
 .form-input:focus {
     outline: none;
-    border-color: rgba(0, 212, 255, 0.5);
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    border-color: rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 /* Terms and Conditions */
@@ -640,8 +626,8 @@
 }
 
 .checkbox-container input[type="checkbox"]:checked + .checkmark {
-    background: #00d4ff;
-    border-color: #00d4ff;
+    background: #ff0000;
+    border-color: #ff0000;
 }
 
 .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
@@ -660,7 +646,7 @@
 }
 
 .terms-link {
-    color: #00d4ff;
+    color: #ff0000;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -689,9 +675,9 @@
     flex-shrink: 0;
     height: 44px;
     box-sizing: border-box;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     color: #1a1a2e;
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin: 0 auto 24px auto;
@@ -699,8 +685,8 @@
 
 .checkout-btn:hover:not(:disabled) {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0, 212, 255, 0.6);
-    background: linear-gradient(45deg, #00ff88, #00d4ff);
+    box-shadow: 0 12px 35px rgba(255, 0, 0, 0.6);
+    background: linear-gradient(45deg, #8B0000, #ff0000);
 }
 
 .checkout-btn:disabled {
@@ -742,15 +728,15 @@
     align-items: flex-start;
     gap: 16px;
     padding: 20px;
-    background: rgba(0, 212, 255, 0.08);
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: rgba(255, 0, 0, 0.08);
+    border: 1px solid rgba(255, 0, 0, 0.2);
     border-radius: 16px;
 }
 
 .security-icon {
     font-size: 24px;
     margin-top: 2px;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -758,12 +744,12 @@
 }
 
 .security-text h4 {
-    color: #00d4ff;
+    color: #ff0000;
     font-size: 16px;
     font-weight: 600;
     margin: 0 0 8px 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -801,7 +787,7 @@
     width: 80px;
     height: 80px;
     border: 6px solid rgba(255, 255, 255, 0.2);
-    border-top: 6px solid #00d4ff;
+    border-top: 6px solid #ff0000;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 24px;
@@ -851,7 +837,7 @@
     font-weight: 700;
     margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -885,18 +871,18 @@
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     color: #1a1a2e;
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0, 212, 255, 0.6);
-    background: linear-gradient(45deg, #00ff88, #00d4ff);
+    box-shadow: 0 12px 35px rgba(255, 0, 0, 0.6);
+    background: linear-gradient(45deg, #8B0000, #ff0000);
 }
 
 .btn-secondary {
@@ -1148,7 +1134,7 @@
     margin-bottom: 2rem;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.1);
     border-radius: 20px;
     padding: 2rem;
     position: relative;
@@ -1162,7 +1148,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 136, 0.05));
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.05), rgba(139, 0, 0, 0.05));
     border-radius: 20px;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -1224,17 +1210,17 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(139, 0, 0, 0.1));
     border-radius: 16px;
     opacity: 0;
     transition: opacity 0.4s ease;
 }
 
 .payment-method-option input[type="radio"]:checked + .payment-method-card {
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.1);
+    border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
     box-shadow: 
-        0 0 30px rgba(0, 212, 255, 0.3),
+        0 0 30px rgba(255, 0, 0, 0.3),
         8px 8px 16px rgba(0, 0, 0, 0.2),
         -8px -8px 16px rgba(255, 255, 255, 0.05);
     transform: translateY(-3px);
@@ -1245,11 +1231,11 @@
 }
 
 .payment-method-card:hover {
-    border-color: #00ff88;
-    background: rgba(0, 255, 136, 0.1);
+    border-color: #8B0000;
+    background: rgba(139, 0, 0, 0.1);
     transform: translateY(-5px);
     box-shadow: 
-        0 0 25px rgba(0, 255, 136, 0.2),
+        0 0 25px rgba(139, 0, 0, 0.2),
         12px 12px 24px rgba(0, 0, 0, 0.3),
         -12px -12px 24px rgba(255, 255, 255, 0.08);
 }
@@ -1265,10 +1251,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     border-radius: 50%;
     color: white;
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
     position: relative;
     z-index: 2;
     transition: all 0.3s ease;
@@ -1298,7 +1284,7 @@
 
 .payment-method-card:hover .payment-icon {
     transform: scale(1.1);
-    box-shadow: 0 12px 30px rgba(0, 212, 255, 0.4);
+    box-shadow: 0 12px 30px rgba(255, 0, 0, 0.4);
 }
 
 .payment-info {
@@ -1339,7 +1325,7 @@
 }
 
 .refresh-prices-btn {
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     color: #1a1a2e;
     border: none;
     padding: 0.5rem 1rem;
@@ -1352,7 +1338,7 @@
 
 .refresh-prices-btn:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
 }
 
 .refresh-prices-btn:disabled {
@@ -1369,9 +1355,9 @@
 .wallet-help {
     margin-top: 1rem;
     padding: 1rem;
-    background: rgba(0, 212, 255, 0.1);
+    background: rgba(255, 0, 0, 0.1);
     border-radius: 8px;
-    border: 1px solid rgba(0, 212, 255, 0.2);
+    border: 1px solid rgba(255, 0, 0, 0.2);
 }
 
 .help-text {
@@ -1382,14 +1368,14 @@
 }
 
 .help-link {
-    color: #00d4ff;
+    color: #ff0000;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
 .help-link:hover {
-    color: #00ff88;
+    color: #8B0000;
     text-decoration: underline;
 }
 
@@ -1413,15 +1399,15 @@
 }
 
 .crypto-option:hover {
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.1);
+    border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
     transform: translateY(-2px);
 }
 
 .crypto-option.selected {
-    border-color: #00ff88;
-    background: rgba(0, 255, 136, 0.1);
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    border-color: #8B0000;
+    background: rgba(139, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
 }
 
 .crypto-icon {
@@ -1431,7 +1417,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     border-radius: 50%;
     color: #1a1a2e;
     font-weight: bold;
@@ -1486,19 +1472,19 @@
 }
 
 .wallet-btn:hover {
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.2);
+    border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
 .wallet-btn.connected {
-    border-color: #00ff88;
-    background: rgba(0, 255, 136, 0.2);
-    color: #00ff88;
+    border-color: #8B0000;
+    background: rgba(139, 0, 0, 0.2);
+    color: #8B0000;
 }
 
 .wallet-btn.available {
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    background: linear-gradient(45deg, #ff0000, #8B0000);
     color: #1a1a2e;
     border: none;
     cursor: pointer;
@@ -1536,7 +1522,7 @@
 }
 
 .status-text.connected {
-    color: #00ff88;
+    color: #8B0000;
 }
 
 .status-text.error {
@@ -1545,8 +1531,8 @@
 
 /* Free Plan Message Styles */
 .free-plan-message {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 255, 136, 0.1));
-    border: 2px solid rgba(0, 212, 255, 0.3);
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(139, 0, 0, 0.1));
+    border: 2px solid rgba(255, 0, 0, 0.3);
     border-radius: 20px;
     padding: 2rem;
     margin-bottom: 2rem;
@@ -1562,7 +1548,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, rgba(0, 212, 255, 0.05), rgba(0, 255, 136, 0.05));
+    background: linear-gradient(45deg, rgba(255, 0, 0, 0.05), rgba(139, 0, 0, 0.05));
     z-index: -1;
 }
 
@@ -1578,11 +1564,11 @@
 }
 
 .free-plan-message h3 {
-    color: #00d4ff;
+    color: #ff0000;
     font-size: 2rem;
     margin-bottom: 1rem;
     font-weight: 700;
-    text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
 }
 
 .free-plan-message p {
@@ -1601,7 +1587,7 @@
 }
 
 .free-plan-features h4 {
-    color: #00ff88;
+    color: #8B0000;
     font-size: 1.3rem;
     margin-bottom: 1rem;
     text-align: center;

@@ -107,50 +107,68 @@ const mockPackages = {
     }
 };
 
-// Load package details from URL parameters
+// Load package details from cart data
 async function loadPackageFromURL() {
     try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const packageId = urlParams.get('package');
+        // Load cart data instead of URL parameters
+        const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
         
-        console.log('URL package parameter:', packageId);
+        console.log('Cart data:', cart);
         
-        if (!packageId) {
-            console.error('No package ID in URL');
-            showError('No package selected. Please go back and select a plan.');
+        if (cart.length === 0) {
+            console.error('No items in cart');
+            showError('Your cart is empty. Please add items to cart first.');
+            // Redirect to cart page after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'cart.html';
+            }, 2000);
             return;
         }
+
+        // Calculate cart totals (exact cart amount without additional tax)
+        const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         
-        // Try to find package in mock data first
-        let packageData = mockPackages[packageId.toLowerCase()];
-        console.log('Looking for package:', packageId.toLowerCase());
-        console.log('Available mock packages:', Object.keys(mockPackages));
-        console.log('Mock packages data:', mockPackages);
-        
-        if (!packageData) {
-            // If not found in mock data, try to parse as UUID and use default
-            packageData = mockPackages['pro']; // Default to Pro plan
-            console.log('Package not found in mock data, using default Pro plan');
+        // Round to 2 decimal places to fix floating point precision
+        const exactTotal = Math.round(cartTotal * 100) / 100;
+
+        // Create a package object from cart data
+        if (cart.length === 1) {
+            // Single item package
+            const item = cart[0];
+            const itemTotal = Math.round((item.price * item.quantity) * 100) / 100;
+            currentPackage = {
+                id: 'cart-single-item',
+                name: item.name,
+                description: `Quantity: ${item.quantity}`,
+                price: itemTotal,
+                billing_cycle: 'one-time',
+                features: [`${item.name} - ${item.quantity} item(s)`]
+            };
+        } else {
+            // Multiple items package
+            currentPackage = {
+                id: 'cart-multiple-items',
+                name: 'CrownPhone Package',
+                description: `${cart.length} items in your cart`,
+                price: exactTotal,
+                billing_cycle: 'one-time',
+                features: cart.map(item => `${item.name} (${item.quantity}x - $${item.price.toFixed(2)})`)
+            };
         }
+
+        console.log('Created package from cart:', currentPackage);
         
-        // Special handling for Pro plan to ensure correct pricehj
-        if (packageId.toLowerCase() === 'pro') {
-            packageData = mockPackages['pro'];
-            console.log('Pro plan detected, ensuring correct price:', packageData.price);
-        }
-        
-        console.log('Selected package data:', packageData);
-        console.log('Package price:', packageData.price);
-        
-        currentPackage = packageData;
-        console.log('Loaded package:', currentPackage);
-        
-        // Update the UI with package details
+        // Update the display with cart data
         updatePackageDisplay();
+        updateTotals();
         
     } catch (error) {
-        console.error('Error loading package:', error);
-        showError('Error loading package details. Please try again.');
+        console.error('Error loading cart data:', error);
+        showError('Error loading cart data. Please try again.');
+        // Redirect to cart page if error
+        setTimeout(() => {
+            window.location.href = 'cart.html';
+        }, 2000);
     }
 }
 
@@ -158,16 +176,11 @@ async function loadPackageFromURL() {
 function updatePackageDisplay() {
     if (!currentPackage) return;
     
-    // Update package name and badge
+    // Update package name
     const packageName = document.getElementById('package-name');
-    const packageBadge = document.getElementById('package-badge');
     
     if (packageName) {
         packageName.textContent = currentPackage.name;
-    }
-    
-    if (packageBadge) {
-        packageBadge.textContent = currentPackage.name;
     }
     
     // Update package description
@@ -233,14 +246,15 @@ function getBillingPeriodText(billingCycle) {
 function updateTotals() {
     if (!currentPackage) return;
     
-    const price = parseFloat(currentPackage.price);
-    const subtotal = price;
-    const tax = 0; // No tax for now
-    const total = subtotal + tax;
+    // Use exact cart amount without floating point issues
+    const cartTotal = Math.round(currentPackage.price * 100) / 100;
+    const subtotal = cartTotal;
+    const tax = 0; // No additional tax - cart amount is final
+    const total = subtotal;
     
-    console.log('Updating totals - Package price:', currentPackage.price);
-    console.log('Calculated subtotal:', subtotal);
-    console.log('Calculated total:', total);
+    console.log('Updating totals - Cart amount:', currentPackage.price);
+    console.log('Exact subtotal:', subtotal);
+    console.log('Final total:', total);
     
     // Update subtotal
     const subtotalElement = document.getElementById('subtotal');

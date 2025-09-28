@@ -16,6 +16,121 @@
     <script src="./scripts/supabase.js"></script>
     <script src="./scripts/script.js"></script>
     <style>
+        /* Dark Body Background like Homepage */
+        body {
+            -webkit-background-attachment: fixed;
+            background-attachment: fixed;
+            background: linear-gradient(135deg, #221818 0%, #201a1a 50%, #252323 50%);
+            background-size: 100% 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Global Background Animation */
+        .global-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #111111 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .global-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Background Dots Animation */
+        .background-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .dot:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .dot:nth-child(2) { top: 40%; left: 20%; animation-delay: 1s; }
+        .dot:nth-child(3) { top: 60%; left: 15%; animation-delay: 2s; }
+        .dot:nth-child(4) { top: 30%; left: 80%; animation-delay: 3s; }
+        .dot:nth-child(5) { top: 70%; left: 85%; animation-delay: 4s; }
+        .dot:nth-child(6) { top: 10%; left: 60%; animation-delay: 5s; }
+        .dot:nth-child(7) { top: 50%; left: 70%; animation-delay: 0.5s; }
+        .dot:nth-child(8) { top: 80%; left: 30%; animation-delay: 1.5s; }
+        .dot:nth-child(9) { top: 15%; left: 40%; animation-delay: 2.5s; }
+        .dot:nth-child(10) { top: 90%; left: 50%; animation-delay: 3.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
+            50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+        }
+
+        /* Background Stars Animation */
+        .background-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star-bg {
+            position: absolute;
+            color: #ff0000;
+            font-size: 1.5rem;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .star-bg:nth-child(1) { top: 5%; left: 20%; animation-delay: 0s; }
+        .star-bg:nth-child(2) { top: 25%; left: 75%; animation-delay: 0.7s; }
+        .star-bg:nth-child(3) { top: 45%; left: 10%; animation-delay: 1.4s; }
+        .star-bg:nth-child(4) { top: 65%; left: 80%; animation-delay: 2.1s; }
+        .star-bg:nth-child(5) { top: 85%; left: 30%; animation-delay: 0.3s; }
+        .star-bg:nth-child(6) { top: 35%; left: 90%; animation-delay: 1s; }
+        .star-bg:nth-child(7) { top: 75%; left: 15%; animation-delay: 1.7s; }
+        .star-bg:nth-child(8) { top: 95%; left: 60%; animation-delay: 2.4s; }
+        .star-bg:nth-child(9) { top: 15%; left: 40%; animation-delay: 0.5s; }
+        .star-bg:nth-child(10) { top: 55%; left: 25%; animation-delay: 1.2s; }
+        .star-bg:nth-child(11) { top: 75%; left: 85%; animation-delay: 1.9s; }
+        .star-bg:nth-child(12) { top: 25%; left: 55%; animation-delay: 0.8s; }
+        .star-bg:nth-child(13) { top: 65%; left: 35%; animation-delay: 1.5s; }
+        .star-bg:nth-child(14) { top: 85%; left: 75%; animation-delay: 2.2s; }
+        .star-bg:nth-child(15) { top: 35%; left: 65%; animation-delay: 0.9s; }
+        .star-bg:nth-child(16) { top: 95%; left: 25%; animation-delay: 1.6s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
         /* Override footer link styles */
         .footer-link::after {
             display: none !important;
@@ -280,8 +395,9 @@
             margin: 0 auto;
             padding: 0 2rem 4rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, 350px);
             gap: 2rem;
+            justify-content: center;
         }
 
          /* Product Card - Match Home Page Design */
@@ -292,6 +408,8 @@
              transition: transform 0.3s ease, box-shadow 0.3s ease;
              position: relative;
              box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+             width: 350px;
+             max-width: 100%;
          }
 
          .product-card:hover {
@@ -566,6 +684,7 @@
             .products-grid {
                 grid-template-columns: 1fr;
                 padding: 0 1rem 2rem;
+                max-width: 400px;
             }
 
             .product-actions {
@@ -627,54 +746,136 @@
             background: rgba(255, 0, 0, 0.2);
         }
 
-        /* Footer */
+        /* Footer Styles */
         .footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3rem 0 2rem;
-            margin-top: 4rem;
+            padding: 3rem 0 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
         }
 
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
-            text-align: center;
         }
 
-        .footer-logo {
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
         }
 
-        .footer-logo-text {
-            font-size: 1.5rem;
+        .footer-logo h3 {
+            margin: 0;
+            font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(45deg, #8B0000, #ff0000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: none !important;
+            filter: none !important;
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo:hover h3 {
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.4) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important;
         }
 
         .footer-links {
             display: flex;
-            justify-content: center;
             gap: 2rem;
-            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
         .footer-link {
-            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .footer-link:hover {
-            color: #00d4ff;
+        .footer-link::after {
+            display: none !important;
+            content: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: none !important;
+        }
+
+        .footer-link:hover::after {
+            display: none !important;
+            width: 0 !important;
+            background: none !important;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .footer-copyright::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
         }
 
         .footer-copyright p {
-            color: rgba(255, 255, 255, 0.5);
+            color: white !important;
             margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .footer-link {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+            }
         }
 
         /* Modal Styles */
@@ -821,6 +1022,40 @@
     </style>
 </head>
 <body>
+    <!-- Background Elements -->
+    <div class="global-background">
+        <div class="background-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="background-stars">
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+            <div class="star-bg">★</div>
+        </div>
+    </div>
+    
     <!-- Navigation Bar Component -->
     <nav class="navbar" id="navbar-component">
         <div class="nav-container">
@@ -880,7 +1115,7 @@
                 <a href="profile.html" class="nav-link profile-link" id="nav-profile-link" style="font-weight: 500; display: none; margin-right: 15px;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem;"></i></a>
                 
                 <!-- Shopping Cart Link -->
-                <a href="#" class="nav-link cart-link" id="nav-cart-link" style="font-weight: 500; margin-right: 15px; position: relative;" title="Shopping Cart" onclick="showCart()">
+                <a href="cart.html" class="nav-link cart-link" id="nav-cart-link" style="font-weight: 500; margin-right: 15px; position: relative;" title="Shopping Cart">
                     <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
                     <span class="cart-counter" id="cart-counter" style="position: absolute; top: -8px; right: -8px; background: linear-gradient(45deg, #8B0000, #ff0000); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; display: none;">0</span>
                 </a>
@@ -956,7 +1191,7 @@
                          <span class="product-price">$29.99</span>
                          <span class="product-old-price">$49.99</span>
                     </div>
-                     <button class="product-btn" onclick="addToCart('crownphone-pro', 29.99)">Add to Cart</button>
+                     <button class="product-btn" onclick="addToCart('crownphone-pro', 29.99, 'CrownPhone Pro')">Add to Cart</button>
                 </div>
                 </div>
                 
@@ -986,7 +1221,7 @@
                          <span class="product-price">$99.99</span>
                          <span class="product-old-price">$149.99</span>
                      </div>
-                     <button class="product-btn" onclick="addToCart('crownphone-business', 99.99)">Add to Cart</button>
+                     <button class="product-btn" onclick="addToCart('crownphone-business', 99.99, 'CrownPhone Business')">Add to Cart</button>
                 </div>
                 </div>
                 
@@ -1018,7 +1253,7 @@
                          <span class="product-price">$79.99</span>
                          <span class="product-old-price">$99.99</span>
                      </div>
-                     <button class="product-btn" onclick="addToCart('wireless-adapter', 79.99)">Add to Cart</button>
+                     <button class="product-btn" onclick="addToCart('wireless-adapter', 79.99, 'Wireless Adapter Pro')">Add to Cart</button>
                 </div>
                 </div>
                 
@@ -1047,7 +1282,7 @@
                     <div class="product-price-container">
                         <span class="product-price">$19.99/mo</span>
                     </div>
-                     <button class="product-btn" onclick="addToCart('professional-subscription', 19.99)">Add to Cart</button>
+                     <button class="product-btn" onclick="addToCart('professional-subscription', 19.99, 'Professional Subscription')">Add to Cart</button>
                 </div>
             </div>
             
@@ -1076,7 +1311,7 @@
                          <span class="product-price">$39.99</span>
                          <span class="product-old-price">$59.99</span>
                     </div>
-                     <button class="product-btn" onclick="addToCart('premium-cables', 39.99)">Add to Cart</button>
+                     <button class="product-btn" onclick="addToCart('premium-cables', 39.99, 'Premium Cable Set')">Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -1088,7 +1323,7 @@
             <div class="footer-content">
                 <div class="footer-logo">
                     <a href="index.html" style="text-decoration: none;">
-                    <h3 class="footer-logo-text"><img src="fevp.png" alt="CrownPhone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">CrownPhone</h3>
+                        <h3 class="footer-logo-text" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important';"><img src="fevp.png" alt="CrownPhone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">CrownPhone</h3>
                     </a>
                 </div>
                 <div class="footer-links">
@@ -1198,14 +1433,11 @@
         }
 
         // Add to Cart functionality
-        function addToCart(productId, price) {
-            // Get product data
-            const productData = {
-                id: productId,
-                price: price,
-                quantity: 1,
-                addedAt: new Date().toISOString()
-            };
+        function addToCart(productId, price, productName = null) {
+            // Get product name if not provided
+            if (!productName) {
+                productName = getProductName(productId);
+            }
             
             // Get existing cart from localStorage
             let cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
@@ -1215,14 +1447,20 @@
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                cart.push(productData);
+                cart.push({
+                    id: productId,
+                    price: price,
+                    quantity: 1,
+                    name: productName,
+                    addedAt: new Date().toISOString()
+                });
             }
             
             // Save updated cart
             localStorage.setItem('crownphone_cart', JSON.stringify(cart));
             
             // Show success notification
-            showNotification('Product added to cart!', 'success');
+            showNotification(`${productName} added to cart!`, 'success');
             
             // Update cart counter if it exists
             updateCartCounter();
@@ -1591,154 +1829,9 @@
             }, 2000);
         }
 
-        // Shopping Cart Functions
+        // Shopping Cart Functions - Navigate to cart page
         function showCart() {
-            // Get cart from localStorage
-            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
-            
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-            
-            // Create cart modal
-            const modal = document.createElement('div');
-            modal.className = 'cart-modal-overlay';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                backdrop-filter: blur(10px);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-            `;
-            
-            modal.innerHTML = `
-                <div class="cart-modal-content" style="
-                    background: linear-gradient(145deg, #1a1a2e, #16213e);
-                    border-radius: 20px;
-                    padding: 2rem;
-                    max-width: 500px;
-                    width: 90%;
-                    max-height: 80vh;
-                    overflow-y: auto;
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    position: relative;
-                ">
-                    <div class="cart-modal-header" style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-bottom: 20px;
-                        padding-bottom: 15px;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    ">
-                        <h3 style="
-                            background: linear-gradient(45deg, #8B0000, #ff0000);
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            background-clip: text;
-                            margin: 0;
-                            font-size: 1.5rem;
-                            font-weight: 700;
-                        ">Shopping Cart</h3>
-                        <button class="close-cart-btn" onclick="closeCart()" style="
-                            background: none;
-                            border: none;
-                            color: #ccc;
-                            font-size: 24px;
-                            cursor: pointer;
-                            padding: 5px;
-                            border-radius: 50%;
-                            transition: all 0.3s ease;
-                        ">&times;</button>
-                    </div>
-                    <div class="cart-items" id="cart-items">
-                        ${cart.map((item, index) => `
-                            <div class="cart-item" style="
-                                display: flex;
-                                align-items: center;
-                                padding: 1rem;
-                                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                                gap: 1rem;
-                            ">
-                                <div class="item-info" style="flex: 1;">
-                                    <h4 style="color: white; margin: 0 0 0.5rem 0; font-size: 1rem;">${getProductName(item.id)}</h4>
-                                    <p style="color: #ccc; margin: 0; font-size: 0.9rem;">$${item.price} × ${item.quantity}</p>
-                                </div>
-                                <div class="item-total" style="color: white; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</div>
-                                <button onclick="removeFromCart(${index})" style="
-                                    background: linear-gradient(45deg, #8B0000, #ff0000);
-                                    border: none;
-                                    color: white;
-                                    padding: 0.5rem;
-                                    border-radius: 5px;
-                                    cursor: pointer;
-                                    font-size: 0.8rem;
-                                ">Remove</button>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="cart-footer" style="
-                        margin-top: 20px;
-                        padding-top: 15px;
-                        border-top: 1px solid rgba(255, 255, 255, 0.1);
-                    ">
-                        <div class="cart-total" style="
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            margin-bottom: 20px;
-                            font-size: 1.2rem;
-                            font-weight: 700;
-                            color: white;
-                        ">
-                            <span>Total:</span>
-                            <span>$${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</span>
-                        </div>
-                        <button onclick="proceedToCheckout()" style="
-                            width: 100%;
-                            padding: 12px;
-                            background: linear-gradient(45deg, #8B0000, #ff0000);
-                            border: none;
-                            border-radius: 8px;
-                            color: white;
-                            font-weight: 600;
-                            font-size: 1rem;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        ">Proceed to Checkout</button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-        }
-
-        function closeCart() {
-            const modal = document.querySelector('.cart-modal-overlay');
-            if (modal) {
-                modal.remove();
-            }
-        }
-
-        function removeFromCart(index) {
-            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
-            cart.splice(index, 1);
-            localStorage.setItem('crownphone_cart', JSON.stringify(cart));
-            
-            // Update cart counter
-            updateCartCounter();
-            
-            // Refresh cart modal
-            closeCart();
-            showCart();
+            window.location.href = 'cart.html';
         }
 
         function proceedToCheckout() {

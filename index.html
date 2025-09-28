@@ -361,6 +361,17 @@
             bottom: 0;
         }
         
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
         .action-btn {
             width: 40px;
             height: 40px;
@@ -1340,6 +1351,138 @@
         /* Ensure footer copyright is white on all elements */
         footer .footer-copyright p {
             color: white !important;
+        }
+
+        /* Complete Footer Styles to match cart page */
+        .footer {
+            padding: 3rem 0 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: none !important;
+            filter: none !important;
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo:hover h3 {
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.4) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link::after {
+            display: none !important;
+            content: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: none !important;
+        }
+
+        .footer-link:hover::after {
+            display: none !important;
+            width: 0 !important;
+            background: none !important;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .footer-copyright::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+        }
+
+        .footer-copyright p {
+            color: white !important;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .footer-link {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+            }
         }
         
         /* Neomorphism Effect for Download Me Link */
@@ -2599,7 +2742,7 @@
                     <a href="profile.html" class="nav-link profile-link" id="nav-profile-link" style="font-weight: 500; display: none; margin-right: 15px;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem;"></i></a>
                     
                     <!-- Shopping Cart Link -->
-                    <a href="#" class="nav-link cart-link" id="nav-cart-link" style="font-weight: 500; margin-right: 15px; position: relative;" title="Shopping Cart" onclick="showCart()">
+                    <a href="cart.html" class="nav-link cart-link" id="nav-cart-link" style="font-weight: 500; margin-right: 15px; position: relative;" title="Shopping Cart">
                         <i class="fas fa-shopping-cart" style="font-size: 1.2rem;"></i>
                         <span class="cart-counter" id="cart-counter" style="position: absolute; top: -8px; right: -8px; background: linear-gradient(45deg, #8B0000, #ff0000); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; display: none;">0</span>
                     </a>
@@ -2772,7 +2915,7 @@
                                         <span class="rating-count">(7)</span>
                                     </div>
                                     <p class="new-arrival-price">$99.99</p>
-                                    <button class="new-arrival-btn">Add to Cart</button>
+                                    <button class="new-arrival-btn" onclick="addToCart('crownphone-ultra', 99.99, 'CrownPhone Ultra')">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -2795,7 +2938,7 @@
                                         <span class="rating-count">(12)</span>
                                     </div>
                                     <p class="new-arrival-price">$79.99</p>
-                                    <button class="new-arrival-btn">Add to Cart</button>
+                                    <button class="new-arrival-btn" onclick="addToCart('smartwatch-connect', 79.99, 'SmartWatch Connect')">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -2818,7 +2961,7 @@
                                         <span class="rating-count">(9)</span>
                                     </div>
                                     <p class="new-arrival-price">$89.99</p>
-                                    <button class="new-arrival-btn">Add to Cart</button>
+                                    <button class="new-arrival-btn" onclick="addToCart('tablet-pro', 89.99, 'Tablet Pro')">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -2841,7 +2984,7 @@
                                         <span class="rating-count">(5)</span>
                                     </div>
                                     <p class="new-arrival-price">$129.99</p>
-                                    <button class="new-arrival-btn">Add to Cart</button>
+                                    <button class="new-arrival-btn" onclick="addToCart('enterprise-suite', 129.99, 'Enterprise Suite')">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -2864,7 +3007,7 @@
                                         <span class="rating-count">(3)</span>
                                     </div>
                                     <p class="new-arrival-price">$109.99</p>
-                                    <button class="new-arrival-btn">Add to Cart</button>
+                                    <button class="new-arrival-btn" onclick="addToCart('multi-device-hub', 109.99, 'Multi-Device Hub')">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -2902,9 +3045,9 @@
                         <div class="product-image-container">
                             <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="CrownPhone Pro" class="product-image">
                             <div class="product-actions">
-                                <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn wishlist-btn" onclick="addToWishlist('crownphone-pro', 'CrownPhone Pro')"><i class="fas fa-heart"></i></button>
+                                <button class="action-btn cart-btn" onclick="addToCart('crownphone-pro', 59.99, 'CrownPhone Pro')"><i class="fas fa-shopping-cart"></i></button>
+                                <button class="action-btn view-btn" onclick="viewProduct('crownphone-pro')"><i class="fas fa-eye"></i></button>
                             </div>
                         </div>
                         <div class="product-content">
@@ -2922,7 +3065,7 @@
                                 <span class="product-price">$59.99</span>
                                 <span class="product-old-price">$79.99</span>
                             </div>
-                            <button class="product-btn">Add to Cart</button>
+                            <button class="product-btn" onclick="addToCart('crownphone-pro', 59.99, 'CrownPhone Pro')">Add to Cart</button>
                         </div>
                     </div>
                     
@@ -2932,9 +3075,9 @@
                         <div class="product-image-container">
                             <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="TabletMaster" class="product-image">
                             <div class="product-actions">
-                                <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn wishlist-btn" onclick="addToWishlist('tabletmaster', 'TabletMaster')"><i class="fas fa-heart"></i></button>
+                                <button class="action-btn cart-btn" onclick="addToCart('tabletmaster', 69.99, 'TabletMaster')"><i class="fas fa-shopping-cart"></i></button>
+                                <button class="action-btn view-btn" onclick="viewProduct('tabletmaster')"><i class="fas fa-eye"></i></button>
                             </div>
                         </div>
                         <div class="product-content">
@@ -2951,7 +3094,7 @@
                             <div class="product-price-container">
                                 <span class="product-price">$69.99</span>
                             </div>
-                            <button class="product-btn">Add to Cart</button>
+                            <button class="product-btn" onclick="addToCart('tabletmaster', 69.99, 'TabletMaster')">Add to Cart</button>
                         </div>
                     </div>
                     
@@ -2960,9 +3103,9 @@
                         <div class="product-image-container">
                             <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="WearableSync" class="product-image">
                             <div class="product-actions">
-                                <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn wishlist-btn" onclick="addToWishlist('wearablesync', 'WearableSync')"><i class="fas fa-heart"></i></button>
+                                <button class="action-btn cart-btn" onclick="addToCart('wearablesync', 39.99, 'WearableSync')"><i class="fas fa-shopping-cart"></i></button>
+                                <button class="action-btn view-btn" onclick="viewProduct('wearablesync')"><i class="fas fa-eye"></i></button>
                             </div>
                         </div>
                         <div class="product-content">
@@ -2980,7 +3123,7 @@
                                 <span class="product-price">$39.99</span>
                                 <span class="product-old-price">$49.99</span>
                             </div>
-                            <button class="product-btn">Add to Cart</button>
+                            <button class="product-btn" onclick="addToCart('wearablesync', 39.99, 'WearableSync')">Add to Cart</button>
                         </div>
                     </div>
                     
@@ -2989,9 +3132,9 @@
                         <div class="product-image-container">
                             <img src="https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="DeviceHub" class="product-image">
                             <div class="product-actions">
-                                <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn"><i class="fas fa-eye"></i></button>
+                                <button class="action-btn wishlist-btn" onclick="addToWishlist('devicehub', 'DeviceHub')"><i class="fas fa-heart"></i></button>
+                                <button class="action-btn cart-btn" onclick="addToCart('devicehub', 89.99, 'DeviceHub')"><i class="fas fa-shopping-cart"></i></button>
+                                <button class="action-btn view-btn" onclick="viewProduct('devicehub')"><i class="fas fa-eye"></i></button>
                             </div>
                         </div>
                         <div class="product-content">
@@ -3008,7 +3151,7 @@
                             <div class="product-price-container">
                                 <span class="product-price">$89.99</span>
                             </div>
-                            <button class="product-btn">Add to Cart</button>
+                            <button class="product-btn" onclick="addToCart('devicehub', 89.99, 'DeviceHub')">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -3189,7 +3332,7 @@
                 <div class="footer-content">
                     <div class="footer-logo">
                         <a href="index.html" style="text-decoration: none;">
-                            <h3 class="footer-logo-text"><img src="fevp.png" alt="CrownPhone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">CrownPhone</h3>
+                            <h3 class="footer-logo-text" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important';"><img src="fevp.png" alt="CrownPhone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">CrownPhone</h3>
                         </a>
                     </div>
                     <div class="footer-links">
@@ -3624,153 +3767,84 @@
         }
 
         // Shopping Cart Functions
-        function showCart() {
-            // Get cart from localStorage
-            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+        function addToCart(productId, price, productName) {
+            let cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
             
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
+            // Check if product already exists in cart
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    price: price,
+                    quantity: 1,
+                    name: productName,
+                    addedAt: new Date().toISOString()
+                });
             }
             
-            // Create cart modal
-            const modal = document.createElement('div');
-            modal.className = 'cart-modal-overlay';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                backdrop-filter: blur(10px);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-            `;
-            
-            modal.innerHTML = `
-                <div class="cart-modal-content" style="
-                    background: linear-gradient(145deg, #1a1a2e, #16213e);
-                    border-radius: 20px;
-                    padding: 2rem;
-                    max-width: 500px;
-                    width: 90%;
-                    max-height: 80vh;
-                    overflow-y: auto;
-                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    position: relative;
-                ">
-                    <div class="cart-modal-header" style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-bottom: 20px;
-                        padding-bottom: 15px;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    ">
-                        <h3 style="
-                            background: linear-gradient(45deg, #8B0000, #ff0000);
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            background-clip: text;
-                            margin: 0;
-                            font-size: 1.5rem;
-                            font-weight: 700;
-                        ">Shopping Cart</h3>
-                        <button class="close-cart-btn" onclick="closeCart()" style="
-                            background: none;
-                            border: none;
-                            color: #ccc;
-                            font-size: 24px;
-                            cursor: pointer;
-                            padding: 5px;
-                            border-radius: 50%;
-                            transition: all 0.3s ease;
-                        ">&times;</button>
-                    </div>
-                    <div class="cart-items" id="cart-items">
-                        ${cart.map((item, index) => `
-                            <div class="cart-item" style="
-                                display: flex;
-                                align-items: center;
-                                padding: 1rem;
-                                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                                gap: 1rem;
-                            ">
-                                <div class="item-info" style="flex: 1;">
-                                    <h4 style="color: white; margin: 0 0 0.5rem 0; font-size: 1rem;">${getProductName(item.id)}</h4>
-                                    <p style="color: #ccc; margin: 0; font-size: 0.9rem;">$${item.price} × ${item.quantity}</p>
-                                </div>
-                                <div class="item-total" style="color: white; font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</div>
-                                <button onclick="removeFromCart(${index})" style="
-                                    background: linear-gradient(45deg, #8B0000, #ff0000);
-                                    border: none;
-                                    color: white;
-                                    padding: 0.5rem;
-                                    border-radius: 5px;
-                                    cursor: pointer;
-                                    font-size: 0.8rem;
-                                ">Remove</button>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="cart-footer" style="
-                        margin-top: 20px;
-                        padding-top: 15px;
-                        border-top: 1px solid rgba(255, 255, 255, 0.1);
-                    ">
-                        <div class="cart-total" style="
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            margin-bottom: 20px;
-                            font-size: 1.2rem;
-                            font-weight: 700;
-                            color: white;
-                        ">
-                            <span>Total:</span>
-                            <span>$${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)}</span>
-                        </div>
-                        <button onclick="proceedToCheckout()" style="
-                            width: 100%;
-                            padding: 12px;
-                            background: linear-gradient(45deg, #8B0000, #ff0000);
-                            border: none;
-                            border-radius: 8px;
-                            color: white;
-                            font-weight: 600;
-                            font-size: 1rem;
-                            cursor: pointer;
-                            transition: all 0.3s ease;
-                        ">Proceed to Checkout</button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-        }
-
-        function closeCart() {
-            const modal = document.querySelector('.cart-modal-overlay');
-            if (modal) {
-                modal.remove();
-            }
-        }
-
-        function removeFromCart(index) {
-            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
-            cart.splice(index, 1);
             localStorage.setItem('crownphone_cart', JSON.stringify(cart));
-            
-            // Update cart counter
             updateCartCounter();
+            showNotification(`${productName} added to cart!`, 'success');
+        }
+
+        function showNotification(message, type = 'success') {
+            // Remove existing notifications
+            const existing = document.querySelectorAll('.notification');
+            existing.forEach(n => n.remove());
             
-            // Refresh cart modal
-            closeCart();
-            showCart();
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(45deg, #00ff88, #00d4ff)' : 'linear-gradient(45deg, #ff6b6b, #ff5252)'};
+                color: ${type === 'success' ? '#1a1a2e' : 'white'};
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            `;
+            
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" style="background: none; border: none; color: inherit; margin-left: 1rem; cursor: pointer; font-size: 1.2rem;">&times;</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCounter = document.getElementById('cart-counter');
+            
+            if (cartCounter) {
+                cartCounter.textContent = totalItems;
+                cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
+
+        function addToWishlist(productId, productName) {
+            // For now, just show a notification
+            showNotification(`${productName} added to wishlist!`, 'success');
+        }
+
+        function viewProduct(productId) {
+            // Navigate to product details page
+            window.location.href = `product-details.html?id=${productId}`;
         }
 
         function proceedToCheckout() {
