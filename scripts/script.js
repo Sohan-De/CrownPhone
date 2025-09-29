@@ -1472,10 +1472,10 @@ function initializeNavbarScroll() {
         
         // Add shadow and background opacity when scrolling
         if (scrollTop > 50) {
-            navbar.style.background = 'rgba(26, 26, 46, 0.98)';
+            navbar.style.background = 'transparent';
             navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.2)';
         } else {
-            navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+            navbar.style.background = 'transparent';
             navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         }
         
