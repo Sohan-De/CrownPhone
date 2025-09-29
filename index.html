@@ -6,7 +6,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a2e">
-    <title>CrownPhone - Professional Multi-Device Management Software</title>
+    <meta name="description" content="CrownPhone Box - Professional screen projection device for gaming, development, and customer service. High-performance screen mirroring hardware with transparent casing and advanced electronics.">
+    <meta name="keywords" content="screen projection device, screen mirroring hardware, phone box, gaming development kit, screen casting device, projection hardware, mirroring device, development testing kit, screen sharing hardware, projection box">
+    <meta name="robots" content="index, follow">
+    <title>CrownPhone Box - Professional Screen Projection Device | Screen Mirroring Hardware for Gaming & Development</title>
     <link rel="icon" type="image/png" href="fevp.png">
     <link rel="icon" type="image/png" href="fevp.png">
     <link rel="apple-touch-icon" href="fevp.png">
@@ -1145,9 +1148,9 @@
         /* Dark navbar to match body */
         .navbar {
             
-            backdrop-filter: blur(20px) !important;
+            
             border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
+           
         }
         
         /* Dark mobile menu */
@@ -1655,7 +1658,7 @@
                 -webkit-text-fill-color: transparent !important;
                 background-clip: text !important;
                 color: transparent !important;
-                text-shadow: 0 0 15px rgba(0, 212, 255, 0.6) !important;
+                text-shadow: none !important;
                 transform: none !important;
             }
         }
@@ -2692,21 +2695,21 @@
                 </div>
                 
                 <!-- Desktop Navigation Links -->
-                <div class="desktop-nav-links">
+                <div class="desktop-nav-links" style="display: flex; justify-content: center; flex: 1; gap: 30px; margin: 0 20px;">
                     <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
                     <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
-                    <a href="#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
-                    <a href="#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+                    <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                    <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
                 </div>
                 
                 <!-- Hamburger Menu Button -->
                 <div class="hamburger-menu" id="hamburger-menu">
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
-                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                    <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                    <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
                 </div>
                 
-                <div class="nav-links" id="nav-links" style="display: flex; justify-content: center; flex: 1;">
+                <div class="nav-links" id="nav-links" style="display: none;">
                     <div class="mobile-menu-header">
                         <h3 class="mobile-menu-title">Menu</h3>
                     </div>
@@ -2715,21 +2718,15 @@
                     
                     <!-- Mobile Admin Link (shown when logged in as admin on mobile only) -->
                     <a href="admin-dashboard.html" class="nav-link mobile-admin-link" id="mobile-admin-link" style="font-weight: 500; display: none; border-bottom: 1px solid rgba(255, 0, 0, 0.3); margin-bottom: 10px; padding-bottom: 10px; display: none;" title="Admin Dashboard"><i class="fas fa-shield-alt" style="font-size: 1.2rem;"></i></a>
-                <a href="index.html" class="nav-link home-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
-                <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
-                <a href="#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
-                <a href="#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+                    <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                    <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                    <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                    <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
                     
-                    <!-- Mobile Auth Buttons (shown when not logged in) -->
+                    <!-- Mobile Auth Buttons -->
                     <div class="mobile-auth-buttons" id="mobile-auth-buttons">
-                        <a href="sign-in.html" class="mobile-auth-btn signin-btn">
-                            <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
-                            <span class="btn-text">SIGN IN</span>
-                        </a>
-                        <a href="sign-up.html" class="mobile-auth-btn signup-btn">
-                            <span class="btn-icon"><i class="fas fa-rocket"></i></span>
-                            <span class="btn-text">SIGN UP</span>
-                        </a>
+                        <a href="sign-in.html" class="mobile-auth-btn sign-in-btn" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; color: white !important; padding: 8px 16px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: 500 !important; margin-right: 10px !important;">Sign In</a>
+                        <a href="sign-up.html" class="mobile-auth-btn sign-up-btn" style="background: transparent !important; color: #ff0000 !important; border: 1px solid #ff0000 !important; padding: 8px 16px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: 500 !important;">Sign Up</a>
                     </div>
                     
                 </div>
@@ -2771,12 +2768,12 @@
                 <div class="hero-content">
                     <h1 class="hero-title" style="color: white;">
                         <span class="title-normal" style="color: white;">Professional</span>
-                        <span class="title-highlight" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: 0 0 10px rgba(255, 0, 0, 0.4), 0 0 15px rgba(255, 0, 0, 0.3) !important; filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important; animation: none !important;">Multi-Device Management</span>
-                        <span class="title-normal" style="color: white;">Software</span>
+                        <span class="title-highlight" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: 0 0 10px rgba(255, 0, 0, 0.4), 0 0 15px rgba(255, 0, 0, 0.3) !important; filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important; animation: none !important;">Screen Projection Device</span>
+                        <span class="title-normal" style="color: white;">Hardware</span>
                     </h1>
                     
                     <p class="hero-description" style="color: white !important; text-shadow: none !important;">
-                        Control up to 100 devices simultaneously from a single dashboard. Perfect for enterprise management, testing, and bulk operations.
+                        Advanced screen projection hardware with transparent casing and professional-grade electronics. Perfect for gaming development, customer service, and screen mirroring applications.
                     </p>
                     
                     <div class="hero-buttons">
@@ -2901,7 +2898,7 @@
                             <div class="new-arrival-card">
                                 <div class="new-tag">New</div>
                                 <div class="new-arrival-image">
-                                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="CrownPhone Ultra">
+                                    <img src="IMG_2013.png" alt="CrownPhone Ultra">
                                 </div>
                                 <div class="new-arrival-content">
                                     <h3 class="new-arrival-name">CrownPhone Ultra</h3>
@@ -2924,7 +2921,7 @@
                             <div class="new-arrival-card">
                                 <div class="new-tag">New</div>
                                 <div class="new-arrival-image">
-                                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="SmartWatch Connect">
+                                    <img src="Back.png" alt="SmartWatch Connect">
                                 </div>
                                 <div class="new-arrival-content">
                                     <h3 class="new-arrival-name">SmartWatch Connect</h3>
@@ -2947,7 +2944,7 @@
                             <div class="new-arrival-card">
                                 <div class="new-tag">New</div>
                                 <div class="new-arrival-image">
-                                    <img src="https://images.unsplash.com/photo-1544652478-6653e09f18a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Tablet Pro">
+                                    <img src="front-wire.png" alt="Tablet Pro">
                                 </div>
                                 <div class="new-arrival-content">
                                     <h3 class="new-arrival-name">Tablet Pro</h3>
@@ -2970,7 +2967,7 @@
                             <div class="new-arrival-card">
                                 <div class="new-tag">New</div>
                                 <div class="new-arrival-image">
-                                    <img src="https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Enterprise Suite">
+                                    <img src="Right.png" alt="Enterprise Suite">
                                 </div>
                                 <div class="new-arrival-content">
                                     <h3 class="new-arrival-name">Enterprise Suite</h3>
@@ -2993,7 +2990,7 @@
                             <div class="new-arrival-card">
                                 <div class="new-tag">New</div>
                                 <div class="new-arrival-image">
-                                    <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Multi-Device Hub">
+                                    <img src="top-no-cover.png" alt="Multi-Device Hub">
                                 </div>
                                 <div class="new-arrival-content">
                                     <h3 class="new-arrival-name">Multi-Device Hub</h3>
@@ -3042,7 +3039,7 @@
                     <div class="product-card" data-category="smartphones">
                         <div class="product-badge">New</div>
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="CrownPhone Pro" class="product-image">
+                            <img src="Two-boxes-showcase.png" alt="CrownPhone Pro" class="product-image">
                             <div class="product-actions">
                                 <button class="action-btn wishlist-btn" onclick="addToWishlist('crownphone-pro', 'CrownPhone Pro')"><i class="fas fa-heart"></i></button>
                                 <button class="action-btn cart-btn" onclick="addToCart('crownphone-pro', 59.99, 'CrownPhone Pro')"><i class="fas fa-shopping-cart"></i></button>
@@ -3050,7 +3047,7 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h3 class="product-name">CrownPhone Pro</h3>
+                            <h3 class="product-name">CrownPhone Box Pro</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -3072,7 +3069,7 @@
                     <div class="product-card" data-category="tablets">
                         <div class="product-badge bestseller">Best Seller</div>
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="TabletMaster" class="product-image">
+                            <img src="plugged-in.png" alt="TabletMaster" class="product-image">
                             <div class="product-actions">
                                 <button class="action-btn wishlist-btn" onclick="addToWishlist('tabletmaster', 'TabletMaster')"><i class="fas fa-heart"></i></button>
                                 <button class="action-btn cart-btn" onclick="addToCart('tabletmaster', 69.99, 'TabletMaster')"><i class="fas fa-shopping-cart"></i></button>
@@ -3080,7 +3077,7 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h3 class="product-name">TabletMaster</h3>
+                            <h3 class="product-name">CrownPhone Box Standard</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -3100,7 +3097,7 @@
                     <!-- Product 3 -->
                     <div class="product-card" data-category="wearables">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="WearableSync" class="product-image">
+                            <img src="Box-on.png" alt="WearableSync" class="product-image">
                             <div class="product-actions">
                                 <button class="action-btn wishlist-btn" onclick="addToWishlist('wearablesync', 'WearableSync')"><i class="fas fa-heart"></i></button>
                                 <button class="action-btn cart-btn" onclick="addToCart('wearablesync', 39.99, 'WearableSync')"><i class="fas fa-shopping-cart"></i></button>
@@ -3108,7 +3105,7 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h3 class="product-name">WearableSync</h3>
+                            <h3 class="product-name">CrownPhone Box Mini</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -3129,7 +3126,7 @@
                     <!-- Product 4 -->
                     <div class="product-card" data-category="smartphones">
                         <div class="product-image-container">
-                            <img src="https://images.unsplash.com/photo-1567581935884-3349723552ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="DeviceHub" class="product-image">
+                            <img src="Stacked-boxes.png" alt="DeviceHub" class="product-image">
                             <div class="product-actions">
                                 <button class="action-btn wishlist-btn" onclick="addToWishlist('devicehub', 'DeviceHub')"><i class="fas fa-heart"></i></button>
                                 <button class="action-btn cart-btn" onclick="addToCart('devicehub', 89.99, 'DeviceHub')"><i class="fas fa-shopping-cart"></i></button>
@@ -3137,7 +3134,7 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h3 class="product-name">DeviceHub</h3>
+                            <h3 class="product-name">CrownPhone Box Enterprise</h3>
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>

@@ -1465,29 +1465,19 @@ document.head.insertAdjacentHTML('beforeend', additionalStyles);
 // Navigation functionality
 function initializeNavbarScroll() {
     const navbar = document.querySelector('.navbar');
-    let lastScrollTop = 0;
     
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Add shadow and background opacity when scrolling
-        if (scrollTop > 50) {
-            navbar.style.background = 'transparent';
-            navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.2)';
-        } else {
-            navbar.style.background = 'transparent';
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-        }
-        
-        // Hide/show navbar on scroll (optional - uncomment if you want this effect)
-        // if (scrollTop > lastScrollTop && scrollTop > 100) {
-        //     navbar.style.transform = 'translateY(-100%)';
-        // } else {
-        //     navbar.style.transform = 'translateY(0)';
-        // }
-        
-        lastScrollTop = scrollTop;
-    });
+    // Keep navbar fixed and consistent - no scroll-based changes
+    if (navbar) {
+        navbar.style.position = 'fixed';
+        navbar.style.top = '0';
+        navbar.style.left = '0';
+        navbar.style.right = '0';
+        navbar.style.zIndex = '1000';
+        navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+        navbar.style.backdropFilter = 'blur(10px)';
+        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        navbar.style.transition = 'none';
+    }
 }
 
 // FAQ functionality

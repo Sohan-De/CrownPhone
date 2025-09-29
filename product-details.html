@@ -6,7 +6,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1a1a2e">
-    <title>CrownPhone Pro - Professional Screen Mirroring Software | CrownPhone</title>
+    <meta name="description" content="CrownPhone Box Pro - Professional screen projection hardware with transparent acrylic casing. Advanced electronics for gaming development, customer service, and screen mirroring applications.">
+    <meta name="keywords" content="crownphone box pro, screen projection hardware, transparent casing device, gaming development kit, screen mirroring hardware, projection box, development testing device">
+    <meta name="robots" content="index, follow">
+    <title>CrownPhone Box Pro - Professional Screen Projection Hardware | Transparent Casing Device</title>
     <link rel="icon" type="image/png" href="fevp.png">
     <link rel="apple-touch-icon" href="fevp.png">
     <link rel="stylesheet" href="./css/styles.css">
@@ -649,45 +652,76 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 10000;
             backdrop-filter: blur(10px);
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
         }
 
         .zoom-modal.active {
-            display: flex;
+            display: flex !important;
         }
 
         .zoom-content {
-            max-width: 90%;
-            max-height: 90%;
             position: relative;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
         }
 
         .zoom-image {
-            width: 100%;
-            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: block;
         }
 
         .close-zoom {
             position: absolute;
-            top: -40px;
-            right: 0;
-            background: none;
-            border: none;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
             color: white;
-            font-size: 2rem;
+            font-size: 24px;
             cursor: pointer;
-            transition: color 0.3s ease;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10001;
         }
 
         .close-zoom:hover {
-            color: #ff0000;
+            background: rgba(255, 0, 0, 0.8);
+            border-color: #ff0000;
+            color: white;
+        }
+
+        /* Ensure modal is properly displayed */
+        .zoom-modal * {
+            box-sizing: border-box;
+        }
+
+        /* Prevent body scroll when modal is open */
+        body.modal-open {
+            overflow: hidden !important;
         }
 
         /* Responsive Design */
@@ -725,6 +759,23 @@
 
             .main-image {
                 height: 300px;
+            }
+
+            .zoom-modal {
+                padding: 0;
+            }
+
+            .zoom-content {
+                width: 95%;
+                height: 95%;
+            }
+
+            .close-zoom {
+                top: 10px;
+                right: 10px;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
 
             .tab-buttons {
@@ -766,29 +817,7 @@
         }
 
         /* Global Background Animation */
-        .global-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #111111 100%);
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .global-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
-        }
+       
 
         @keyframes backgroundShift {
             0%, 100% { opacity: 1; }
@@ -872,10 +901,9 @@
 
         /* Navbar Styling Override */
         .navbar {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(10, 10, 10, 0.95) 50%, rgba(17, 17, 17, 0.95) 100%) !important;
-            backdrop-filter: blur(20px) !important;
+            
             border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5) !important;
+            
         }
 
         .logo-text {
@@ -1162,23 +1190,27 @@
                 <div class="product-images">
                     <div class="main-image-container">
                         <div class="image-badge">Featured</div>
-                        <img src="Front.png" alt="CrownPhone Pro" class="main-image" id="mainImage">
+                        <img src="Two-boxes-showcase.png" alt="CrownPhone Pro" class="main-image" id="mainImage">
                         <button class="zoom-icon" onclick="openZoom()">
                             <i class="fas fa-search-plus"></i>
                         </button>
                     </div>
                     <div class="thumbnail-images">
-                        <img src="Front.png" alt="Front View" class="thumbnail active" onclick="changeImage(this, 'Front.png')">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Side View" class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Interface" class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dashboard" class="thumbnail" onclick="changeImage(this, 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">
+                        <img src="Two-boxes-showcase.png" alt="Main Showcase" class="thumbnail active" onclick="changeImage(this, 'Two-boxes-showcase.png')">
+                        <img src="plugged-in.png" alt="Powered Device" class="thumbnail" onclick="changeImage(this, 'plugged-in.png')">
+                        <img src="Box-on.png" alt="Device On" class="thumbnail" onclick="changeImage(this, 'Box-on.png')">
+                        <img src="Stacked-boxes.png" alt="Stacked Units" class="thumbnail" onclick="changeImage(this, 'Stacked-boxes.png')">
+                        <img src="IMG_2013.png" alt="Open Chassis" class="thumbnail" onclick="changeImage(this, 'IMG_2013.png')">
+                        <img src="Back.png" alt="Back View" class="thumbnail" onclick="changeImage(this, 'Back.png')">
+                        <img src="front-wire.png" alt="Front Wiring" class="thumbnail" onclick="changeImage(this, 'front-wire.png')">
+                        <img src="Right.png" alt="Right Side" class="thumbnail" onclick="changeImage(this, 'Right.png')">
                     </div>
                 </div>
 
                 <!-- Product Information -->
                 <div class="product-info">
-                    <h1 class="product-title">CrownPhone Pro</h1>
-                    <p class="product-subtitle">Professional Screen Mirroring Software with Ultra-Low Latency and 4K Support</p>
+                    <h1 class="product-title">CrownPhone Box Pro</h1>
+                    <p class="product-subtitle">Professional Screen Projection Hardware with Transparent Acrylic Casing and Advanced Electronics</p>
 
                     <!-- Rating Section -->
                     <div class="rating-section">
@@ -1730,15 +1762,22 @@
             const zoomModal = document.getElementById('zoomModal');
             const zoomImage = document.getElementById('zoomImage');
             
-            zoomImage.src = mainImage.src;
-            zoomModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            if (mainImage && zoomModal && zoomImage) {
+                zoomImage.src = mainImage.src;
+                zoomImage.alt = mainImage.alt;
+                zoomModal.classList.add('active');
+                document.body.classList.add('modal-open');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function closeZoom() {
             const zoomModal = document.getElementById('zoomModal');
-            zoomModal.classList.remove('active');
-            document.body.style.overflow = '';
+            if (zoomModal) {
+                zoomModal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
+            }
         }
 
         // Tab Functions
