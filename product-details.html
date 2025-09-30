@@ -953,6 +953,83 @@
             box-shadow: 0 0 5px rgba(255, 0, 0, 0.4) !important;
         }
 
+        /* Red Theme for Navigation Buttons */
+        .signin-btn {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            
+            border-radius: 8px !important;
+            backdrop-filter: blur(10px) !important;
+            position: relative !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+        }
+
+        .signin-btn::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: linear-gradient(45deg, #ff0000, #8B0000) !important;
+            border-radius: 8px !important;
+            z-index: -1 !important;
+            padding: 2px !important;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
+            -webkit-mask-composite: xor !important;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
+            mask-composite: exclude !important;
+        }
+
+        .signin-btn:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.6) !important;
+            border-color: #8B0000 !important;
+        }
+
+        .signin-btn:hover::before {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+        }
+
+        .signup-btn {
+            background: linear-gradient(45deg, #ff0000, #8B0000) !important;
+            color: white !important;
+            border: none !important;
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            font-weight: 700 !important;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.6) !important;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+        }
+
+        /* Mobile Auth Buttons Red Theme */
+        .mobile-auth-btn.signin-btn {
+            background: rgba(255, 255, 255, 0.1) !important;
+            color: white !important;
+            border: 2px solid #ff0000 !important;
+        }
+
+        .mobile-auth-btn.signup-btn {
+            background: linear-gradient(45deg, #ff0000, #8B0000) !important;
+            color: white !important;
+            border: none !important;
+        }
+
+        .mobile-auth-btn.signin-btn:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: #8B0000 !important;
+        }
+
+        .mobile-auth-btn.signup-btn:hover {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+        }
+
         /* Footer Styles */
         .footer {
             padding: 3rem 0 1rem;
@@ -1314,10 +1391,6 @@
                         <button class="btn-primary" onclick="addToCart()">
                             <i class="fas fa-shopping-cart"></i>
                             Add to Cart
-                        </button>
-                        <button class="btn-secondary" onclick="buyNow()">
-                            <i class="fas fa-bolt"></i>
-                            Buy Now
                         </button>
                     </div>
                 </div>
@@ -1895,38 +1968,6 @@
             updateCartCounter();
         }
 
-        function buyNow() {
-            // Get current product data from URL or default
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id') || 'crownphone-pro';
-            const product = getProductData(productId);
-            
-            // Add to cart first
-            let cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
-            
-            // Check if product already exists in cart
-            const existingItem = cart.find(item => item.id === productId);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: productId,
-                    price: product.price,
-                    quantity: 1,
-                    name: product.title,
-                    addedAt: new Date().toISOString()
-                });
-            }
-            
-            // Save updated cart
-            localStorage.setItem('crownphone_cart', JSON.stringify(cart));
-            
-            // Update cart counter
-            updateCartCounter();
-            
-            // Redirect to checkout
-            window.location.href = 'checkout.html';
-        }
 
         function showDemo() {
             // Show demo modal or redirect to demo page
