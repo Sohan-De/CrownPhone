@@ -545,7 +545,13 @@ function initializeLoader() {
             './assets/Feviconp.jpg',
             '/assets/Feviconp.jpg',
             './images/Feviconp.jpg',
-            '/images/Feviconp.jpg'
+            '/images/Feviconp.jpg',
+            'favicon.svg',
+            './favicon.svg',
+            '/favicon.svg',
+            'fevp.png',
+            './fevp.png',
+            '/fevp.png'
         ];
         
         let currentImagePathIndex = 0;
@@ -553,16 +559,83 @@ function initializeLoader() {
         function tryLoadImage() {
             if (currentImagePathIndex >= imagePaths.length) {
                 // All paths failed, show fallback
-                console.error('All image paths failed, showing fallback');
-                lottieContainer.innerHTML = '<div class="loading-spinner">🔄</div>';
+                console.error('❌ All image paths failed, showing CSS fallback logo');
+                console.error('Failed paths:', imagePaths);
+                
+                // Create CSS-based fallback logo
+                lottieContainer.innerHTML = `
+                    <div class="fallback-logo">
+                        <div class="crown">👑</div>
+                        <div class="phone">📱</div>
+                        <div class="brand-text">CrownPhone</div>
+                    </div>
+                `;
+                
+                // Add fallback logo styles
+                const fallbackCSS = `
+                    <style>
+                        .fallback-logo {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            width: 120px;
+                            height: 120px;
+                            border-radius: 50%;
+                            background: linear-gradient(135deg, #ff0000, #ff4444);
+                            color: white;
+                            font-size: 2rem;
+                            animation: logoPulse 2s ease-in-out infinite;
+                        }
+                        .crown {
+                            font-size: 2.5rem;
+                            margin-bottom: -10px;
+                        }
+                        .phone {
+                            font-size: 2rem;
+                            margin-bottom: 5px;
+                        }
+                        .brand-text {
+                            font-size: 0.7rem;
+                            font-weight: bold;
+                            text-align: center;
+                            line-height: 1;
+                        }
+                    </style>
+                `;
+                
+                if (!document.querySelector('#fallback-logo-styles')) {
+                    const styleElement = document.createElement('div');
+                    styleElement.id = 'fallback-logo-styles';
+                    styleElement.innerHTML = fallbackCSS;
+                    document.head.appendChild(styleElement);
+                }
+                
                 isAnimationLoaded = true;
                 checkIfReadyToHide();
                 return;
             }
             
             const currentPath = imagePaths[currentImagePathIndex];
-            console.log(`Trying to load image from: ${currentPath}`);
-            loaderImage.src = currentPath;
+            console.log(`🔍 Trying to load image from: ${currentPath}`);
+            
+            // Test if the image exists by fetching it first
+            fetch(currentPath, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(`✅ Image exists at: ${currentPath}`);
+                        loaderImage.src = currentPath;
+                    } else {
+                        console.log(`❌ Image not found at: ${currentPath} (status: ${response.status})`);
+                        currentImagePathIndex++;
+                        setTimeout(tryLoadImage, 100); // Small delay before trying next
+                    }
+                })
+                .catch(error => {
+                    console.log(`❌ Error checking image at: ${currentPath}`, error.message);
+                    currentImagePathIndex++;
+                    setTimeout(tryLoadImage, 100); // Small delay before trying next
+                });
         }
         
         loaderImage.alt = 'CrownPhone Logo';
@@ -602,7 +675,7 @@ function initializeLoader() {
                 }
                 
                 .loader-logo::after {
-                    content: '';
+                                    content: '';
                     position: absolute;
                     width: 140px;
                     height: 140px;
