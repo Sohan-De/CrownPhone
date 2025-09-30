@@ -149,7 +149,7 @@
         .dashboard-title {
             font-size: 32px;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            background: linear-gradient(45deg, #ff0000, #8B0000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -177,16 +177,16 @@
         }
         
         .tab-button:hover {
-            background: rgba(0, 212, 255, 0.1);
-            color: #00d4ff;
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
             transform: translateY(-1px);
         }
         
         .tab-button.active {
-            background: linear-gradient(45deg, #00d4ff, #00ff88);
-            color: #1a1a2e;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            color: #fff;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
         }
         
         /* Tab Content */
@@ -217,12 +217,13 @@
         }
         
         .admin-table th {
-            background: rgba(0, 0, 0, 0.2);
-            color: #00d4ff;
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
         }
         
         .admin-table tr:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 0, 0, 0.05);
         }
         
         /* Button Styles */
@@ -236,22 +237,26 @@
         }
         
         .btn-primary {
-            background: linear-gradient(45deg, #00d4ff, #00ff88);
-            color: #1a1a2e;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            color: #fff;
         }
         
         .btn-primary:hover {
             opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
         
         .btn-outline {
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff0000;
         }
         
         .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            color: #ff0000;
         }
         
         /* Action Buttons */
@@ -1088,13 +1093,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(0, 212, 255, 0.15), rgba(0, 255, 136, 0.15));
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.15), rgba(139, 0, 0, 0.15));
             z-index: -1;
             transform: translateY(-50%) rotate(10deg) scale(1.5);
         }
         
         .modal-content h3 {
-            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            background: linear-gradient(45deg, #ff0000, #8B0000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1158,10 +1163,10 @@
         
         .modal-actions button:first-child {
             padding: 1rem;
-            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            background: linear-gradient(45deg, #ff0000, #8B0000);
             border: none;
             border-radius: 8px;
-            color: #1a1a2e;
+            color: #fff;
             font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
@@ -1175,8 +1180,8 @@
         
         .modal-actions button:first-child:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-            background: linear-gradient(45deg, #00ff88, #00d4ff);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+            background: linear-gradient(45deg, #8B0000, #ff0000);
         }
         
         .modal-actions button:first-child::after {
@@ -1266,9 +1271,10 @@
         
         .form-control:focus {
             outline: none;
-            border-color: #00d4ff;
-            background: rgba(255, 255, 255, 0.05);
+            border-color: #ff0000;
+            background: rgba(255, 0, 0, 0.05);
             color: #fff;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
         }
         
         /* Ensure select elements maintain background color */
@@ -2035,7 +2041,6 @@
             <div class="tabs">
                 <button class="tab-button active" onclick="openTab('users-tab')">Users</button>
                 <button class="tab-button" onclick="openTab('subscription-tab')">Subscription</button>
-                <button class="tab-button" onclick="openTab('keys-tab')">🔑 Keys</button>
             </div>
             
             <!-- Users Tab -->
@@ -2044,7 +2049,7 @@
                 
                 <div class="search-box" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
                     <input type="text" id="user-search" class="form-control" placeholder="Search users..." style="flex: 1;">
-                    <button type="button" class="refresh-btn" onclick="refreshUserData()" style="background: linear-gradient(45deg, #00d4ff, #00ff88); color: #1a1a2e; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s ease; white-space: nowrap;">
+                    <button type="button" class="refresh-btn" onclick="refreshUserData()" style="background: linear-gradient(45deg, #ff0000, #8B0000); color: #fff; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s ease; white-space: nowrap;">
                         🔄 Refresh Users
                     </button>
                 </div>
@@ -2186,39 +2191,6 @@
                 </div>
             </div>
             
-            <!-- Keys Tab -->
-            <div id="keys-tab" class="tab-content">
-
-                
-                <!-- Keys Table -->
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Key Value</th>
-                            <th>Plan</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Updated</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="keys-table-body">
-                        <tr class="loading-row">
-                            <td colspan="7">Loading keys...</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="refresh-keys-section">
-                    <button class="btn btn-outline refresh-keys-btn" onclick="loadKeys()">
-                        🔄 Refresh Keys
-                    </button>
-                    <button class="btn btn-primary add-key-btn" onclick="showAddKeyModal()">
-                        ➕ Add Keys
-                    </button>
-                </div>
-            </div>
         </div>
         </main>
     
@@ -3283,357 +3255,13 @@
             navLinks.classList.remove('active');
         }
 
-        // ==================== KEY MANAGEMENT FUNCTIONS ====================
         
-        // Load all keys from Supabase
-        async function loadKeys() {
-            try {
-                console.log('Loading keys from Supabase...');
-                
-                if (typeof supabase === 'undefined') {
-                    console.error('Supabase client not available');
-                    showNotification('Supabase client not available', 'error');
-                    return;
-                }
-
-                // Show loading state
-                const tableBody = document.getElementById('keys-table-body');
-                tableBody.innerHTML = '<tr class="loading-row"><td colspan="7">Loading keys...</td></tr>';
-
-                // Fetch keys from Supabase
-                const { data: keys, error } = await supabase
-                    .from('Key')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) {
-                    console.error('Error loading keys:', error);
-                    showNotification('Error loading keys: ' + error.message, 'error');
-                    tableBody.innerHTML = '<tr><td colspan="7">Error loading keys</td></tr>';
-                    return;
-                }
-
-                console.log('Loaded keys:', keys);
-                
-                
-                // Display keys in table
-                displayKeys(keys);
-                
-                showNotification('Keys loaded successfully', 'success');
-                
-            } catch (error) {
-                console.error('Error loading keys:', error);
-                showNotification('Error loading keys: ' + error.message, 'error');
-            }
-        }
 
 
-        // Display keys in table
-        function displayKeys(keys) {
-            const tableBody = document.getElementById('keys-table-body');
-            
-            if (!keys || keys.length === 0) {
-                tableBody.innerHTML = '<tr><td colspan="7">No keys found</td></tr>';
-                return;
-            }
 
-            tableBody.innerHTML = '';
 
-            keys.forEach(key => {
-                const row = document.createElement('tr');
-                row.setAttribute('data-key-id', key.id);
-                
-                // Format dates
-                const createdDate = new Date(key.created_at).toLocaleDateString();
-                const updatedDate = new Date(key.updated_at).toLocaleDateString();
-                
-                // Get plan name
-                const planNames = {
-                    1: 'Free',
-                    2: 'Pro', 
-                    3: 'Business'
-                };
-                const planName = planNames[key.plan_id] || 'Unknown';
-                
-                // Status badge
-                const statusClass = key.used ? 'status-used' : 'status-available';
-                const statusText = key.used ? 'Used' : 'Available';
-                
-                row.innerHTML = `
-                    <td>${key.id}</td>
-                    <td><code>${key.key_value}</code></td>
-                    <td>${planName}</td>
-                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                    <td>${createdDate}</td>
-                    <td>${updatedDate}</td>
-                    <td>
-                        <button class="action-btn" onclick="toggleKeyStatus('${key.id}', ${key.used})" 
-                                title="${key.used ? 'Mark as Available' : 'Mark as Used'}">
-                            ${key.used ? '🔄' : '✅'}
-                        </button>
-                        <button class="action-btn delete-btn" onclick="confirmDeleteKey('${key.id}')" 
-                                title="Delete Key">
-                            🗑️
-                        </button>
-                        <button class="action-btn" onclick="copyKey('${key.key_value}')" 
-                                title="Copy Key">
-                            📋
-                        </button>
-                    </td>
-                `;
-                
-                tableBody.appendChild(row);
-            });
-        }
 
-        // Add new key
-        async function addNewKey() {
-            try {
-                const keyValue = document.getElementById('new-key-value').value.trim();
-                const planId = parseInt(document.getElementById('new-key-plan').value);
 
-                if (!keyValue) {
-                    showNotification('Please enter a key value', 'error');
-                    return;
-                }
-
-                if (keyValue.length !== 16) {
-                    showNotification('Key must be exactly 16 characters long', 'error');
-                    return;
-                }
-
-                console.log('Adding new key:', { keyValue, planId });
-
-                if (typeof supabase === 'undefined') {
-                    showNotification('Supabase client not available', 'error');
-                    return;
-                }
-
-                // Check if key already exists
-                const { data: existingKey, error: checkError } = await supabase
-                    .from('Key')
-                    .select('key_value')
-                    .eq('key_value', keyValue)
-                    .single();
-
-                if (checkError && checkError.code !== 'PGRST116') {
-                    console.error('Error checking existing key:', checkError);
-                    showNotification('Error checking key: ' + checkError.message, 'error');
-                    return;
-                }
-
-                if (existingKey) {
-                    showNotification('Key already exists', 'error');
-                    return;
-                }
-
-                // Insert new key
-                const { data, error } = await supabase
-                    .from('Key')
-                    .insert({
-                        key_value: keyValue,
-                        plan_id: planId,
-                        used: false,
-                        created_at: new Date().toISOString(),
-                        updated_at: new Date().toISOString()
-                    })
-                    .select();
-
-                if (error) {
-                    console.error('Error adding key:', error);
-                    showNotification('Error adding key: ' + error.message, 'error');
-                    return;
-                }
-
-                console.log('Key added successfully:', data);
-                
-                // Clear form
-                document.getElementById('new-key-value').value = '';
-                
-                // Reload keys
-                await loadKeys();
-                
-                showNotification('Key added successfully', 'success');
-
-            } catch (error) {
-                console.error('Error adding key:', error);
-                showNotification('Error adding key: ' + error.message, 'error');
-            }
-        }
-
-        // Generate random key
-        function generateRandomKey() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let result = '';
-            for (let i = 0; i < 16; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('new-key-value').value = result;
-        }
-
-        // Toggle key status (used/available)
-        async function toggleKeyStatus(keyId, currentStatus) {
-            try {
-                console.log('Toggling key status:', keyId, currentStatus);
-
-                if (typeof supabase === 'undefined') {
-                    showNotification('Supabase client not available', 'error');
-                    return;
-                }
-
-                const { error } = await supabase
-                    .from('Key')
-                    .update({ 
-                        used: !currentStatus,
-                        updated_at: new Date().toISOString()
-                    })
-                    .eq('id', keyId);
-
-                if (error) {
-                    console.error('Error updating key status:', error);
-                    showNotification('Error updating key: ' + error.message, 'error');
-                    return;
-                }
-
-                // Reload keys
-                await loadKeys();
-                
-                showNotification(`Key marked as ${!currentStatus ? 'used' : 'available'}`, 'success');
-
-            } catch (error) {
-                console.error('Error toggling key status:', error);
-                showNotification('Error updating key: ' + error.message, 'error');
-            }
-        }
-
-        // Delete key
-        async function deleteKey(keyId) {
-            try {
-                console.log('Deleting key:', keyId);
-
-                if (typeof supabase === 'undefined') {
-                    showNotification('Supabase client not available', 'error');
-                    return;
-                }
-
-                const { error } = await supabase
-                    .from('Key')
-                    .delete()
-                    .eq('id', keyId);
-
-                if (error) {
-                    console.error('Error deleting key:', error);
-                    showNotification('Error deleting key: ' + error.message, 'error');
-                    return;
-                }
-
-                // Reload keys
-                await loadKeys();
-                
-                showNotification('Key deleted successfully', 'success');
-
-            } catch (error) {
-                console.error('Error deleting key:', error);
-                showNotification('Error deleting key: ' + error.message, 'error');
-            }
-        }
-
-        // Confirm delete key
-        function confirmDeleteKey(keyId) {
-            if (confirm('Are you sure you want to delete this key? This action cannot be undone.')) {
-                deleteKey(keyId);
-            }
-        }
-
-        // Copy key to clipboard
-        async function copyKey(keyValue) {
-            try {
-                await navigator.clipboard.writeText(keyValue);
-                showNotification('Key copied to clipboard', 'success');
-            } catch (error) {
-                console.error('Error copying key:', error);
-                showNotification('Error copying key', 'error');
-            }
-        }
-
-        // Export keys to CSV
-        async function exportKeys() {
-            try {
-                console.log('Exporting keys...');
-
-                if (typeof supabase === 'undefined') {
-                    showNotification('Supabase client not available', 'error');
-                    return;
-                }
-
-                // Fetch all keys
-                const { data: keys, error } = await supabase
-                    .from('Key')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) {
-                    console.error('Error fetching keys for export:', error);
-                    showNotification('Error fetching keys: ' + error.message, 'error');
-                    return;
-                }
-
-                // Create CSV content
-                let csvContent = 'ID,Key Value,Plan ID,Plan Name,Status,Created,Updated\n';
-                
-                const planNames = {
-                    1: 'Free',
-                    2: 'Pro', 
-                    3: 'Business'
-                };
-
-                keys.forEach(key => {
-                    const planName = planNames[key.plan_id] || 'Unknown';
-                    const status = key.used ? 'Used' : 'Available';
-                    const created = new Date(key.created_at).toLocaleString();
-                    const updated = new Date(key.updated_at).toLocaleString();
-                    
-                    csvContent += `${key.id},"${key.key_value}",${key.plan_id},"${planName}","${status}","${created}","${updated}"\n`;
-                });
-
-                // Download CSV file
-                const blob = new Blob([csvContent], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `keys_export_${new Date().toISOString().split('T')[0]}.csv`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-
-                showNotification('Keys exported successfully', 'success');
-
-            } catch (error) {
-                console.error('Error exporting keys:', error);
-                showNotification('Error exporting keys: ' + error.message, 'error');
-            }
-        }
-
-        // Show add key modal (placeholder function)
-        function showAddKeyModal() {
-            // Focus on the key input field
-            document.getElementById('new-key-value').focus();
-        }
-
-        // Initialize key management when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load keys when the keys tab is first opened
-            const keysTab = document.querySelector('[onclick="openTab(\'keys-tab\')"]');
-            if (keysTab) {
-                keysTab.addEventListener('click', function() {
-                    // Load keys after a short delay to ensure tab is visible
-                    setTimeout(() => {
-                        loadKeys();
-                    }, 100);
-                });
-            }
-        });
         
         // Initialize subscription plans when page loads
         document.addEventListener('DOMContentLoaded', function() {
