@@ -1056,7 +1056,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+     
     border-radius: 8px;
     z-index: -1;
     padding: 2px;
@@ -1068,7 +1068,7 @@ body {
 
 .signin-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0, 212, 255, 0.6);
+    
 }
 
 .signin-btn:hover::before {
@@ -1076,10 +1076,10 @@ body {
 }
 
 .signup-btn {
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    
     color: #1a1a2e;
     border: none;
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;
@@ -1087,8 +1087,7 @@ body {
 
 .signup-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(0, 212, 255, 0.6);
-    background: linear-gradient(45deg, #00ff88, #00d4ff);
+    
 }
 
 .nav-btn .btn-icon {
@@ -2677,7 +2676,7 @@ body {
 
 /* Guide Section - Modern Timeline Design */
 .guide-section {
-    padding: 6rem 2rem;
+    
     position: relative;
     margin-top: -2px;
 }
