@@ -645,14 +645,19 @@
         /* Success Message */
         .success-message {
             display: none;
-            background: linear-gradient(45deg, #00ff88, #00d4ff);
-            color: #1a1a2e;
-            padding: 1.5rem;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            padding: 2rem;
             border-radius: 15px;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
+            margin-bottom: 2rem;
+            font-weight: 700;
             text-align: center;
             animation: slideInDown 0.5s ease-out;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+            border: 2px solid #ff0000;
+            position: relative;
+            z-index: 10;
+            font-size: 1.1rem;
         }
 
         @keyframes slideInDown {
@@ -894,20 +899,36 @@
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
+            // Validate form
+            if (!name || !email || !subject || !message) {
+                alert('Please fill in all fields!');
+                return;
+            }
+            
             // Show success message
             const successMessage = document.getElementById('success-message');
-            successMessage.style.display = 'block';
+            console.log('Success message element:', successMessage);
             
-            // Reset form
-            this.reset();
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 5000);
-            
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            if (successMessage) {
+                successMessage.style.display = 'block';
+                successMessage.style.visibility = 'visible';
+                successMessage.style.opacity = '1';
+                
+                // Reset form
+                this.reset();
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Hide success message after 8 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 8000);
+                
+                console.log('Success message displayed!');
+            } else {
+                console.error('Success message element not found!');
+            }
             
             // In a real application, you would send this data to your backend
             console.log('Form submitted:', { name, email, subject, message });
