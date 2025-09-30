@@ -536,7 +536,35 @@ function initializeLoader() {
         
         // Create image element for Feviconp.jpg
         const loaderImage = document.createElement('img');
-        loaderImage.src = 'Feviconp.jpg';
+        
+        // Try multiple paths for better compatibility with different hosting environments
+        const imagePaths = [
+            'Feviconp.jpg',
+            './Feviconp.jpg',
+            '/Feviconp.jpg',
+            './assets/Feviconp.jpg',
+            '/assets/Feviconp.jpg',
+            './images/Feviconp.jpg',
+            '/images/Feviconp.jpg'
+        ];
+        
+        let currentImagePathIndex = 0;
+        
+        function tryLoadImage() {
+            if (currentImagePathIndex >= imagePaths.length) {
+                // All paths failed, show fallback
+                console.error('All image paths failed, showing fallback');
+                lottieContainer.innerHTML = '<div class="loading-spinner">🔄</div>';
+                isAnimationLoaded = true;
+                checkIfReadyToHide();
+                return;
+            }
+            
+            const currentPath = imagePaths[currentImagePathIndex];
+            console.log(`Trying to load image from: ${currentPath}`);
+            loaderImage.src = currentPath;
+        }
+        
         loaderImage.alt = 'CrownPhone Logo';
         loaderImage.style.cssText = `
             width: 120px;
@@ -610,20 +638,22 @@ function initializeLoader() {
         
         // Handle image load
         loaderImage.addEventListener('load', function() {
-            console.log('✅ CrownPhone logo loaded successfully');
+            console.log('✅ CrownPhone logo loaded successfully from:', this.src);
             isAnimationLoaded = true;
             checkIfReadyToHide();
         });
         
         loaderImage.addEventListener('error', function() {
-            console.error('❌ Failed to load CrownPhone logo, showing fallback');
-            lottieContainer.innerHTML = '<div class="loading-spinner">🔄</div>';
-            isAnimationLoaded = true;
-            checkIfReadyToHide();
+            console.error('❌ Failed to load CrownPhone logo from:', this.src);
+            currentImagePathIndex++;
+            tryLoadImage();
         });
         
         // Add content to container
         lottieContainer.appendChild(loaderContent);
+        
+        // Start trying to load the image
+        tryLoadImage();
         
         // Fast loader - wait for hero section to load
         let isHeroSectionLoaded = false;
