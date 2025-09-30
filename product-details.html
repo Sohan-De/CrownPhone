@@ -340,8 +340,10 @@
 
         /* Quick Actions */
         .quick-actions {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 1rem;
+            margin-top: 2rem;
             margin-bottom: 2rem;
         }
 
@@ -378,7 +380,7 @@
         /* Product Features */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -733,6 +735,30 @@
 
             .product-images {
                 position: static;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quick-actions {
+                grid-template-columns: 1fr;
             }
 
             .product-title {
@@ -1205,47 +1231,6 @@
                         <img src="front-wire.png" alt="Front Wiring" class="thumbnail" onclick="changeImage(this, 'front-wire.png')">
                         <img src="Right.png" alt="Right Side" class="thumbnail" onclick="changeImage(this, 'Right.png')">
                     </div>
-                </div>
-
-                <!-- Product Information -->
-                <div class="product-info">
-                    <h1 class="product-title">CrownPhone Box Pro</h1>
-                    <p class="product-subtitle">Professional Screen Projection Hardware with Transparent Acrylic Casing and Advanced Electronics</p>
-
-                    <!-- Rating Section -->
-                    <div class="rating-section">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="rating-text">4.8 out of 5</span>
-                        <a href="#reviews" class="reviews-link">(128 reviews)</a>
-                    </div>
-
-                    <!-- Price Section -->
-                    <div class="price-section">
-                        <div class="price-container">
-                            <span class="current-price">$29.99</span>
-                            <span class="original-price">$49.99</span>
-                            <span class="discount-badge">40% OFF</span>
-                        </div>
-                        <p class="price-details">One-time purchase • Lifetime license • Free updates</p>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="action-buttons">
-                        <button class="btn-primary" onclick="addToCart()">
-                            <i class="fas fa-shopping-cart"></i>
-                            Add to Cart
-                        </button>
-                        <button class="btn-secondary" onclick="buyNow()">
-                            <i class="fas fa-bolt"></i>
-                            Buy Now
-                        </button>
-                    </div>
 
                     <!-- Quick Actions -->
                     <div class="quick-actions">
@@ -1293,6 +1278,47 @@
                             <i class="fas fa-headset feature-icon"></i>
                             <span class="feature-text">24/7 Support</span>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Product Information -->
+                <div class="product-info">
+                    <h1 class="product-title">CrownPhone Box Pro</h1>
+                    <p class="product-subtitle">Professional Screen Projection Hardware with Transparent Acrylic Casing and Advanced Electronics</p>
+
+                    <!-- Rating Section -->
+                    <div class="rating-section">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">4.8 out of 5</span>
+                        <a href="#reviews" class="reviews-link">(128 reviews)</a>
+                    </div>
+
+                    <!-- Price Section -->
+                    <div class="price-section">
+                        <div class="price-container">
+                            <span class="current-price">$29.99</span>
+                            <span class="original-price">$49.99</span>
+                            <span class="discount-badge">40% OFF</span>
+                        </div>
+                        <p class="price-details">One-time purchase • Lifetime license • Free updates</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="addToCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                        <button class="btn-secondary" onclick="buyNow()">
+                            <i class="fas fa-bolt"></i>
+                            Buy Now
+                        </button>
                     </div>
                 </div>
             </div>

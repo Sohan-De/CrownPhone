@@ -298,7 +298,7 @@
             margin: 0 auto 3rem;
             padding: 0 2rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
@@ -306,8 +306,8 @@
 
         .search-bar {
             position: relative;
-            flex: 1;
             max-width: 400px;
+            width: 100%;
         }
 
         .search-input {
@@ -340,34 +340,25 @@
             transform: translateY(-50%);
             color: #ff0000;
             font-size: 1.2rem;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 0.8rem 1.5rem;
-            background: rgba(30, 30, 30, 0.6);
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            border-radius: 25px;
-            color: white;
-            cursor: pointer;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
             transition: all 0.3s ease;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: linear-gradient(45deg, #8B0000, #ff0000);
-            border-color: transparent;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+        .search-bar:hover .search-icon {
+            color: #8B0000;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
         }
+
+        .search-input:focus + .search-icon {
+            color: #8B0000;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 1);
+            transform: translateY(-50%) scale(1.1);
+        }
+
 
         /* Products Grid */
         .products-grid {
@@ -654,12 +645,10 @@
             }
 
             .search-bar {
-                max-width: none;
+                max-width: 100%;
+                width: 100%;
             }
 
-            .filter-buttons {
-            justify-content: center;
-            }
 
             .products-grid {
                 grid-template-columns: 1fr;
@@ -1134,13 +1123,6 @@
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
                 </div>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All Products</button>
-                <button class="filter-btn" data-filter="software">Software</button>
-                <button class="filter-btn" data-filter="hardware">Hardware</button>
-                <button class="filter-btn" data-filter="subscription">Subscriptions</button>
-                <button class="filter-btn" data-filter="accessories">Accessories</button>
-                </div>
             </div>
             
         <!-- Products Grid -->
@@ -1343,10 +1325,9 @@
     </div>
 
     <script>
-        // Product filtering and search functionality
+        // Product search functionality
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
-            const filterButtons = document.querySelectorAll('.filter-btn');
             const productCards = document.querySelectorAll('.product-card');
 
             // Search functionality
@@ -1355,28 +1336,13 @@
                 filterProducts(searchTerm);
             });
 
-            // Filter functionality
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    const filter = this.getAttribute('data-filter');
-                    filterProducts('', filter);
-                });
-            });
-
-            function filterProducts(searchTerm = '', category = 'all') {
+            function filterProducts(searchTerm = '') {
                 productCards.forEach(card => {
                     const productName = card.getAttribute('data-name').toLowerCase();
-                    const productCategory = card.getAttribute('data-category');
                     
                     const matchesSearch = productName.includes(searchTerm);
-                    const matchesCategory = category === 'all' || productCategory === category;
                     
-                    if (matchesSearch && matchesCategory) {
+                    if (matchesSearch) {
                         card.style.display = 'block';
                         card.classList.add('fade-in');
                     } else {

@@ -90,152 +90,6 @@
             }
         }
         
-        /* Categories Section Styling */
-        .categories-section {
-            padding: 80px 0;
-            
-        }
-        
-        .categories-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .categories-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .categories-title {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-        
-        .categories-subtitle {
-            font-size: 1.1rem;
-            color: #a0a0a0;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 30px;
-        }
-        
-        .category-card {
-            background: rgba(30, 30, 30, 0.6);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
-        }
-        
-        .category-image-container {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .category-image {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.5s ease;
-        }
-        
-        .category-card:hover .category-image {
-            transform: scale(1.1);
-        }
-        
-        .category-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-        }
-        
-        .category-content {
-            padding: 25px;
-            position: relative;
-        }
-        
-        .category-name {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: white;
-            font-weight: 600;
-        }
-        
-        .category-description {
-            font-size: 0.95rem;
-            color: #a0a0a0;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        
-        .category-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-            background: linear-gradient(45deg, #8B0000, #ff0000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .category-link i {
-            margin-left: 8px;
-            transition: transform 0.3s ease;
-        }
-        
-        .category-card:hover .category-link i {
-            transform: translateX(5px);
-        }
-        
-        @media (max-width: 768px) {
-            .categories-section {
-                padding: 60px 0;
-            }
-            
-            .categories-title {
-                font-size: 2rem;
-            }
-            
-            .categories-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .categories-section {
-                padding: 40px 0;
-            }
-            
-            .categories-title {
-                font-size: 1.8rem;
-            }
-            
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-        }
         
         /* Products Section Styling */
         .products-section {
@@ -267,30 +121,6 @@
             margin: 0 auto;
         }
         
-        .products-filter {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .filter-btn {
-            background: rgba(30, 30, 30, 0.6);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            color: #a0a0a0;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: linear-gradient(45deg, #8B0000, #ff0000);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-        }
         
         .products-grid {
             display: grid;
@@ -516,10 +346,6 @@
                 gap: 20px;
             }
             
-            .filter-btn {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
         }
         
         @media (max-width: 480px) {
@@ -535,19 +361,11 @@
                 grid-template-columns: 1fr;
             }
             
-            .products-filter {
-                gap: 10px;
-            }
-            
-            .filter-btn {
-                padding: 8px 12px;
-                font-size: 0.8rem;
-            }
         }
         
         /* Commitment Section Styling */
         .commitment-section {
-            padding: 80px 0;
+            padding: 0px 0;
             
             position: relative;
             overflow: hidden;
@@ -945,7 +763,7 @@
         
         /* New Arrivals Section Styling */
         .new-arrivals-section {
-            padding: 80px 0;
+            padding: 0px 0;
             position: relative;
             overflow: hidden;
         }
@@ -1145,12 +963,11 @@
             position: relative;
         }
         
-        /* Dark navbar to match body */
+        /* Transparent navbar */
         .navbar {
-            
-            
+            background: transparent !important;
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
-           
         }
         
         /* Dark mobile menu */
@@ -2802,85 +2619,6 @@
 
 
 
-        <!-- Categories Section -->
-        <section id="categories" class="categories-section">
-            <div class="categories-container">
-                <div class="categories-header">
-                    <h2 class="categories-title">Shop by <span class="highlight-text" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Category</span></h2>
-                    <p class="categories-subtitle">Explore our premium device management solutions</p>
-                </div>
-                
-                <div class="categories-grid">
-                    <!-- Category 1 -->
-                    <div class="category-card">
-                        <div class="category-image-container">
-                            <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1511707171634-5f897ff02ff9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
-                                <div class="category-overlay"></div>
-                    </div>
-                </div>
-                        <div class="category-content">
-                            <h3 class="category-name">Smartphones</h3>
-                            <p class="category-description">Premium device management for all smartphone models</p>
-                            <a href="#smartphones" class="category-link">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-            </div>
-                    </div>
-                    
-                    <!-- Category 2 -->
-                    <div class="category-card">
-                        <div class="category-image-container">
-                            <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1544652478-6653e09f18a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
-                                <div class="category-overlay"></div>
-                            </div>
-                        </div>
-                        <div class="category-content">
-                            <h3 class="category-name">Tablets</h3>
-                            <p class="category-description">Seamless control for all tablet devices</p>
-                            <a href="#tablets" class="category-link">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Category 3 -->
-                    <div class="category-card">
-                        <div class="category-image-container">
-                            <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1587614382346-4ec70e388b28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
-                                <div class="category-overlay"></div>
-                            </div>
-                        </div>
-                        <div class="category-content">
-                            <h3 class="category-name">Wearables</h3>
-                            <p class="category-description">Smart management for watches and fitness trackers</p>
-                            <a href="#wearables" class="category-link">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Category 4 -->
-                    <div class="category-card">
-                        <div class="category-image-container">
-                            <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1550009158-9ebf69173e03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80');">
-                                <div class="category-overlay"></div>
-                            </div>
-                        </div>
-                        <div class="category-content">
-                            <h3 class="category-name">Enterprise Solutions</h3>
-                            <p class="category-description">Multi-device management for businesses</p>
-                            <a href="#enterprise" class="category-link">
-                                <span>Explore</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- New Arrivals Section -->
         <section id="new-arrivals" class="new-arrivals-section">
@@ -3027,12 +2765,6 @@
                     <p class="products-subtitle">Top-rated device management solutions for all your needs</p>
                 </div>
                 
-                <div class="products-filter">
-                    <button class="filter-btn active" data-filter="all">All Products</button>
-                    <button class="filter-btn" data-filter="smartphones">Smartphones</button>
-                    <button class="filter-btn" data-filter="tablets">Tablets</button>
-                    <button class="filter-btn" data-filter="wearables">Wearables</button>
-                </div>
                 
                 <div class="products-grid">
                     <!-- Product 1 -->
@@ -3361,8 +3093,6 @@
             // Smooth scrolling
             initializeSmoothScrolling();
             
-            // Initialize product filtering
-            initializeProductFilter();
             
             // Initialize New Arrivals Swiper
             initializeNewArrivalsSwiper();
@@ -3637,49 +3367,6 @@
             });
         }
         
-        function initializeProductFilter() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const productCards = document.querySelectorAll('.product-card');
-            
-            if (filterButtons.length > 0 && productCards.length > 0) {
-                filterButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        // Remove active class from all buttons
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        
-                        // Add active class to clicked button
-                        button.classList.add('active');
-                        
-                        // Get filter value
-                        const filterValue = button.getAttribute('data-filter');
-                        
-                        // Filter products
-                        productCards.forEach(card => {
-                            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                                card.style.display = 'block';
-                                // Add animation
-                                card.style.animation = 'fadeIn 0.5s forwards';
-                            } else {
-                                card.style.display = 'none';
-                            }
-                        });
-                    });
-                });
-                
-                // Add animation keyframes to head
-                if (!document.querySelector('#product-animations')) {
-                    const style = document.createElement('style');
-                    style.id = 'product-animations';
-                    style.innerHTML = `
-                        @keyframes fadeIn {
-                            from { opacity: 0; transform: translateY(20px); }
-                            to { opacity: 1; transform: translateY(0); }
-                        }
-                    `;
-                    document.head.appendChild(style);
-                }
-            }
-        }
         
         function initializeNewArrivalsSwiper() {
             // Check if Swiper is available
