@@ -23,6 +23,194 @@
             padding: 0 !important;
         }
         
+        /* Red background elements like profile page */
+        .dot {
+            background: #ff0000 !important;
+        }
+        
+        .star-bg {
+            color: #ff0000 !important;
+        }
+        
+        /* Navbar Styling Override to match profile page */
+        .navbar {
+            
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1) !important;
+            position: relative;
+        }
+
+        .logo-text {
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) !important;
+        }
+        
+        .nav-link::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -5px !important;
+            left: 0 !important;
+            width: 0 !important;
+            height: 2px !important;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            transition: width 0.3s ease !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.4) !important;
+        }
+        
+        .nav-link:hover::after {
+            width: 100% !important;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        
+        /* Footer Styles - matching profile page */
+        .footer {
+            padding: 3rem 0 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-logo h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: none !important;
+            filter: none !important;
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo:hover h3 {
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.4) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link::after {
+            display: none !important;
+            content: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: none !important;
+        }
+
+        .footer-link:hover::after {
+            display: none !important;
+            width: 0 !important;
+            background: none !important;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .footer-copyright::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5) !important;
+        }
+
+        .footer-copyright p {
+            color: white !important;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .footer-link {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+        }
+        
         body.terms-page .main-content {
             opacity: 1 !important;
             transform: none !important;
@@ -220,19 +408,26 @@
         }
 
         .terms-title {
-            font-size: 3rem;
+            color: #fff;
+            font-size: 48px;
             font-weight: 800;
-            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
+            color: transparent;
+            text-align: center;
         }
 
         .terms-subtitle {
-            font-size: 1.2rem;
-            color: #b8c5d6;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 20px;
             margin-bottom: 2rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            text-align: center;
         }
 
         .last-updated {
@@ -255,24 +450,35 @@
         }
 
         .terms-section h2 {
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             font-size: 1.8rem;
-            color: #00d4ff;
             margin-bottom: 1rem;
             font-weight: 600;
+            font-family: 'Poppins', sans-serif;
         }
 
         .terms-section h3 {
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             font-size: 1.4rem;
-            color: #00ff88;
             margin-bottom: 0.8rem;
             margin-top: 1.5rem;
             font-weight: 500;
+            font-family: 'Poppins', sans-serif;
         }
 
         .terms-section p {
             line-height: 1.7;
-            color: #e0e0e0;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
         }
 
         .terms-section ul {
@@ -282,63 +488,98 @@
 
         .terms-section li {
             line-height: 1.6;
-            color: #e0e0e0;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
         }
 
         .highlight-text {
-            color: #00d4ff;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             font-weight: 600;
         }
 
         .warning-text {
-            color: #ff6b6b;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             font-weight: 600;
         }
+        
+
+        
+        
+
 
         .important-text {
-            color: #ffd93d;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             font-weight: 600;
         }
 
         .contact-info {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
             border-radius: 10px;
             padding: 1.5rem;
             margin: 2rem 0;
         }
 
         .contact-info h3 {
-            color: #00d4ff;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
         }
 
         .contact-info p {
             margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Poppins', sans-serif;
         }
 
         .contact-info a {
-            color: #00ff88;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .contact-info a:hover {
-            color: #00d4ff;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4));
         }
 
         .prohibited-list {
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.3);
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
             border-radius: 10px;
             padding: 1.5rem;
             margin: 1rem 0;
         }
 
         .prohibited-list h4 {
-            color: #ff6b6b;
+            background: linear-gradient(45deg, #ff0000, #8B0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
             margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
         }
 
         /* Mobile Responsive - matching nav container */
@@ -349,7 +590,7 @@
             }
 
             .terms-title {
-                font-size: 2.5rem;
+                font-size: 36px;
             }
 
             .terms-content {
@@ -371,7 +612,7 @@
             }
 
             .terms-title {
-                font-size: 2rem;
+                font-size: 28px;
             }
 
             .terms-content {
@@ -675,62 +916,40 @@
         </div>
     </div>
 
-    <!-- Navigation Bar Component -->
+    <!-- Navigation Bar -->
     <nav class="navbar" id="navbar-component">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="index.html" style="text-decoration: none;">
-                    <h2 class="logo-text"><img src="fevp.png" alt="Crown Phone" style="height:24px;width:24px;vertical-align:middle;margin-right:8px;">Crown Phone</h2>
+                    <h2 class="logo-text"><img src="fevp.png" alt="CrownPhone" style="height:24px;width:24px;vertical-align:middle;margin-right:8px;">CrownPhone</h2>
                 </a>
+            </div>
+            
+            <!-- Desktop Navigation Links -->
+            <div class="desktop-nav-links" style="display: flex; justify-content: center; flex: 1; gap: 30px; margin: 0 20px;">
+                <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
             </div>
             
             <!-- Hamburger Menu Button -->
             <div class="hamburger-menu" id="hamburger-menu">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
             </div>
             
-            <div class="nav-links" id="nav-links">
+            <div class="nav-links" id="nav-links" style="display: none;">
                 <div class="mobile-menu-header">
                     <h3 class="mobile-menu-title">Menu</h3>
                 </div>
-                <a href="index.html" class="nav-link home-link">Home</a>
-                <a href="index.html#features" class="nav-link">Features</a>
-                <a href="index.html#pricing" class="nav-link">Pricing</a>
-                <a href="index.html#contact" class="nav-link">Contact</a>
-                <a href="https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view" target="_blank" class="nav-link download-me-neo">
-                    <i class="fas fa-download"></i> Download Me
-                </a>
+                <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
                 
-                <!-- Mobile Profile Section (shown when logged in) -->
-                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
-                    <div class="mobile-profile-header">
-                        <div class="mobile-profile-avatar">
-                            <span class="avatar-text">JD</span>
-                        </div>
-                        <div class="mobile-profile-info">
-                            <h4 class="mobile-profile-name">John Doe</h4>
-                        </div>
-                    </div>
-                    <div class="mobile-profile-actions">
-                        <a href="profile.html" class="mobile-profile-btn">
-                            <i class="fas fa-user"></i>
-                            <span>My Profile</span>
-                        </a>
-                        <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display:none;">
-                            <i class="fas fa-lock"></i>
-                            <span>Admin</span>
-                        </a>
-                        <div class="mobile-profile-divider"></div>
-                        <button class="mobile-profile-btn" id="mobile-logout-btn">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Mobile Auth Buttons (shown when not logged in) -->
+                <!-- Mobile Auth Buttons -->
                 <div class="mobile-auth-buttons" id="mobile-auth-buttons">
                     <a href="sign-in.html" class="mobile-auth-btn signin-btn">
                         <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
@@ -741,7 +960,32 @@
                         <span class="btn-text">SIGN UP</span>
                     </a>
                 </div>
+
+                <!-- Mobile Profile Section (shown when logged in) -->
+                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
+                    <div class="mobile-profile-avatar">
+                        <span class="avatar-text"></span>
+                    </div>
+                    <span class="mobile-profile-name"></span>
+                    <a href="profile.html" class="mobile-profile-btn">Profile</a>
+                    <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display: none;">Admin Dashboard</a>
+                    <button id="mobile-logout-btn" class="mobile-profile-btn logout-btn">Logout</button>
+                </div>
             </div>
+            
+            <!-- Right side navigation items -->
+            <div class="nav-right" style="display: flex; align-items: center;">
+                <!-- Profile Link (shown when logged in) -->
+                <a href="profile.html" class="nav-link profile-link" id="nav-profile-link" style="font-weight: 500; display: none; margin-right: 15px;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i></a>
+                
+                <!-- Shopping Cart Link -->
+                <a href="cart.html" class="nav-link cart-link" id="nav-cart-link" style="font-weight: 500; margin-right: 15px; position: relative;" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
+                    <span class="cart-counter" id="cart-counter" style="position: absolute; top: -8px; right: -8px; background: linear-gradient(45deg, #8B0000, #ff0000); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; display: none;">0</span>
+                </a>
+                
+                <!-- Admin Dashboard Link (shown only when logged in as admin) -->
+                <a href="admin-dashboard.html" class="nav-link admin-link" id="nav-admin-link" style="font-weight: 500; display: none; margin-right: 15px;" title="Admin Dashboard"><i class="fas fa-shield-alt" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i></a>
             
             <!-- Desktop Auth Buttons (shown when not logged in) -->
             <div class="nav-auth" id="nav-auth-buttons">
@@ -754,33 +998,6 @@
                     <span class="btn-text">SIGN UP</span>
                 </a>
             </div>
-            
-            <!-- Desktop Profile Dropdown (shown when logged in) -->
-            <div class="nav-profile" id="nav-profile" style="display: none;">
-                <div class="profile-dropdown">
-                    <div class="profile-btn">
-                        <div class="profile-avatar">
-                            <span class="avatar-text">JD</span>
-                        </div>
-                        <span class="profile-name">John Doe</span>
-                        <span class="dropdown-arrow">▼</span>
-                    </div>
-                    <div class="dropdown-menu">
-                        <a href="profile.html" class="dropdown-item">
-                            <span class="item-icon"><i class="fas fa-user"></i></span>
-                            <span>My Profile</span>
-                        </a>
-                        <a href="admin-dashboard.html" class="dropdown-item admin-link" style="display:none;">
-                            <span class="item-icon"><i class="fas fa-lock"></i></span>
-                            <span>Admin</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item" id="logout-btn">
-                            <span class="item-icon"><i class="fas fa-sign-out-alt"></i></span>
-                            <span>Logout</span>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
@@ -950,19 +1167,21 @@
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <h3 class="footer-logo-text"><img src="fevp.png" alt="Crown Phone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">Crown Phone</h3>
+                    <a href="index.html" style="text-decoration: none;">
+                        <h3 class="footer-logo-text" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important';"><img src="fevp.png" alt="CrownPhone" style="height:20px;width:20px;vertical-align:middle;margin-right:6px;">CrownPhone</h3>
+                    </a>
                 </div>
                 <div class="footer-links">
-                    <a href="index.html#features" class="footer-link">Features</a>
-                    <a href="index.html#pricing" class="footer-link">Pricing</a>
-                    <a href="index.html#contact" class="footer-link">Contact</a>
-                    <a href="index.html#download" class="footer-link">Download</a>
-                    <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
-                    <a href="terms-of-service.html" class="footer-link">Terms of Service</a>
+                    <a href="index.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Home<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="product-list.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Products<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="index.html#guide" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Guide<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="index.html#contact" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Contact<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="privacy-policy.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Privacy Policy<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
+                    <a href="terms-of-service.html" class="footer-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: none !important; filter: none !important; transition: all 0.3s ease; position: relative; text-decoration: none !important;" onmouseover="this.style.textShadow='0 0 10px rgba(255, 0, 0, 0.4) !important'; this.style.filter='drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important'; this.querySelector('.link-underline').style.width='100%';" onmouseout="this.style.textShadow='none !important'; this.style.filter='none !important'; this.querySelector('.link-underline').style.width='0';">Terms of Service<span class="link-underline" style="position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: linear-gradient(45deg, #8B0000, #ff0000) !important; transition: width 0.3s ease;"></span></a>
                 </div>
             </div>
             <div class="footer-copyright">
-                <p>© 2025 Crown Phone. Professional Multi-Device Management Software.</p>
+                <p>© 2025 CrownPhone. Professional Multi-Device Management Software.</p>
             </div>
         </div>
     </footer>
@@ -974,8 +1193,159 @@
     
     <script src="./scripts/script.js"></script>
     <script>
+        // Check authentication status and update navbar
+        async function checkAuthStatus() {
+            try {
+                // Check if supabase is available
+                if (typeof supabase === 'undefined') {
+                    console.error('Supabase client not available');
+                    showAuthButtons();
+                    return;
+                }
+
+                console.log('Checking auth status...');
+                const { data: { user }, error } = await supabase.auth.getUser();
+                
+                if (error) {
+                    console.error('Error getting user:', error);
+                    showAuthButtons();
+                    return;
+                }
+
+                if (user) {
+                    // User is logged in
+                    console.log('User is logged in:', user.email);
+                    
+                    // Get user profile data
+                    const { data: profileData, error: profileError } = await supabase
+                        .from('profiles')
+                        .select('first_name, last_name, email, is_admin')
+                        .eq('email', user.email)
+                        .single();
+
+                    if (profileError) {
+                        console.error('Error getting profile:', profileError);
+                    }
+
+                    console.log('Profile data:', profileData);
+                    // Show profile elements
+                    showProfileElements(profileData);
+                } else {
+                    // User is not logged in
+                    console.log('User is not logged in');
+                    showAuthButtons();
+                }
+            } catch (error) {
+                console.error('Error checking auth status:', error);
+                showAuthButtons();
+            }
+        }
+
+        // Show profile elements when user is logged in
+        function showProfileElements(profileData) {
+            console.log('Showing profile elements...');
+            
+            // Hide auth buttons
+            const authButtons = document.getElementById('nav-auth-buttons');
+            const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+            if (authButtons) {
+                authButtons.style.display = 'none';
+                console.log('Auth buttons hidden');
+            }
+            if (mobileAuthButtons) {
+                mobileAuthButtons.style.display = 'none';
+                console.log('Mobile auth buttons hidden');
+            }
+
+            // Show profile link
+            const profileLink = document.getElementById('nav-profile-link');
+            if (profileLink) {
+                profileLink.style.display = 'block';
+                console.log('Profile link shown');
+            } else {
+                console.error('Profile link not found!');
+            }
+
+            // Show admin link if user is admin
+            if (profileData && profileData.is_admin) {
+                console.log('User is admin, showing admin link');
+                const adminLink = document.getElementById('nav-admin-link');
+                const mobileAdminLink = document.querySelector('.admin-link');
+                if (adminLink) {
+                    adminLink.style.display = 'block';
+                    console.log('Admin link shown');
+                }
+                if (mobileAdminLink) {
+                    mobileAdminLink.style.display = 'block';
+                    console.log('Mobile admin link shown');
+                }
+            }
+
+            // Show mobile profile section
+            const mobileProfileSection = document.getElementById('mobile-profile-section');
+            if (mobileProfileSection) {
+                mobileProfileSection.style.display = 'block';
+                console.log('Mobile profile section shown');
+                
+                // Update mobile profile info
+                const avatarText = mobileProfileSection.querySelector('.avatar-text');
+                const profileName = mobileProfileSection.querySelector('.mobile-profile-name');
+                
+                if (profileData) {
+                    const initials = getInitials(profileData.first_name + ' ' + profileData.last_name);
+                    if (avatarText) avatarText.textContent = initials;
+                    if (profileName) profileName.textContent = profileData.first_name + ' ' + profileData.last_name;
+                }
+            }
+        }
+
+        // Show auth buttons when user is not logged in
+        function showAuthButtons() {
+            // Show auth buttons
+            const authButtons = document.getElementById('nav-auth-buttons');
+            const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+            if (authButtons) authButtons.style.display = 'flex';
+            if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
+
+            // Hide profile elements
+            const profileLink = document.getElementById('nav-profile-link');
+            const adminLink = document.getElementById('nav-admin-link');
+            const mobileProfileSection = document.getElementById('mobile-profile-section');
+            
+            if (profileLink) profileLink.style.display = 'none';
+            if (adminLink) adminLink.style.display = 'none';
+            if (mobileProfileSection) mobileProfileSection.style.display = 'none';
+        }
+
+        // Get user initials
+        function getInitials(name) {
+            if (!name) return 'U';
+            return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        }
+
         // Ensure terms of service page loads properly
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Terms page DOM loaded');
+            
+            // Check if Supabase is available immediately
+            if (typeof supabase !== 'undefined') {
+                console.log('Supabase is available immediately');
+                checkAuthStatus();
+            } else {
+                console.log('Supabase not available, waiting...');
+                // Wait for Supabase to be loaded, then check authentication status
+                setTimeout(() => {
+                    console.log('Checking Supabase after timeout...');
+                    if (typeof supabase !== 'undefined') {
+                        console.log('Supabase is now available');
+                        checkAuthStatus();
+                    } else {
+                        console.error('Supabase still not available after timeout');
+                        showAuthButtons();
+                    }
+                }, 2000);
+            }
+            
             // Hide any loader overlays
             const loaders = document.querySelectorAll('.loader-overlay, .loading-overlay');
             loaders.forEach(loader => {
@@ -1028,10 +1398,17 @@
             if (authButtons) authButtons.style.display = 'none';
             if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
             
-            // Show profile dropdown
-            const profileDropdown = document.getElementById('nav-profile');
+            // Show profile link (not dropdown)
+            const profileLink = document.getElementById('nav-profile-link');
+            if (profileLink) {
+                profileLink.style.display = 'block';
+                console.log('Profile link shown');
+            } else {
+                console.error('Profile link not found!');
+            }
+            
+            // Show mobile profile section
             const mobileProfileSection = document.getElementById('mobile-profile-section');
-            if (profileDropdown) profileDropdown.style.display = 'block';
             if (mobileProfileSection) mobileProfileSection.style.display = 'block';
             
             // Update user info
@@ -1049,10 +1426,12 @@
             if (authButtons) authButtons.style.display = 'flex';
             if (mobileAuthButtons) mobileAuthButtons.style.display = 'block';
             
-            // Hide profile dropdown
-            const profileDropdown = document.getElementById('nav-profile');
+            // Hide profile link
+            const profileLink = document.getElementById('nav-profile-link');
+            const adminLink = document.getElementById('nav-admin-link');
             const mobileProfileSection = document.getElementById('mobile-profile-section');
-            if (profileDropdown) profileDropdown.style.display = 'none';
+            if (profileLink) profileLink.style.display = 'none';
+            if (adminLink) adminLink.style.display = 'none';
             if (mobileProfileSection) mobileProfileSection.style.display = 'none';
         }
         

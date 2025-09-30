@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="fevp.png">
     <link rel="apple-touch-icon" href="fevp.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* Basic Reset */
         * {
@@ -1636,6 +1637,295 @@
             border-color: #00d4ff !important;
             color: #00d4ff !important;
         }
+
+        /* Navigation Bar Styling - matching cart page */
+        .navbar {
+            background: rgba(26, 26, 46, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1) !important;
+            position: relative;
+            z-index: 1000;
+            padding: 0.8rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo a {
+            text-decoration: none;
+        }
+
+        .logo-text {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .desktop-nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4));
+        }
+
+        .nav-link::after {
+            content: '' !important;
+            position: absolute !important;
+            bottom: -5px !important;
+            left: 0 !important;
+            width: 0 !important;
+            height: 2px !important;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+            transition: width 0.3s ease !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.4) !important;
+        }
+
+        .nav-link:hover::after {
+            width: 100% !important;
+            background: linear-gradient(45deg, #8B0000, #ff0000) !important;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 0, 0, 0.2);
+            transition: right 0.3s ease;
+            z-index: 1001;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .nav-links.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .mobile-menu-title {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .nav-links .nav-link {
+            display: block;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .signin-btn {
+            background: transparent;
+            color: #00d4ff;
+            border-color: #00d4ff;
+        }
+
+        .signin-btn:hover {
+            background: #00d4ff;
+            color: #1a1a2e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .signup-btn {
+            background: linear-gradient(45deg, #00d4ff, #00ff88);
+            color: #1a1a2e;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .mobile-auth-buttons {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-auth-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .mobile-profile-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .avatar-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .mobile-profile-name {
+            display: block;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .mobile-profile-btn {
+            display: block;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mobile-profile-btn:hover {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+        }
+
+        .logout-btn {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff0000;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .desktop-nav-links {
+                display: none;
+            }
+
+            .nav-auth {
+                display: none;
+            }
+
+            .nav-right {
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 0.5rem;
+            }
+
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            .nav-links {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1647,30 +1937,94 @@
         </div>
     </div>
     
-    <!-- Main Dashboard Content (hidden until access check) -->
-    <div id="dashboard-content" class="dashboard-content" style="display: none;">
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
+    <!-- Navigation Bar (always visible) -->
+    <nav class="navbar" id="navbar-component">
+        <div class="nav-container">
+            <div class="nav-logo">
                 <a href="index.html" style="text-decoration: none;">
-                    <h1 class="logo"><img src="fevp.png" alt="Crown Phone" style="height:24px;width:24px;vertical-align:middle;margin-right:8px;">Crown Phone</h1>
+                    <h2 class="logo-text"><img src="fevp.png" alt="CrownPhone" style="height:24px;width:24px;vertical-align:middle;margin-right:8px;">CrownPhone</h2>
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation Links -->
+            <div class="desktop-nav-links" style="display: flex; justify-content: center; flex: 1; gap: 30px; margin: 0 20px;">
+                <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+            </div>
+            
+            <!-- Hamburger Menu Button -->
+            <div class="hamburger-menu" id="hamburger-menu">
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+            </div>
+            
+            <div class="nav-links" id="nav-links" style="display: none;">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-title">Menu</h3>
+                </div>
+                <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
+                <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
+                <a href="index.html#guide" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
+                <a href="index.html#contact" class="nav-link" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+                
+                <!-- Mobile Auth Buttons -->
+                <div class="mobile-auth-buttons" id="mobile-auth-buttons">
+                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="mobile-auth-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Profile Section (shown when logged in) -->
+                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
+                    <div class="mobile-profile-avatar">
+                        <span class="avatar-text"></span>
+                    </div>
+                    <span class="mobile-profile-name"></span>
+                    <a href="profile.html" class="mobile-profile-btn">Profile</a>
+                    <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display: none;">Admin Dashboard</a>
+                    <button id="mobile-logout-btn" class="mobile-profile-btn logout-btn">Logout</button>
+                </div>
+            </div>
+            
+            <!-- Right side navigation items -->
+            <div class="nav-right" style="display: flex; align-items: center;">
+                <!-- Profile Link (shown when logged in) -->
+                <a href="profile.html" class="nav-link profile-link" id="nav-profile-link" style="font-weight: 500; display: none; margin-right: 15px;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i></a>
+                
+                <!-- Shopping Cart Link -->
+                <a href="cart.html" class="nav-link cart-link" id="nav-cart-link" style="font-weight: 500; margin-right: 15px; position: relative;" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
+                    <span class="cart-counter" id="cart-counter" style="position: absolute; top: -8px; right: -8px; background: linear-gradient(45deg, #8B0000, #ff0000); color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; display: none;">0</span>
                 </a>
                 
-                <!-- Hamburger Menu Button -->
-                <button class="hamburger-menu" id="hamburger-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                
-                <nav class="nav-links" id="nav-links">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="#" class="nav-link" id="logout-link">Logout</a>
-                </nav>
+                <!-- Admin Dashboard Link (shown only when logged in as admin) -->
+                <a href="admin-dashboard.html" class="nav-link admin-link" id="nav-admin-link" style="font-weight: 500; display: none; margin-right: 15px;" title="Admin Dashboard"><i class="fas fa-shield-alt" style="font-size: 1.2rem; background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i></a>
+            
+                <!-- Desktop Auth Buttons (shown when not logged in) -->
+                <div class="nav-auth" id="nav-auth-buttons">
+                    <a href="sign-in.html" class="nav-btn signin-btn">
+                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
+                        <span class="btn-text">SIGN IN</span>
+                    </a>
+                    <a href="sign-up.html" class="nav-btn signup-btn">
+                        <span class="btn-icon"><i class="fas fa-rocket"></i></span>
+                        <span class="btn-text">SIGN UP</span>
+                    </a>
+                </div>
             </div>
         </div>
-    </header>
+    </nav>
 
+    <!-- Main Dashboard Content (hidden until access check) -->
+    <div id="dashboard-content" class="dashboard-content" style="display: none;">
     <main class="main-content">
         <div class="container">
             <div class="dashboard-header">
@@ -2017,7 +2371,176 @@
             }
         }
         
-        // Check admin access when page loads
+        // Navigation functionality (run immediately since nav is always visible)
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const navLinks = document.getElementById('nav-links');
+            const navAuthButtons = document.getElementById('nav-auth-buttons');
+            const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+            const mobileProfileSection = document.getElementById('mobile-profile-section');
+            const navProfileLink = document.getElementById('nav-profile-link');
+            const navCartLink = document.getElementById('nav-cart-link');
+            const navAdminLink = document.getElementById('nav-admin-link');
+            const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+
+            // Toggle mobile menu
+            if (hamburgerMenu) {
+                hamburgerMenu.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!hamburgerMenu.contains(event.target) && !navLinks.contains(event.target)) {
+                    navLinks.classList.remove('active');
+                }
+            });
+
+            // Check authentication status
+            async function checkAuthStatus() {
+                try {
+                    console.log('Checking auth status...');
+                    const { data: { user }, error } = await supabase.auth.getUser();
+                    
+                    if (user) {
+                        console.log('User is logged in:', user.email);
+                        // User is logged in
+                        showProfileElements();
+                        await checkAdminStatus();
+                    } else {
+                        console.log('User is not logged in');
+                        // User is not logged in
+                        showAuthButtons();
+                    }
+                } catch (error) {
+                    console.error('Error checking auth status:', error);
+                    showAuthButtons();
+                }
+            }
+
+            // Show profile elements when logged in
+            function showProfileElements() {
+                if (navProfileLink) navProfileLink.style.display = 'block';
+                if (navCartLink) navCartLink.style.display = 'block';
+                if (mobileProfileSection) mobileProfileSection.style.display = 'block';
+                if (navAuthButtons) navAuthButtons.style.display = 'none';
+                if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+                
+                // Update profile info
+                updateUserInfo();
+                
+                console.log('Profile elements shown');
+            }
+
+            // Show auth buttons when not logged in
+            function showAuthButtons() {
+                if (navProfileLink) navProfileLink.style.display = 'none';
+                if (navCartLink) navCartLink.style.display = 'none';
+                if (navAdminLink) navAdminLink.style.display = 'none';
+                if (mobileProfileSection) mobileProfileSection.style.display = 'none';
+                if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
+            }
+
+            // Update user info
+            async function updateUserInfo() {
+                try {
+                    const { data: { user }, error } = await supabase.auth.getUser();
+                    
+                    if (user) {
+                        const avatarText = document.querySelector('.avatar-text');
+                        const profileName = document.querySelector('.mobile-profile-name');
+                        
+                        if (avatarText) {
+                            avatarText.textContent = getInitials(user.email);
+                        }
+                        
+                        if (profileName) {
+                            profileName.textContent = user.email;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error updating user info:', error);
+                }
+            }
+
+            // Get user initials
+            function getInitials(email) {
+                return email.split('@')[0].substring(0, 2).toUpperCase();
+            }
+
+            // Check admin status
+            async function checkAdminStatus() {
+                try {
+                    const { data: { user }, error } = await supabase.auth.getUser();
+                    
+                    if (user) {
+                        const { data: profile, error: profileError } = await supabase
+                            .from('profiles')
+                            .select('is_admin')
+                            .eq('id', user.id)
+                            .single();
+
+                        if (profile && profile.is_admin) {
+                            console.log('User is admin, showing admin link');
+                            if (navAdminLink) navAdminLink.style.display = 'block';
+                            const adminLink = document.querySelector('.admin-link');
+                            if (adminLink) adminLink.style.display = 'block';
+                        } else {
+                            console.log('User is not admin');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error checking admin status:', error);
+                }
+            }
+
+            // Setup logout functionality
+            function setupLogoutButton() {
+                if (mobileLogoutBtn) {
+                    mobileLogoutBtn.addEventListener('click', async function() {
+                        try {
+                            const { error } = await supabase.auth.signOut();
+                            if (error) throw error;
+                            
+                            // Redirect to home page
+                            window.location.href = 'index.html';
+                        } catch (error) {
+                            console.error('Error signing out:', error);
+                        }
+                    });
+                }
+            }
+
+            // Initialize
+            setupLogoutButton();
+            
+            // Check auth status immediately and then again after Supabase loads
+            checkAuthStatus();
+            
+            // Debug: Force show icons for testing
+            console.log('Debug: Forcing icons to show for testing');
+            if (navProfileLink) {
+                navProfileLink.style.display = 'block';
+                console.log('Profile link shown');
+            }
+            if (navCartLink) {
+                navCartLink.style.display = 'block';
+                console.log('Cart link shown');
+            }
+            if (navAdminLink) {
+                navAdminLink.style.display = 'block';
+                console.log('Admin link shown');
+            }
+            
+            // Wait for Supabase to be ready and check again
+            setTimeout(() => {
+                checkAuthStatus();
+            }, 1000);
+        });
+
+        // Check admin access when page loads (after navigation is set up)
         document.addEventListener('DOMContentLoaded', checkAdminAccess);
     </script>
     
