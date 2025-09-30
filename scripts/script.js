@@ -715,11 +715,10 @@ function initializeLoader() {
         // Add image to container (no text above)
         loaderContent.appendChild(loaderImage);
         
-        // Handle image load
+        // Handle image load (background loading)
         loaderImage.addEventListener('load', function() {
             console.log('✅ CrownPhone logo loaded successfully from:', this.src);
-            isAnimationLoaded = true;
-            checkIfReadyToHide();
+            // Image loaded successfully in background
         });
         
         loaderImage.addEventListener('error', function() {
@@ -731,12 +730,16 @@ function initializeLoader() {
         // Add content to container
         lottieContainer.appendChild(loaderContent);
         
-        // Start trying to load the image
-        tryLoadImage();
-        
         // Fast loader - wait for hero section to load
         let isHeroSectionLoaded = false;
         let isAnimationLoaded = false;
+        
+        // Show logo immediately and load image in background
+        isAnimationLoaded = true;
+        checkIfReadyToHide();
+        
+        // Load image in background
+        tryLoadImage();
         let minLoaderTime = 500; // Minimum 0.5 seconds for smooth UX
         let loaderStartTime = Date.now();
         
