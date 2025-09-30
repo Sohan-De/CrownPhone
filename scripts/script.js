@@ -531,77 +531,99 @@ function initializeLoader() {
     });
     
     if (loaderOverlay && mainContent && lottieContainer) {
-        // Load and play Lottie animation (only for loader)
-        // Try multiple paths to ensure compatibility with different hosting environments
-        const animationPaths = [
-            'Icon.json',
-            './Icon.json',
-            '/Icon.json',
-            'Icon.json'
-        ];
+        // Load and display JPG image instead of Lottie animation
+        console.log('Loading CrownPhone logo image...');
         
-        let currentPathIndex = 0;
-        let animation = null;
+        // Create image element for Feviconp.jpg
+        const loaderImage = document.createElement('img');
+        loaderImage.src = 'Feviconp.jpg';
+        loaderImage.alt = 'CrownPhone Logo';
+        loaderImage.style.cssText = `
+            width: 120px;
+            height: 120px;
+            max-width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: logoPulse 2s ease-in-out infinite;
+            
+        `;
         
-        function tryLoadAnimation() {
-            if (currentPathIndex >= animationPaths.length) {
-                // All paths failed, show fallback spinner
-                console.error('All animation paths failed, showing fallback spinner');
-                lottieContainer.innerHTML = '<div class="loading-spinner">🔄</div>';
-                isAnimationLoaded = true;
-                checkIfReadyToHide();
-                return;
-            }
-            
-            const currentPath = animationPaths[currentPathIndex];
-            console.log(`Trying to load animation from: ${currentPath}`);
-            
-            animation = lottie.loadAnimation({
-                container: lottieContainer,
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: currentPath
-            });
-            
-            animation.addEventListener('DOMLoaded', function() {
-                console.log(`Lottie animation loaded successfully from: ${currentPath}`);
-                isAnimationLoaded = true;
-                checkIfReadyToHide();
-            });
-            
-            animation.addEventListener('error', function(error) {
-                console.error(`Animation failed to load from: ${currentPath}`, error);
-                currentPathIndex++;
-                tryLoadAnimation();
-            });
+        // Add CSS animation for the logo
+        const logoAnimationCSS = `
+            <style>
+                @keyframes logoPulse {
+                    0%, 100% { 
+                        transform: scale(1);
+                        filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5));
+                    }
+                    50% { 
+                        transform: scale(1.1);
+                        filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
+                    }
+                }
+                
+                .loader-logo {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                }
+                
+                .loader-logo::before {
+                    display: none;
+                }
+                
+                .loader-logo::after {
+                    content: '';
+                    position: absolute;
+                    width: 140px;
+                    height: 140px;
+                    border: 3px solid transparent;
+                    border-top: 3px solid #ff0000;
+                    border-radius: 50%;
+                    animation: rotateCircle 2s linear infinite;
+                    top: -10px;
+                    left: -10px;
+                }
+                
+                @keyframes rotateCircle {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            </style>
+        `;
+        
+        // Inject CSS if not already present
+        if (!document.querySelector('#loader-animation-styles')) {
+            const styleElement = document.createElement('div');
+            styleElement.id = 'loader-animation-styles';
+            styleElement.innerHTML = logoAnimationCSS;
+            document.head.appendChild(styleElement);
         }
         
-        // Fallback: If Lottie library is not available, show CSS spinner
-        if (typeof lottie === 'undefined') {
-            console.warn('Lottie library not available, showing CSS spinner');
+        // Create loader content container
+        const loaderContent = document.createElement('div');
+        loaderContent.className = 'loader-logo';
+        
+        // Add image to container (no text above)
+        loaderContent.appendChild(loaderImage);
+        
+        // Handle image load
+        loaderImage.addEventListener('load', function() {
+            console.log('✅ CrownPhone logo loaded successfully');
+            isAnimationLoaded = true;
+            checkIfReadyToHide();
+        });
+        
+        loaderImage.addEventListener('error', function() {
+            console.error('❌ Failed to load CrownPhone logo, showing fallback');
             lottieContainer.innerHTML = '<div class="loading-spinner">🔄</div>';
             isAnimationLoaded = true;
             checkIfReadyToHide();
-        } else {
-            console.log('✅ Lottie library is available');
-        }
+        });
         
-        // Animation event listeners are now handled in tryLoadAnimation function
-        
-        // Debug: Check if files exist
-        console.log('Checking file availability...');
-        fetch('Icon.json')
-            .then(response => {
-                if (response.ok) {
-                    console.log('✅ Icon.json is accessible');
-                } else {
-                    console.log('❌ Icon.json not accessible:', response.status);
-                }
-            })
-            .catch(error => {
-                console.log('❌ Error checking Icon.json:', error);
-            });
+        // Add content to container
+        lottieContainer.appendChild(loaderContent);
         
         // Fast loader - wait for hero section to load
         let isHeroSectionLoaded = false;
@@ -653,11 +675,6 @@ function initializeLoader() {
         function hideLoader() {
             console.log('Hiding loader - page is fully loaded');
             
-            // Stop the animation if it exists
-            if (animation && typeof animation.stop === 'function') {
-                animation.stop();
-            }
-            
             // Fade out loader
             loaderOverlay.style.opacity = '0';
             loaderOverlay.style.transform = 'scale(0.95)';
@@ -673,12 +690,6 @@ function initializeLoader() {
                 console.log('Loader completely hidden');
             }, 500);
         }
-        
-        // Clear any existing content first
-        lottieContainer.innerHTML = '';
-        
-        // Start loading animation
-        tryLoadAnimation();
         
         // Fast hero section check
         function startHeroSectionCheck() {
