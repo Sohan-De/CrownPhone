@@ -638,7 +638,7 @@ function initializeLoader() {
                 });
         }
         
-        loaderImage.alt = 'CrownPhone Logo';
+        loaderImage.alt = '';
         loaderImage.style.cssText = `
             width: 120px;
             height: 120px;
@@ -690,6 +690,12 @@ function initializeLoader() {
                 @keyframes rotateCircle {
                     0% { transform: rotate(0deg); }
                     100% { transform: rotate(360deg); }
+                }
+                
+                .loader-logo img {
+                    text-indent: -9999px;
+                    font-size: 0;
+                    line-height: 0;
                 }
             </style>
         `;
