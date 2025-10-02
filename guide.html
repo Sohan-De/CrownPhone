@@ -46,44 +46,36 @@
             align-items: center;
         }
 
-        /* Logo image loading fix */
+        /* Hide alt text while logo image loads */
         .logo-text img {
             opacity: 0;
             transition: opacity 0.3s ease;
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            vertical-align: middle;
             position: relative;
         }
 
+        .logo-text img[alt] {
+            text-indent: -9999px;
+            overflow: hidden;
+            font-size: 0;
+            line-height: 0;
+            color: transparent;
+            background: transparent;
+        }
+
+        /* Completely hide any text content in logo images */
+        .logo-text img::before,
+        .logo-text img::after {
+            display: none !important;
+        }
+
+        /* Show image when loaded */
         .logo-text img.loaded {
             opacity: 1;
         }
 
-        /* Hide alt text while image loads */
-        .logo-text img[alt] {
-            text-indent: -9999px;
-            overflow: hidden;
-        }
-
-        /* Loading placeholder for logo */
-        .logo-text img:not(.loaded)::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #8B0000, #ff0000);
-            border-radius: 4px;
-            opacity: 0.3;
-            animation: logoPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes logoPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+        /* Fallback for slow loading */
+        .logo-text img:not(.loaded) {
+            visibility: hidden;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -1616,21 +1608,19 @@
             }
         }
 
-        // Initialize Logo Loading
-        function initializeLogoLoading() {
+        // Handle logo image loading
+        function handleLogoImageLoad() {
             const logoImages = document.querySelectorAll('.logo-text img');
-            
             logoImages.forEach(img => {
-                img.addEventListener('load', function() {
-                    this.classList.add('loaded');
-                });
-                
-                img.addEventListener('error', function() {
-                    this.style.display = 'none';
-                });
-                
-                if (img.complete && img.naturalHeight !== 0) {
+                if (img.complete) {
                     img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', function() {
+                        this.classList.add('loaded');
+                    });
+                    img.addEventListener('error', function() {
+                        this.style.display = 'none';
+                    });
                 }
             });
         }
@@ -1639,7 +1629,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Guide page DOM loaded');
             updateCartCounter();
-            initializeLogoLoading();
+            handleLogoImageLoad();
             
             // Modal event listeners
             const modal = document.getElementById('videoModal');

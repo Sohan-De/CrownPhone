@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeHeroSection();
     initializeUserAuth();
     initializeHamburgerMenu();
-    initializeLogoLoading();
     
     // Initialize pricing plans with retry mechanism
     initializePricingPlansWithRetry();
@@ -2372,28 +2371,4 @@ window.onclick = function(event) {
     if (event.target === logoutModal) {
         closeModal('logout-modal');
     }
-}
-
-// Initialize Logo Loading
-function initializeLogoLoading() {
-    // Find all logo images across the site
-    const logoImages = document.querySelectorAll('.logo-text img');
-    
-    logoImages.forEach(img => {
-        // Add loading event listener
-        img.addEventListener('load', function() {
-            this.classList.add('loaded');
-        });
-        
-        // Handle error case
-        img.addEventListener('error', function() {
-            // If image fails to load, show a fallback or hide the image
-            this.style.display = 'none';
-        });
-        
-        // If image is already loaded (cached), add loaded class immediately
-        if (img.complete && img.naturalHeight !== 0) {
-            img.classList.add('loaded');
-        }
-    });
 }
