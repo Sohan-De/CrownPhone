@@ -531,202 +531,182 @@ function initializeLoader() {
     });
     
     if (loaderOverlay && mainContent && lottieContainer) {
-        // Load and display JPG image instead of Lottie animation
-        console.log('Loading CrownPhone logo image...');
+        // Load and display Lottie animation from Splashy.json
+        console.log('Loading CrownPhone Splashy Lottie animation...');
         
-        // Create image element for Feviconp.jpg
-        const loaderImage = document.createElement('img');
+        // Check if Lottie library is available
+        if (typeof lottie === 'undefined') {
+            console.error('❌ Lottie library not loaded, showing CSS fallback logo');
+            showFallbackLogo();
+            return;
+        }
         
-        // Try multiple paths for better compatibility with different hosting environments
-        const imagePaths = [
-            'Feviconp.jpg',
-            './Feviconp.jpg',
-            '/Feviconp.jpg',
-            './assets/Feviconp.jpg',
-            '/assets/Feviconp.jpg',
-            './images/Feviconp.jpg',
-            '/images/Feviconp.jpg',
-            'favicon.svg',
-            './favicon.svg',
-            '/favicon.svg',
-            'fevp.png',
-            './fevp.png',
-            '/fevp.png'
+        // Try multiple paths for Splashy.json
+        const animationPaths = [
+            'Splashy.json',
+            './Splashy.json',
+            '/Splashy.json',
+            './assets/Splashy.json',
+            '/assets/Splashy.json',
+            './animations/Splashy.json',
+            '/animations/Splashy.json'
         ];
         
-        let currentImagePathIndex = 0;
+        let currentPathIndex = 0;
         
-        function tryLoadImage() {
-            if (currentImagePathIndex >= imagePaths.length) {
+        function tryLoadAnimation() {
+            if (currentPathIndex >= animationPaths.length) {
                 // All paths failed, show fallback
-                console.error('❌ All image paths failed, showing CSS fallback logo');
-                console.error('Failed paths:', imagePaths);
-                
-                // Create CSS-based fallback logo
-                lottieContainer.innerHTML = `
-                    <div class="fallback-logo">
-                        <div class="crown">👑</div>
-                        <div class="phone">📱</div>
-                        <div class="brand-text">CrownPhone</div>
-                    </div>
-                `;
-                
-                // Add fallback logo styles
-                const fallbackCSS = `
-                    <style>
-                        .fallback-logo {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-                            width: 120px;
-                            height: 120px;
-                            border-radius: 50%;
-                            background: linear-gradient(135deg, #ff0000, #ff4444);
-                            color: white;
-                            font-size: 2rem;
-                            animation: logoPulse 2s ease-in-out infinite;
-                        }
-                        .crown {
-                            font-size: 2.5rem;
-                            margin-bottom: -10px;
-                        }
-                        .phone {
-                            font-size: 2rem;
-                            margin-bottom: 5px;
-                        }
-                        .brand-text {
-                            font-size: 0.7rem;
-                            font-weight: bold;
-                            text-align: center;
-                            line-height: 1;
-                        }
-                    </style>
-                `;
-                
-                if (!document.querySelector('#fallback-logo-styles')) {
-                    const styleElement = document.createElement('div');
-                    styleElement.id = 'fallback-logo-styles';
-                    styleElement.innerHTML = fallbackCSS;
-                    document.head.appendChild(styleElement);
-                }
-                
-                isAnimationLoaded = true;
-                checkIfReadyToHide();
+                console.error('❌ All animation paths failed, showing CSS fallback logo');
+                console.error('Failed paths:', animationPaths);
+                showFallbackLogo();
                 return;
             }
             
-            const currentPath = imagePaths[currentImagePathIndex];
-            console.log(`🔍 Trying to load image from: ${currentPath}`);
+            const currentPath = animationPaths[currentPathIndex];
+            console.log(`🔍 Trying to load Lottie animation from: ${currentPath}`);
             
-            // Test if the image exists by fetching it first
+            // Test if the animation file exists
             fetch(currentPath, { method: 'HEAD' })
                 .then(response => {
                     if (response.ok) {
-                        console.log(`✅ Image exists at: ${currentPath}`);
-                        loaderImage.src = currentPath;
+                        console.log(`✅ Animation file exists at: ${currentPath}`);
+                        loadLottieAnimation(currentPath);
                     } else {
-                        console.log(`❌ Image not found at: ${currentPath} (status: ${response.status})`);
-                        currentImagePathIndex++;
-                        setTimeout(tryLoadImage, 100); // Small delay before trying next
+                        console.log(`❌ Animation file not found at: ${currentPath} (status: ${response.status})`);
+                        currentPathIndex++;
+                        setTimeout(tryLoadAnimation, 100);
                     }
                 })
                 .catch(error => {
-                    console.log(`❌ Error checking image at: ${currentPath}`, error.message);
-                    currentImagePathIndex++;
-                    setTimeout(tryLoadImage, 100); // Small delay before trying next
+                    console.log(`❌ Error checking animation at: ${currentPath}`, error.message);
+                    currentPathIndex++;
+                    setTimeout(tryLoadAnimation, 100);
                 });
         }
         
-        loaderImage.alt = 'CrownPhone Logo';
-        loaderImage.style.cssText = `
-            width: 120px;
-            height: 120px;
-            max-width: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            animation: logoPulse 2s ease-in-out infinite;
-            
-        `;
-        
-        // Add CSS animation for the logo
-        const logoAnimationCSS = `
-            <style>
-                @keyframes logoPulse {
-                    0%, 100% { 
-                        transform: scale(1);
-                        filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5));
-                    }
-                    50% { 
-                        transform: scale(1.1);
-                        filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
-                    }
-                }
+        function loadLottieAnimation(animationPath) {
+            try {
+                const animation = lottie.loadAnimation({
+                    container: lottieContainer,
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: animationPath
+                });
                 
-                .loader-logo {
+                // Style the Lottie container
+                lottieContainer.style.cssText = `
+                    width: 150px;
+                    height: 150px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     position: relative;
+                `;
+                
+                // Add CSS animation styles
+                const animationCSS = `
+                    <style>
+                        .lottie-container svg {
+                            width: 150px !important;
+                            height: 150px !important;
+                        }
+                    </style>
+                `;
+                
+                // Inject CSS if not already present
+                if (!document.querySelector('#lottie-animation-styles')) {
+                    const styleElement = document.createElement('div');
+                    styleElement.id = 'lottie-animation-styles';
+                    styleElement.innerHTML = animationCSS;
+                    document.head.appendChild(styleElement);
                 }
                 
-                .loader-logo::before {
-                    display: none;
-                }
+                // Handle animation events
+                animation.addEventListener('complete', function() {
+                    console.log('✅ Lottie animation loaded and ready');
+                    isAnimationLoaded = true;
+                    checkIfReadyToHide();
+                });
                 
-                .loader-logo::after {
-                                    content: '';
-                    position: absolute;
-                    width: 140px;
-                    height: 140px;
-                    border: 3px solid transparent;
-                    border-top: 3px solid #ff0000;
-                    border-radius: 50%;
-                    animation: rotateCircle 2s linear infinite;
-                    top: -10px;
-                    left: -10px;
-                }
+                animation.addEventListener('error', function(error) {
+                    console.log(`❌ Lottie animation error:`, error);
+                    currentPathIndex++;
+                    setTimeout(tryLoadAnimation, 100);
+                });
                 
-                @keyframes rotateCircle {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-            </style>
-        `;
-        
-        // Inject CSS if not already present
-        if (!document.querySelector('#loader-animation-styles')) {
-            const styleElement = document.createElement('div');
-            styleElement.id = 'loader-animation-styles';
-            styleElement.innerHTML = logoAnimationCSS;
-            document.head.appendChild(styleElement);
+                // Set a timeout to mark as loaded even if events don't fire
+                setTimeout(() => {
+                    if (!isAnimationLoaded) {
+                        console.log('✅ Lottie animation loaded (timeout)');
+                        isAnimationLoaded = true;
+                        checkIfReadyToHide();
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                console.error('❌ Error loading Lottie animation:', error);
+                currentPathIndex++;
+                setTimeout(tryLoadAnimation, 100);
+            }
         }
         
-        // Create loader content container
-        const loaderContent = document.createElement('div');
-        loaderContent.className = 'loader-logo';
-        
-        // Add image to container (no text above)
-        loaderContent.appendChild(loaderImage);
-        
-        // Handle image load
-        loaderImage.addEventListener('load', function() {
-            console.log('✅ CrownPhone logo loaded successfully from:', this.src);
+        function showFallbackLogo() {
+            // Create CSS-based fallback logo
+            lottieContainer.innerHTML = `
+                <div class="fallback-logo">
+                    <div class="crown">👑</div>
+                    <div class="phone">📱</div>
+                    <div class="brand-text">CrownPhone</div>
+                </div>
+            `;
+            
+            // Add fallback logo styles
+            const fallbackCSS = `
+                <style>
+                    .fallback-logo {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        width: 150px;
+                        height: 150px;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, #ff0000, #ff4444);
+                        color: white;
+                        font-size: 2.5rem;
+                    }
+                    .crown {
+                        font-size: 3rem;
+                        margin-bottom: -10px;
+                    }
+                    .phone {
+                        font-size: 2.5rem;
+                        margin-bottom: 5px;
+                    }
+                    .brand-text {
+                        font-size: 0.9rem;
+                        font-weight: bold;
+                        text-align: center;
+                        line-height: 1;
+                    }
+                </style>
+            `;
+            
+            if (!document.querySelector('#fallback-logo-styles')) {
+                const styleElement = document.createElement('div');
+                styleElement.id = 'fallback-logo-styles';
+                styleElement.innerHTML = fallbackCSS;
+                document.head.appendChild(styleElement);
+            }
+            
             isAnimationLoaded = true;
             checkIfReadyToHide();
-        });
+        }
         
-        loaderImage.addEventListener('error', function() {
-            console.error('❌ Failed to load CrownPhone logo from:', this.src);
-            currentImagePathIndex++;
-            tryLoadImage();
-        });
-        
-        // Add content to container
-        lottieContainer.appendChild(loaderContent);
-        
-        // Start trying to load the image
-        tryLoadImage();
+        // Start trying to load the animation
+        tryLoadAnimation();
         
         // Fast loader - wait for hero section to load
         let isHeroSectionLoaded = false;
