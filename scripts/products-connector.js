@@ -1,7 +1,7 @@
 // Products Connector - Connects Supabase products to index.html and product-list.html
 
 // Function to fetch products from Supabase
-async function fetchProductsFromSupabase(featured = null, limit = 20) {
+async function fetchProductsFromSupabase(featured = null, isNew = null, limit = 20) {
     try {
         // Check if Supabase is initialized
         if (!supabase) {
@@ -14,7 +14,12 @@ async function fetchProductsFromSupabase(featured = null, limit = 20) {
         
         // Add featured filter if provided
         if (featured !== null) {
-            query = query.eq('is_featured', featured);
+            query = query.eq('is_feature', featured);
+        }
+        
+        // Add is_new filter if provided
+        if (isNew !== null) {
+            query = query.eq('is_new', isNew);
         }
         
         // Add limit and order
@@ -48,7 +53,7 @@ function displayProductsOnIndex(products) {
     productsGrid.innerHTML = '';
     
     if (!products || products.length === 0) {
-        productsGrid.innerHTML = '<div class="no-products">No products found</div>';
+        productsGrid.innerHTML = '<div class="no-products">No featured products available. Check back soon!</div>';
         return;
     }
     
@@ -98,8 +103,23 @@ function displayNewArrivals(products) {
         return;
     }
     
-    // Get the 5 newest products
-    const newArrivals = products.slice(0, 5);
+    // Filter only products where is_new = true
+    const newArrivals = products.filter(product => product.is_new === true).slice(0, 5);
+    
+    // If no new products found, show a message
+    if (newArrivals.length === 0) {
+        swiperWrapper.innerHTML = `
+            <div class="swiper-slide">
+                <div class="new-arrival-card">
+                    <div class="new-arrival-content">
+                        <h3 class="new-arrival-name">No New Products Available</h3>
+                        <p class="new-arrival-price">Check back soon for new arrivals!</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        return;
+    }
     
     newArrivals.forEach(product => {
         const slide = document.createElement('div');
@@ -180,17 +200,17 @@ function createProductCard(product, isListPage = false) {
         : `<span class="product-price">$${product.price.toFixed(2)}</span>`;
     
     // Create featured badge if product is featured
-    const featuredBadge = product.is_featured 
+    const featuredBadge = product.is_feature 
         ? '<div class="product-badge">Featured</div>' 
         : '';
     
-    // Create bestseller badge if product is bestseller
-    const bestsellerBadge = product.is_bestseller 
-        ? '<div class="product-badge bestseller">Best Seller</div>' 
+    // Create new badge if product is new
+    const newBadge = product.is_new 
+        ? '<div class="product-badge new">New</div>' 
         : '';
     
-    // Determine which badge to show (prioritize bestseller over featured)
-    const badge = product.is_bestseller ? bestsellerBadge : (product.is_featured ? featuredBadge : '');
+    // Determine which badge to show (prioritize new over featured)
+    const badge = product.is_new ? newBadge : (product.is_feature ? featuredBadge : '');
     
     card.innerHTML = `
         ${badge}
@@ -258,12 +278,23 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Check if we're on the index page
         if (document.querySelector('.products-grid') && !document.getElementById('productsGrid')) {
             // Fetch featured products for index page
-            const { data: featuredProducts } = await fetchProductsFromSupabase(true, 4);
-            displayProductsOnIndex(featuredProducts.length > 0 ? featuredProducts : allProducts);
+            const { data: featuredProducts, error: featuredError } = await fetchProductsFromSupabase(true, null, 4);
             
-            // Update new arrivals section if it exists
+            if (featuredError) {
+                console.error('Error fetching featured products:', featuredError);
+                // Show fallback message
+                const productsGrid = document.querySelector('.products-grid');
+                if (productsGrid) {
+                    productsGrid.innerHTML = '<div class="no-products">Error loading featured products. Please try again later.</div>';
+                }
+            } else {
+                displayProductsOnIndex(featuredProducts.length > 0 ? featuredProducts : allProducts);
+            }
+            
+            // Update new arrivals section if it exists - fetch only new products
             if (document.querySelector('.new-arrivals-swiper')) {
-                displayNewArrivals(allProducts);
+                const { data: newProducts } = await fetchProductsFromSupabase(null, true, 5);
+                displayNewArrivals(newProducts);
             }
         }
         
