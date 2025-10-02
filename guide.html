@@ -42,6 +42,48 @@
             color: transparent !important;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
             filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Logo image loading fix */
+        .logo-text img {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            vertical-align: middle;
+            position: relative;
+        }
+
+        .logo-text img.loaded {
+            opacity: 1;
+        }
+
+        /* Hide alt text while image loads */
+        .logo-text img[alt] {
+            text-indent: -9999px;
+            overflow: hidden;
+        }
+
+        /* Loading placeholder for logo */
+        .logo-text img:not(.loaded)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            border-radius: 4px;
+            opacity: 0.3;
+            animation: logoPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
         .nav-link:hover, .nav-link.active {
@@ -663,17 +705,31 @@
         }
 
         /* Video Tutorial Section */
+        .video-tutorials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
         .video-container {
             background: rgba(20, 20, 20, 0.7);
             border-radius: 20px;
             padding: 2rem;
             text-align: center;
             border: 1px solid rgba(255, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
         }
 
         .video-placeholder {
             width: 100%;
-            height: 400px;
+            height: 250px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             display: flex;
@@ -684,7 +740,36 @@
             overflow: hidden;
         }
 
+        .video-placeholder img {
+            transition: transform 0.3s ease;
+        }
+
+        .video-container:hover .video-placeholder img {
+            transform: scale(1.05);
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .video-container:hover .video-placeholder::before {
+            opacity: 0.7;
+        }
+
         .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 80px;
             height: 80px;
             background: linear-gradient(45deg, #8B0000, #ff0000);
@@ -695,10 +780,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+            z-index: 2;
         }
 
         .play-button:hover {
-            transform: scale(1.1);
+            transform: translate(-50%, -50%) scale(1.1);
             box-shadow: 0 15px 40px rgba(255, 0, 0, 0.6);
         }
 
@@ -772,6 +858,100 @@
             box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
         }
 
+        /* Video Modal Styles */
+        .video-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .video-modal-content {
+            position: relative;
+            background: rgba(20, 20, 20, 0.95);
+            margin: 5% auto;
+            padding: 0;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .video-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .video-modal-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .video-modal-close {
+            color: #ff0000;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .video-modal-close:hover {
+            background: rgba(255, 0, 0, 0.1);
+            transform: scale(1.1);
+        }
+
+        .video-modal-body {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .video-iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 1rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .guide-hero h1 {
@@ -790,8 +970,29 @@
                 grid-template-columns: 1fr;
             }
 
+            .video-tutorials-grid {
+                grid-template-columns: 1fr;
+            }
+
             .video-placeholder {
-                height: 250px;
+                height: 200px;
+            }
+
+            .video-modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .video-iframe {
+                height: 300px;
+            }
+
+            .video-modal-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .video-modal-body {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -1077,17 +1278,45 @@
         <section id="video-tutorial" class="guide-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="fas fa-play"></i></div>
-                Video Tutorial
+                Video Tutorials
             </h2>
 
-            <div class="video-container">
-                <h3 style="color: white; margin-bottom: 1.5rem;">Watch Our Complete Setup Guide</h3>
-                <div class="video-placeholder">
-                    <div class="play-button" onclick="playVideo()">
-                        <i class="fas fa-play"></i>
+            <div class="video-tutorials-grid">
+                <!-- VoltShield Pro Video -->
+                <div class="video-container">
+                    <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">VoltShield Pro Setup</h3>
+                    <div class="video-placeholder">
+                        <img src="white-onblack-off.png" alt="VoltShield Pro Device" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                        <div class="play-button" onclick="playVideo('voltshield')">
+                            <i class="fas fa-play"></i>
+                        </div>
                     </div>
+                    <p style="color: rgba(255, 255, 255, 0.7); text-align: center;">Learn how to set up and configure your VoltShield Pro device for optimal performance.</p>
                 </div>
-                <p style="color: rgba(255, 255, 255, 0.7);">A comprehensive 5-minute video showing you how to set up and use your CrownPhone Box from start to finish.</p>
+
+                <!-- FortiBox 3000 Video -->
+                <div class="video-container">
+                    <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">FortiBox 3000 Setup</h3>
+                    <div class="video-placeholder">
+                        <img src="white-onblack-on-angle.png" alt="FortiBox 3000 Device" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                        <div class="play-button" onclick="playVideo('fortibox')">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.7); text-align: center;">Complete guide for setting up your FortiBox 3000 industrial-grade device.</p>
+                </div>
+
+                <!-- CoreProtect X-Series Video -->
+                <div class="video-container">
+                    <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">CoreProtect X-Series Setup</h3>
+                    <div class="video-placeholder">
+                        <img src="front.png" alt="CoreProtect X-Series Device" style="width: 100%; height: 100%; object-fit: cover; border-radius: 15px;">
+                        <div class="play-button" onclick="playVideo('coreprotect')">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.7); text-align: center;">Step-by-step tutorial for your CoreProtect X-Series advanced protection system.</p>
+                </div>
             </div>
         </section>
 
@@ -1147,6 +1376,20 @@
         </div>
     </footer>
 
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3 class="video-modal-title" id="modalTitle">Video Tutorial</h3>
+                <button class="video-modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="video-modal-body">
+                <iframe id="videoIframe" class="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
+                <p class="video-description" id="modalDescription">Watch this tutorial to learn more about the product setup.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         // FAQ Toggle Function
         function toggleFAQ(element) {
@@ -1165,8 +1408,78 @@
         }
 
         // Video Play Function
-        function playVideo() {
-            alert('Video tutorial coming soon! For now, follow the step-by-step guide above.');
+        function playVideo(productType) {
+            let videoData = {};
+            switch(productType) {
+                case 'voltshield':
+                    videoData = {
+                        title: 'VoltShield Pro Setup Tutorial',
+                        videoId: '2qYaV2WhrbE',
+                        description: 'Learn how to set up and configure your VoltShield Pro device for optimal performance. This tutorial covers installation, configuration, and best practices.'
+                    };
+                    break;
+                case 'fortibox':
+                    videoData = {
+                        title: 'FortiBox 3000 Setup Tutorial',
+                        videoId: 'tuKem6va8kQ',
+                        description: 'Complete guide for setting up your FortiBox 3000 industrial-grade device. Learn about installation, configuration, and maintenance.'
+                    };
+                    break;
+                case 'coreprotect':
+                    videoData = {
+                        title: 'CoreProtect X-Series Setup Tutorial',
+                        videoId: '6IMn_mYtGcE',
+                        description: 'Step-by-step tutorial for your CoreProtect X-Series advanced protection system. Master the configuration and optimization process.'
+                    };
+                    break;
+                default:
+                    alert('Video tutorial coming soon! For now, follow the step-by-step guide above.');
+                    return;
+            }
+            
+            // Show modal with video
+            showVideoModal(videoData);
+        }
+
+        // Show Video Modal
+        function showVideoModal(videoData) {
+            const modal = document.getElementById('videoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            const videoIframe = document.getElementById('videoIframe');
+            
+            // Update modal content
+            modalTitle.textContent = videoData.title;
+            modalDescription.textContent = videoData.description;
+            
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Set video source with autoplay and additional parameters
+            videoIframe.src = `https://www.youtube.com/embed/${videoData.videoId}?autoplay=1&mute=0&rel=0&modestbranding=1&showinfo=0&controls=1&start=0&enablejsapi=1&playlist=${videoData.videoId}&loop=0&fs=1&cc_load_policy=0&iv_load_policy=3&autohide=0`;
+            
+            // Try to force play after a short delay
+            setTimeout(() => {
+                try {
+                    videoIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                } catch (e) {
+                    console.log('Could not trigger video play via postMessage');
+                }
+            }, 1000);
+        }
+
+        // Close Video Modal
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const videoIframe = document.getElementById('videoIframe');
+            
+            // Hide modal
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Stop video by clearing src
+            videoIframe.src = '';
         }
 
         // Smooth Scroll for Quick Nav
@@ -1303,10 +1616,51 @@
             }
         }
 
+        // Initialize Logo Loading
+        function initializeLogoLoading() {
+            const logoImages = document.querySelectorAll('.logo-text img');
+            
+            logoImages.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.classList.add('loaded');
+                });
+                
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                });
+                
+                if (img.complete && img.naturalHeight !== 0) {
+                    img.classList.add('loaded');
+                }
+            });
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Guide page DOM loaded');
             updateCartCounter();
+            initializeLogoLoading();
+            
+            // Modal event listeners
+            const modal = document.getElementById('videoModal');
+            const closeBtn = document.getElementById('modalClose');
+            
+            // Close modal when clicking close button
+            closeBtn.addEventListener('click', closeVideoModal);
+            
+            // Close modal when clicking outside of it
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeVideoModal();
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    closeVideoModal();
+                }
+            });
             
             // Check if Supabase is available immediately
             if (typeof supabase !== 'undefined') {
