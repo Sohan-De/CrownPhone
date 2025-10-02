@@ -541,7 +541,7 @@ function initializeLoader() {
             return;
         }
         
-        // Try multiple paths for Splashy.json
+        // Try multiple paths for Splashy.json (including Vercel-specific paths)
         const animationPaths = [
             'Splashy.json',
             './Splashy.json',
@@ -549,17 +549,20 @@ function initializeLoader() {
             './assets/Splashy.json',
             '/assets/Splashy.json',
             './animations/Splashy.json',
-            '/animations/Splashy.json'
+            '/animations/Splashy.json',
+            './public/Splashy.json',
+            '/public/Splashy.json',
+            './static/Splashy.json',
+            '/static/Splashy.json'
         ];
         
         let currentPathIndex = 0;
         
         function tryLoadAnimation() {
             if (currentPathIndex >= animationPaths.length) {
-                // All paths failed, show fallback
-                console.error('❌ All animation paths failed, showing CSS fallback logo');
-                console.error('Failed paths:', animationPaths);
-                showFallbackLogo();
+                // All local paths failed, try CDN fallback
+                console.warn('⚠️ All local animation paths failed, trying CDN fallback...');
+                tryCDNFallback();
                 return;
             }
             
@@ -583,6 +586,78 @@ function initializeLoader() {
                     currentPathIndex++;
                     setTimeout(tryLoadAnimation, 100);
                 });
+        }
+        
+        function tryCDNFallback() {
+            // Try to load a similar splash animation from CDN as fallback
+            const cdnAnimations = [
+                'https://assets5.lottiefiles.com/packages/lf20_2glqweyk.json', // Splash animation
+                'https://assets5.lottiefiles.com/packages/lf20_jcikwtux.json', // Success animation
+                'https://assets5.lottiefiles.com/packages/lf20_1pxqjq5c.json', // Water splash
+                'https://assets5.lottiefiles.com/packages/lf20_2glqweyk.json'  // Another splash animation
+            ];
+            
+            let cdnIndex = 0;
+            
+            function tryCDNAnimation() {
+                if (cdnIndex >= cdnAnimations.length) {
+                    console.error('❌ All CDN animations failed, showing CSS fallback logo');
+                    showFallbackLogo();
+                    return;
+                }
+                
+                const cdnPath = cdnAnimations[cdnIndex];
+                console.log(`🌐 Trying CDN animation: ${cdnPath}`);
+                
+                try {
+                    const animation = lottie.loadAnimation({
+                        container: lottieContainer,
+                        renderer: 'svg',
+                        loop: true,
+                        autoplay: true,
+                        path: cdnPath
+                    });
+                    
+                    // Style the Lottie container
+                    lottieContainer.style.cssText = `
+                        width: 200px;
+                        height: 200px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                    `;
+                    
+                    // Add CSS animation styles
+                    const animationCSS = `
+                        <style>
+                            .lottie-container svg {
+                                width: 200px !important;
+                                height: 200px !important;
+                            }
+                        </style>
+                    `;
+                    
+                    // Inject CSS if not already present
+                    if (!document.querySelector('#lottie-animation-styles')) {
+                        const styleElement = document.createElement('div');
+                        styleElement.id = 'lottie-animation-styles';
+                        styleElement.innerHTML = animationCSS;
+                        document.head.appendChild(styleElement);
+                    }
+                    
+                    console.log('✅ CDN Lottie animation loaded successfully');
+                    isAnimationLoaded = true;
+                    checkIfReadyToHide();
+                    
+                } catch (error) {
+                    console.log(`❌ CDN animation failed: ${cdnPath}`, error.message);
+                    cdnIndex++;
+                    setTimeout(tryCDNAnimation, 100);
+                }
+            }
+            
+            tryCDNAnimation();
         }
         
         function loadLottieAnimation(animationPath) {
