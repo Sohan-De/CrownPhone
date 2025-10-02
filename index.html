@@ -1183,17 +1183,287 @@
             background-size: 100% 100%;
         }
         
-        /* iOS-specific fixes for hero section */
+        /* New Centered Hero Section */
         .hero-section {
-            background: transparent;
+            
             position: relative;
             z-index: 2;
+            padding: 120px 0 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
         .hero-container {
-            background: transparent;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        /* Centered Hero Content */
+        .hero-content-centered {
+            margin-bottom: 4rem;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            color: white;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .hero-badge i {
+            color: #ff0000;
+            font-size: 1rem;
+        }
+        
+        .hero-title-centered {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .title-line {
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .title-highlight {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
+            animation: none !important;
+        }
+        
+        .hero-description-centered {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+        
+        /* Hero Features */
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.2);
+        }
+        
+        .feature-item i {
+            font-size: 2rem;
+            color: #ff0000;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-item span {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Hero CTA Buttons */
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .cta-button.primary {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+        
+        .cta-button.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.6);
+        }
+        
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 0, 0, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        /* Hero Showcase */
+        .hero-showcase {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .product-showcase-container {
             position: relative;
-            z-index: 3;
+            max-width: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .product-showcase-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .showcase-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .showcase-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(139, 0, 0, 0.1), rgba(255, 0, 0, 0.1));
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 1rem;
+        }
+        
+        .showcase-badge {
+            background: linear-gradient(45deg, #8B0000, #ff0000);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Mobile responsive for new hero design */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 100px 0 60px;
+                min-height: auto;
+            }
+            
+            .hero-container {
+                padding: 0 1rem;
+            }
+            
+            .hero-title-centered {
+                font-size: 2.5rem;
+            }
+            
+            .hero-description-centered {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-features {
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .feature-item {
+                min-width: 120px;
+                padding: 1rem;
+            }
+            
+            .feature-item i {
+                font-size: 1.5rem;
+            }
+            
+            .hero-cta {
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .product-showcase-container {
+                max-width: 350px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title-centered {
+                font-size: 2rem;
+            }
+            
+            .hero-description-centered {
+                font-size: 1rem;
+            }
+            
+            .hero-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .feature-item {
+                flex-direction: row;
+                justify-content: center;
+                min-width: auto;
+                width: 100%;
+                max-width: 250px;
+            }
         }
         
         /* Fix for iOS Safari gradient rendering */
@@ -2659,35 +2929,55 @@
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-container">
-                <!-- Left Content -->
-                <div class="hero-content">
-                    <h1 class="hero-title" style="color: white;">
-                        <span class="title-normal" style="color: white;">Professional</span>
-                        <span class="title-highlight" style="background: linear-gradient(45deg, #8B0000, #ff0000) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important; text-shadow: 0 0 10px rgba(255, 0, 0, 0.4), 0 0 15px rgba(255, 0, 0, 0.3) !important; filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.3)) !important; animation: none !important;">Screen Projection Device</span>
-                        <span class="title-normal" style="color: white;">Hardware</span>
+                <!-- Centered Content -->
+                <div class="hero-content-centered">
+                    <div class="hero-badge">
+                        <i class="fas fa-star"></i>
+                        <span>Professional Hardware Solutions</span>
+                    </div>
+                    
+                    <h1 class="hero-title-centered">
+                        <span class="title-line">Professional</span>
+                        <span class="title-highlight">Screen Projection</span>
+                        <span class="title-line">Device Hardware</span>
                     </h1>
                     
-                    <p class="hero-description" style="color: white !important; text-shadow: none !important;">
+                    <p class="hero-description-centered">
                         Advanced screen projection hardware with transparent casing and professional-grade electronics. Perfect for gaming development, customer service, and screen mirroring applications.
                     </p>
                     
-                    <div class="hero-buttons">
-                        <div class="hero-buttons-row">
-                            <button class="hero-btn primary" style="background: linear-gradient(45deg, #8B0000, #ff0000); box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4); color: white;" onclick="window.open('https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view', '_blank')">
-                                <span class="btn-icon"><i class="fas fa-download"></i></span>
-                                <span class="btn-text">DOWNLOAD NOW</span>
-                            </button>
-                            
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Industrial Grade</span>
                         </div>
+                        <div class="feature-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>High Performance</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Easy Setup</span>
                     </div>
                 </div>
                 
-                <!-- Right Video Placeholder -->
-                
-                        <div class="hero-image-container hero-video-animation" style="max-width: 600px; border-radius: 15px; overflow: hidden; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);">
-                            <img src="white-onblack-off.png" alt="Crown Phone Device" style="width: 100%; height: auto; display: block; border-radius: 15px;">
+                    <div class="hero-cta">
+                        <a href="product-list.html" class="cta-button primary">
+                            <span>Explore Products</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                         </div>
                    
+                <!-- Centered Product Showcase -->
+                <div class="hero-showcase">
+                    <div class="product-showcase-container">
+                        <img src="white-onblack-off.png" alt="CrownPhone Device" class="showcase-image">
+                        <div class="showcase-overlay">
+                            <div class="showcase-badge">Featured Product</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
