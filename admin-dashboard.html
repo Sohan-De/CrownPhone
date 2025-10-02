@@ -3212,24 +3212,26 @@
                             const previewContainer = document.getElementById('edit-product-preview-container');
                             if (previewContainer) {
                                 if (product.images && product.images.length > 0) {
-                                    // Show multiple images
+                                    // Show multiple images with remove buttons
                                     previewContainer.innerHTML = '';
                                     product.images.forEach((imageUrl, index) => {
                                         const imageItem = document.createElement('div');
                                         imageItem.className = 'image-item';
                                         imageItem.innerHTML = `
                                             <img src="${imageUrl}" alt="Existing image ${index + 1}">
+                                            <button class="remove-btn" onclick="removeExistingImage(this, 'edit-product-preview-container', '${imageUrl}', ${index})" title="Remove image">×</button>
                                             <div class="image-number">${index + 1}</div>
                                         `;
                                         previewContainer.appendChild(imageItem);
                                     });
                                 } else if (product.image_url) {
-                                    // Show single image
+                                    // Show single image with remove button
                                     previewContainer.innerHTML = '';
                                     const imageItem = document.createElement('div');
                                     imageItem.className = 'image-item';
                                     imageItem.innerHTML = `
                                         <img src="${product.image_url}" alt="Existing image">
+                                        <button class="remove-btn" onclick="removeExistingImage(this, 'edit-product-preview-container', '${product.image_url}', 0)" title="Remove image">×</button>
                                         <div class="image-number">1</div>
                                     `;
                                     previewContainer.appendChild(imageItem);
@@ -3265,24 +3267,26 @@
                     const previewContainer = document.getElementById('edit-product-preview-container');
                     if (previewContainer) {
                         if (product.images && product.images.length > 0) {
-                            // Show multiple images
+                            // Show multiple images with remove buttons
                             previewContainer.innerHTML = '';
                             product.images.forEach((imageUrl, index) => {
                                 const imageItem = document.createElement('div');
                                 imageItem.className = 'image-item';
                                 imageItem.innerHTML = `
                                     <img src="${imageUrl}" alt="Existing image ${index + 1}">
+                                    <button class="remove-btn" onclick="removeExistingImage(this, 'edit-product-preview-container', '${imageUrl}', ${index})" title="Remove image">×</button>
                                     <div class="image-number">${index + 1}</div>
                                 `;
                                 previewContainer.appendChild(imageItem);
                             });
                         } else if (product.image_url) {
-                            // Show single image
+                            // Show single image with remove button
                             previewContainer.innerHTML = '';
                             const imageItem = document.createElement('div');
                             imageItem.className = 'image-item';
                             imageItem.innerHTML = `
                                 <img src="${product.image_url}" alt="Existing image">
+                                <button class="remove-btn" onclick="removeExistingImage(this, 'edit-product-preview-container', '${product.image_url}', 0)" title="Remove image">×</button>
                                 <div class="image-number">1</div>
                             `;
                             previewContainer.appendChild(imageItem);
@@ -3330,6 +3334,11 @@
                 let imageUrl = '';
                 let imageUrls = [];
                 
+                // Get existing images from the preview container (images that weren't removed)
+                const previewContainer = document.getElementById('edit-product-preview-container');
+                const existingImageItems = previewContainer.querySelectorAll('.image-item img[alt^="Existing"]');
+                const existingImageUrls = Array.from(existingImageItems).map(img => img.src);
+                
                 // Upload new images if files are selected
                 if (imageFiles.length > 0) {
                     console.log(`Uploading ${imageFiles.length} new images...`);
@@ -3348,26 +3357,19 @@
                             return;
                         }
                     }
-                    
-                    // Set first image as main image
-                    if (imageUrls.length > 0) {
-                        imageUrl = imageUrls[0];
-                    }
+                }
+                
+                // Combine existing images (that weren't removed) with new images
+                const allImageUrls = [...existingImageUrls, ...imageUrls];
+                
+                // Set first image as main image
+                if (allImageUrls.length > 0) {
+                    imageUrl = allImageUrls[0];
+                    imageUrls = allImageUrls;
                 } else {
-                    // Keep existing images if no new files are selected
-                    const existingRow = document.querySelector(`tr[data-product-id="${productId}"]`);
-                    if (existingRow) {
-                        const imageCell = existingRow.querySelector('td:nth-child(4)'); // Assuming image is in 4th column
-                        if (imageCell) {
-                            const existingImg = imageCell.querySelector('img');
-                            if (existingImg) {
-                                imageUrl = existingImg.src;
-                                // Try to get existing images array from data attribute or other source
-                                // For now, we'll just use the single image
-                                imageUrls = [imageUrl];
-                            }
-                        }
-                    }
+                    // No images left
+                    imageUrl = '';
+                    imageUrls = [];
                 }
                 
                 console.log('Saving product:', {
@@ -3473,7 +3475,7 @@
             
             if (!container || !file) return;
             
-            // Check if we already have 4 images
+            // Check if we already have 4 images (including both existing and new)
             const existingImages = container.querySelectorAll('.image-item');
             if (existingImages.length >= 4) {
                 alert('You can only add up to 4 images. Please remove an image first.');
@@ -3585,6 +3587,45 @@
                 if (selectedFiles[containerId]) {
                     selectedFiles[containerId] = [];
                 }
+            }
+        }
+
+        // Remove existing image from edit modal
+        function removeExistingImage(button, containerId, imageUrl, index) {
+            const imageItem = button.parentElement;
+            const container = document.getElementById(containerId);
+            
+            imageItem.remove();
+            
+            // Update image numbers and remove button indices
+            const remainingItems = container.querySelectorAll('.image-item');
+            remainingItems.forEach((item, newIndex) => {
+                const numberDiv = item.querySelector('.image-number');
+                if (numberDiv) {
+                    numberDiv.textContent = newIndex + 1;
+                }
+                
+                // Update remove button onclick with correct index and imageUrl
+                const removeBtn = item.querySelector('.remove-btn');
+                if (removeBtn) {
+                    const img = item.querySelector('img');
+                    const currentImageUrl = img ? img.src : '';
+                    // Check if this is a new image (from selectedFiles) or existing image
+                    const isNewImage = item.querySelector('img[alt^="Preview"]');
+                    if (isNewImage) {
+                        // This is a new image, use removeImage function
+                        const fileIndex = Array.from(remainingItems).indexOf(item);
+                        removeBtn.setAttribute('onclick', `removeImage(this, '${containerId}', ${fileIndex})`);
+                    } else {
+                        // This is an existing image, use removeExistingImage function
+                        removeBtn.setAttribute('onclick', `removeExistingImage(this, '${containerId}', '${currentImageUrl}', ${newIndex})`);
+                    }
+                }
+            });
+            
+            // Show empty state if no images left
+            if (remainingItems.length === 0) {
+                container.innerHTML = '<div class="empty-state">No images selected</div>';
             }
         }
 
