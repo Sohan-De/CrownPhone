@@ -2636,7 +2636,7 @@
                     const status = product.status || 'active';
                     
                     html += `
-                        <tr>
+                        <tr data-product-id="${product.id}">
                             <td>${name}</td>
                             <td>${price}</td>
                             <td>
@@ -2844,10 +2844,13 @@
         function confirmDeleteProduct(productId) {
             // Get the product name from the table
             const productRow = document.querySelector(`tr[data-product-id="${productId}"]`);
-            let productName = '';
+            let productName = 'Unknown Product';
             
             if (productRow) {
-                productName = productRow.querySelector('td').textContent;
+                const nameCell = productRow.querySelector('td');
+                if (nameCell) {
+                    productName = nameCell.textContent.trim();
+                }
             }
             
             // Show confirmation dialog
@@ -2864,22 +2867,31 @@
                 const productRow = document.querySelector(`tr[data-product-id="${productId}"]`);
                 
                 if (productRow) {
+                    // Get product name for feedback
+                    const productName = productRow.querySelector('td').textContent.trim();
+                    
                     // Remove the row from the table
                     productRow.remove();
                     
                     // Show success message
-                    console.log('✅ Product deleted successfully!');
+                    console.log(`✅ Product "${productName}" deleted successfully!`);
+                    showNotification(`Product "${productName}" deleted successfully!`, 'success');
                     
                     // Delete from Supabase if available
                     deleteProductFromDatabase(productId);
                     
+                    // Update pagination if needed
+                    updateProductPagination();
+                    
                 } else {
                     console.error('❌ Product not found in table');
+                    showNotification('Product not found in table', 'error');
                 }
                 
             } catch (error) {
                 console.error('Error deleting product:', error);
                 console.error('❌ Error deleting product: ' + error.message);
+                showNotification('Error deleting product: ' + error.message, 'error');
             }
         }
         
