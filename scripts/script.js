@@ -783,10 +783,10 @@ function initializeLoader() {
         // Start trying to load the animation
         tryLoadAnimation();
         
-        // Fast loader - wait for hero section to load
+        // Loader timing - show for exactly 2 seconds
         let isHeroSectionLoaded = false;
         let isAnimationLoaded = false;
-        let minLoaderTime = 500; // Minimum 0.5 seconds for smooth UX
+        let minLoaderTime = 2000; // Minimum 2 seconds for smooth UX
         let loaderStartTime = Date.now();
         
         function checkIfReadyToHide() {
@@ -879,7 +879,7 @@ function initializeLoader() {
         // Start checking hero section immediately
         startHeroSectionCheck();
         
-        // Much faster safety timeout - maximum 2 seconds
+        // Safety timeout - maximum 2.5 seconds (ensures 2-second minimum)
         setTimeout(() => {
             if (loaderOverlay.style.display !== 'none') {
                 console.log('Safety timeout reached, forcing loader to hide');
@@ -887,7 +887,7 @@ function initializeLoader() {
                 isAnimationLoaded = true;
                 hideLoader();
             }
-        }, 2000);
+        }, 2500);
     } 
 }
 
