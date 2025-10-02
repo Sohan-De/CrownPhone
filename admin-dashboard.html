@@ -2540,9 +2540,6 @@
                 
                 <div style="margin-bottom: 20px; display: flex; gap: 15px;">
                     <button class="btn btn-primary" onclick="openModal('add-product-modal')">Add New Product</button>
-                    <button class="btn btn-outline" onclick="loadProductsFromDatabase()" style="background: linear-gradient(45deg, #00d4ff, #00ff88); color: #1a1a2e; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.3s ease;">
-                        🔄 Load from Database
-                    </button>
                 </div>
                 
                 <table class="admin-table">
@@ -3937,50 +3934,6 @@
             }
         }
         
-        async function loadProductsFromDatabase() {
-            try {
-                if (typeof supabase !== 'undefined') {
-                    console.log('Loading products from database...');
-                    
-                    const { data: products, error } = await supabase
-                        .from('products')
-                        .select('*')
-                        .order('created_at', { ascending: false });
-                    
-                    if (error) {
-                        console.warn('Error loading products:', error);
-                        console.log('Error details:', {
-                            code: error.code,
-                            message: error.message,
-                            details: error.details,
-                            hint: error.hint
-                        });
-                        
-                        if (error.code === '42501') {
-                            console.error('Access denied. Cannot read products due to RLS policies.');
-                        } else if (error.code === '403') {
-                            console.error('Forbidden. Check if you have proper permissions.');
-                        } else {
-                            console.error('Error loading products: ' + error.message);
-                        }
-                        
-                        return;
-                    }
-                    
-                    if (products && products.length > 0) {
-                        console.log('Found products:', products);
-                        updateProductsTable(products);
-                        console.log(`Loaded ${products.length} products from database!`);
-                    } else {
-                        console.log('No products found in database');
-                    }
-                } else {
-                    console.warn('Supabase not available, cannot load products');
-                }
-            } catch (error) {
-                console.error('Error loading products:', error);
-            }
-        }
         
         function updateProductsTable(products) {
             const tableBody = document.getElementById('products-table-body');
@@ -4023,7 +3976,6 @@
         }
         
         // Make additional functions globally available
-        window.loadProductsFromDatabase = loadProductsFromDatabase;
         window.refreshProductData = refreshProductData;
         
         
