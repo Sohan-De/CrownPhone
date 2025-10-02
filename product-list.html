@@ -1676,7 +1676,8 @@
                 });
             }
 
-            // Let checkAuthStatus handle the initial display state
+            // Initialize navbar to show auth buttons by default (for non-logged in users)
+            initializeNavbarDefault();
 
             // Initialize authentication status immediately and with delay
             checkAuthStatus();
@@ -1690,12 +1691,57 @@
             addAdminSetupButton();
         });
 
+        // Initialize navbar to show auth buttons by default
+        function initializeNavbarDefault() {
+            console.log('Initializing navbar with default state (auth buttons visible)');
+            
+            const navAuthButtons = document.getElementById('nav-auth-buttons');
+            const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+            const profileLink = document.getElementById('nav-profile-link');
+            const mobileProfileLink = document.getElementById('mobile-profile-link');
+            const adminLink = document.getElementById('nav-admin-link');
+            const mobileAdminLink = document.getElementById('mobile-admin-link');
+            
+            // Show auth buttons by default
+            if (navAuthButtons) {
+                navAuthButtons.style.display = 'flex';
+                navAuthButtons.classList.remove('hidden');
+            }
+            if (mobileAuthButtons) {
+                mobileAuthButtons.style.display = 'flex';
+                mobileAuthButtons.classList.remove('hidden');
+            }
+            
+            // Hide profile elements by default
+            if (profileLink) {
+                profileLink.style.setProperty('display', 'none', 'important');
+                profileLink.style.setProperty('visibility', 'hidden', 'important');
+                profileLink.style.setProperty('opacity', '0', 'important');
+            }
+            if (mobileProfileLink) {
+                mobileProfileLink.style.setProperty('display', 'none', 'important');
+                mobileProfileLink.style.setProperty('visibility', 'hidden', 'important');
+                mobileProfileLink.style.setProperty('opacity', '0', 'important');
+            }
+            if (adminLink) {
+                adminLink.style.setProperty('display', 'none', 'important');
+                adminLink.style.setProperty('visibility', 'hidden', 'important');
+                adminLink.style.setProperty('opacity', '0', 'important');
+            }
+            if (mobileAdminLink) {
+                mobileAdminLink.style.setProperty('display', 'none', 'important');
+                mobileAdminLink.style.setProperty('visibility', 'hidden', 'important');
+                mobileAdminLink.style.setProperty('opacity', '0', 'important');
+            }
+        }
+
         // Check authentication status and update UI
         async function checkAuthStatus() {
             console.log('checkAuthStatus called on product list page');
             try {
-                const user = await getCurrentUser();
+                const { user, error } = await getCurrentUser();
                 console.log('Current user:', user);
+                console.log('Auth error:', error);
                 const navAuthButtons = document.getElementById('nav-auth-buttons');
                 const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
                 const profileLink = document.getElementById('nav-profile-link');
@@ -1712,7 +1758,7 @@
                     cartLink: !!cartLink
                 });
                 
-                if (user) {
+                if (user && !error) {
                     console.log('User is logged in, showing profile icons');
                     // User is logged in
                     if (navAuthButtons) {
@@ -1824,8 +1870,41 @@
                 // Show auth buttons by default if there's an error
                 const navAuthButtons = document.getElementById('nav-auth-buttons');
                 const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
-                if (navAuthButtons) navAuthButtons.style.display = 'flex';
-                if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
+                const profileLink = document.getElementById('nav-profile-link');
+                const mobileProfileLink = document.getElementById('mobile-profile-link');
+                const adminLink = document.getElementById('nav-admin-link');
+                const mobileAdminLink = document.getElementById('mobile-admin-link');
+                
+                if (navAuthButtons) {
+                    navAuthButtons.style.display = 'flex';
+                    navAuthButtons.classList.remove('hidden');
+                }
+                if (mobileAuthButtons) {
+                    mobileAuthButtons.style.display = 'flex';
+                    mobileAuthButtons.classList.remove('hidden');
+                }
+                
+                // Hide profile elements
+                if (profileLink) {
+                    profileLink.style.setProperty('display', 'none', 'important');
+                    profileLink.style.setProperty('visibility', 'hidden', 'important');
+                    profileLink.style.setProperty('opacity', '0', 'important');
+                }
+                if (mobileProfileLink) {
+                    mobileProfileLink.style.setProperty('display', 'none', 'important');
+                    mobileProfileLink.style.setProperty('visibility', 'hidden', 'important');
+                    mobileProfileLink.style.setProperty('opacity', '0', 'important');
+                }
+                if (adminLink) {
+                    adminLink.style.setProperty('display', 'none', 'important');
+                    adminLink.style.setProperty('visibility', 'hidden', 'important');
+                    adminLink.style.setProperty('opacity', '0', 'important');
+                }
+                if (mobileAdminLink) {
+                    mobileAdminLink.style.setProperty('display', 'none', 'important');
+                    mobileAdminLink.style.setProperty('visibility', 'hidden', 'important');
+                    mobileAdminLink.style.setProperty('opacity', '0', 'important');
+                }
             }
         }
 

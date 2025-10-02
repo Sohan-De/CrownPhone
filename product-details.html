@@ -1680,6 +1680,7 @@
     <script>
         // Product Details Page JavaScript
         document.addEventListener('DOMContentLoaded', function() {
+                initializeNavbarDefault();
                 initializeProductDetails();
                 checkAuthStatus();
                 loadProductData();
@@ -2122,17 +2123,43 @@
             }
         });
 
+        // Initialize navbar to show auth buttons by default
+        function initializeNavbarDefault() {
+            console.log('Initializing navbar with default state (auth buttons visible)');
+            
+            const navAuthButtons = document.getElementById('nav-auth-buttons');
+            const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+            const profileLink = document.getElementById('nav-profile-link');
+            const adminLink = document.getElementById('nav-admin-link');
+            
+            // Show auth buttons by default
+            if (navAuthButtons) {
+                navAuthButtons.style.display = 'flex';
+            }
+            if (mobileAuthButtons) {
+                mobileAuthButtons.style.display = 'flex';
+            }
+            
+            // Hide profile elements by default
+            if (profileLink) {
+                profileLink.style.display = 'none';
+            }
+            if (adminLink) {
+                adminLink.style.display = 'none';
+            }
+        }
+
         // Authentication status check
         async function checkAuthStatus() {
             try {
                 if (typeof getCurrentUser === 'function') {
-                    const { user } = await getCurrentUser();
+                    const { user, error } = await getCurrentUser();
                     const navAuthButtons = document.getElementById('nav-auth-buttons');
                     const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
                     const profileLink = document.getElementById('nav-profile-link');
                     const adminLink = document.getElementById('nav-admin-link');
                     
-                    if (user) {
+                    if (user && !error) {
                         // User is logged in
                         if (navAuthButtons) navAuthButtons.style.display = 'none';
                         if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
