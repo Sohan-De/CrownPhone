@@ -221,7 +221,7 @@ body {
 
 .nav-link:hover::after {
     width: 100%;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333);
 }
 
 /* Auth buttons in navigation */
