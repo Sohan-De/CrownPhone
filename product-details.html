@@ -40,6 +40,43 @@
             z-index: 1;
         }
 
+        /* Loading State - Perfectly Centered */
+        .product-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            text-align: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-spinner p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
         /* Breadcrumb Navigation */
         .breadcrumb {
             max-width: 1200px;
@@ -1286,27 +1323,26 @@
             </nav>
         </div>
 
+        <!-- Loading State -->
+        <div id="product-loading" class="product-loading">
+            <div class="loading-spinner"></div>
+            
+        </div>
+
         <!-- Main Product Section -->
-        <div class="product-main">
+        <div class="product-main" id="product-main" style="display: none;">
             <div class="product-grid">
                 <!-- Product Images -->
                 <div class="product-images">
                     <div class="main-image-container">
-                        <div class="image-badge">Featured</div>
-                        <img src="Two-boxes-showcase.png" alt="CrownPhone Pro" class="main-image" id="mainImage">
+                        <div class="image-badge" id="product-badge">Featured</div>
+                        <img src="" alt="" class="main-image" id="mainImage">
                         <button class="zoom-icon" onclick="openZoom()">
                             <i class="fas fa-search-plus"></i>
                         </button>
                     </div>
-                    <div class="thumbnail-images">
-                        <img src="Two-boxes-showcase.png" alt="Main Showcase" class="thumbnail active" onclick="changeImage(this, 'Two-boxes-showcase.png')">
-                        <img src="plugged-in.png" alt="Powered Device" class="thumbnail" onclick="changeImage(this, 'plugged-in.png')">
-                        <img src="Box-on.png" alt="Device On" class="thumbnail" onclick="changeImage(this, 'Box-on.png')">
-                        <img src="Stacked-boxes.png" alt="Stacked Units" class="thumbnail" onclick="changeImage(this, 'Stacked-boxes.png')">
-                        <img src="IMG_2013.png" alt="Open Chassis" class="thumbnail" onclick="changeImage(this, 'IMG_2013.png')">
-                        <img src="Back.png" alt="Back View" class="thumbnail" onclick="changeImage(this, 'Back.png')">
-                        <img src="front-wire.png" alt="Front Wiring" class="thumbnail" onclick="changeImage(this, 'front-wire.png')">
-                        <img src="Right.png" alt="Right Side" class="thumbnail" onclick="changeImage(this, 'Right.png')">
+                    <div class="thumbnail-images" id="thumbnail-container">
+                        <!-- Thumbnails will be dynamically generated -->
                     </div>
 
                     <!-- Quick Actions -->
@@ -1644,9 +1680,9 @@
     <script>
         // Product Details Page JavaScript
         document.addEventListener('DOMContentLoaded', function() {
-            initializeProductDetails();
-            checkAuthStatus();
-            loadProductData();
+                initializeProductDetails();
+                checkAuthStatus();
+                loadProductData();
         });
 
         function initializeProductDetails() {
@@ -1767,80 +1803,80 @@
         }
 
         function updateProductInfo(product) {
-            // Update title and subtitle
+                // Update title and subtitle
             document.querySelector('.product-title').textContent = product.title;
             document.querySelector('.product-subtitle').textContent = product.subtitle;
-            
-            // Update rating
-            const stars = document.querySelectorAll('.rating-section .stars i');
-            const ratingValue = Math.floor(product.rating);
-            const hasHalfStar = product.rating % 1 >= 0.5;
-            
-            stars.forEach((star, index) => {
-                if (index < ratingValue) {
-                    star.className = 'fas fa-star';
-                } else if (index === ratingValue && hasHalfStar) {
-                    star.className = 'fas fa-star-half-alt';
-                } else {
-                    star.className = 'far fa-star';
-                }
-            });
-            
-            // Update rating text
+                
+                // Update rating
+                const stars = document.querySelectorAll('.rating-section .stars i');
+                    const ratingValue = Math.floor(product.rating);
+                    const hasHalfStar = product.rating % 1 >= 0.5;
+                    
+                    stars.forEach((star, index) => {
+                        if (index < ratingValue) {
+                            star.className = 'fas fa-star';
+                        } else if (index === ratingValue && hasHalfStar) {
+                            star.className = 'fas fa-star-half-alt';
+                        } else {
+                            star.className = 'far fa-star';
+                        }
+                    });
+                
+                // Update rating text
             document.querySelector('.rating-text').textContent = `${product.rating} out of 5`;
             document.querySelector('.reviews-link').textContent = `(${product.reviews} reviews)`;
-            
-            // Update pricing
+                
+                // Update pricing
             document.querySelector('.current-price').textContent = `$${product.price}`;
-            if (product.originalPrice) {
+                    if (product.originalPrice) {
                 document.querySelector('.original-price').textContent = `$${product.originalPrice}`;
                 document.querySelector('.discount-badge').textContent = `${product.discount}% OFF`;
                 document.querySelector('.price-details').textContent = 'One-time purchase • Lifetime license • Free updates';
-            } else {
+                    } else {
                 document.querySelector('.original-price').style.display = 'none';
                 document.querySelector('.discount-badge').style.display = 'none';
                 document.querySelector('.price-details').textContent = 'Monthly subscription • Cancel anytime • Free updates';
-            }
-            
-            // Update features
-            const featuresGrid = document.querySelector('.features-grid');
-            featuresGrid.innerHTML = '';
-            product.features.forEach(feature => {
-                const featureItem = document.createElement('div');
-                featureItem.className = 'feature-item';
-                featureItem.innerHTML = `
-                    <i class="fas fa-check feature-icon"></i>
-                    <span class="feature-text">${feature}</span>
-                `;
-                featuresGrid.appendChild(featureItem);
-            });
-            
-            // Update page title
-            document.title = `${product.title} | CrownPhone`;
+                }
+                
+                // Update features
+                const featuresGrid = document.querySelector('.features-grid');
+                    featuresGrid.innerHTML = '';
+                    product.features.forEach(feature => {
+                        const featureItem = document.createElement('div');
+                        featureItem.className = 'feature-item';
+                        featureItem.innerHTML = `
+                            <i class="fas fa-check feature-icon"></i>
+                            <span class="feature-text">${feature}</span>
+                        `;
+                        featuresGrid.appendChild(featureItem);
+                    });
+                
+                // Update page title
+                document.title = `${product.title} | CrownPhone`;
         }
 
         function updateImages(product) {
-            // Update main image
+                // Update main image
             document.getElementById('mainImage').src = product.image;
-            
-            // Update thumbnails (keep first one as main image)
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            thumbnails[0].src = product.image;
-            thumbnails[0].classList.add('active');
-            
-            // Update badge
+                
+                // Update thumbnails (keep first one as main image)
+                const thumbnails = document.querySelectorAll('.thumbnail');
+                    thumbnails[0].src = product.image;
+                    thumbnails[0].classList.add('active');
+                
+                // Update badge
             document.querySelector('.image-badge').textContent = product.badge;
         }
 
         function updateBreadcrumb(product) {
-            const breadcrumbNav = document.querySelector('.breadcrumb-nav');
-            breadcrumbNav.innerHTML = `
-                <a href="index.html" class="breadcrumb-link">Home</a>
-                <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-                <a href="product-list.html" class="breadcrumb-link">Products</a>
-                <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
-                <span>${product.title}</span>
-            `;
+                const breadcrumbNav = document.querySelector('.breadcrumb-nav');
+                    breadcrumbNav.innerHTML = `
+                        <a href="index.html" class="breadcrumb-link">Home</a>
+                        <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                        <a href="product-list.html" class="breadcrumb-link">Products</a>
+                        <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                        <span>${product.title}</span>
+                    `;
         }
 
         // Image Gallery Functions
@@ -1902,70 +1938,100 @@
         }
 
         // Product Action Functions
-        function getProductData(productId) {
-            const products = {
-                'crownphone-pro': {
-                    title: 'CrownPhone Pro',
-                    price: 29.99,
-                    originalPrice: 49.99
-                },
-                'crownphone-business': {
-                    title: 'CrownPhone Business',
-                    price: 99.99,
-                    originalPrice: 149.99
-                },
-                'wireless-adapter': {
-                    title: 'Wireless Adapter Pro',
-                    price: 79.99,
-                    originalPrice: 99.99
-                },
-                'professional-subscription': {
-                    title: 'Professional Subscription',
-                    price: 19.99
-                },
-                'premium-cables': {
-                    title: 'Premium Cable Set',
-                    price: 39.99,
-                    originalPrice: 59.99
+        // Store current product data globally
+        let currentProductData = null;
+
+        async function getProductData(productId) {
+            try {
+                // Check if Supabase is available
+                if (typeof supabase === 'undefined' || !supabase) {
+                    console.error('Supabase not available');
+            return {
+                        title: 'Unknown Product',
+                        price: 0
+                    };
                 }
-            };
-            
-            return products[productId] || products['crownphone-pro'];
+
+                // Fetch product data from Supabase
+                const { data: product, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .eq('id', productId)
+                    .single();
+                
+                if (error) {
+                    console.error('Error fetching product:', error);
+                    return {
+                        title: 'Unknown Product',
+                        price: 0
+                    };
+                }
+
+                if (!product) {
+                    console.error('Product not found');
+                    return {
+                        title: 'Unknown Product',
+                        price: 0
+                    };
+                }
+
+                // Store current product data
+                currentProductData = product;
+
+                return {
+                    title: product.name,
+                    price: product.sale_price || product.price,
+                    originalPrice: product.price,
+                    description: product.description,
+                    image_url: product.image_url
+                };
+            } catch (error) {
+                console.error('Error in getProductData:', error);
+                return {
+                    title: 'Unknown Product',
+                    price: 0
+                };
+            }
         }
 
-        function addToCart() {
-            // Get current product data from URL or default
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id') || 'crownphone-pro';
-            
-            // Get product data
-            const product = getProductData(productId);
-            
-            // Add to cart
-            let cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
-            
-            // Check if product already exists in cart
-            const existingItem = cart.find(item => item.id === productId);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: productId,
-                    price: product.price,
-                    quantity: 1,
-                    name: product.title,
-                    addedAt: new Date().toISOString()
-                });
+        async function addToCart() {
+            try {
+                // Get current product data from URL or default
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = urlParams.get('id') || 'crownphone-pro';
+                
+                // Get product data from Supabase
+                const product = await getProductData(productId);
+                
+                // Add to cart
+                let cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+                
+                // Check if product already exists in cart
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        price: product.price,
+                        quantity: 1,
+                        name: product.title,
+                        addedAt: new Date().toISOString()
+                    });
+                }
+                
+                // Save updated cart
+                localStorage.setItem('crownphone_cart', JSON.stringify(cart));
+                
+                // Show success notification
+                showNotification(`${product.title} added to cart!`, 'success');
+                
+                // Update cart counter
+                updateCartCounter();
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                showNotification('Error adding product to cart', 'error');
             }
-            
-            // Save updated cart
-            localStorage.setItem('crownphone_cart', JSON.stringify(cart));
-            
-            // Show success notification
-            showNotification(`${product.title} added to cart!`, 'success');
-            
-            // Update cart counter
-            updateCartCounter();
         }
 
 
@@ -2115,6 +2181,277 @@
         // Initialize product tracking
         trackProductView();
 
+        // Load product data from Supabase
+        async function loadProductData() {
+            try {
+                // Show loading state
+                showLoadingState();
+
+                // Get product ID from URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = urlParams.get('id');
+                
+                if (!productId) {
+                    console.error('No product ID found in URL');
+                    hideLoadingState();
+                    showError('Product not found');
+                    return;
+                }
+
+                console.log('Loading product data for ID:', productId);
+
+                // Check if Supabase is available
+                if (typeof supabase === 'undefined' || !supabase) {
+                    console.error('Supabase not available');
+                    hideLoadingState();
+                    showError('Unable to load product data');
+                    return;
+                }
+
+                // Fetch product data from Supabase
+                const { data: product, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .eq('id', productId)
+                    .single();
+
+                if (error) {
+                    console.error('Error fetching product:', error);
+                    hideLoadingState();
+                    showError('Product not found');
+                    return;
+                }
+
+                if (!product) {
+                    console.error('Product not found');
+                    hideLoadingState();
+                    showError('Product not found');
+                    return;
+                }
+
+                console.log('Product data loaded:', product);
+
+                // Update page content with real product data
+                updateProductContent(product);
+
+                // Hide loading state and show content
+                hideLoadingState();
+                showProductContent();
+
+            } catch (error) {
+                console.error('Error loading product data:', error);
+                hideLoadingState();
+                showError('Unable to load product data');
+            }
+        }
+
+        // Show loading state
+        function showLoadingState() {
+            const loading = document.getElementById('product-loading');
+            const content = document.getElementById('product-main');
+            if (loading) loading.style.display = 'flex';
+            if (content) content.style.display = 'none';
+        }
+
+        // Hide loading state
+        function hideLoadingState() {
+            const loading = document.getElementById('product-loading');
+            if (loading) loading.style.display = 'none';
+        }
+
+        // Show product content
+        function showProductContent() {
+            const content = document.getElementById('product-main');
+            if (content) content.style.display = 'block';
+        }
+
+        // Update product content with real data
+        function updateProductContent(product) {
+            // Update page title
+            document.title = `${product.name} - CrownPhone Professional Hardware`;
+            
+            // Update meta description
+            const metaDescription = document.querySelector('meta[name="description"]');
+            if (metaDescription) {
+                metaDescription.content = `${product.name} - ${product.description}`;
+            }
+
+            // Update product title
+            const productTitle = document.querySelector('.product-title');
+            if (productTitle) {
+                productTitle.textContent = product.name;
+            }
+
+            // Update product subtitle
+            const productSubtitle = document.querySelector('.product-subtitle');
+            if (productSubtitle) {
+                productSubtitle.textContent = product.description;
+            }
+
+            // Update product image (use first available image)
+            const mainImage = document.querySelector('.main-image');
+            if (mainImage) {
+                let imageUrl = product.image_url;
+                
+                // If multiple images available, use the first one
+                if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                    imageUrl = product.images[0];
+                }
+                
+                if (imageUrl) {
+                    mainImage.src = imageUrl;
+                    mainImage.alt = product.name;
+                }
+            }
+
+            // Update thumbnail images dynamically based on available images
+            updateThumbnailImages(product);
+
+            // Update price
+            const currentPrice = document.querySelector('.current-price');
+            const originalPrice = document.querySelector('.original-price');
+            const discountBadge = document.querySelector('.discount-badge');
+            
+            if (currentPrice) {
+                if (product.sale_price && product.sale_price < product.price) {
+                    currentPrice.textContent = `$${product.sale_price.toFixed(2)}`;
+                    if (originalPrice) {
+                        originalPrice.textContent = `$${product.price.toFixed(2)}`;
+                        originalPrice.style.display = 'inline';
+                    }
+                    if (discountBadge) {
+                        const discountPercent = Math.round(((product.price - product.sale_price) / product.price) * 100);
+                        discountBadge.textContent = `${discountPercent}% OFF`;
+                        discountBadge.style.display = 'inline';
+                    }
+                } else {
+                    currentPrice.textContent = `$${product.price.toFixed(2)}`;
+                    if (originalPrice) originalPrice.style.display = 'none';
+                    if (discountBadge) discountBadge.style.display = 'none';
+                }
+            }
+
+            // Update product description in tab
+            const descriptionContent = document.querySelector('#description .tab-content p');
+            if (descriptionContent) {
+                descriptionContent.textContent = product.description;
+            }
+
+            // Update breadcrumb
+            const breadcrumbNav = document.querySelector('.breadcrumb-nav');
+            if (breadcrumbNav) {
+                breadcrumbNav.innerHTML = `
+                    <a href="index.html" class="breadcrumb-link">Home</a>
+                    <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                    <a href="product-list.html" class="breadcrumb-link">Products</a>
+                    <span class="breadcrumb-separator"><i class="fas fa-chevron-right"></i></span>
+                    <span>${product.name}</span>
+                `;
+            }
+
+            // Update product badge
+            const productBadge = document.getElementById('product-badge');
+            if (productBadge) {
+                if (product.is_new) {
+                    productBadge.textContent = 'New';
+                    productBadge.className = 'image-badge new';
+                } else if (product.is_feature) {
+                    productBadge.textContent = 'Featured';
+                    productBadge.className = 'image-badge';
+                } else {
+                    productBadge.style.display = 'none';
+                }
+            }
+
+            // Update add to cart button with product data
+            const addToCartBtn = document.querySelector('.btn-primary');
+            if (addToCartBtn) {
+                addToCartBtn.setAttribute('data-product-id', product.id);
+                addToCartBtn.setAttribute('data-product-price', product.sale_price || product.price);
+                addToCartBtn.setAttribute('data-product-name', product.name);
+            }
+
+            console.log('Product content updated successfully');
+        }
+
+        // Update thumbnail images dynamically
+        function updateThumbnailImages(product) {
+            const thumbnailContainer = document.getElementById('thumbnail-container');
+            if (!thumbnailContainer) return;
+
+            // Get available images (prioritize images array, fallback to image_url)
+            let availableImages = [];
+            if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                availableImages = product.images;
+            } else if (product.image_url) {
+                availableImages = [product.image_url];
+            }
+
+            if (availableImages.length === 0) {
+                // Hide thumbnail container if no images
+                thumbnailContainer.style.display = 'none';
+                return;
+            }
+
+            // Show thumbnail container
+            thumbnailContainer.style.display = 'flex';
+
+            // Clear existing thumbnails
+            thumbnailContainer.innerHTML = '';
+
+            // Create thumbnails for each available image
+            availableImages.forEach((imageUrl, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.src = imageUrl;
+                thumbnail.alt = `${product.name} - Image ${index + 1}`;
+                thumbnail.className = 'thumbnail';
+                
+                // Make first thumbnail active
+                if (index === 0) {
+                    thumbnail.classList.add('active');
+                }
+
+                // Add click handler
+                thumbnail.onclick = () => changeImage(thumbnail, imageUrl);
+
+                thumbnailContainer.appendChild(thumbnail);
+            });
+
+            console.log(`Updated thumbnails with ${availableImages.length} images for ${product.name}`);
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, #ff0000, #ff4500);
+                color: white;
+                padding: 2rem;
+                border-radius: 10px;
+                text-align: center;
+                z-index: 10000;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            `;
+            errorDiv.innerHTML = `
+                <h3>Error</h3>
+                <p>${message}</p>
+                <button onclick="window.location.href='product-list.html'" style="
+                    background: white;
+                    color: #ff0000;
+                    border: none;
+                    padding: 0.5rem 1rem;
+                    border-radius: 5px;
+                    margin-top: 1rem;
+                    cursor: pointer;
+                ">Back to Products</button>
+            `;
+            document.body.appendChild(errorDiv);
+        }
+
         // Shopping Cart Functions - Navigate to cart page
         function showCart() {
             window.location.href = 'cart.html';
@@ -2150,6 +2487,8 @@
         // Initialize cart counter on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCounter();
+            // Load product data when page loads
+            loadProductData();
         });
     </script>
 </body>

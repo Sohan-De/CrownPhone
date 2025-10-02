@@ -126,7 +126,7 @@ function displayNewArrivals(products) {
         slide.className = 'swiper-slide';
         
         slide.innerHTML = `
-            <div class="new-arrival-card">
+            <div class="new-arrival-card" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
                 <div class="new-tag">New</div>
                 <div class="new-arrival-image">
                     <img src="${product.image_url || 'https://via.placeholder.com/500x500.png?text=No+Image'}" alt="${product.name}">
@@ -142,7 +142,7 @@ function displayNewArrivals(products) {
                         <span class="rating-count">(${Math.floor(Math.random() * 20) + 1})</span>
                     </div>
                     <p class="new-arrival-price">$${(product.sale_price || product.price).toFixed(2)}</p>
-                    <button class="new-arrival-btn" onclick="addToCart('${product.id}', ${product.sale_price || product.price}, '${product.name}')">Add to Cart</button>
+                    <button class="new-arrival-btn" onclick="event.stopPropagation(); addToCart('${product.id}', ${product.sale_price || product.price}, '${product.name}')">Add to Cart</button>
                 </div>
             </div>
         `;
@@ -214,15 +214,15 @@ function createProductCard(product, isListPage = false) {
     
     card.innerHTML = `
         ${badge}
-        <div class="product-image-container">
+        <div class="product-image-container" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
             <img src="${product.image_url || 'https://via.placeholder.com/500x500.png?text=No+Image'}" alt="${product.name}" class="product-image">
             <div class="product-actions">
-                <button class="action-btn wishlist-btn" onclick="addToWishlist('${product.id}', '${product.name}')"><i class="fas fa-heart"></i></button>
-                <button class="action-btn cart-btn" onclick="addToCart('${product.id}', ${product.sale_price || product.price}, '${product.name}')"><i class="fas fa-shopping-cart"></i></button>
-                <button class="action-btn view-btn" onclick="viewProduct('${product.id}')"><i class="fas fa-eye"></i></button>
+                <button class="action-btn wishlist-btn" onclick="event.stopPropagation(); addToWishlist('${product.id}', '${product.name}')"><i class="fas fa-heart"></i></button>
+                <button class="action-btn cart-btn" onclick="event.stopPropagation(); addToCart('${product.id}', ${product.sale_price || product.price}, '${product.name}')"><i class="fas fa-shopping-cart"></i></button>
+                <button class="action-btn view-btn" onclick="event.stopPropagation(); viewProduct('${product.id}')"><i class="fas fa-eye"></i></button>
             </div>
         </div>
-        <div class="product-content">
+        <div class="product-content" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
             <h3 class="product-name">${product.name}</h3>
             <div class="product-rating">
                 <i class="fas fa-star"></i>
@@ -236,11 +236,17 @@ function createProductCard(product, isListPage = false) {
             <div class="product-price-container">
                 ${priceDisplay}
             </div>
-            <button class="product-btn" onclick="addToCart('${product.id}', ${product.sale_price || product.price}, '${product.name}')">Add to Cart</button>
+            <button class="product-btn" onclick="event.stopPropagation(); addToCart('${product.id}', ${product.sale_price || product.price}, '${product.name}')">Add to Cart</button>
         </div>
     `;
     
     return card;
+}
+
+// Function to navigate to product details page
+function viewProduct(productId) {
+    // Navigate to product details page
+    window.location.href = `product-details.html?id=${productId}`;
 }
 
 // Function to filter products on the product list page
