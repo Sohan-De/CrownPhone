@@ -249,23 +249,6 @@ function viewProduct(productId) {
     window.location.href = `product-details.html?id=${productId}`;
 }
 
-// Function to filter products on the product list page
-function filterProducts(searchTerm = '') {
-    const productCards = document.querySelectorAll('.product-card');
-    
-    productCards.forEach(card => {
-        const productName = card.getAttribute('data-name').toLowerCase();
-        const matchesSearch = productName.includes(searchTerm.toLowerCase());
-        
-        if (matchesSearch) {
-            card.style.display = 'block';
-            card.classList.add('fade-in');
-        } else {
-            card.style.display = 'none';
-            card.classList.remove('fade-in');
-        }
-    });
-}
 
 // Initialize products on page load
 document.addEventListener('DOMContentLoaded', async function() {
@@ -307,14 +290,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Check if we're on the product list page
         if (document.getElementById('productsGrid')) {
             displayProductsOnListPage(allProducts);
-            
-            // Set up search functionality
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    filterProducts(this.value);
-                });
-            }
         }
     }, 1000);
 });

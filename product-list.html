@@ -389,74 +389,6 @@
             50% { background-position: 100% 50%; }
         }
 
-        /* Filter and Search Bar */
-        .products-controls {
-            max-width: 1200px;
-            margin: 0 auto 3rem;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .search-bar {
-            position: relative;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            background: rgba(30, 30, 30, 0.6);
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            border-radius: 50px;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #ff0000;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-            background: rgba(30, 30, 30, 0.8);
-        }
-
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #ff0000;
-            font-size: 1.2rem;
-            z-index: 10;
-            pointer-events: none;
-            opacity: 1;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .search-bar:hover .search-icon {
-            color: #8B0000;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .search-input:focus + .search-icon {
-            color: #8B0000;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 1);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-
         /* Products Grid */
         .products-grid {
             max-width: 1200px;
@@ -1240,13 +1172,6 @@
             </p>
                 </div>
                 
-        <!-- Filter and Search Controls -->
-        <div class="products-controls">
-            <div class="search-bar">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Search products..." id="searchInput">
-                </div>
-            </div>
             
         <!-- Products Grid -->
         <div class="products-grid" id="productsGrid">
@@ -1317,32 +1242,6 @@
             if (mobileAdminLink) mobileAdminLink.style.setProperty('display', 'none', 'important');
         })();
 
-        // Product search functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            const productCards = document.querySelectorAll('.product-card');
-
-            // Search functionality
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
-                filterProducts(searchTerm);
-            });
-
-            function filterProducts(searchTerm = '') {
-                productCards.forEach(card => {
-                    const productName = card.getAttribute('data-name').toLowerCase();
-                    
-                    const matchesSearch = productName.includes(searchTerm);
-                    
-                    if (matchesSearch) {
-                        card.style.display = 'block';
-                        card.classList.add('fade-in');
-                    } else {
-                        card.style.display = 'none';
-                        card.classList.remove('fade-in');
-                    }
-                });
-            }
 
             // Add smooth scroll animation for product cards
             const observerOptions = {
