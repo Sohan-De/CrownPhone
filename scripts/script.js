@@ -597,8 +597,8 @@ function initializeLoader() {
                 
                 // Style the Lottie container
                 lottieContainer.style.cssText = `
-                    width: 150px;
-                    height: 150px;
+                    width: 200px;
+                    height: 200px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -609,8 +609,8 @@ function initializeLoader() {
                 const animationCSS = `
                     <style>
                         .lottie-container svg {
-                            width: 150px !important;
-                            height: 150px !important;
+                            width: 200px !important;
+                            height: 200px !important;
                         }
                     </style>
                 `;
@@ -670,8 +670,8 @@ function initializeLoader() {
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
-                        width: 150px;
-                        height: 150px;
+                        width: 200px;
+                        height: 200px;
                         border-radius: 50%;
                         background: linear-gradient(135deg, #ff0000, #ff4444);
                         color: white;
