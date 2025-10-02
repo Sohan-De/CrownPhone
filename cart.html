@@ -956,7 +956,7 @@
         }
         
         // Update cart display
-        function updateCartDisplay() {
+        async function updateCartDisplay() {
             const cartContent = document.getElementById('cart-content');
             
             if (cart.length === 0) {
@@ -968,32 +968,44 @@
             const tax = 0; // No tax
             const total = subtotal;
             
+            // Load product data for all items
+            const cartItemsHTML = await Promise.all(cart.map(async (item, index) => {
+                const productName = await getProductName(item.id);
+                const productDescription = await getProductDescription(item.id);
+                const productImage = await getProductImage(item.id);
+                
+                return `
+                    <div class="cart-item" data-index="${index}">
+                        <div class="item-image">
+                            ${productImage ? 
+                                `<img src="${productImage}" alt="${productName}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">` :
+                                `<i class="fas fa-mobile-alt"></i>`
+                            }
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-name">${productName}</h3>
+                            <p class="item-description">${productDescription}</p>
+                            <p class="item-price">$${item.price.toFixed(2)} each</p>
+                            <div class="item-quantity">
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="item-total">$${(item.price * item.quantity).toFixed(2)}</div>
+                        <button class="remove-btn" onclick="removeFromCart(${index})">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                `;
+            }));
+            
             cartContent.innerHTML = `
                 <div class="cart-content">
                     <div class="cart-items-section">
                         <h2 style="color: white; margin-bottom: 1.5rem; font-size: 1.5rem;">Cart Items</h2>
                         <div id="cart-items">
-                            ${cart.map((item, index) => `
-                                <div class="cart-item" data-index="${index}">
-                                    <div class="item-image">
-                                        <i class="fas fa-mobile-alt"></i>
-                                    </div>
-                                    <div class="item-details">
-                                        <h3 class="item-name">${getProductName(item.id)}</h3>
-                                        <p class="item-description">${getProductDescription(item.id)}</p>
-                                        <p class="item-price">$${item.price.toFixed(2)} each</p>
-                                        <div class="item-quantity">
-                                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                                            <span class="quantity-display">${item.quantity}</span>
-                                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="item-total">$${(item.price * item.quantity).toFixed(2)}</div>
-                                    <button class="remove-btn" onclick="removeFromCart(${index})">
-                                        <i class="fas fa-trash"></i> Remove
-                                    </button>
-                                </div>
-                            `).join('')}
+                            ${cartItemsHTML.join('')}
                         </div>
                     </div>
                     
@@ -1060,9 +1072,9 @@
         }
         
         // Remove item from cart
-        function removeFromCart(index) {
+        async function removeFromCart(index) {
             if (index >= 0 && index < cart.length) {
-                const itemName = getProductName(cart[index].id);
+                const itemName = await getProductName(cart[index].id);
                 cart.splice(index, 1);
                 saveCart();
                 updateCartDisplay();
@@ -1070,28 +1082,58 @@
             }
         }
         
-        // Get product name
-        function getProductName(productId) {
-            const productNames = {
-                'crownphone-pro': 'CrownPhone Pro',
-                'crownphone-business': 'CrownPhone Business',
-                'wireless-adapter': 'Wireless Adapter Pro',
-                'professional-subscription': 'Professional Subscription',
-                'premium-cables': 'Premium Cable Set'
+        // Product data cache
+        let productCache = {};
+        
+        // Load product data from database
+        async function loadProductData(productId) {
+            if (productCache[productId]) {
+                return productCache[productId];
+            }
+            
+            try {
+                if (typeof supabase !== 'undefined') {
+                    const { data: product, error } = await supabase
+                        .from('products')
+                        .select('*')
+                        .eq('id', productId)
+                        .single();
+                    
+                    if (!error && product) {
+                        productCache[productId] = product;
+                        return product;
+                    }
+                }
+            } catch (error) {
+                console.log('Error loading product data:', error);
+            }
+            
+            // Fallback to default data
+            const defaultProduct = {
+                name: 'Unknown Product',
+                description: 'Premium product',
+                image_url: null
             };
-            return productNames[productId] || 'Unknown Product';
+            productCache[productId] = defaultProduct;
+            return defaultProduct;
+        }
+        
+        // Get product name
+        async function getProductName(productId) {
+            const product = await loadProductData(productId);
+            return product.name || 'Unknown Product';
         }
         
         // Get product description
-        function getProductDescription(productId) {
-            const descriptions = {
-                'crownphone-pro': 'Professional screen mirroring solution',
-                'crownphone-business': 'Enterprise-grade connectivity package',
-                'wireless-adapter': 'High-speed wireless connectivity adapter',
-                'professional-subscription': 'Premium software subscription',
-                'premium-cables': 'Professional-grade cable collection'
-            };
-            return descriptions[productId] || 'Premium product';
+        async function getProductDescription(productId) {
+            const product = await loadProductData(productId);
+            return product.description || 'Premium product';
+        }
+        
+        // Get product image
+        async function getProductImage(productId) {
+            const product = await loadProductData(productId);
+            return product.image_url;
         }
         
         // Proceed to checkout
