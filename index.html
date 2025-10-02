@@ -623,10 +623,7 @@
             margin-right: 15px;
             border: 2px solid transparent;
             background: linear-gradient(45deg, #dc3545, #c82333) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
+           
         }
         
         .review-avatar img {
@@ -879,10 +876,41 @@
         .new-arrivals-swiper {
             padding: 20px 10px 60px;
             overflow: hidden;
+            /* Smooth performance optimizations */
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
         }
         
         .swiper-slide {
             transition: transform 0.3s ease;
+            /* Hardware acceleration for smoothness */
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            /* Smooth image loading */
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+        
+        .swiper-slide img {
+            /* Optimize image rendering */
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .new-arrival-card {
@@ -976,7 +1004,7 @@
         /* Swiper Navigation Styling */
         .swiper-button-next,
         .swiper-button-prev {
-            color: #ff0000;
+            color: #dc3545;
             background: rgba(30, 30, 30, 0.7);
             width: 40px;
             height: 40px;
@@ -984,28 +1012,50 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Smooth performance */
+            will-change: transform, background-color;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
         
         .swiper-button-next:after,
         .swiper-button-prev:after {
             font-size: 18px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .swiper-button-next:hover,
         .swiper-button-prev:hover {
             background: linear-gradient(45deg, #dc3545, #c82333);
             color: white;
+            transform: translateZ(0) scale(1.1);
+        }
+        
+        .swiper-button-next:hover:after,
+        .swiper-button-prev:hover:after {
+            transform: scale(1.1);
         }
         
         /* Swiper Pagination Styling */
         .swiper-pagination-bullet {
             background: #a0a0a0;
             opacity: 0.7;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Smooth performance */
+            will-change: transform, background-color;
+            transform: translateZ(0);
         }
         
         .swiper-pagination-bullet-active {
             background: linear-gradient(45deg, #dc3545, #c82333);
             opacity: 1;
+            transform: translateZ(0) scale(1.2);
+        }
+        
+        .swiper-pagination-bullet:hover {
+            transform: translateZ(0) scale(1.1);
+            opacity: 0.9;
         }
         
         @media (max-width: 768px) {
@@ -3113,7 +3163,7 @@
                     <div class="review-card">
                         <div class="review-profile">
                             <div class="review-avatar">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client Avatar">
+                                <img src="./1.jpg" alt="Client Avatar">
                             </div>
                             <div class="review-info">
                                 <h3 class="review-name">Michael Johnson</h3>
@@ -3131,12 +3181,12 @@
                             <p class="review-text">"CrownPhone has revolutionized how we manage our company devices. The ability to control multiple devices simultaneously has saved us countless hours of work. Highly recommended for any IT department!"</p>
                         </div>
                     </div>
-                    
+                       
                     <!-- Review 2 -->
                     <div class="review-card">
                         <div class="review-profile">
                             <div class="review-avatar">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client Avatar">
+                                <img src="./2.jpg" alt="Client Avatar">
                             </div>
                             <div class="review-info">
                                 <h3 class="review-name">Sarah Williams</h3>
@@ -3159,7 +3209,7 @@
                     <div class="review-card">
                         <div class="review-profile">
                             <div class="review-avatar">
-                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Client Avatar">
+                                <img src="./3.jpg" alt="Client Avatar">
                             </div>
                             <div class="review-info">
                                 <h3 class="review-name">David Chen</h3>
@@ -3527,18 +3577,21 @@
                 return;
             }
             
-            // Initialize the new arrivals swiper
+            // Initialize the new arrivals swiper with smooth performance
             const newArrivalsSwiper = new Swiper('.new-arrivals-swiper', {
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: true,
+                speed: 800, // Smooth transition speed
                 autoplay: {
                     delay: 3000,
                     disableOnInteraction: false,
+                    pauseOnMouseEnter: true, // Pause on hover for better UX
                 },
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
+                    dynamicBullets: true, // Better pagination
                 },
                 navigation: {
                     nextEl: '.swiper-button-next',
@@ -3547,21 +3600,48 @@
                 watchOverflow: true,
                 observer: true,
                 observeParents: true,
+                // Performance optimizations for smoothness
+                preloadImages: false,
+                lazy: {
+                    loadPrevNext: true,
+                    loadPrevNextAmount: 2,
+                },
+                // Smooth transitions
+                effect: 'slide',
+                grabCursor: true,
+                touchRatio: 1,
+                touchAngle: 45,
+                simulateTouch: true,
+                allowTouchMove: true,
+                // Hardware acceleration for smoothness
+                runCallbacksOnInit: true,
+                updateOnWindowResize: true,
+                resizeObserver: true,
+                // Smooth easing
+                freeMode: false,
+                freeModeSticky: false,
+                // Better touch handling
+                touchStartPreventDefault: false,
+                touchStartForcePreventDefault: false,
+                touchMoveStopPropagation: false,
                 breakpoints: {
                     // when window width is >= 480px
                     480: {
                         slidesPerView: 2,
-                        spaceBetween: 20
+                        spaceBetween: 20,
+                        speed: 700
                     },
                     // when window width is >= 768px
                     768: {
                         slidesPerView: 3,
-                        spaceBetween: 30
+                        spaceBetween: 30,
+                        speed: 700
                     },
                     // when window width is >= 1024px
                     1024: {
                         slidesPerView: 4,
-                        spaceBetween: 30
+                        spaceBetween: 30,
+                        speed: 700
                     }
                 }
             });
