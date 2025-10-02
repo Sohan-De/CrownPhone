@@ -18,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="./scripts/supabase.js"></script>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/products-connector.js"></script>
     <style>
         /* Dark Body Background like Homepage */
         body {
@@ -753,6 +754,37 @@
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
+        
+        /* Loading Products */
+        .loading-products {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-products p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -1248,154 +1280,10 @@
             
         <!-- Products Grid -->
         <div class="products-grid" id="productsGrid">
-             <!-- Product 1: Crown Phone Pro -->
-             <div class="product-card fade-in" data-category="software" data-name="Crown Phone Pro">
-                 <div class="product-badge">Featured</div>
-                 <div class="product-image-container">
-                     <img src="Two-boxes-showcase.png" alt="Crown Phone Pro" class="product-image">
-                     <div class="product-actions">
-                         <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                         <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                         <button class="action-btn view-btn" onclick="viewProduct('crownphone-pro')"><i class="fas fa-eye"></i></button>
-                            </div>
-                        </div>
-                 <div class="product-content">
-                     <h3 class="product-name">Crown Phone Pro</h3>
-                     <div class="product-rating">
-                    <i class="fas fa-star"></i>
-                         <i class="fas fa-star"></i>
-                         <i class="fas fa-star"></i>
-                         <i class="fas fa-star"></i>
-                         <i class="fas fa-star-half-alt"></i>
-                         <span class="rating-count">(128)</span>
-                        </div>
-                     <p class="product-description">Professional screen mirroring software with ultra-low latency and 4K support. Perfect for presentations, gaming, and content creation.</p>
-                     <div class="product-price-container">
-                         <span class="product-price">$29.99</span>
-                         <span class="product-old-price">$49.99</span>
-                    </div>
-                     <button class="product-btn" onclick="addToCart('crownphone-pro', 29.99, 'CrownPhone Pro')">Add to Cart</button>
-                </div>
-                </div>
-                
-            <!-- Product 2: Crown Phone Business -->
-            <div class="product-card fade-in" data-category="software" data-name="Crown Phone Business">
-                <div class="product-badge">New</div>
-                <div class="product-image-container">
-                    <img src="plugged-in.png" alt="Crown Phone Business" class="product-image">
-                    <div class="product-actions">
-                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="action-btn view-btn" onclick="viewProduct('crownphone-business')"><i class="fas fa-eye"></i></button>
-            </div>
-                    </div>
-                <div class="product-content">
-                    <h3 class="product-name">Crown Phone Business</h3>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span class="rating-count">(95)</span>
-                </div>
-                    <p class="product-description">Enterprise-grade screen mirroring solution with team management, analytics, and custom integrations for large organizations.</p>
-                     <div class="product-price-container">
-                         <span class="product-price">$99.99</span>
-                         <span class="product-old-price">$149.99</span>
-                     </div>
-                     <button class="product-btn" onclick="addToCart('crownphone-business', 99.99, 'CrownPhone Business')">Add to Cart</button>
-                </div>
-                </div>
-                
-        
-                
-            <!-- Product 4: Wireless Adapter -->
-            <div class="product-card fade-in" data-category="hardware" data-name="Wireless Adapter">
-                <div class="product-badge bestseller">Best Seller</div>
-                <div class="product-image-container">
-                    <img src="Box-on.png" alt="Wireless Adapter Pro" class="product-image">
-                    <div class="product-actions">
-                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="action-btn view-btn" onclick="viewProduct('wireless-adapter')"><i class="fas fa-eye"></i></button>
-                    </div>
-                </div>
-                <div class="product-content">
-                    <h3 class="product-name">Wireless Adapter Pro</h3>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span class="rating-count">(87)</span>
-            </div>
-                    <p class="product-description">High-speed wireless adapter for seamless screen mirroring without cables. Supports up to 4K resolution with minimal latency.</p>
-                     <div class="product-price-container">
-                         <span class="product-price">$79.99</span>
-                         <span class="product-old-price">$99.99</span>
-                     </div>
-                     <button class="product-btn" onclick="addToCart('wireless-adapter', 79.99, 'Wireless Adapter Pro')">Add to Cart</button>
-                </div>
-                </div>
-                
-            <!-- Product 5: Professional Subscription -->
-            <div class="product-card fade-in" data-category="subscription" data-name="Professional Subscription">
-                <div class="product-badge">Popular</div>
-                <div class="product-image-container">
-                    <img src="Stacked-boxes.png" alt="Professional Subscription" class="product-image">
-                    <div class="product-actions">
-                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="action-btn view-btn" onclick="viewProduct('professional-subscription')"><i class="fas fa-eye"></i></button>
-                    </div>
-                </div>
-                <div class="product-content">
-                    <h3 class="product-name">Professional Subscription</h3>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <span class="rating-count">(156)</span>
-                    </div>
-                    <p class="product-description">Monthly subscription with premium features, cloud storage, and priority support. Cancel anytime.</p>
-                    <div class="product-price-container">
-                        <span class="product-price">$19.99/mo</span>
-                    </div>
-                     <button class="product-btn" onclick="addToCart('professional-subscription', 19.99, 'Professional Subscription')">Add to Cart</button>
-                </div>
-            </div>
-            
-            <!-- Product 6: Premium Cable Set -->
-            <div class="product-card fade-in" data-category="accessories" data-name="Premium Cable Set">
-                <div class="product-image-container">
-                    <img src="cables.png" alt="Premium Cable Set" class="product-image">
-                    <div class="product-actions">
-                        <button class="action-btn wishlist-btn"><i class="fas fa-heart"></i></button>
-                        <button class="action-btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
-                        <button class="action-btn view-btn" onclick="viewProduct('premium-cables')"><i class="fas fa-eye"></i></button>
-                            </div>
-                        </div>
-                <div class="product-content">
-                    <h3 class="product-name">Premium Cable Set</h3>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                        <span class="rating-count">(73)</span>
-                        </div>
-                    <p class="product-description">High-quality USB-C to USB-C and USB-C to HDMI cables for reliable wired connections with superior durability.</p>
-                     <div class="product-price-container">
-                         <span class="product-price">$39.99</span>
-                         <span class="product-old-price">$59.99</span>
-                    </div>
-                     <button class="product-btn" onclick="addToCart('premium-cables', 39.99, 'Premium Cable Set')">Add to Cart</button>
-                </div>
+            <!-- Products will be loaded dynamically from Supabase -->
+            <div class="loading-products">
+                <div class="loading-spinner"></div>
+                <p>Loading products...</p>
             </div>
         </div>
 

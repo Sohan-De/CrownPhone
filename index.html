@@ -440,6 +440,37 @@
             
         }
         
+        /* Loading Products */
+        .loading-products {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 0, 0, 0.1);
+            border-left: 4px solid #ff0000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-products p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+        
         /* Commitment Section Styling */
         .commitment-section {
             padding: 0px 0;
@@ -2708,118 +2739,11 @@
                 <!-- Swiper -->
                 <div class="swiper new-arrivals-swiper">
                     <div class="swiper-wrapper">
-                        <!-- Slide 1 -->
+                        <!-- Products will be loaded dynamically from Supabase -->
                         <div class="swiper-slide">
-                            <div class="new-arrival-card">
-                                <div class="new-tag">New</div>
-                                <div class="new-arrival-image">
-                                    <img src="IMG_2013.png" alt="CrownPhone Ultra">
-                                </div>
-                                <div class="new-arrival-content">
-                                    <h3 class="new-arrival-name">CrownPhone Ultra</h3>
-                                    <div class="new-arrival-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span class="rating-count">(7)</span>
-                                    </div>
-                                    <p class="new-arrival-price">$99.99</p>
-                                    <button class="new-arrival-btn" onclick="addToCart('crownphone-ultra', 99.99, 'CrownPhone Ultra')">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 2 -->
-                        <div class="swiper-slide">
-                            <div class="new-arrival-card">
-                                <div class="new-tag">New</div>
-                                <div class="new-arrival-image">
-                                    <img src="Back.png" alt="SmartWatch Connect">
-                                </div>
-                                <div class="new-arrival-content">
-                                    <h3 class="new-arrival-name">SmartWatch Connect</h3>
-                                    <div class="new-arrival-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span class="rating-count">(12)</span>
-                                    </div>
-                                    <p class="new-arrival-price">$79.99</p>
-                                    <button class="new-arrival-btn" onclick="addToCart('smartwatch-connect', 79.99, 'SmartWatch Connect')">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 3 -->
-                        <div class="swiper-slide">
-                            <div class="new-arrival-card">
-                                <div class="new-tag">New</div>
-                                <div class="new-arrival-image">
-                                    <img src="front-wire.png" alt="Tablet Pro">
-                                </div>
-                                <div class="new-arrival-content">
-                                    <h3 class="new-arrival-name">Tablet Pro</h3>
-                                    <div class="new-arrival-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="far fa-star"></i>
-                                        <span class="rating-count">(9)</span>
-                                    </div>
-                                    <p class="new-arrival-price">$89.99</p>
-                                    <button class="new-arrival-btn" onclick="addToCart('tablet-pro', 89.99, 'Tablet Pro')">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 4 -->
-                        <div class="swiper-slide">
-                            <div class="new-arrival-card">
-                                <div class="new-tag">New</div>
-                                <div class="new-arrival-image">
-                                    <img src="Right.png" alt="Enterprise Suite">
-                                </div>
-                                <div class="new-arrival-content">
-                                    <h3 class="new-arrival-name">Enterprise Suite</h3>
-                                    <div class="new-arrival-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <span class="rating-count">(5)</span>
-                                    </div>
-                                    <p class="new-arrival-price">$129.99</p>
-                                    <button class="new-arrival-btn" onclick="addToCart('enterprise-suite', 129.99, 'Enterprise Suite')">Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Slide 5 -->
-                        <div class="swiper-slide">
-                            <div class="new-arrival-card">
-                                <div class="new-tag">New</div>
-                                <div class="new-arrival-image">
-                                    <img src="top-no-cover.png" alt="Multi-Device Hub">
-                                </div>
-                                <div class="new-arrival-content">
-                                    <h3 class="new-arrival-name">Multi-Device Hub</h3>
-                                    <div class="new-arrival-rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <i class="far fa-star"></i>
-                                        <span class="rating-count">(3)</span>
-                                    </div>
-                                    <p class="new-arrival-price">$109.99</p>
-                                    <button class="new-arrival-btn" onclick="addToCart('multi-device-hub', 109.99, 'Multi-Device Hub')">Add to Cart</button>
-                                </div>
+                            <div class="loading-products">
+                                <div class="loading-spinner"></div>
+                                <p>Loading new arrivals...</p>
                             </div>
                         </div>
                     </div>
@@ -2844,120 +2768,10 @@
                 
                 
                 <div class="products-grid">
-                    <!-- Product 1 -->
-                    <div class="product-card" data-category="smartphones">
-                        <div class="product-badge">New</div>
-                        <div class="product-image-container">
-                            <img src="Two-boxes-showcase.png" alt="CrownPhone Pro" class="product-image">
-                            <div class="product-actions">
-                                <button class="action-btn wishlist-btn" onclick="addToWishlist('crownphone-pro', 'CrownPhone Pro')"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn" onclick="addToCart('crownphone-pro', 59.99, 'CrownPhone Pro')"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn" onclick="viewProduct('crownphone-pro')"><i class="fas fa-eye"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-name">CrownPhone Box Pro</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span class="rating-count">(24)</span>
-                            </div>
-                            <p class="product-description">Premium device management for Android smartphones with advanced features.</p>
-                            <div class="product-price-container">
-                                <span class="product-price">$59.99</span>
-                                <span class="product-old-price">$79.99</span>
-                            </div>
-                            <button class="product-btn" onclick="addToCart('crownphone-pro', 59.99, 'CrownPhone Pro')">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 2 -->
-                    <div class="product-card" data-category="tablets">
-                        <div class="product-badge bestseller">Best Seller</div>
-                        <div class="product-image-container">
-                            <img src="plugged-in.png" alt="TabletMaster" class="product-image">
-                            <div class="product-actions">
-                                <button class="action-btn wishlist-btn" onclick="addToWishlist('tabletmaster', 'TabletMaster')"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn" onclick="addToCart('tabletmaster', 69.99, 'TabletMaster')"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn" onclick="viewProduct('tabletmaster')"><i class="fas fa-eye"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-name">CrownPhone Box Standard</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="rating-count">(42)</span>
-                            </div>
-                            <p class="product-description">Complete tablet management solution with multi-screen support.</p>
-                            <div class="product-price-container">
-                                <span class="product-price">$69.99</span>
-                            </div>
-                            <button class="product-btn" onclick="addToCart('tabletmaster', 69.99, 'TabletMaster')">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 3 -->
-                    <div class="product-card" data-category="wearables">
-                        <div class="product-image-container">
-                            <img src="Box-on.png" alt="WearableSync" class="product-image">
-                            <div class="product-actions">
-                                <button class="action-btn wishlist-btn" onclick="addToWishlist('wearablesync', 'WearableSync')"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn" onclick="addToCart('wearablesync', 39.99, 'WearableSync')"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn" onclick="viewProduct('wearablesync')"><i class="fas fa-eye"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-name">CrownPhone Box Mini</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span class="rating-count">(18)</span>
-                            </div>
-                            <p class="product-description">Smartwatch and fitness tracker management with health data sync.</p>
-                            <div class="product-price-container">
-                                <span class="product-price">$39.99</span>
-                                <span class="product-old-price">$49.99</span>
-                            </div>
-                            <button class="product-btn" onclick="addToCart('wearablesync', 39.99, 'WearableSync')">Add to Cart</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Product 4 -->
-                    <div class="product-card" data-category="smartphones">
-                        <div class="product-image-container">
-                            <img src="Stacked-boxes.png" alt="DeviceHub" class="product-image">
-                            <div class="product-actions">
-                                <button class="action-btn wishlist-btn" onclick="addToWishlist('devicehub', 'DeviceHub')"><i class="fas fa-heart"></i></button>
-                                <button class="action-btn cart-btn" onclick="addToCart('devicehub', 89.99, 'DeviceHub')"><i class="fas fa-shopping-cart"></i></button>
-                                <button class="action-btn view-btn" onclick="viewProduct('devicehub')"><i class="fas fa-eye"></i></button>
-                            </div>
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-name">CrownPhone Box Enterprise</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                                <span class="rating-count">(31)</span>
-                            </div>
-                            <p class="product-description">Multi-device management hub for all your connected devices.</p>
-                            <div class="product-price-container">
-                                <span class="product-price">$89.99</span>
-                            </div>
-                            <button class="product-btn" onclick="addToCart('devicehub', 89.99, 'DeviceHub')">Add to Cart</button>
-                        </div>
+                    <!-- Products will be loaded dynamically from Supabase -->
+                    <div class="loading-products">
+                        <div class="loading-spinner"></div>
+                        <p>Loading products...</p>
                     </div>
                 </div>
                 
@@ -3162,6 +2976,7 @@
     <script src="./scripts/pricing-connector.js"></script>
     <script src="./scripts/form-email-service.js"></script>
     <script src="./scripts/admin-fix.js"></script>
+    <script src="./scripts/products-connector.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize auth status

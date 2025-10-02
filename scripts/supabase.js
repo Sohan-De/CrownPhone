@@ -1,6 +1,6 @@
 // Initialize Supabase client
-const SUPABASE_URL = 'https://msgvsoyclgbjthvjuidg.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zZ3Zzb3ljbGdianRodmp1aWRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg4MTQ4MDcsImV4cCI6MjA3NDM5MDgwN30.VuUbsK_FOrN3dQsSDA8bT1yLlCxE7zie5OwB5qEhQ8M';
+const SUPABASE_URL = 'https://itrumucqoahjpqoystvi.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml0cnVtdWNxb2FoanBxb3lzdHZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkzOTg5ODYsImV4cCI6MjA3NDk3NDk4Nn0.0Iy90CFfVHvPQvF-WNS8c9focPIw5ibyHbKa8FOOj5A';
 
 // Create Supabase client - wait for library to be available
 let supabase = null;
