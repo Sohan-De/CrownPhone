@@ -31,6 +31,7 @@ function initializeHeroSection() {
 function initializeHamburgerMenu() {
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const navLinks = document.getElementById('nav-links');
+    const mobileOverlay = document.getElementById('mobile-menu-overlay');
     const body = document.body;
     
     if (hamburgerMenu && navLinks) {
@@ -43,6 +44,7 @@ function initializeHamburgerMenu() {
                 // If menu is closed, open it
                 hamburgerMenu.classList.add('active');
                 navLinks.classList.add('active');
+                if (mobileOverlay) mobileOverlay.classList.add('active');
                 body.style.overflow = 'hidden';
                 body.classList.add('hamburger-open');
             }
@@ -122,6 +124,7 @@ function initializeHamburgerMenu() {
         function closeMobileMenu() {
             hamburgerMenu.classList.remove('active');
             navLinks.classList.remove('active');
+            if (mobileOverlay) mobileOverlay.classList.remove('active');
             body.style.overflow = '';
             body.classList.remove('hamburger-open');
         }

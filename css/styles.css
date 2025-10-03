@@ -745,13 +745,12 @@ body {
     .mobile-profile-link {
         display: flex;
         align-items: center;
-        gap: 1rem;
-        padding: 1rem;
+        
         color: white;
         text-decoration: none;
         border-radius: 8px;
         transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.05);
+      
     }
     
     .mobile-profile-link:hover {
@@ -7979,7 +7978,7 @@ body {
 .hero-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    
     display: flex;
     flex-direction: row;
     gap: 4rem;

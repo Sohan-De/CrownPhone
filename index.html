@@ -70,16 +70,10 @@
             }
         }
         
-        /* Hamburger menu styling override */
-        .hamburger-line {
-            background: linear-gradient(45deg, #dc3545, #c82333) !important;
-            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;
-        }
-        
-        /* Fix hamburger menu positioning */
+        /* Tablet and Mobile Navigation */
         @media (max-width: 991px) {
-            .nav-container {
-                padding-right: 15px !important;
+            .nav-logo {
+                flex: 0 0 auto;
             }
             
             .hamburger-menu {
@@ -87,6 +81,101 @@
                 margin-left: auto !important;
                 position: relative !important;
                 right: 0 !important;
+                width: 30px;
+                height: 25px;
+                cursor: pointer;
+                z-index: 1000;
+            }
+            
+            /* Ensure even spacing */
+            .nav-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 15px;
+            }
+        }
+        
+        /* Hamburger menu styling override */
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            top: 0;
+        }
+        
+        .hamburger-line:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .hamburger-line:nth-child(3) {
+            bottom: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg);
+            top: 11px;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg);
+            bottom: 11px;
+        }
+        
+        /* Mobile menu overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Body class when hamburger is open */
+        body.hamburger-open {
+            overflow: hidden;
+        }
+        
+        /* Fix hamburger menu positioning */
+        @media (max-width: 991px) {
+            .nav-container {
+                padding-left: 2rem !important;
+                padding-right: 2rem !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+            }
+            
+            .hamburger-menu {
+                margin-right: 0 !important;
+                margin-left: auto !important;
+                position: relative !important;
+                right: 0 !important;
+            }
+            
+            /* Hide desktop navigation elements in tablet/mobile view */
+            .desktop-nav-links, .nav-right {
+                display: none !important;
             }
         }
 
@@ -1103,12 +1192,68 @@
             border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
         }
         
-        /* Dark mobile menu */
+        /* Navbar container styling */
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
         
+        /* Dark mobile menu */
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 20px 30px;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+        }
+        
+        .nav-links.active {
+            right: 0;
+        }
+        
+        .nav-links .nav-link {
+            margin: 10px 0 !important;
+            padding: 10px 0 !important;
+            font-size: 1.1rem;
+            position: relative;
+        }
         
         .mobile-menu-header {
             background: rgba(10, 10, 10, 0.98) !important;
             border-bottom: 1px solid rgba(255, 0, 0, 0.2) !important;
+            padding: 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        .mobile-menu-title {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
         }
         
         /* Make nav links use the primary button gradient */
@@ -1247,7 +1392,7 @@
         .hero-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+           
             text-align: center;
         }
         
@@ -2902,6 +3047,9 @@
             <div class="star-bg">★</div>
         </div>
         
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+        
         <!-- Navigation Bar Component -->
         <nav class="navbar" id="navbar-component">
             <div class="nav-container">
@@ -2911,7 +3059,7 @@
                     </a>
                 </div>
                 
-                <!-- Desktop Navigation Links -->
+                <!-- Desktop Navigation Links (hidden on tablet/mobile) -->
                 <div class="desktop-nav-links" style="display: flex; justify-content: center; flex: 1; gap: 30px; margin: 0 20px;">
                     <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
                     <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
@@ -2921,24 +3069,40 @@
                 
                 <!-- Hamburger Menu Button -->
                 <div class="hamburger-menu" id="hamburger-menu">
-                    <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
-                    <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
-                    <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
                 </div>
                 
-                <div class="nav-links" id="nav-links" style="display: none;">
+                <div class="nav-links" id="nav-links">
                     <div class="mobile-menu-header">
                         <h3 class="mobile-menu-title">Menu</h3>
                     </div>
-                    <!-- Mobile Profile Link (shown when logged in on mobile only) -->
-                    <a href="profile.html" class="nav-link mobile-profile-link" id="mobile-profile-link" style="font-weight: 500; display: none; border-bottom: 1px solid rgba(255, 0, 0, 0.3); margin-bottom: 5px; padding-bottom: 5px; display: none;" title="User Profile"><i class="fas fa-user" style="font-size: 1.2rem;"></i></a>
                     
-                    <!-- Mobile Admin Link (shown when logged in as admin on mobile only) -->
-                    <a href="admin-dashboard.html" class="nav-link mobile-admin-link" id="mobile-admin-link" style="font-weight: 500; display: none; border-bottom: 1px solid rgba(255, 0, 0, 0.3); margin-bottom: 10px; padding-bottom: 10px; display: none;" title="Admin Dashboard"><i class="fas fa-shield-alt" style="font-size: 1.2rem;"></i></a>
+                    <!-- All Navigation Links -->
                     <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
                     <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
                     <a href="guide.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
                     <a href="contact.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
+                    
+                    <!-- Mobile Cart Link (always visible) -->
+                    <a href="cart.html" class="nav-link mobile-cart-link" style="font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 5px;" title="Shopping Cart">
+                        <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;"></i>
+                        <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Shopping Cart</span>
+                        <span class="mobile-cart-counter" id="mobile-cart-counter" style="background: linear-gradient(45deg, #dc3545, #c82333); color: white; border-radius: 50%; width: 18px; height: 18px; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; margin-left: auto;">0</span>
+                    </a>
+                    
+                    <!-- Mobile Profile Link (shown when logged in on mobile only) -->
+                    <a href="profile.html" class="nav-link mobile-profile-link" id="mobile-profile-link" style="font-weight: 500; display: none; margin-bottom: 15px; padding-bottom: 5px;" title="User Profile">
+                        <i class="fas fa-user" style="font-size: 1.2rem; margin-right: 10px; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;"></i>
+                        <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">My Profile</span>
+                    </a>
+                    
+                    <!-- Mobile Admin Link (shown when logged in as admin on mobile only) -->
+                    <a href="admin-dashboard.html" class="nav-link mobile-admin-link" id="mobile-admin-link" style="font-weight: 500; display: none; margin-bottom: 15px; padding-bottom: 5px;" title="Admin Dashboard">
+                        <i class="fas fa-shield-alt" style="font-size: 1.2rem; margin-right: 10px; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;"></i>
+                        <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Admin Dashboard</span>
+                    </a>
                     
                     <!-- Mobile Auth Buttons -->
                     <div class="mobile-auth-buttons" id="mobile-auth-buttons">
@@ -3293,7 +3457,48 @@
             
             // Initialize subscription form
             initializeSubscriptionForm();
+            
+            // Initialize mobile menu overlay
+            initializeMobileMenuOverlay();
         });
+        
+        // Function to initialize mobile menu overlay
+        function initializeMobileMenuOverlay() {
+            const mobileOverlay = document.getElementById('mobile-menu-overlay');
+            
+            if (mobileOverlay) {
+                // Add click event to overlay to close menu
+                mobileOverlay.addEventListener('click', function() {
+                    if (typeof closeMobileMenu === 'function') {
+                        closeMobileMenu();
+                    } else {
+                        const hamburgerMenu = document.getElementById('hamburger-menu');
+                        const navLinks = document.getElementById('nav-links');
+                        const body = document.body;
+                        
+                        hamburgerMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                        body.style.overflow = '';
+                        body.classList.remove('hamburger-open');
+                    }
+                });
+                
+                // Override the original closeMobileMenu function
+                window.originalCloseMobileMenu = window.closeMobileMenu;
+                window.closeMobileMenu = function() {
+                    const hamburgerMenu = document.getElementById('hamburger-menu');
+                    const navLinks = document.getElementById('nav-links');
+                    const body = document.body;
+                    
+                    hamburgerMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    mobileOverlay.classList.remove('active');
+                    body.style.overflow = '';
+                    body.classList.remove('hamburger-open');
+                };
+            }
+        }
         
         // Updated checkAuthStatus function to handle the profile link visibility
         async function checkAuthStatus() {
@@ -3737,10 +3942,16 @@
             const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             const cartCounter = document.getElementById('cart-counter');
+            const mobileCartCounter = document.getElementById('mobile-cart-counter');
             
             if (cartCounter) {
                 cartCounter.textContent = totalItems;
                 cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+            
+            if (mobileCartCounter) {
+                mobileCartCounter.textContent = totalItems;
+                mobileCartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
             }
         }
 
@@ -3774,10 +3985,16 @@
             const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             const cartCounter = document.getElementById('cart-counter');
+            const mobileCartCounter = document.getElementById('mobile-cart-counter');
             
             if (cartCounter) {
                 cartCounter.textContent = totalItems;
                 cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+            
+            if (mobileCartCounter) {
+                mobileCartCounter.textContent = totalItems;
+                mobileCartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
             }
         }
 
@@ -3789,3 +4006,4 @@
 
 </body>
 </html> 
+
