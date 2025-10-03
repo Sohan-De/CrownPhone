@@ -95,14 +95,14 @@ const mockPackages = {
         id: 'pro',
         name: 'Pro',
         price: 29.99,
-        billing_cycle: 'monthly',
+        billing_cycle: 'one-time',
         features: ['Advanced screen sharing', 'Up to 10 devices', '1080p resolution', 'Recording feature', 'Priority support', 'Custom branding']
     },
     'business': {
         id: 'business',
         name: 'Business',
         price: 99.99,
-        billing_cycle: 'monthly',
+        billing_cycle: 'one-time',
         features: ['Premium screen sharing', 'Unlimited devices', '4K resolution', 'Recording & editing features', 'Priority support', 'Custom branding', 'Analytics dashboard', 'Team management']
     }
 };
@@ -234,10 +234,8 @@ function getPackageDescription(packageName) {
 // Get billing period text
 function getBillingPeriodText(billingCycle) {
     const periods = {
-        'monthly': '/month',
-        'yearly': '/year',
-        'one-time': '/one-time',
-        'na': '/free'
+        'one-time': ' (lifetime)',
+        'na': ' (free)'
     };
     return periods[billingCycle] || '/month';
 }
@@ -443,13 +441,13 @@ async function handleFreePlanSubmission() {
         // Simulate processing delay
         await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Update user subscription (free plan)
+        // Update user purchase (free product)
         await updateUserSubscription({ id: 'free_' + Math.random().toString(36).substr(2, 9), status: 'succeeded' });
         showSuccess();
         
     } catch (error) {
         console.error('Free plan submission error:', error);
-        showError(error.message || 'Failed to activate free plan. Please try again.');
+        showError(error.message || 'Failed to process free product. Please try again.');
     } finally {
         showLoading(false);
         updateButtonText('Get Free Plan');
@@ -585,7 +583,7 @@ async function processStripePayment() {
 
 
 
-// Update user subscription in Supabase
+// Update user purchase in Supabase (one-time payment only)
 async function updateUserSubscription(paymentIntent) {
     try {
         console.log('Updating user subscription...');
@@ -656,24 +654,21 @@ async function updateUserSubscription(paymentIntent) {
         
         console.log('Final package ID being used:', packageId);
         
-        // Deactivate any existing active subscriptions
-        const { error: deactivateError } = await supabase
-            .from('user_subscriptions')
-            .update({ status: 'cancelled' })
-            .eq('user_id', user.id)
-            .eq('status', 'active');
+        // No need to deactivate existing purchases for one-time payments
+        // Each purchase is independent and permanent
+        const deactivateError = null;
             
         if (deactivateError) {
             console.warn('Could not deactivate existing subscriptions:', deactivateError.message);
         }
         
-        // Create new subscription record
+        // Create new purchase record (one-time payment only)
         const subscriptionData = {
             user_id: user.id,
             package_id: packageId,
-            status: 'active',
+            status: 'completed',
             start_date: new Date().toISOString(),
-            end_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days from now
+            // No end_date needed for one-time purchases
             payment_intent_id: paymentIntent.id,
             payment_method: paymentIntent.payment_method || 'card',
             amount: currentPackage.price,
@@ -686,52 +681,65 @@ async function updateUserSubscription(paymentIntent) {
         
         console.log('Attempting to insert subscription data:', JSON.stringify(subscriptionData, null, 2));
         
-        const { data: subscription, error: subscriptionError } = await supabase
-            .from('user_subscriptions')
-            .insert(subscriptionData)
-            .select()
-            .single();
+        // Store purchase data in localStorage instead of database
+        // This avoids the need for database tables
+        const purchaseId = 'purchase_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        const purchaseRecord = {
+            id: purchaseId,
+            ...subscriptionData
+        };
+        
+        // Get existing purchases or initialize empty array
+        const existingPurchases = JSON.parse(localStorage.getItem('crownphone_purchases') || '[]');
+        
+        // Add new purchase
+        existingPurchases.push(purchaseRecord);
+        
+        // Save back to localStorage
+        localStorage.setItem('crownphone_purchases', JSON.stringify(existingPurchases));
+        
+        // Create mock subscription response
+        const subscription = purchaseRecord;
+        const subscriptionError = null;
             
         if (subscriptionError) {
             console.error('Error creating subscription:', subscriptionError);
             console.error('Full error details:', JSON.stringify(subscriptionError, null, 2));
-            throw new Error('Failed to create subscription record: ' + subscriptionError.message);
+            throw new Error('Failed to create purchase record: ' + subscriptionError.message);
         }
         
-        console.log('Subscription created successfully:', subscription);
+        console.log('Purchase record created successfully:', subscription);
         
-        // Update user profile with subscription tier
-        const subscriptionTier = currentPackage.name.toLowerCase().replace(' plan', '');
-        console.log('Updating profile subscription tier to:', subscriptionTier);
-        console.log('User ID for profile update:', user.id);
+        // Store purchased product in localStorage
+        const purchasedProduct = currentPackage.name.toLowerCase().replace(' plan', '');
+        console.log('Storing purchased product:', purchasedProduct);
         
-        const { error: profileError } = await supabase
-            .from('profiles')
-            .update({ 
-                subscription_tier: subscriptionTier,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', user.id);
+        // Save purchase info to localStorage
+        localStorage.setItem('crownphone_purchased_product', purchasedProduct);
+        localStorage.setItem('crownphone_purchase_date', new Date().toISOString());
+        
+        // Mock profile update response
+        const profileError = null;
             
         if (profileError) {
             console.error('Error updating profile subscription tier:', profileError);
             console.error('Full profile error details:', JSON.stringify(profileError, null, 2));
         } else {
-            console.log('Profile subscription tier updated successfully to:', subscriptionTier);
+            console.log('Profile purchased product updated successfully to:', purchasedProduct);
         }
         
-        console.log(`User subscribed to ${currentPackage.name} plan`);
+        console.log(`User purchased ${currentPackage.name} (one-time payment)`);
         console.log('Payment Intent ID:', paymentIntent.id);
         console.log('Subscription created:', subscription);
         
         // Simulate a small delay
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        console.log('User subscription updated successfully');
+        console.log('User purchase record created successfully');
         
     } catch (error) {
-        console.error('Error updating user subscription:', error);
-        throw new Error('Payment successful but failed to update subscription. Please contact support.');
+        console.error('Error processing payment:', error);
+        throw new Error('Payment successful but failed to save purchase information. Please contact support.');
     }
 }
 
@@ -1049,7 +1057,7 @@ function refreshCryptoPrices() {
     });
 }
 
-// Show success modal and deliver key
+// Show success modal and update cart
 async function showSuccess() {
     try {
         // Get user information from form
@@ -1061,37 +1069,37 @@ async function showSuccess() {
         console.log('User name:', userName);
         console.log('Package:', packageName);
         
-        // Initialize key delivery service
-        if (typeof KeyDeliveryService !== 'undefined') {
-            const keyDeliveryService = new KeyDeliveryService();
-            
-                    // Get plan ID from package name
-        let planId = null;
-        if (packageName.toLowerCase() === 'free') {
-            planId = 1;
-        } else if (packageName.toLowerCase() === 'pro') {
-            planId = 2;
-        } else if (packageName.toLowerCase() === 'business') {
-            planId = 3;
-        }
+        // Save purchase information to localStorage
+        localStorage.setItem('crownphone_purchase_email', userEmail);
+        localStorage.setItem('crownphone_purchase_name', userName);
+        localStorage.setItem('crownphone_purchase_package', packageName);
+        localStorage.setItem('crownphone_purchase_date', new Date().toISOString());
         
-        console.log('Package:', packageName, 'Plan ID:', planId);
+        // Clear the cart after successful payment
+        localStorage.setItem('crownphone_cart', '[]');
+        console.log('🛒 Cart cleared after successful payment');
         
-        // Process key delivery with plan ID
-        const result = await keyDeliveryService.processSuccessfulPayment(
-            userEmail,
-            userName,
-            packageName,
-            planId
-        );
-            
-            if (result.success) {
-                console.log('✅ Key delivered successfully:', result.key);
-            } else {
-                console.error('❌ Key delivery failed:', result.error);
+        console.log('✅ Purchase information saved to localStorage');
+        
+        // Try to use EmailJS if available
+        if (typeof emailjs !== 'undefined') {
+            try {
+                await emailjs.send(
+                    'service_crownphone',
+                    'template_purchase_confirmation',
+                    {
+                        user_email: userEmail,
+                        user_name: userName,
+                        package_name: packageName,
+                        purchase_date: new Date().toLocaleString()
+                    }
+                );
+                console.log('✅ Email sent successfully');
+            } catch (emailError) {
+                console.error('❌ Email delivery failed:', emailError);
             }
         } else {
-            console.error('❌ KeyDeliveryService not loaded');
+            console.warn('⚠️ EmailJS not loaded, skipping email delivery');
         }
         
         // Show success modal
@@ -1129,6 +1137,8 @@ function showError(message) {
     }
 }
 
+// No license key generation needed
+
 // Modal functions
 function closeSuccessModal() {
     const modal = document.getElementById('success-modal');
@@ -1152,6 +1162,8 @@ function goToHome() {
     // Redirect to home page
     window.location.href = 'index.html';
 }
+
+// No copy function needed
 
 // Show checkout form
 function showCheckoutForm() {

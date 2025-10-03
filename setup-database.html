@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Setup - CrownPhone</title>
+    <link rel="icon" type="image/png" href="fevp.png">
+    <link rel="apple-touch-icon" href="fevp.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./scripts/supabase.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .setup-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+        }
+        
+        .setup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .setup-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .setup-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+        
+        #migration-container {
+            padding: 2rem;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 0, 0, 0.2);
+            border-top: 5px solid #ff0000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message, .error-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .success-message i {
+            font-size: 4rem;
+            color: #00ff88;
+        }
+        
+        .error-message i {
+            font-size: 4rem;
+            color: #ff0000;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <div class="setup-header">
+            <h1>CrownPhone Database Setup</h1>
+            <p>This utility will set up or update your database schema for the CrownPhone application.</p>
+        </div>
+        
+        <div id="migration-container">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Setting up database...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="./scripts/apply-migrations.js"></script>
+</body>
+</html>

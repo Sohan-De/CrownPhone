@@ -1296,13 +1296,39 @@
         <div class="modal-content">
             <div id="success-lottie" class="success-lottie"></div>
             <h2>Payment Successful!</h2>
-            <p>Your license key has been sent by email, please check there. If you didn't receive it, you can contact support at <a href="mailto:support@crownscreens.com" style="color: #ff0000; text-decoration: none;">support@crownscreens.com</a></p>
+            <div class="success-message">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <p>Your payment has been processed successfully!</p>
+            </div>
+            <p>Thank you for your purchase. If you have any questions, please contact our support team at <a href="mailto:support@crownphone.com" style="color: #ff0000; text-decoration: none;">support@crownphone.com</a></p>
             <div class="modal-actions">
                 <button class="btn-primary" onclick="goToHome()">Go to Home</button>
                 <button class="btn-secondary" onclick="closeSuccessModal()">Close</button>
             </div>
         </div>
     </div>
+    
+    <style>
+        .success-message {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #00ff88;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
 
     <!-- Error Modal -->
     <div id="error-modal" class="modal" style="display: none;">
