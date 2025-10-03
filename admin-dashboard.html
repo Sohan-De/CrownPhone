@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Crown Phone</title>
     <link rel="icon" type="image/png" href="fevp.png">
+    
+    <link rel="icon" type="image/png" href="fevp.png">
     <link rel="apple-touch-icon" href="fevp.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -1052,15 +1054,17 @@
         }
         
         /* Make add product modal responsive on mobile */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             #add-product-modal .modal-content {
                 width: 95% !important;
                 max-width: 95% !important;
                 min-width: auto !important;
                 margin: 2% auto !important;
-                padding: 20px !important;
+                padding: 15px !important;
                 max-height: 95vh !important;
                 overflow-y: auto !important;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
             }
             
             #add-product-modal .modal-header {
@@ -1077,59 +1081,30 @@
             }
             
             #add-product-modal .modal-footer {
+                padding: 15px !important;
                 flex-direction: column !important;
                 gap: 10px !important;
-                margin-top: 20px !important;
             }
             
-            #add-product-modal .modal-footer .btn {
+            #add-product-modal .modal-footer button {
                 width: 100% !important;
-                padding: 12px 20px !important;
+                padding: 12px !important;
                 font-size: 14px !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            #add-product-modal .modal-content {
-                width: 98% !important;
-                max-width: 98% !important;
-                margin: 1% auto !important;
-                padding: 15px !important;
-                max-height: 98vh !important;
-            }
-            
-            #add-product-modal .modal-header {
-                padding: 10px !important;
-            }
-            
-            #add-product-modal .modal-title {
-                font-size: 1.2rem !important;
-            }
-            
-            #add-product-modal .form-group {
-                margin-bottom: 12px !important;
-            }
-            
-            #add-product-modal .form-control {
-                padding: 10px !important;
-                font-size: 13px !important;
-            }
-            
-            #add-product-modal .modal-footer {
-                margin-top: 15px !important;
             }
         }
         
         /* Make edit product modal responsive on mobile */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             #edit-product-modal .modal-content {
                 width: 95% !important;
                 max-width: 95% !important;
                 min-width: auto !important;
                 margin: 2% auto !important;
-                padding: 20px !important;
+                padding: 15px !important;
                 max-height: 95vh !important;
                 overflow-y: auto !important;
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
             }
             
             #edit-product-modal .modal-header {
@@ -1146,46 +1121,81 @@
             }
             
             #edit-product-modal .modal-footer {
+                padding: 15px !important;
                 flex-direction: column !important;
                 gap: 10px !important;
-                margin-top: 20px !important;
             }
             
-            #edit-product-modal .modal-footer .btn {
+            #edit-product-modal .modal-footer button {
                 width: 100% !important;
-                padding: 12px 20px !important;
+                padding: 12px !important;
                 font-size: 14px !important;
             }
         }
         
-        @media (max-width: 480px) {
+        /* Make add product modal responsive on tablet */
+        @media (max-width: 768px) and (min-width: 481px) {
+            #add-product-modal .modal-content {
+                width: 90% !important;
+                max-width: 90% !important;
+                min-width: auto !important;
+                margin: 3% auto !important;
+                padding: 20px !important;
+                max-height: 90vh !important;
+                overflow-y: auto !important;
+            }
+            
+            #add-product-modal .form-group {
+                margin-bottom: 18px !important;
+            }
+            
+            #add-product-modal .form-control {
+                padding: 14px !important;
+                font-size: 15px !important;
+            }
+            
+            #add-product-modal .modal-footer {
+                flex-direction: row !important;
+                gap: 15px !important;
+            }
+            
+            #add-product-modal .modal-footer button {
+                flex: 1 !important;
+                padding: 14px !important;
+                font-size: 15px !important;
+            }
+        }
+        
+        /* Make edit product modal responsive on tablet */
+        @media (max-width: 768px) and (min-width: 481px) {
             #edit-product-modal .modal-content {
-                width: 98% !important;
-                max-width: 98% !important;
-                margin: 1% auto !important;
-                padding: 15px !important;
-                max-height: 98vh !important;
-            }
-            
-            #edit-product-modal .modal-header {
-                padding: 10px !important;
-            }
-            
-            #edit-product-modal .modal-title {
-                font-size: 1.2rem !important;
+                width: 90% !important;
+                max-width: 90% !important;
+                min-width: auto !important;
+                margin: 3% auto !important;
+                padding: 20px !important;
+                max-height: 90vh !important;
+                overflow-y: auto !important;
             }
             
             #edit-product-modal .form-group {
-                margin-bottom: 12px !important;
+                margin-bottom: 18px !important;
             }
             
             #edit-product-modal .form-control {
-                padding: 10px !important;
-                font-size: 13px !important;
+                padding: 14px !important;
+                font-size: 15px !important;
             }
             
             #edit-product-modal .modal-footer {
-                margin-top: 15px !important;
+                flex-direction: row !important;
+                gap: 15px !important;
+            }
+            
+            #edit-product-modal .modal-footer button {
+                flex: 1 !important;
+                padding: 14px !important;
+                font-size: 15px !important;
             }
         }
         
