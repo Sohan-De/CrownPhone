@@ -1376,72 +1376,25 @@
                 <!-- Description Tab -->
                 <div id="description" class="tab-content active">
                     <h3>Product Description</h3>
-                    <p>CrownPhone Pro is the ultimate professional screen mirroring software designed for creators, presenters, and professionals who demand the highest quality and performance. With ultra-low latency technology and 4K resolution support, you can mirror your Android device to your PC with unprecedented clarity and responsiveness.</p>
-                    
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        <li><strong>Professional Quality:</strong> Experience crystal-clear 4K mirroring with HDR support for the most demanding applications.</li>
-                        <li><strong>Zero Input Lag:</strong> Our proprietary technology ensures sub-10ms latency for real-time interaction and gaming.</li>
-                        <li><strong>Universal Compatibility:</strong> Works with all Android devices and Windows PCs with seamless plug-and-play setup.</li>
-                        <li><strong>Advanced Features:</strong> Built-in screen recording, live streaming capabilities, and custom branding options.</li>
-                        <li><strong>Enterprise Ready:</strong> Secure connections, team management, and analytics dashboard included.</li>
-                    </ul>
-
-                    <h4>Perfect For:</h4>
-                    <ul>
-                        <li>Content creators and streamers</li>
-                        <li>Business presentations and demos</li>
-                        <li>Mobile gaming and esports</li>
-                        <li>Educational institutions</li>
-                        <li>App developers and testers</li>
-                    </ul>
+                    <div id="description-content">
+                        <!-- Description will be loaded dynamically from Supabase -->
+                        <div class="loading-description" style="display: flex; justify-content: center; align-items: center; padding: 2rem;">
+                            <div class="loading-spinner" style="width: 30px; height: 30px; border: 3px solid rgba(255, 255, 255, 0.3); border-top: 3px solid #ff0000; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 1rem;"></div>
+                            <span style="color: rgba(255, 255, 255, 0.8);">Loading description...</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Specifications Tab -->
                 <div id="specifications" class="tab-content">
                     <h3>Technical Specifications</h3>
-                    <table class="specs-table">
-                        <tr>
-                            <td>System Requirements</td>
-                            <td>Windows 10/11, Android 5.0+</td>
-                        </tr>
-                        <tr>
-                            <td>Maximum Resolution</td>
-                            <td>4K (3840×2160) @ 60fps</td>
-                        </tr>
-                        <tr>
-                            <td>Latency</td>
-                            <td>Sub-10ms (USB), &lt;20ms (WiFi)</td>
-                        </tr>
-                        <tr>
-                            <td>Connection Types</td>
-                            <td>USB-C, USB 2.0/3.0, WiFi 5/6</td>
-                        </tr>
-                        <tr>
-                            <td>Audio Support</td>
-                            <td>High-fidelity stereo, 5.1 surround</td>
-                        </tr>
-                        <tr>
-                            <td>Recording Formats</td>
-                            <td>MP4, AVI, MOV (H.264/H.265)</td>
-                        </tr>
-                        <tr>
-                            <td>Streaming Support</td>
-                            <td>YouTube, Twitch, Facebook Live</td>
-                        </tr>
-                        <tr>
-                            <td>Device Support</td>
-                            <td>Unlimited simultaneous connections</td>
-                        </tr>
-                        <tr>
-                            <td>License Type</td>
-                            <td>Lifetime license with free updates</td>
-                        </tr>
-                        <tr>
-                            <td>Support</td>
-                            <td>24/7 priority email and chat support</td>
-                        </tr>
-                    </table>
+                    <div id="specifications-content">
+                        <!-- Specifications will be loaded dynamically from Supabase -->
+                        <div class="loading-specs" style="display: flex; justify-content: center; align-items: center; padding: 2rem;">
+                            <div class="loading-spinner" style="width: 30px; height: 30px; border: 3px solid rgba(255, 255, 255, 0.3); border-top: 3px solid #ff0000; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 1rem;"></div>
+                            <span style="color: rgba(255, 255, 255, 0.8);">Loading specifications...</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Reviews Tab -->
@@ -2266,11 +2219,9 @@
                 }
             }
 
-            // Update product description in tab
-            const descriptionContent = document.querySelector('#description .tab-content p');
-            if (descriptionContent) {
-                descriptionContent.textContent = product.description;
-            }
+            // Update description and specifications tabs with database content
+            updateDescriptionContent(product);
+            updateSpecificationsContent(product);
 
             // Update breadcrumb
             const breadcrumbNav = document.querySelector('.breadcrumb-nav');
@@ -2416,6 +2367,55 @@
             if (cartCounter) {
                 cartCounter.textContent = totalItems;
                 cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
+
+        // Update description content with data from Supabase
+        function updateDescriptionContent(product) {
+            const descriptionContent = document.getElementById('description-content');
+            if (!descriptionContent) return;
+
+            // Use long_description if available, otherwise fall back to description
+            const descriptionText = product.long_description || product.description;
+            
+            if (descriptionText && descriptionText.trim()) {
+                // If description exists, display it with proper formatting
+                descriptionContent.innerHTML = `
+                    <div style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; white-space: pre-line;">
+                        ${descriptionText}
+                    </div>
+                `;
+            } else {
+                // If no description, show default message
+                descriptionContent.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.6);">
+                        <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem; color: #ff0000;"></i>
+                        <p>No description available for this product.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Update specifications content with data from Supabase
+        function updateSpecificationsContent(product) {
+            const specificationsContent = document.getElementById('specifications-content');
+            if (!specificationsContent) return;
+
+            if (product.specifications && product.specifications.trim()) {
+                // If specifications exist, display them
+                specificationsContent.innerHTML = `
+                    <div style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; white-space: pre-line;">
+                        ${product.specifications}
+                    </div>
+                `;
+            } else {
+                // If no specifications, show default message
+                specificationsContent.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.6);">
+                        <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem; color: #ff0000;"></i>
+                        <p>No specifications available for this product.</p>
+                    </div>
+                `;
             }
         }
 

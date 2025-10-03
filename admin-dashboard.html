@@ -2506,7 +2506,7 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Image</th>
-                            <th>Featured</th>
+                            <th>Top Seller</th>
                             <th>New</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -2545,8 +2545,16 @@
                     <input type="text" id="new-product-name" class="form-control" placeholder="CrownPhone Pro" required>
                 </div>
                 <div class="form-group">
-                    <label for="new-product-description">Description</label>
+                    <label for="new-product-description">Short Description</label>
                     <textarea id="new-product-description" class="form-control" rows="3" placeholder="Professional Android screen mirroring software" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="new-product-long-description">Long Description</label>
+                    <textarea id="new-product-long-description" class="form-control" rows="5" placeholder="Detailed product description for the product details page. This will be shown on the product details page to provide comprehensive information about the product features, benefits, and use cases."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="new-product-specifications">Specifications</label>
+                    <textarea id="new-product-specifications" class="form-control" rows="4" placeholder="Product specifications and technical details. Include dimensions, weight, compatibility, system requirements, etc."></textarea>
                 </div>
                 <div class="form-group">
                     <label for="new-product-price">Price ($)</label>
@@ -2561,7 +2569,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="new-product-featured">Featured Product</label>
+                    <label for="new-product-featured">Top Seller Product</label>
                     <select id="new-product-featured" class="form-control">
                         <option value="false">No</option>
                         <option value="true">Yes</option>
@@ -2604,8 +2612,16 @@
                     <input type="text" id="edit-product-name" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="edit-product-description">Description</label>
+                    <label for="edit-product-description">Short Description</label>
                     <textarea id="edit-product-description" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-product-long-description">Long Description</label>
+                    <textarea id="edit-product-long-description" class="form-control" rows="5" placeholder="Detailed product description for the product details page. This will be shown on the product details page to provide comprehensive information about the product features, benefits, and use cases."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-product-specifications">Specifications</label>
+                    <textarea id="edit-product-specifications" class="form-control" rows="4" placeholder="Product specifications and technical details. Include dimensions, weight, compatibility, system requirements, etc."></textarea>
                 </div>
                 <div class="form-group">
                     <label for="edit-product-price">Price ($)</label>
@@ -2620,7 +2636,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="edit-product-featured">Featured Product</label>
+                    <label for="edit-product-featured">Top Seller Product</label>
                     <select id="edit-product-featured" class="form-control">
                         <option value="false">No</option>
                         <option value="true">Yes</option>
@@ -3058,6 +3074,8 @@
             try {
                 const name = document.getElementById('new-product-name').value;
                 const description = document.getElementById('new-product-description').value;
+                const longDescription = document.getElementById('new-product-long-description').value;
+                const specifications = document.getElementById('new-product-specifications').value;
                 const price = document.getElementById('new-product-price').value;
                 // Get all selected images from the stored files array
                 const imageFiles = selectedFiles['new-product-preview-container'] || [];
@@ -3099,14 +3117,14 @@
                 }
                 
                 console.log('Adding new product:', {
-                    name, description, price, imageUrl, featured, isNew, status
+                    name, description, longDescription, specifications, price, imageUrl, featured, isNew, status
                 });
                 
                 // Generate unique UUID for new product
                 const productId = generateUUID();
                 
                 // Add the product to the UI
-                addProductToUI(productId, name, description, price, imageUrl, featured, isNew, status);
+                addProductToUI(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status);
                 
                 // Clear the form
                 document.getElementById('add-product-form').reset();
@@ -3120,7 +3138,7 @@
                 
                 // Save to Supabase if available
                 try {
-                    await saveProductToDatabase(productId, name, description, price, imageUrl, featured, isNew, status, imageUrls);
+                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls);
                 } catch (error) {
                     console.warn('Database save failed, but product was added to UI:', error);
                     console.log('⚠️ Product added to UI. Database save failed - please check RLS policies.');
@@ -3157,6 +3175,8 @@
                             // Use database data
                             document.getElementById('edit-product-name').value = product.name;
                             document.getElementById('edit-product-description').value = product.description;
+                            document.getElementById('edit-product-long-description').value = product.long_description || '';
+                            document.getElementById('edit-product-specifications').value = product.specifications || '';
                             document.getElementById('edit-product-price').value = product.price;
                             
                             // Clear stored files for edit
@@ -3212,6 +3232,8 @@
                 if (product) {
                     document.getElementById('edit-product-name').value = product.name;
                     document.getElementById('edit-product-description').value = product.description;
+                    document.getElementById('edit-product-long-description').value = product.long_description || '';
+                    document.getElementById('edit-product-specifications').value = product.specifications || '';
                     document.getElementById('edit-product-price').value = product.price;
                     
                     // Clear stored files for edit
@@ -3278,6 +3300,8 @@
                 const productId = document.getElementById('edit-product-id').value;
                 const name = document.getElementById('edit-product-name').value;
                 const description = document.getElementById('edit-product-description').value;
+                const longDescription = document.getElementById('edit-product-long-description').value;
+                const specifications = document.getElementById('edit-product-specifications').value;
                 const price = document.getElementById('edit-product-price').value;
                 // Get all selected images from the stored files array
                 const imageFiles = selectedFiles['edit-product-preview-container'] || [];
@@ -3328,11 +3352,11 @@
                 
                 console.log('Saving product:', {
                     id: productId,
-                    name, description, price, imageUrl, featured, isNew, status
+                    name, description, longDescription, specifications, price, imageUrl, featured, isNew, status
                 });
                 
                 // Update the product in the UI
-                updateProductInUI(productId, name, description, price, imageUrl, featured, isNew, status);
+                updateProductInUI(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status);
                 
                 // Close the modal
                 closeModal('edit-product-modal');
@@ -3343,7 +3367,7 @@
                 
                 // Save to Supabase if available
                 try {
-                    await saveProductToDatabase(productId, name, description, price, imageUrl, featured, isNew, status, imageUrls);
+                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls);
                 } catch (error) {
                     console.warn('Database save failed, but product was updated in UI:', error);
                     console.log('⚠️ Product updated in UI. Database save failed - please check RLS policies.');
@@ -3706,7 +3730,7 @@
             }
         }
         
-        function addProductToUI(productId, name, description, price, imageUrl, featured, isNew, status) {
+        function addProductToUI(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status) {
             // Get the table body
             const tableBody = document.getElementById('products-table-body');
             
@@ -3738,7 +3762,7 @@
             tableBody.appendChild(newRow);
         }
         
-        function updateProductInUI(productId, name, description, price, imageUrl, featured, isNew, status) {
+        function updateProductInUI(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status) {
             // Find the product row in the table
             const productRow = document.querySelector(`tr[data-product-id="${productId}"]`);
             
@@ -3769,7 +3793,7 @@
         window.deleteProduct = deleteProduct;
         
         // Database functions for products
-        async function saveProductToDatabase(productId, name, description, price, imageUrl, featured, isNew, status, images = null) {
+        async function saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, images = null) {
             try {
                 if (typeof supabase !== 'undefined') {
                     console.log('Attempting to save product to database:', { productId, name, price });
@@ -3796,6 +3820,8 @@
                             .update({
                                 name: name,
                                 description: description,
+                                long_description: longDescription,
+                                specifications: specifications,
                                 price: parseFloat(price),
                                 image_url: imageUrl,
                                 images: images && images.length > 0 ? images : null,
@@ -3825,6 +3851,8 @@
                                 id: productId,
                                 name: name,
                                 description: description,
+                                long_description: longDescription,
+                                specifications: specifications,
                                 price: parseFloat(price),
                                 image_url: imageUrl,
                                 images: images && images.length > 0 ? images : null,
