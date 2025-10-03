@@ -264,19 +264,19 @@
         }
 
         .rating-text {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
 
         .reviews-link {
-            color: #ff0000;
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .reviews-link:hover {
-            color: #ff4500;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Price Section */
@@ -298,7 +298,7 @@
         .current-price {
             font-size: 2.5rem;
             font-weight: 800;
-            color: #ff0000;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .original-price {
@@ -375,44 +375,7 @@
             transform: translateY(-2px);
         }
 
-        /* Quick Actions */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .quick-action {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 1rem;
-            flex: 1;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .quick-action:hover {
-            background: rgba(255, 0, 0, 0.1);
-            border-color: #ff0000;
-            transform: translateY(-2px);
-        }
-
-        .quick-action i {
-            font-size: 1.5rem;
-            color: #ff0000;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .quick-action span {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
+        /* Quick Actions removed */
 
         /* Product Features */
         .features-grid {
@@ -439,7 +402,7 @@
         }
 
         .feature-icon {
-            color: #ff0000;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 1.2rem;
         }
 
@@ -664,7 +627,7 @@
         .related-price {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #ff0000;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 1rem;
         }
 
@@ -682,6 +645,31 @@
 
         .related-btn:hover {
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Loading state for related products */
+        .loading-related {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid #ff0000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Image Zoom Modal */
@@ -778,9 +766,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .quick-actions {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            /* Quick actions removed */
         }
 
         @media (max-width: 768px) {
@@ -788,15 +774,11 @@
                 grid-template-columns: 1fr;
             }
 
-            .quick-actions {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            /* Quick actions removed */
         }
 
         @media (max-width: 480px) {
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
+            /* Quick actions removed */
 
             .product-title {
                 font-size: 2.5rem;
@@ -1312,53 +1294,10 @@
                         <!-- Thumbnails will be dynamically generated -->
                     </div>
 
-                    <!-- Quick Actions -->
-                    <div class="quick-actions">
-                        <div class="quick-action" onclick="showDemo()">
-                            <i class="fas fa-play"></i>
-                            <span>Live Demo</span>
-                        </div>
-                        <div class="quick-action" onclick="downloadTrial()">
-                            <i class="fas fa-download"></i>
-                            <span>Free Trial</span>
-                        </div>
-                        <div class="quick-action" onclick="addToWishlist()">
-                            <i class="fas fa-heart"></i>
-                            <span>Wishlist</span>
-                        </div>
-                        <div class="quick-action" onclick="shareProduct()">
-                            <i class="fas fa-share"></i>
-                            <span>Share</span>
-                        </div>
-                    </div>
+                    <!-- Quick Actions removed -->
 
                     <!-- Key Features -->
-                    <div class="features-grid">
-                        <div class="feature-item">
-                            <i class="fas fa-tachometer-alt feature-icon"></i>
-                            <span class="feature-text">Ultra-Low Latency (&lt;10ms)</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-tv feature-icon"></i>
-                            <span class="feature-text">4K Resolution Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-gamepad feature-icon"></i>
-                            <span class="feature-text">Gaming Optimized</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-record-vinyl feature-icon"></i>
-                            <span class="feature-text">Screen Recording</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-shield-alt feature-icon"></i>
-                            <span class="feature-text">Secure Connection</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-headset feature-icon"></i>
-                            <span class="feature-text">24/7 Support</span>
-                        </div>
-                    </div>
+                    
                 </div>
 
                 <!-- Product Information -->
@@ -1395,6 +1334,32 @@
                             <i class="fas fa-shopping-cart"></i>
                             Add to Cart
                         </button>
+                    </div>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-tachometer-alt feature-icon"></i>
+                        <span class="feature-text">Ultra-Low Latency (&lt;10ms)</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tv feature-icon"></i>
+                        <span class="feature-text">4K Resolution Support</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-gamepad feature-icon"></i>
+                        <span class="feature-text">Gaming Optimized</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-record-vinyl feature-icon"></i>
+                        <span class="feature-text">Screen Recording</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt feature-icon"></i>
+                        <span class="feature-text">Secure Connection</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-headset feature-icon"></i>
+                        <span class="feature-text">24/7 Support</span>
                     </div>
                 </div>
             </div>
@@ -1579,32 +1544,11 @@
             <!-- Related Products -->
             <div class="related-products">
                 <h2 class="related-title">You Might Also Like</h2>
-                <div class="related-grid">
-                    <div class="related-card">
-                        <img src="Front.png" alt="CrownPhone Business" class="related-image">
-                        <div class="related-content">
-                            <h3 class="related-name">CrownPhone Business</h3>
-                            <p class="related-price">$99.99</p>
-                            <button class="related-btn" onclick="viewProduct('business')">View Details</button>
-                        </div>
-                    </div>
-                    
-                    <div class="related-card">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wireless Adapter Pro" class="related-image">
-                        <div class="related-content">
-                            <h3 class="related-name">Wireless Adapter Pro</h3>
-                            <p class="related-price">$79.99</p>
-                            <button class="related-btn" onclick="viewProduct('adapter')">View Details</button>
-                        </div>
-                    </div>
-                    
-                    <div class="related-card">
-                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Premium Cable Set" class="related-image">
-                        <div class="related-content">
-                            <h3 class="related-name">Premium Cable Set</h3>
-                            <p class="related-price">$39.99</p>
-                            <button class="related-btn" onclick="viewProduct('cables')">View Details</button>
-                        </div>
+                <div class="related-grid" id="related-products-grid">
+                    <!-- Related products will be loaded dynamically from Supabase -->
+                    <div class="loading-related">
+                        <div class="loading-spinner"></div>
+                        <p>Loading related products...</p>
                     </div>
                 </div>
             </div>
@@ -1812,8 +1756,33 @@
                     product.features.forEach(feature => {
                         const featureItem = document.createElement('div');
                         featureItem.className = 'feature-item';
+                        
+                        // Get appropriate icon for each feature
+                        let iconClass = 'fas fa-check'; // default
+                        if (feature.includes('Ultra-Low Latency') || feature.includes('Latency')) {
+                            iconClass = 'fas fa-tachometer-alt';
+                        } else if (feature.includes('4K') || feature.includes('Resolution')) {
+                            iconClass = 'fas fa-tv';
+                        } else if (feature.includes('Gaming')) {
+                            iconClass = 'fas fa-gamepad';
+                        } else if (feature.includes('Recording')) {
+                            iconClass = 'fas fa-record-vinyl';
+                        } else if (feature.includes('Secure') || feature.includes('Connection')) {
+                            iconClass = 'fas fa-shield-alt';
+                        } else if (feature.includes('Support') || feature.includes('24/7')) {
+                            iconClass = 'fas fa-headset';
+                        } else if (feature.includes('Wireless')) {
+                            iconClass = 'fas fa-wifi';
+                        } else if (feature.includes('Plug') || feature.includes('Play')) {
+                            iconClass = 'fas fa-plug';
+                        } else if (feature.includes('Compatibility')) {
+                            iconClass = 'fas fa-mobile-alt';
+                        } else if (feature.includes('Range')) {
+                            iconClass = 'fas fa-signal';
+                        }
+                        
                         featureItem.innerHTML = `
-                            <i class="fas fa-check feature-icon"></i>
+                            <i class="${iconClass} feature-icon"></i>
                             <span class="feature-text">${feature}</span>
                         `;
                         featuresGrid.appendChild(featureItem);
@@ -2003,35 +1972,7 @@
         }
 
 
-        function showDemo() {
-            // Show demo modal or redirect to demo page
-            showNotification('Demo feature coming soon!', 'info');
-        }
-
-        function downloadTrial() {
-            // Redirect to trial download
-            window.open('https://drive.google.com/file/d/1idFFj7n9Z5F7uBImlw-eVmLyL1iKFPPO/view', '_blank');
-        }
-
-        function addToWishlist() {
-            // Add to wishlist
-            showNotification('Added to wishlist!', 'success');
-        }
-
-        function shareProduct() {
-            // Share product
-            if (navigator.share) {
-                navigator.share({
-                    title: 'CrownPhone Pro - Professional Screen Mirroring Software',
-                    text: 'Check out this amazing screen mirroring software!',
-                    url: window.location.href
-                });
-            } else {
-                // Fallback: copy to clipboard
-                navigator.clipboard.writeText(window.location.href);
-                showNotification('Product link copied to clipboard!', 'success');
-            }
-        }
+        /* Quick action functions removed */
 
         function viewProduct(productId) {
             // Navigate to other product details
@@ -2478,11 +2419,78 @@
             }
         }
 
+        // Load related products from Supabase
+        async function loadRelatedProducts() {
+            try {
+                const relatedGrid = document.getElementById('related-products-grid');
+                if (!relatedGrid) return;
+
+                // Check if Supabase is available
+                if (typeof supabase === 'undefined' || !supabase) {
+                    console.error('Supabase not available for related products');
+                    relatedGrid.innerHTML = '<p style="color: rgba(255, 255, 255, 0.8); text-align: center; padding: 2rem;">Unable to load related products</p>';
+                    return;
+                }
+
+                // Get current product ID to exclude it from related products
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentProductId = urlParams.get('id');
+
+                // Fetch related products from Supabase (exclude current product)
+                let query = supabase
+                    .from('products')
+                    .select('*')
+                    .eq('status', 'active')
+                    .limit(3);
+
+                if (currentProductId) {
+                    query = query.neq('id', currentProductId);
+                }
+
+                const { data: relatedProducts, error } = await query;
+
+                if (error) {
+                    console.error('Error fetching related products:', error);
+                    relatedGrid.innerHTML = '<p style="color: rgba(255, 255, 255, 0.8); text-align: center; padding: 2rem;">Unable to load related products</p>';
+                    return;
+                }
+
+                if (!relatedProducts || relatedProducts.length === 0) {
+                    relatedGrid.innerHTML = '<p style="color: rgba(255, 255, 255, 0.8); text-align: center; padding: 2rem;">No related products available</p>';
+                    return;
+                }
+
+                // Generate HTML for related products
+                relatedGrid.innerHTML = relatedProducts.map(product => `
+                    <div class="related-card">
+                        <img src="${product.image_url || 'https://via.placeholder.com/300x200.png?text=No+Image'}" 
+                             alt="${product.name}" 
+                             class="related-image"
+                             onerror="this.src='https://via.placeholder.com/300x200.png?text=No+Image'">
+                        <div class="related-content">
+                            <h3 class="related-name">${product.name}</h3>
+                            <p class="related-price">$${product.price}</p>
+                            <button class="related-btn" onclick="viewProduct('${product.id}')">View Details</button>
+                        </div>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('Error loading related products:', error);
+                const relatedGrid = document.getElementById('related-products-grid');
+                if (relatedGrid) {
+                    relatedGrid.innerHTML = '<p style="color: rgba(255, 255, 255, 0.8); text-align: center; padding: 2rem;">Error loading related products</p>';
+                }
+            }
+        }
+
         // Initialize cart counter on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCounter();
             // Load product data when page loads
             loadProductData();
+            // Load related products
+            loadRelatedProducts();
         });
     </script>
 </body>

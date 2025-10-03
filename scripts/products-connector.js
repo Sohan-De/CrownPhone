@@ -201,7 +201,7 @@ function createProductCard(product, isListPage = false) {
     
     // Create featured badge if product is featured
     const featuredBadge = product.is_feature 
-        ? '<div class="product-badge">Featured</div>' 
+        ? '<div class="product-badge">Top Seller</div>' 
         : '';
     
     // Create new badge if product is new
@@ -216,11 +216,6 @@ function createProductCard(product, isListPage = false) {
         ${badge}
         <div class="product-image-container" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
             <img src="${product.image_url || 'https://via.placeholder.com/500x500.png?text=No+Image'}" alt="${product.name}" class="product-image">
-            <div class="product-actions">
-                <button class="action-btn wishlist-btn" onclick="event.stopPropagation(); addToWishlist('${product.id}', '${product.name}')"><i class="fas fa-heart"></i></button>
-                <button class="action-btn cart-btn" onclick="event.stopPropagation(); addToCart('${product.id}', ${product.sale_price || product.price}, '${product.name}')"><i class="fas fa-shopping-cart"></i></button>
-                <button class="action-btn view-btn" onclick="event.stopPropagation(); viewProduct('${product.id}')"><i class="fas fa-eye"></i></button>
-            </div>
         </div>
         <div class="product-content" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
             <h3 class="product-name">${product.name}</h3>
