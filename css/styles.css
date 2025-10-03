@@ -5668,7 +5668,7 @@ body {
 .hero-cta {
     display: flex;
     gap: 1rem;
-    margin-bottom: 3rem;
+    
     flex-wrap: wrap;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out 1.5s forwards;
