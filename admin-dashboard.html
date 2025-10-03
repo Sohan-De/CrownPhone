@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Crown Phone</title>
     <link rel="icon" type="image/png" href="fevp.png">
-    
-    <link rel="icon" type="image/png" href="fevp.png">
     <link rel="apple-touch-icon" href="fevp.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -1053,6 +1051,144 @@
             }
         }
         
+        /* Make add product modal responsive on mobile */
+        @media (max-width: 768px) {
+            #add-product-modal .modal-content {
+                width: 95% !important;
+                max-width: 95% !important;
+                min-width: auto !important;
+                margin: 2% auto !important;
+                padding: 20px !important;
+                max-height: 95vh !important;
+                overflow-y: auto !important;
+            }
+            
+            #add-product-modal .modal-header {
+                padding: 15px !important;
+            }
+            
+            #add-product-modal .form-group {
+                margin-bottom: 15px !important;
+            }
+            
+            #add-product-modal .form-control {
+                padding: 12px !important;
+                font-size: 14px !important;
+            }
+            
+            #add-product-modal .modal-footer {
+                flex-direction: column !important;
+                gap: 10px !important;
+                margin-top: 20px !important;
+            }
+            
+            #add-product-modal .modal-footer .btn {
+                width: 100% !important;
+                padding: 12px 20px !important;
+                font-size: 14px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #add-product-modal .modal-content {
+                width: 98% !important;
+                max-width: 98% !important;
+                margin: 1% auto !important;
+                padding: 15px !important;
+                max-height: 98vh !important;
+            }
+            
+            #add-product-modal .modal-header {
+                padding: 10px !important;
+            }
+            
+            #add-product-modal .modal-title {
+                font-size: 1.2rem !important;
+            }
+            
+            #add-product-modal .form-group {
+                margin-bottom: 12px !important;
+            }
+            
+            #add-product-modal .form-control {
+                padding: 10px !important;
+                font-size: 13px !important;
+            }
+            
+            #add-product-modal .modal-footer {
+                margin-top: 15px !important;
+            }
+        }
+        
+        /* Make edit product modal responsive on mobile */
+        @media (max-width: 768px) {
+            #edit-product-modal .modal-content {
+                width: 95% !important;
+                max-width: 95% !important;
+                min-width: auto !important;
+                margin: 2% auto !important;
+                padding: 20px !important;
+                max-height: 95vh !important;
+                overflow-y: auto !important;
+            }
+            
+            #edit-product-modal .modal-header {
+                padding: 15px !important;
+            }
+            
+            #edit-product-modal .form-group {
+                margin-bottom: 15px !important;
+            }
+            
+            #edit-product-modal .form-control {
+                padding: 12px !important;
+                font-size: 14px !important;
+            }
+            
+            #edit-product-modal .modal-footer {
+                flex-direction: column !important;
+                gap: 10px !important;
+                margin-top: 20px !important;
+            }
+            
+            #edit-product-modal .modal-footer .btn {
+                width: 100% !important;
+                padding: 12px 20px !important;
+                font-size: 14px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #edit-product-modal .modal-content {
+                width: 98% !important;
+                max-width: 98% !important;
+                margin: 1% auto !important;
+                padding: 15px !important;
+                max-height: 98vh !important;
+            }
+            
+            #edit-product-modal .modal-header {
+                padding: 10px !important;
+            }
+            
+            #edit-product-modal .modal-title {
+                font-size: 1.2rem !important;
+            }
+            
+            #edit-product-modal .form-group {
+                margin-bottom: 12px !important;
+            }
+            
+            #edit-product-modal .form-control {
+                padding: 10px !important;
+                font-size: 13px !important;
+            }
+            
+            #edit-product-modal .modal-footer {
+                margin-top: 15px !important;
+            }
+        }
+        
         .modal-content::before {
             content: '';
             position: absolute;
@@ -1622,125 +1758,6 @@
 
             .modal-footer button {
                 width: 100%;
-            }
-        }
-
-        /* Mobile responsiveness for Add/Edit Product Modals */
-        @media (max-width: 768px) {
-            #add-product-modal .modal-content,
-            #edit-product-modal .modal-content {
-                width: 95% !important;
-                max-width: 95% !important;
-                min-width: auto !important;
-                margin: 2% auto !important;
-                padding: 20px !important;
-                max-height: 95vh !important;
-            }
-
-            #add-product-modal .modal-header,
-            #edit-product-modal .modal-header {
-                padding: 15px 0 !important;
-                margin-bottom: 15px !important;
-            }
-
-            #add-product-modal .modal-title,
-            #edit-product-modal .modal-title {
-                font-size: 1.4rem !important;
-            }
-
-            #add-product-modal .form-group,
-            #edit-product-modal .form-group {
-                margin-bottom: 15px !important;
-            }
-
-            #add-product-modal .form-group label,
-            #edit-product-modal .form-group label {
-                font-size: 0.9rem !important;
-                margin-bottom: 5px !important;
-            }
-
-            #add-product-modal .form-control,
-            #edit-product-modal .form-control {
-                padding: 10px !important;
-                font-size: 0.9rem !important;
-            }
-
-            #add-product-modal .form-group textarea,
-            #edit-product-modal .form-group textarea {
-                max-height: 120px !important;
-                resize: vertical !important;
-            }
-
-            #add-product-modal .modal-footer,
-            #edit-product-modal .modal-footer {
-                flex-direction: column !important;
-                gap: 10px !important;
-                margin-top: 20px !important;
-                padding-top: 15px !important;
-            }
-
-            #add-product-modal .modal-footer button,
-            #edit-product-modal .modal-footer button {
-                width: 100% !important;
-                padding: 12px !important;
-                font-size: 0.9rem !important;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #add-product-modal .modal-content,
-            #edit-product-modal .modal-content {
-                width: 98% !important;
-                max-width: 98% !important;
-                margin: 1% auto !important;
-                padding: 15px !important;
-                max-height: 98vh !important;
-            }
-
-            #add-product-modal .modal-header,
-            #edit-product-modal .modal-header {
-                padding: 10px 0 !important;
-                margin-bottom: 10px !important;
-            }
-
-            #add-product-modal .modal-title,
-            #edit-product-modal .modal-title {
-                font-size: 1.2rem !important;
-            }
-
-            #add-product-modal .form-group,
-            #edit-product-modal .form-group {
-                margin-bottom: 12px !important;
-            }
-
-            #add-product-modal .form-group label,
-            #edit-product-modal .form-group label {
-                font-size: 0.85rem !important;
-                margin-bottom: 4px !important;
-            }
-
-            #add-product-modal .form-control,
-            #edit-product-modal .form-control {
-                padding: 8px !important;
-                font-size: 0.85rem !important;
-            }
-
-            #add-product-modal .form-group textarea,
-            #edit-product-modal .form-group textarea {
-                max-height: 100px !important;
-                font-size: 0.85rem !important;
-            }
-
-            #add-product-modal .modal-footer,
-            #edit-product-modal .modal-footer {
-                margin-top: 15px !important;
-                padding-top: 10px !important;
-            }
-
-            #add-product-modal .modal-footer button,
-            #edit-product-modal .modal-footer button {
-                padding: 10px !important;
-                font-size: 0.85rem !important;
             }
         }
         
