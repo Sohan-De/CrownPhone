@@ -1739,12 +1739,13 @@
                 }
             }
         }
-
+//  sohanakhan
         // Function to add admin setup button for testing
         function addAdminSetupButton() {
             // Only add if user is logged in and not already admin
             setTimeout(async () => {
                 try {
+                    
                     const user = await getCurrentUser();
                     if (user) {
                         const { isAdmin } = await isUserAdmin();
@@ -1794,3 +1795,4 @@
     </script>
 </body>
 </html>
+ 
