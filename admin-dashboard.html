@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Crown Phone</title>
     <link rel="icon" type="image/png" href="fevp.png">
+    
     <link rel="icon" type="image/png" href="fevp.png">
     <link rel="apple-touch-icon" href="fevp.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -286,40 +287,6 @@
         
         /* Keys Tab Styles */
         
-        /* Hamburger Menu Styles */
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 30px;
-            height: 30px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1001;
-        }
-        
-        .hamburger-menu span {
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(45deg, #00d4ff, #00ff88);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-            transform-origin: center;
-        }
-        
-        .hamburger-menu.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-        }
-        
-        .hamburger-menu.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger-menu.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-        }
         
         /* Tablet Responsive Styles */
         @media (max-width: 1024px) and (min-width: 769px) {
@@ -1657,6 +1624,125 @@
                 width: 100%;
             }
         }
+
+        /* Mobile responsiveness for Add/Edit Product Modals */
+        @media (max-width: 768px) {
+            #add-product-modal .modal-content,
+            #edit-product-modal .modal-content {
+                width: 95% !important;
+                max-width: 95% !important;
+                min-width: auto !important;
+                margin: 2% auto !important;
+                padding: 20px !important;
+                max-height: 95vh !important;
+            }
+
+            #add-product-modal .modal-header,
+            #edit-product-modal .modal-header {
+                padding: 15px 0 !important;
+                margin-bottom: 15px !important;
+            }
+
+            #add-product-modal .modal-title,
+            #edit-product-modal .modal-title {
+                font-size: 1.4rem !important;
+            }
+
+            #add-product-modal .form-group,
+            #edit-product-modal .form-group {
+                margin-bottom: 15px !important;
+            }
+
+            #add-product-modal .form-group label,
+            #edit-product-modal .form-group label {
+                font-size: 0.9rem !important;
+                margin-bottom: 5px !important;
+            }
+
+            #add-product-modal .form-control,
+            #edit-product-modal .form-control {
+                padding: 10px !important;
+                font-size: 0.9rem !important;
+            }
+
+            #add-product-modal .form-group textarea,
+            #edit-product-modal .form-group textarea {
+                max-height: 120px !important;
+                resize: vertical !important;
+            }
+
+            #add-product-modal .modal-footer,
+            #edit-product-modal .modal-footer {
+                flex-direction: column !important;
+                gap: 10px !important;
+                margin-top: 20px !important;
+                padding-top: 15px !important;
+            }
+
+            #add-product-modal .modal-footer button,
+            #edit-product-modal .modal-footer button {
+                width: 100% !important;
+                padding: 12px !important;
+                font-size: 0.9rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #add-product-modal .modal-content,
+            #edit-product-modal .modal-content {
+                width: 98% !important;
+                max-width: 98% !important;
+                margin: 1% auto !important;
+                padding: 15px !important;
+                max-height: 98vh !important;
+            }
+
+            #add-product-modal .modal-header,
+            #edit-product-modal .modal-header {
+                padding: 10px 0 !important;
+                margin-bottom: 10px !important;
+            }
+
+            #add-product-modal .modal-title,
+            #edit-product-modal .modal-title {
+                font-size: 1.2rem !important;
+            }
+
+            #add-product-modal .form-group,
+            #edit-product-modal .form-group {
+                margin-bottom: 12px !important;
+            }
+
+            #add-product-modal .form-group label,
+            #edit-product-modal .form-group label {
+                font-size: 0.85rem !important;
+                margin-bottom: 4px !important;
+            }
+
+            #add-product-modal .form-control,
+            #edit-product-modal .form-control {
+                padding: 8px !important;
+                font-size: 0.85rem !important;
+            }
+
+            #add-product-modal .form-group textarea,
+            #edit-product-modal .form-group textarea {
+                max-height: 100px !important;
+                font-size: 0.85rem !important;
+            }
+
+            #add-product-modal .modal-footer,
+            #edit-product-modal .modal-footer {
+                margin-top: 15px !important;
+                padding-top: 10px !important;
+            }
+
+            #add-product-modal .modal-footer button,
+            #edit-product-modal .modal-footer button {
+                padding: 10px !important;
+                font-size: 0.85rem !important;
+            }
+        }
         
         /* Notification Styles */
         .notification {
@@ -2140,20 +2226,6 @@
             border-color: #8B0000 !important;
         }
 
-        .hamburger-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .hamburger-line {
-            width: 25px;
-            height: 3px;
-            margin: 3px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
 
         .nav-links {
             position: fixed;
@@ -2314,10 +2386,287 @@
             background: rgba(255, 0, 0, 0.2);
         }
 
+        /* Tablet and Mobile Navigation Fixes - Same as privacy-policy.html */
+        @media (max-width: 991px) {
+            .nav-container {
+                padding-left: 2rem !important;
+                padding-right: 2rem !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+            }
+            .desktop-nav-links, .nav-right {
+                display: none !important;
+            }
+        }
+        @media (max-width: 991px) {
+            .nav-logo {
+                flex: 0 0 auto;
+            }
+            .hamburger-menu {
+                display: flex !important;
+                margin-right: 0 !important;
+                margin-left: auto !important;
+                position: relative !important;
+                right: 0 !important;
+                width: 30px;
+                height: 25px;
+                cursor: pointer;
+                z-index: 1000;
+            }
+            .nav-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 15px;
+            }
+        }
+        
+        /* Hamburger Menu Styling - Same as privacy page */
+        .hamburger-menu {
+            display: none;
+            position: relative;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;
+            transition: all 0.3s ease;
+        }
+        .hamburger-line:nth-child(1) { top: 0; }
+        .hamburger-line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .hamburger-line:nth-child(3) { bottom: 0; }
+        .hamburger-menu.active .hamburger-line:nth-child(1) { transform: rotate(45deg); top: 11px; }
+        .hamburger-menu.active .hamburger-line:nth-child(2) { opacity: 0; }
+        .hamburger-menu.active .hamburger-line:nth-child(3) { transform: rotate(-45deg); bottom: 11px; }
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 20px 30px;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            text-align: center;
+        }
+        .nav-links.active { right: 0; }
+        
+        /* Mobile Menu Header Styling - Center Aligned */
+        .mobile-menu-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+            text-align: center;
+            width: 100%;
+        }
+        
+        .mobile-menu-title {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
+        }
+        
+        /* Nav Links Styling - Center Aligned */
+        .nav-links .nav-link {
+            margin: 10px 0 !important;
+            padding: 10px 0 !important;
+            font-size: 1.1rem;
+            position: relative;
+            text-decoration: none !important;
+            transition: all 0.3s ease;
+            display: block !important;
+            text-align: center !important;
+            width: 100%;
+        }
+        
+        .nav-links .nav-link:hover {
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4)) !important;
+        }
+        
+        /* Mobile Cart Link Styling - Center Aligned */
+        .mobile-cart-link {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 10px !important;
+            margin-bottom: 15px !important;
+            padding-bottom: 5px !important;
+            width: 100%;
+        }
+        
+        .mobile-cart-link i {
+            font-size: 1.2rem !important;
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        
+        .mobile-cart-link span {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+        
+        .mobile-cart-counter {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            color: white !important;
+            border-radius: 50% !important;
+            width: 18px !important;
+            height: 18px !important;
+            display: none !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 0.7rem !important;
+            font-weight: 600 !important;
+            margin-left: 5px !important;
+        }
+        
+        /* Mobile Profile and Admin Links Styling - Center Aligned */
+        .mobile-profile-link,
+        .mobile-admin-link {
+            font-weight: 500 !important;
+            display: none !important;
+            margin-bottom: 15px !important;
+            padding-bottom: 5px !important;
+            text-decoration: none !important;
+            text-align: center !important;
+            justify-content: center !important;
+            width: 100%;
+        }
+        
+        .mobile-profile-link i,
+        .mobile-admin-link i {
+            font-size: 1.2rem !important;
+            margin-right: 10px !important;
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+        
+        .mobile-profile-link span,
+        .mobile-admin-link span {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+        }
+        
+        /* Mobile Auth Buttons Styling - Center Aligned */
+        .mobile-auth-buttons {
+            margin-top: 20px !important;
+            text-align: center !important;
+            width: 100%;
+        }
+        
+        .mobile-auth-btn {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            color: white !important;
+            padding: 8px 16px !important;
+            border-radius: 5px !important;
+            text-decoration: none !important;
+            font-weight: 500 !important;
+            margin-right: 0 !important;
+            display: inline-block !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .mobile-auth-btn:hover {
+            background: linear-gradient(45deg, #ff0000, #ff4500) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4) !important;
+        }
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .mobile-menu-overlay.active { 
+            opacity: 1; 
+            visibility: visible; 
+            pointer-events: auto;
+        }
+        body.hamburger-open { 
+            overflow: hidden; 
+        }
+        
+        /* Fix for admin dashboard page - ensure dark background is maintained when menu is open */
+        body.hamburger-open {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            background-attachment: fixed !important;
+            -webkit-background-attachment: fixed !important;
+            background-size: 100% 100% !important;
+            -webkit-background-size: 100% 100% !important;
+        }
+        
+        /* Ensure admin dashboard content maintains original background */
+        body.hamburger-open .dashboard-content {
+            background: transparent !important;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .mobile-menu-title {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
+        }
+        .nav-links .nav-link {
+            margin: 10px 0 !important;
+            padding: 10px 0 !important;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hamburger-menu {
-                display: flex;
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
 
             .desktop-nav-links {
@@ -2374,39 +2723,43 @@
                 <a href="contact.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
             </div>
             
+            <!-- Mobile Menu Overlay -->
+            <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
             <!-- Hamburger Menu Button -->
             <div class="hamburger-menu" id="hamburger-menu">
-                <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
-                <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
-                <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </div>
             
-            <div class="nav-links" id="nav-links" style="display: none;">
+            <div class="nav-links" id="nav-links">
                 <div class="mobile-menu-header">
                     <h3 class="mobile-menu-title">Menu</h3>
                 </div>
+                <!-- All Navigation Links -->
                 <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
                 <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
                 <a href="guide.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
                 <a href="contact.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
-                
+                <!-- Mobile Cart Link (always visible) -->
+                <a href="cart.html" class="nav-link mobile-cart-link" style="font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 5px;" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;"></i>
+                    <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Shopping Cart</span>
+                    <span class="mobile-cart-counter" id="mobile-cart-counter" style="background: linear-gradient(45deg, #dc3545, #c82333); color: white; border-radius: 50%; width: 18px; height: 18px; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; margin-left: auto;">0</span>
+                </a>
+                <!-- Mobile Profile Link (shown when logged in on mobile only) -->
+                <a href="profile.html" class="nav-link mobile-profile-link" id="mobile-profile-link" style="font-weight: 500; display: none; margin-bottom: 15px; padding-bottom: 5px;" title="User Profile">
+                    <i class="fas fa-user" style="font-size: 1.2rem; margin-right: 10px; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
+                    <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">My Profile</span>
+                </a>
+                <!-- Mobile Admin Link (shown when logged in as admin on mobile only) -->
+                <a href="admin-dashboard.html" class="nav-link mobile-admin-link" id="mobile-admin-link" style="font-weight: 500; display: none; margin-bottom: 15px; padding-bottom: 5px;" title="Admin Dashboard">
+                    <i class="fas fa-shield-alt" style="font-size: 1.2rem; margin-right: 10px; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
+                    <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Admin Dashboard</span>
+                </a>
                 <!-- Mobile Auth Buttons -->
                 <div class="mobile-auth-buttons" id="mobile-auth-buttons">
-                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
-                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
-                        <span class="btn-text">SIGN IN</span>
-                    </a>
-                </div>
-
-                <!-- Mobile Profile Section (shown when logged in) -->
-                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
-                    <div class="mobile-profile-avatar">
-                        <span class="avatar-text"></span>
-                    </div>
-                    <span class="mobile-profile-name"></span>
-                    <a href="profile.html" class="mobile-profile-btn">Profile</a>
-                    <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display: none;">Admin Dashboard</a>
-                    <button id="mobile-logout-btn" class="mobile-profile-btn logout-btn">Logout</button>
+                    <a href="sign-in.html" class="mobile-auth-btn sign-in-btn" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; color: white !important; padding: 8px 16px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: 500 !important; margin-right: 0 !important;">Sign In</a>
                 </div>
             </div>
             
@@ -4228,22 +4581,156 @@
             }
         };
         
-        // Hamburger Menu Toggle
-        function toggleHamburgerMenu() {
+        // Initialize mobile menu overlay functionality
+        function initializeMobileMenuOverlay() {
+            const mobileOverlay = document.getElementById('mobile-menu-overlay');
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            }
+            
+            // Override the closeMobileMenu function to work with overlay
+            window.closeMobileMenu = function() {
             const hamburgerMenu = document.getElementById('hamburger-menu');
             const navLinks = document.getElementById('nav-links');
-            
-            hamburgerMenu.classList.toggle('active');
-            navLinks.classList.toggle('active');
+                const mobileOverlay = document.getElementById('mobile-menu-overlay');
+                const body = document.body;
+                
+                if (hamburgerMenu) hamburgerMenu.classList.remove('active');
+                if (navLinks) navLinks.classList.remove('active');
+                if (mobileOverlay) mobileOverlay.classList.remove('active');
+                if (body) {
+                    body.style.overflow = '';
+                    body.classList.remove('hamburger-open');
+                }
+            };
         }
         
-        // Close mobile menu when clicking outside
-        function closeMobileMenu() {
+        // Initialize hamburger menu functionality
+        function initializeAdminHamburgerMenu() {
             const hamburgerMenu = document.getElementById('hamburger-menu');
             const navLinks = document.getElementById('nav-links');
+            const mobileOverlay = document.getElementById('mobile-menu-overlay');
+            const body = document.body;
             
-            hamburgerMenu.classList.remove('active');
+            if (hamburgerMenu && navLinks) {
+                console.log('Initializing hamburger menu...');
+                
+                // Remove any existing event listeners
+                hamburgerMenu.onclick = null;
+                
+                // Clear any existing event listeners
+                const newHamburgerMenu = hamburgerMenu.cloneNode(true);
+                hamburgerMenu.parentNode.replaceChild(newHamburgerMenu, hamburgerMenu);
+                
+                // Add new click event to the new element
+                newHamburgerMenu.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Hamburger clicked!'); // Debug log
+                    
+                    const isActive = navLinks.classList.contains('active');
+                    
+                    if (isActive) {
+                        // Close menu
+                        newHamburgerMenu.classList.remove('active');
             navLinks.classList.remove('active');
+                        if (mobileOverlay) mobileOverlay.classList.remove('active');
+                        body.style.overflow = '';
+                        body.classList.remove('hamburger-open');
+                        console.log('Menu closed');
+                    } else {
+                        // Open menu
+                        newHamburgerMenu.classList.add('active');
+                        navLinks.classList.add('active');
+                        if (mobileOverlay) mobileOverlay.classList.add('active');
+                        body.style.overflow = 'hidden';
+                        body.classList.add('hamburger-open');
+                        console.log('Menu opened');
+                    }
+                });
+                
+                // Close menu when clicking on a link
+                const mobileLinks = navLinks.querySelectorAll('.nav-link, .mobile-profile-link, .mobile-auth-btn');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        closeMobileMenu();
+                    });
+                });
+                
+                console.log('Hamburger menu initialized successfully');
+            } else {
+                console.error('Hamburger menu elements not found!', {
+                    hamburgerMenu: !!hamburgerMenu,
+                    navLinks: !!navLinks
+                });
+            }
+        }
+        
+        // Update cart counter for both desktop and mobile
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Update desktop cart counter
+            const cartCounter = document.getElementById('cart-counter');
+            if (cartCounter) {
+                cartCounter.textContent = totalItems;
+                cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+            
+            // Update mobile cart counter
+            const mobileCartCounter = document.getElementById('mobile-cart-counter');
+            if (mobileCartCounter) {
+                mobileCartCounter.textContent = totalItems;
+                mobileCartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
+        
+        // Enhanced authentication status check for mobile elements
+        async function checkAuthStatus() {
+            try {
+                if (typeof getCurrentUser === 'function') {
+                    const { user, error } = await getCurrentUser();
+                    const navAuthButtons = document.getElementById('nav-auth-buttons');
+                    const mobileAuthButtons = document.getElementById('mobile-auth-buttons');
+                    const profileLink = document.getElementById('nav-profile-link');
+                    const adminLink = document.getElementById('nav-admin-link');
+                    const mobileProfileLink = document.getElementById('mobile-profile-link');
+                    const mobileAdminLink = document.getElementById('mobile-admin-link');
+                    
+                    if (user && !error) {
+                        // User is logged in
+                        if (navAuthButtons) navAuthButtons.style.display = 'none';
+                        if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
+                        if (profileLink) profileLink.style.display = 'block';
+                        if (mobileProfileLink) mobileProfileLink.style.display = 'flex';
+                        
+                        // Check if user is admin
+                        if (typeof isUserAdmin === 'function') {
+                            const { isAdmin } = await isUserAdmin();
+                            if (adminLink) {
+                                adminLink.style.display = isAdmin ? 'block' : 'none';
+                            }
+                            if (mobileAdminLink) {
+                                mobileAdminLink.style.display = isAdmin ? 'flex' : 'none';
+                            }
+                        }
+                    } else {
+                        // User is not logged in
+                        if (navAuthButtons) navAuthButtons.style.display = 'flex';
+                        if (mobileAuthButtons) mobileAuthButtons.style.display = 'flex';
+                        if (profileLink) profileLink.style.display = 'none';
+                        if (adminLink) adminLink.style.display = 'none';
+                        if (mobileProfileLink) mobileProfileLink.style.display = 'none';
+                        if (mobileAdminLink) mobileAdminLink.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.log('Auth check not available:', error);
+            }
         }
 
         
@@ -4256,31 +4743,28 @@
         
         // Initialize page when loaded
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Admin dashboard page DOM loaded');
             
-            // Add hamburger menu event listeners
-            const hamburgerMenu = document.getElementById('hamburger-menu');
-            if (hamburgerMenu) {
-                hamburgerMenu.addEventListener('click', toggleHamburgerMenu);
-            }
+            // Initialize mobile menu functionality
+            initializeMobileMenuOverlay();
+            updateCartCounter();
             
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                const navLinks = document.getElementById('nav-links');
-                const hamburgerMenu = document.getElementById('hamburger-menu');
+            // Initialize hamburger menu with a small delay to ensure DOM is ready
+            setTimeout(() => {
+                initializeAdminHamburgerMenu();
                 
-                if (navLinks && hamburgerMenu && 
-                    !navLinks.contains(event.target) && 
-                    !hamburgerMenu.contains(event.target)) {
-                    closeMobileMenu();
-                }
-            });
+                // Fallback initialization if the first one didn't work
+                setTimeout(() => {
+                    const hamburgerMenu = document.getElementById('hamburger-menu');
+                    if (hamburgerMenu && !hamburgerMenu.onclick) {
+                        console.log('Fallback hamburger initialization...');
+                        initializeAdminHamburgerMenu();
+                    }
+                }, 500);
+            }, 100);
             
-            // Close menu when window is resized to desktop
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 1024) {
-                    closeMobileMenu();
-                }
-            });
+            // Check authentication status
+            checkAuthStatus();
             
             
             // Load users

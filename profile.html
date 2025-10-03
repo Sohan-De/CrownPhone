@@ -118,7 +118,19 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Footer */
+        /* Tablet Footer - Center Aligned */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .footer-content {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile Footer */
         @media (max-width: 768px) {
             .footer-content {
                 flex-direction: column;
@@ -144,6 +156,130 @@
             .footer {
                 padding: 2rem 0 1rem;
             }
+        }
+
+        /* Tablet and Mobile Navigation Fixes - Same as index.html */
+        @media (max-width: 991px) {
+            .nav-container {
+                padding-left: 2rem !important;
+                padding-right: 2rem !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+            }
+            .desktop-nav-links, .nav-right {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .nav-logo {
+                flex: 0 0 auto;
+            }
+            .hamburger-menu {
+                margin-right: 0 !important;
+                margin-left: auto !important;
+                position: relative !important;
+                right: 0 !important;
+                width: 30px;
+                height: 25px;
+                cursor: pointer;
+                z-index: 1000;
+            }
+            .nav-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 15px;
+            }
+        }
+
+        .hamburger-line {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;
+            transition: all 0.3s ease;
+        }
+        .hamburger-line:nth-child(1) { top: 0; }
+        .hamburger-line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .hamburger-line:nth-child(3) { bottom: 0; }
+        .hamburger-menu.active .hamburger-line:nth-child(1) { transform: rotate(45deg); top: 11px; }
+        .hamburger-menu.active .hamburger-line:nth-child(2) { opacity: 0; }
+        .hamburger-menu.active .hamburger-line:nth-child(3) { transform: rotate(-45deg); bottom: 11px; }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 320px;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 80px 20px 30px;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+        }
+        .nav-links.active { right: 0; }
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .mobile-menu-overlay.active { 
+            opacity: 1; 
+            visibility: visible; 
+            pointer-events: auto;
+        }
+        body.hamburger-open { 
+            overflow: hidden; 
+        }
+        
+        /* Fix for profile page - ensure dark background is maintained when menu is open */
+        body.hamburger-open .profile-container {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            background-attachment: fixed !important;
+            -webkit-background-attachment: fixed !important;
+        }
+        
+        /* Ensure profile page body maintains dark theme when menu is open */
+        body.hamburger-open {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            background-attachment: fixed !important;
+            -webkit-background-attachment: fixed !important;
+        }
+
+        .mobile-menu-title {
+            background: linear-gradient(45deg, #dc3545, #c82333) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3) !important;
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.2)) !important;
+        }
+
+        .nav-links .nav-link {
+            margin: 10px 0 !important;
+            padding: 10px 0 !important;
+            font-size: 1.1rem;
+            position: relative;
         }
         
         /* Neomorphism Effect for Download Me Link */
@@ -359,6 +495,20 @@
             background-size: 100% 100%;
             -webkit-background-size: 100% 100%;
             min-height: 100vh;
+        }
+        
+        /* Ensure profile page background is never affected by mobile menu */
+        body.hamburger-open {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+            background-attachment: fixed !important;
+            -webkit-background-attachment: fixed !important;
+        }
+        
+        /* Ensure profile container maintains dark background */
+        .profile-container {
+            background: transparent !important;
+            position: relative;
+            z-index: 1;
         }
         
         /* Navbar Styling Override to match checkout page */
@@ -618,128 +768,6 @@
             padding: 1rem 0;
         }
 
-        /* Billing History styles */
-        .billing-history-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .billing-history-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .billing-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .billing-item-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #00d4ff;
-            margin: 0;
-        }
-
-        .billing-item-amount {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #00ff88;
-        }
-
-        .billing-item-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .billing-detail {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .billing-detail-label {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 0.25rem;
-        }
-
-        .billing-detail-value {
-            font-size: 0.95rem;
-            color: white;
-            font-weight: 500;
-        }
-
-        .billing-item-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .billing-status-success {
-            background: rgba(0, 255, 136, 0.2);
-            color: #00ff88;
-            border: 1px solid rgba(0, 255, 136, 0.3);
-        }
-
-        .billing-status-pending {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
-            border: 1px solid rgba(255, 193, 7, 0.3);
-        }
-
-        .billing-status-failed {
-            background: rgba(255, 71, 87, 0.2);
-            color: #ff4757;
-            border: 1px solid rgba(255, 71, 87, 0.3);
-        }
-
-        .billing-item-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .billing-action-btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .billing-action-btn.primary {
-            background: linear-gradient(45deg, #00d4ff, #0099cc);
-            color: white;
-        }
-
-        .billing-action-btn.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .billing-action-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
 
         .plan-title {
             color: #fff;
@@ -1195,39 +1223,49 @@
                 <a href="contact.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
             </div>
             
+            <!-- Mobile Menu Overlay -->
+            <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+            
             <!-- Hamburger Menu Button -->
             <div class="hamburger-menu" id="hamburger-menu">
-                <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
-                <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
-                <span class="hamburger-line" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; box-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
             </div>
             
-            <div class="nav-links" id="nav-links" style="display: none;">
+            <div class="nav-links" id="nav-links">
                 <div class="mobile-menu-header">
                     <h3 class="mobile-menu-title">Menu</h3>
                 </div>
+                
+                <!-- All Navigation Links -->
                 <a href="index.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Home</a>
                 <a href="product-list.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Products</a>
                 <a href="guide.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Guide</a>
                 <a href="contact.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
                 
+                <!-- Mobile Cart Link (always visible) -->
+                <a href="cart.html" class="nav-link mobile-cart-link" style="font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 5px;" title="Shopping Cart">
+                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;"></i>
+                    <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Shopping Cart</span>
+                    <span class="mobile-cart-counter" id="mobile-cart-counter" style="background: linear-gradient(45deg, #dc3545, #c82333); color: white; border-radius: 50%; width: 18px; height: 18px; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; margin-left: auto;">0</span>
+                </a>
+                
+                <!-- Mobile Profile Link (shown when logged in on mobile only) -->
+                <a href="profile.html" class="nav-link mobile-profile-link" id="mobile-profile-link" style="font-weight: 500; display: none; margin-bottom: 15px; padding-bottom: 5px;" title="User Profile">
+                    <i class="fas fa-user" style="font-size: 1.2rem; margin-right: 10px; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
+                    <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">My Profile</span>
+                </a>
+                
+                <!-- Mobile Admin Link (shown when logged in as admin on mobile only) -->
+                <a href="admin-dashboard.html" class="nav-link mobile-admin-link" id="mobile-admin-link" style="font-weight: 500; display: none; margin-bottom: 15px; padding-bottom: 5px;" title="Admin Dashboard">
+                    <i class="fas fa-shield-alt" style="font-size: 1.2rem; margin-right: 10px; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;"></i>
+                    <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Admin Dashboard</span>
+                </a>
+                
                 <!-- Mobile Auth Buttons -->
                 <div class="mobile-auth-buttons" id="mobile-auth-buttons">
-                    <a href="sign-in.html" class="mobile-auth-btn signin-btn">
-                        <span class="btn-icon"><i class="fas fa-sign-in-alt"></i></span>
-                        <span class="btn-text">SIGN IN</span>
-                    </a>
-                </div>
-
-                <!-- Mobile Profile Section (shown when logged in) -->
-                <div class="mobile-profile-section" id="mobile-profile-section" style="display: none;">
-                    <div class="mobile-profile-avatar">
-                        <span class="avatar-text"></span>
-                    </div>
-                    <span class="mobile-profile-name"></span>
-                    <a href="profile.html" class="mobile-profile-btn">Profile</a>
-                    <a href="admin-dashboard.html" class="mobile-profile-btn admin-link" style="display: none;">Admin Dashboard</a>
-                    <button id="mobile-logout-btn" class="mobile-profile-btn logout-btn">Logout</button>
+                    <a href="sign-in.html" class="mobile-auth-btn sign-in-btn" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; color: white !important; padding: 8px 16px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: 500 !important; margin-right: 0 !important;">Sign In</a>
                 </div>
             </div>
             
@@ -1268,7 +1306,6 @@
             <div class="profile-card">
                 <div class="profile-tabs">
                     <button class="profile-tab active" data-tab="profile-tab">Profile</button>
-                    <button class="profile-tab" data-tab="billing-tab">Billing</button>
                     <button class="profile-tab" data-tab="account-tab">Account</button>
                 </div>
 
@@ -1305,30 +1342,6 @@
                     </div>
                 </div>
 
-                <div class="tab-content" id="billing-tab">
-                    <!-- Billing History Section -->
-                    <div class="billing-history-section" id="billing-history-section" style="margin-top: 2rem; display: block;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                            <h3 class="billing-history-title" style="background: linear-gradient(45deg, #dc3545, #c82333); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
-                                <i class="fas fa-history"></i>
-                                Billing History
-                            </h3>
-                            <button onclick="loadBillingHistory()" style="padding: 0.5rem 1rem; background: linear-gradient(45deg, #dc3545, #c82333); color: white; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(255, 0, 0, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                                Refresh
-                            </button>
-                                    </div>
-                        <div class="billing-history-container">
-                            <div class="billing-history-empty" id="billing-history-empty" style="text-align: center; padding: 2rem; color: rgba(255, 255, 255, 0.6);">
-                                <i class="fas fa-receipt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                                <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">No billing history found</p>
-                                <p style="font-size: 0.9rem;">Your purchase history will appear here once you subscribe to a plan.</p>
-                                    </div>
-                            <div class="billing-history-list" id="billing-history-list" style="display: none;">
-                                <!-- Billing history items will be populated here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                 <div class="tab-content" id="account-tab">
                     <div class="password-change-section">
@@ -1384,6 +1397,114 @@
 
     <script src="./scripts/script.js"></script>
     <script>
+        // Initialize mobile menu overlay functionality
+        function initializeMobileMenuOverlay() {
+            const mobileOverlay = document.getElementById('mobile-menu-overlay');
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            }
+            
+            // Override the closeMobileMenu function to work with overlay
+            window.closeMobileMenu = function() {
+                const hamburgerMenu = document.getElementById('hamburger-menu');
+                const navLinks = document.getElementById('nav-links');
+                const mobileOverlay = document.getElementById('mobile-menu-overlay');
+                const body = document.body;
+                
+                if (hamburgerMenu) hamburgerMenu.classList.remove('active');
+                if (navLinks) navLinks.classList.remove('active');
+                if (mobileOverlay) mobileOverlay.classList.remove('active');
+                if (body) {
+                    body.style.overflow = '';
+                    body.classList.remove('hamburger-open');
+                }
+            };
+        }
+
+        // Initialize hamburger menu functionality
+        function initializeProfileHamburgerMenu() {
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+            const navLinks = document.getElementById('nav-links');
+            const mobileOverlay = document.getElementById('mobile-menu-overlay');
+            const body = document.body;
+            
+            if (hamburgerMenu && navLinks) {
+                console.log('Initializing hamburger menu...');
+                
+                // Remove any existing event listeners
+                hamburgerMenu.onclick = null;
+                
+                // Clear any existing event listeners
+                const newHamburgerMenu = hamburgerMenu.cloneNode(true);
+                hamburgerMenu.parentNode.replaceChild(newHamburgerMenu, hamburgerMenu);
+                
+                // Add new click event to the new element
+                newHamburgerMenu.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Hamburger clicked!'); // Debug log
+                    
+                    const isActive = navLinks.classList.contains('active');
+                    
+                    if (isActive) {
+                        // Close menu
+                        newHamburgerMenu.classList.remove('active');
+                        navLinks.classList.remove('active');
+                        if (mobileOverlay) mobileOverlay.classList.remove('active');
+                        body.style.overflow = '';
+                        body.classList.remove('hamburger-open');
+                        console.log('Menu closed');
+                    } else {
+                        // Open menu
+                        newHamburgerMenu.classList.add('active');
+                        navLinks.classList.add('active');
+                        if (mobileOverlay) mobileOverlay.classList.add('active');
+                        body.style.overflow = 'hidden';
+                        body.classList.add('hamburger-open');
+                        console.log('Menu opened');
+                    }
+                });
+                
+                // Close menu when clicking on a link
+                const mobileLinks = navLinks.querySelectorAll('.nav-link, .mobile-profile-link, .mobile-auth-btn');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        closeMobileMenu();
+                    });
+                });
+                
+                console.log('Hamburger menu initialized successfully');
+            } else {
+                console.error('Hamburger menu elements not found!', {
+                    hamburgerMenu: !!hamburgerMenu,
+                    navLinks: !!navLinks
+                });
+            }
+        }
+
+        // Update cart counter for both desktop and mobile
+        function updateCartCounter() {
+            const cart = JSON.parse(localStorage.getItem('crownphone_cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Update desktop cart counter
+            const cartCounter = document.getElementById('cart-counter');
+            if (cartCounter) {
+                cartCounter.textContent = totalItems;
+                cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+            
+            // Update mobile cart counter
+            const mobileCartCounter = document.getElementById('mobile-cart-counter');
+            if (mobileCartCounter) {
+                mobileCartCounter.textContent = totalItems;
+                mobileCartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
+
         // Tab switching functionality
         document.addEventListener('DOMContentLoaded', function() {
             const tabs = document.querySelectorAll('.profile-tab');
@@ -1402,13 +1523,26 @@
                         targetContent.classList.add('active');
                     }
                     
-                    // Load billing history when billing tab is clicked
-                    if (tab.dataset.tab === 'billing-tab') {
-                        console.log('Billing tab clicked, loading billing history...');
-                        loadBillingHistory();
-                    }
                 });
             });
+
+            // Initialize mobile menu functionality
+            initializeMobileMenuOverlay();
+            updateCartCounter();
+            
+            // Initialize hamburger menu with a small delay to ensure DOM is ready
+            setTimeout(() => {
+                initializeProfileHamburgerMenu();
+                
+                // Fallback initialization if the first one didn't work
+                setTimeout(() => {
+                    const hamburgerMenu = document.getElementById('hamburger-menu');
+                    if (hamburgerMenu && !hamburgerMenu.onclick) {
+                        console.log('Fallback hamburger initialization...');
+                        initializeProfileHamburgerMenu();
+                    }
+                }, 500);
+            }, 100);
 
             // Authentication check and load user data
             checkAuthStatus();
@@ -1464,30 +1598,22 @@
 
                 // Show profile link
                 const profileLink = document.getElementById('nav-profile-link');
+                const mobileProfileLink = document.getElementById('mobile-profile-link');
                 if (profileLink) profileLink.style.display = 'block';
+                if (mobileProfileLink) mobileProfileLink.style.display = 'flex';
 
                 // Show admin link if user is admin
                 if (profileData && profileData.is_admin) {
                     const adminLink = document.getElementById('nav-admin-link');
-                    const mobileAdminLink = document.querySelector('.admin-link');
+                    const mobileAdminLink = document.getElementById('mobile-admin-link');
                     if (adminLink) adminLink.style.display = 'block';
-                    if (mobileAdminLink) mobileAdminLink.style.display = 'block';
-                }
-
-                // Show mobile profile section
-                const mobileProfileSection = document.getElementById('mobile-profile-section');
-                if (mobileProfileSection) {
-                    mobileProfileSection.style.display = 'block';
-                    
-                    // Update mobile profile info
-                    const avatarText = mobileProfileSection.querySelector('.avatar-text');
-                    const profileName = mobileProfileSection.querySelector('.mobile-profile-name');
-                    
-                    if (profileData) {
-                        const initials = getInitials(profileData.first_name + ' ' + profileData.last_name);
-                        if (avatarText) avatarText.textContent = initials;
-                        if (profileName) profileName.textContent = profileData.first_name + ' ' + profileData.last_name;
-                    }
+                    if (mobileAdminLink) mobileAdminLink.style.display = 'flex';
+                } else {
+                    // Hide admin links if user is not admin
+                    const adminLink = document.getElementById('nav-admin-link');
+                    const mobileAdminLink = document.getElementById('mobile-admin-link');
+                    if (adminLink) adminLink.style.display = 'none';
+                    if (mobileAdminLink) mobileAdminLink.style.display = 'none';
                 }
             }
 
@@ -1502,11 +1628,13 @@
                 // Hide profile elements
                 const profileLink = document.getElementById('nav-profile-link');
                 const adminLink = document.getElementById('nav-admin-link');
-                const mobileProfileSection = document.getElementById('mobile-profile-section');
+                const mobileProfileLink = document.getElementById('mobile-profile-link');
+                const mobileAdminLink = document.getElementById('mobile-admin-link');
                 
                 if (profileLink) profileLink.style.display = 'none';
                 if (adminLink) adminLink.style.display = 'none';
-                if (mobileProfileSection) mobileProfileSection.style.display = 'none';
+                if (mobileProfileLink) mobileProfileLink.style.display = 'none';
+                if (mobileAdminLink) mobileAdminLink.style.display = 'none';
             }
 
             // Get user initials
@@ -1575,11 +1703,6 @@
             // Setup logout button
             setupLogoutButton();
             
-            // Load billing history after a short delay to ensure auth is complete
-            setTimeout(() => {
-                console.log('Loading billing history after delay...');
-                loadBillingHistory();
-            }, 1000);
 
             // Test email field after everything loads
             setTimeout(() => {
@@ -1923,10 +2046,6 @@
 
                 // Update the plan display
                 updatePlanDisplay(profile, subscription);
-                
-                
-                // Load billing history
-                loadBillingHistory();
 
             } catch (error) {
                 console.error('Error loading user subscription:', error.message);
@@ -1995,245 +2114,8 @@
         }
 
 
-        // Load billing history from Supabase
-        async function loadBillingHistory() {
-            try {
-                console.log('=== LOADING BILLING HISTORY ===');
-                
-                const { user, error: userError } = await getCurrentUser();
-                
-                if (userError || !user) {
-                    console.log('User not authenticated, hiding billing history');
-                    return;
-                }
 
-                console.log('User authenticated:', user.id);
 
-                // Get billing history from user_subscriptions table
-                const { data: billingHistory, error: billingError } = await supabase
-                    .from('user_subscriptions')
-                    .select(`
-                        id,
-                        start_date,
-                        end_date,
-                        status,
-                        created_at,
-                        payment_intent_id,
-                        payment_method,
-                        amount,
-                        currency,
-                        package_id
-                    `)
-                    .eq('user_id', user.id)
-                    .order('created_at', { ascending: false });
-
-                console.log('Billing history query result:', { billingHistory, billingError });
-
-                if (billingError) {
-                    console.error('Error loading billing history:', billingError.message);
-                    return;
-                }
-
-                console.log('Billing history data:', billingHistory);
-                console.log('Number of billing records:', billingHistory ? billingHistory.length : 0);
-
-                // Show billing history section
-                const billingHistorySection = document.getElementById('billing-history-section');
-                if (billingHistorySection) {
-                    billingHistorySection.style.display = 'block';
-                    console.log('Billing history section made visible');
-                } else {
-                    console.error('Billing history section not found!');
-                }
-
-                // Update billing history display with real data
-                updateBillingHistoryDisplay(billingHistory || []);
-
-            } catch (error) {
-                console.error('Error loading billing history:', error.message);
-            }
-        }
-
-        // Update billing history display
-        function updateBillingHistoryDisplay(billingHistory) {
-            console.log('=== UPDATE BILLING HISTORY DISPLAY ===');
-            console.log('Billing history received:', billingHistory);
-            
-            const emptyState = document.getElementById('billing-history-empty');
-            const historyList = document.getElementById('billing-history-list');
-
-            console.log('Empty state element:', emptyState);
-            console.log('History list element:', historyList);
-
-            if (!billingHistory || billingHistory.length === 0) {
-                console.log('No billing history data, showing empty state');
-                // Show empty state
-                if (emptyState) {
-                    emptyState.style.display = 'block';
-                    console.log('Empty state made visible');
-                }
-                if (historyList) {
-                    historyList.style.display = 'none';
-                    console.log('History list hidden');
-                }
-                return;
-            }
-
-            console.log('Billing history has data, showing history list');
-            // Hide empty state and show history list
-            if (emptyState) {
-                emptyState.style.display = 'none';
-                console.log('Empty state hidden');
-            }
-            if (historyList) {
-                historyList.style.display = 'block';
-                console.log('History list made visible');
-                
-                // Clear existing content
-                historyList.innerHTML = '';
-
-                // Create billing history items
-                billingHistory.forEach((item, index) => {
-                    console.log(`Creating billing history item ${index}:`, item);
-                    const historyItem = createBillingHistoryItem(item, index);
-                    historyList.appendChild(historyItem);
-                });
-                
-                console.log('All billing history items created and added to DOM');
-            }
-        }
-
-        // Create a billing history item element
-        function createBillingHistoryItem(item, index) {
-            const historyItem = document.createElement('div');
-            historyItem.className = 'billing-history-item';
-
-            // Use package_id to determine plan name if no package data
-            const getPlanName = (packageId) => {
-                if (packageId === '00000000-0000-0000-0000-000000000000') {
-                    return 'Professional Plan'; // Default for mock packages
-                }
-                
-                // Check if it's a converted numeric ID (format: 00000003-0000-0000-0000-000000000000)
-                if (packageId && packageId.includes('-0000-0000-0000-000000000000')) {
-                    const numericPart = packageId.split('-')[0];
-                    const numericId = parseInt(numericPart, 10);
-                    
-                    // Map numeric IDs to plan names
-                    switch (numericId) {
-                        case 1: return 'Free Plan';
-                        case 2: return 'Professional Plan';
-                        case 3: return 'Business Plan';
-                        default: return 'Subscription Plan';
-                    }
-                }
-                
-                // You can add more logic here to map package IDs to names
-                return 'Subscription Plan';
-            };
-
-            const planName = getPlanName(item.package_id);
-            const startDate = new Date(item.start_date);
-            const endDate = item.end_date ? new Date(item.end_date) : null;
-            const createdDate = new Date(item.created_at);
-
-            // Format dates
-            const formatDate = (date) => {
-                return date.toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                });
-            };
-
-            // Get status styling
-            const getStatusClass = (status) => {
-                switch (status) {
-                    case 'active': return 'billing-status-success';
-                    case 'pending': return 'billing-status-pending';
-                    case 'cancelled': return 'billing-status-failed';
-                    default: return 'billing-status-pending';
-                }
-            };
-
-            // Get status text
-            const getStatusText = (status) => {
-                switch (status) {
-                    case 'active': return 'Active';
-                    case 'pending': return 'Pending';
-                    case 'cancelled': return 'Cancelled';
-                    default: return 'Unknown';
-                }
-            };
-
-            historyItem.innerHTML = `
-                <div class="billing-item-header">
-                    <h4 class="billing-item-title">${planName}</h4>
-                    <div class="billing-item-amount">$${item.amount || '0'}</div>
-                </div>
-                
-                <div class="billing-item-details">
-                    <div class="billing-detail">
-                        <span class="billing-detail-label">Plan</span>
-                        <span class="billing-detail-value">${planName}</span>
-                    </div>
-                    <div class="billing-detail">
-                        <span class="billing-detail-label">Billing Cycle</span>
-                        <span class="billing-detail-value">Monthly</span>
-                    </div>
-                    <div class="billing-detail">
-                        <span class="billing-detail-label">Start Date</span>
-                        <span class="billing-detail-value">${formatDate(startDate)}</span>
-                    </div>
-                    <div class="billing-detail">
-                        <span class="billing-detail-label">End Date</span>
-                        <span class="billing-detail-value">${endDate ? formatDate(endDate) : 'N/A'}</span>
-                    </div>
-                    <div class="billing-detail">
-                        <span class="billing-detail-label">Purchase Date</span>
-                        <span class="billing-detail-value">${formatDate(createdDate)}</span>
-                    </div>
-                    <div class="billing-detail">
-                        <span class="billing-detail-label">Payment Method</span>
-                        <span class="billing-detail-value">${item.payment_method || 'Card'}</span>
-                    </div>
-                    <div class="billing-detail">
-                        <span class="billing-detail-label">Status</span>
-                        <span class="billing-item-status ${getStatusClass(item.status)}">
-                            <i class="fas fa-circle" style="font-size: 0.5rem;"></i>
-                            ${getStatusText(item.status)}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="billing-item-actions">
-                    <button class="billing-action-btn primary" onclick="viewInvoice('${item.id}')">
-                        <i class="fas fa-download"></i>
-                        <span>Download Invoice</span>
-                    </button>
-                    <button class="billing-action-btn secondary" onclick="viewPlanDetails('${item.id}')">
-                        <i class="fas fa-info-circle"></i>
-                        <span>View Details</span>
-                    </button>
-                </div>
-            `;
-
-            return historyItem;
-        }
-
-        // View invoice function
-        function viewInvoice(subscriptionId) {
-            // This would typically generate or download an invoice
-            console.log('Viewing invoice for subscription:', subscriptionId);
-            alert('Invoice download functionality would be implemented here. Subscription ID: ' + subscriptionId);
-        }
-
-        // View plan details function
-        function viewPlanDetails(subscriptionId) {
-            // This would show detailed plan information
-            console.log('Viewing plan details for subscription:', subscriptionId);
-            alert('Plan details functionality would be implemented here. Subscription ID: ' + subscriptionId);
-        }
 
         // Modal functions
         function showLogoutModal() {

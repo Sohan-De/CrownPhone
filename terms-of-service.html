@@ -235,7 +235,19 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Footer */
+        /* Tablet Footer - Center Aligned */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .footer-content {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile Footer */
         @media (max-width: 768px) {
             .footer-content {
                 flex-direction: column;

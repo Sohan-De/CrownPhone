@@ -1821,7 +1821,19 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Footer */
+        /* Tablet Footer - Center Aligned */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .footer-content {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile Footer */
         @media (max-width: 768px) {
             .footer-content {
                 flex-direction: column;
@@ -3462,42 +3474,10 @@
             initializeMobileMenuOverlay();
         });
         
-        // Function to initialize mobile menu overlay
+        // Function to initialize mobile menu overlay (disabled - no overlay)
         function initializeMobileMenuOverlay() {
-            const mobileOverlay = document.getElementById('mobile-menu-overlay');
-            
-            if (mobileOverlay) {
-                // Add click event to overlay to close menu
-                mobileOverlay.addEventListener('click', function() {
-                    if (typeof closeMobileMenu === 'function') {
-                        closeMobileMenu();
-                    } else {
-                        const hamburgerMenu = document.getElementById('hamburger-menu');
-                        const navLinks = document.getElementById('nav-links');
-                        const body = document.body;
-                        
-                        hamburgerMenu.classList.remove('active');
-                        navLinks.classList.remove('active');
-                        mobileOverlay.classList.remove('active');
-                        body.style.overflow = '';
-                        body.classList.remove('hamburger-open');
-                    }
-                });
-                
-                // Override the original closeMobileMenu function
-                window.originalCloseMobileMenu = window.closeMobileMenu;
-                window.closeMobileMenu = function() {
-                    const hamburgerMenu = document.getElementById('hamburger-menu');
-                    const navLinks = document.getElementById('nav-links');
-                    const body = document.body;
-                    
-                    hamburgerMenu.classList.remove('active');
-                    navLinks.classList.remove('active');
-                    mobileOverlay.classList.remove('active');
-                    body.style.overflow = '';
-                    body.classList.remove('hamburger-open');
-                };
-            }
+            // Overlay functionality disabled - hamburger menu works without overlay
+            console.log('Mobile menu overlay disabled - hamburger menu works without overlay');
         }
         
         // Updated checkAuthStatus function to handle the profile link visibility

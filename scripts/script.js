@@ -44,7 +44,8 @@ function initializeHamburgerMenu() {
                 // If menu is closed, open it
                 hamburgerMenu.classList.add('active');
                 navLinks.classList.add('active');
-                if (mobileOverlay) mobileOverlay.classList.add('active');
+                // Don't show overlay - remove this line
+                // if (mobileOverlay) mobileOverlay.classList.add('active');
                 body.style.overflow = 'hidden';
                 body.classList.add('hamburger-open');
             }
@@ -124,7 +125,8 @@ function initializeHamburgerMenu() {
         function closeMobileMenu() {
             hamburgerMenu.classList.remove('active');
             navLinks.classList.remove('active');
-            if (mobileOverlay) mobileOverlay.classList.remove('active');
+            // Don't remove overlay since we're not using it
+            // if (mobileOverlay) mobileOverlay.classList.remove('active');
             body.style.overflow = '';
             body.classList.remove('hamburger-open');
         }
