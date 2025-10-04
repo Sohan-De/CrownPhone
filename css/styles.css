@@ -8192,11 +8192,11 @@ body {
 }
 
 .title-highlight {
-    background: linear-gradient(45deg, #00d4ff, #00ff88);
+    
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+   
     animation: glow 2s ease-in-out infinite alternate;
 }
 
