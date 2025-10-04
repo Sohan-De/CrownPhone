@@ -442,31 +442,18 @@
             border-color: #8B0000 !important;
         }
 
-        /* Ensure profile and admin icons are hidden by default */
+        /* Profile and admin icons - hidden by default, shown when logged in */
         .profile-link, .mobile-profile-link,
         .admin-link, .mobile-admin-link {
-            display: none !important;
+            display: none;
         }
 
-        /* Force hide profile icons with maximum specificity */
+        /* Profile icons - hidden by default */
         #nav-profile-link, #mobile-profile-link,
         #nav-admin-link, #mobile-admin-link {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-        }
-
-        /* Even more specific targeting */
-        .nav-right #nav-profile-link,
-        .nav-right #nav-admin-link {
-            display: none !important;
-            visibility: hidden !important;
-        }
-
-        .mobile-menu #mobile-profile-link,
-        .mobile-menu #mobile-admin-link {
-            display: none !important;
-            visibility: hidden !important;
+            display: none;
+            visibility: hidden;
+            opacity: 0;
         }
         
         .profile-link:hover i, .mobile-profile-link:hover i,
@@ -1235,7 +1222,7 @@
                 <a href="contact.html" class="nav-link" style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Contact</a>
                 <!-- Mobile Cart Link (always visible) -->
                 <a href="cart.html" class="nav-link mobile-cart-link" style="font-weight: 500; display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 5px;" title="Shopping Cart">
-                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;"></i>
+                    <i class="fas fa-shopping-cart" style="font-size: 1.2rem; background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important;"></i>
                     <span style="background: linear-gradient(45deg, #dc3545, #c82333) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important; color: transparent !important;">Shopping Cart</span>
                     <span class="mobile-cart-counter" id="mobile-cart-counter" style="background: linear-gradient(45deg, #dc3545, #c82333); color: white; border-radius: 50%; width: 18px; height: 18px; display: none; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; margin-left: auto;">0</span>
                 </a>
@@ -1348,21 +1335,11 @@
     </div>
 
     <script>
-        // Force hide profile icons immediately on page load
-        (function() {
-            const profileLink = document.getElementById('nav-profile-link');
-            const mobileProfileLink = document.getElementById('mobile-profile-link');
-            const adminLink = document.getElementById('nav-admin-link');
-            const mobileAdminLink = document.getElementById('mobile-admin-link');
-            
-            if (profileLink) profileLink.style.setProperty('display', 'none', 'important');
-            if (mobileProfileLink) mobileProfileLink.style.setProperty('display', 'none', 'important');
-            if (adminLink) adminLink.style.setProperty('display', 'none', 'important');
-            if (mobileAdminLink) mobileAdminLink.style.setProperty('display', 'none', 'important');
-        })();
+        // Profile icons will be shown/hidden based on authentication status
 
-
-            // Add smooth scroll animation for product cards
+        // Add smooth scroll animation for product cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const productCards = document.querySelectorAll('.product-card');
             const observerOptions = {
                 threshold: 0.1,
                 rootMargin: '0px 0px -50px 0px'
@@ -1719,24 +1696,24 @@
             
             // Hide profile elements by default
             if (profileLink) {
-                profileLink.style.setProperty('display', 'none', 'important');
-                profileLink.style.setProperty('visibility', 'hidden', 'important');
-                profileLink.style.setProperty('opacity', '0', 'important');
+                profileLink.style.display = 'none';
+                profileLink.style.visibility = 'hidden';
+                profileLink.style.opacity = '0';
             }
             if (mobileProfileLink) {
-                mobileProfileLink.style.setProperty('display', 'none', 'important');
-                mobileProfileLink.style.setProperty('visibility', 'hidden', 'important');
-                mobileProfileLink.style.setProperty('opacity', '0', 'important');
+                mobileProfileLink.style.display = 'none';
+                mobileProfileLink.style.visibility = 'hidden';
+                mobileProfileLink.style.opacity = '0';
             }
             if (adminLink) {
-                adminLink.style.setProperty('display', 'none', 'important');
-                adminLink.style.setProperty('visibility', 'hidden', 'important');
-                adminLink.style.setProperty('opacity', '0', 'important');
+                adminLink.style.display = 'none';
+                adminLink.style.visibility = 'hidden';
+                adminLink.style.opacity = '0';
             }
             if (mobileAdminLink) {
-                mobileAdminLink.style.setProperty('display', 'none', 'important');
-                mobileAdminLink.style.setProperty('visibility', 'hidden', 'important');
-                mobileAdminLink.style.setProperty('opacity', '0', 'important');
+                mobileAdminLink.style.display = 'none';
+                mobileAdminLink.style.visibility = 'hidden';
+                mobileAdminLink.style.opacity = '0';
             }
         }
 
@@ -1779,17 +1756,15 @@
                     
                     // Show profile links
                     if (profileLink) {
-                        profileLink.style.setProperty('display', 'block', 'important');
-                        profileLink.style.setProperty('visibility', 'visible', 'important');
-                        profileLink.style.setProperty('opacity', '1', 'important');
-                        profileLink.style.setProperty('position', 'static', 'important');
-                        profileLink.style.setProperty('left', 'auto', 'important');
+                        profileLink.style.display = 'block';
+                        profileLink.style.visibility = 'visible';
+                        profileLink.style.opacity = '1';
                         console.log('Showing profile link');
                     }
                     if (mobileProfileLink) {
-                        mobileProfileLink.style.setProperty('display', 'flex', 'important');
-                        mobileProfileLink.style.setProperty('visibility', 'visible', 'important');
-                        mobileProfileLink.style.setProperty('opacity', '1', 'important');
+                        mobileProfileLink.style.display = 'flex';
+                        mobileProfileLink.style.visibility = 'visible';
+                        mobileProfileLink.style.opacity = '1';
                         console.log('Showing mobile profile link');
                     }
                     
@@ -1805,28 +1780,28 @@
                     
                     if (isAdmin) {
                         if (adminLink) {
-                            adminLink.style.setProperty('display', 'block', 'important');
-                            adminLink.style.setProperty('visibility', 'visible', 'important');
-                            adminLink.style.setProperty('opacity', '1', 'important');
+                            adminLink.style.display = 'block';
+                            adminLink.style.visibility = 'visible';
+                            adminLink.style.opacity = '1';
                             console.log('Showing admin link');
                         }
                         if (mobileAdminLink) {
-                            mobileAdminLink.style.setProperty('display', 'flex', 'important');
-                            mobileAdminLink.style.setProperty('visibility', 'visible', 'important');
-                            mobileAdminLink.style.setProperty('opacity', '1', 'important');
+                            mobileAdminLink.style.display = 'flex';
+                            mobileAdminLink.style.visibility = 'visible';
+                            mobileAdminLink.style.opacity = '1';
                             console.log('Showing mobile admin link');
                         }
                     } else {
                         if (adminLink) {
-                            adminLink.style.setProperty('display', 'none', 'important');
-                            adminLink.style.setProperty('visibility', 'hidden', 'important');
-                            adminLink.style.setProperty('opacity', '0', 'important');
+                            adminLink.style.display = 'none';
+                            adminLink.style.visibility = 'hidden';
+                            adminLink.style.opacity = '0';
                             console.log('Hiding admin link');
                         }
                         if (mobileAdminLink) {
-                            mobileAdminLink.style.setProperty('display', 'none', 'important');
-                            mobileAdminLink.style.setProperty('visibility', 'hidden', 'important');
-                            mobileAdminLink.style.setProperty('opacity', '0', 'important');
+                            mobileAdminLink.style.display = 'none';
+                            mobileAdminLink.style.visibility = 'hidden';
+                            mobileAdminLink.style.opacity = '0';
                             console.log('Hiding mobile admin link');
                         }
                     }
@@ -1844,30 +1819,28 @@
                         console.log('Showing mobile auth buttons');
                     }
                     
-                    // Force hide profile icons with multiple methods
+                    // Hide profile icons when not logged in
                     if (profileLink) {
-                        profileLink.style.setProperty('display', 'none', 'important');
-                        profileLink.style.setProperty('visibility', 'hidden', 'important');
-                        profileLink.style.setProperty('opacity', '0', 'important');
-                        profileLink.style.setProperty('position', 'absolute', 'important');
-                        profileLink.style.setProperty('left', '-9999px', 'important');
+                        profileLink.style.display = 'none';
+                        profileLink.style.visibility = 'hidden';
+                        profileLink.style.opacity = '0';
                         console.log('Hiding profile link');
                     }
                     if (mobileProfileLink) {
-                        mobileProfileLink.style.setProperty('display', 'none', 'important');
-                        mobileProfileLink.style.setProperty('visibility', 'hidden', 'important');
-                        mobileProfileLink.style.setProperty('opacity', '0', 'important');
+                        mobileProfileLink.style.display = 'none';
+                        mobileProfileLink.style.visibility = 'hidden';
+                        mobileProfileLink.style.opacity = '0';
                         console.log('Hiding mobile profile link');
                     }
                     if (adminLink) {
-                        adminLink.style.setProperty('display', 'none', 'important');
-                        adminLink.style.setProperty('visibility', 'hidden', 'important');
-                        adminLink.style.setProperty('opacity', '0', 'important');
+                        adminLink.style.display = 'none';
+                        adminLink.style.visibility = 'hidden';
+                        adminLink.style.opacity = '0';
                     }
                     if (mobileAdminLink) {
-                        mobileAdminLink.style.setProperty('display', 'none', 'important');
-                        mobileAdminLink.style.setProperty('visibility', 'hidden', 'important');
-                        mobileAdminLink.style.setProperty('opacity', '0', 'important');
+                        mobileAdminLink.style.display = 'none';
+                        mobileAdminLink.style.visibility = 'hidden';
+                        mobileAdminLink.style.opacity = '0';
                     }
                 }
             } catch (error) {
@@ -1891,24 +1864,24 @@
                 
                 // Hide profile elements
                 if (profileLink) {
-                    profileLink.style.setProperty('display', 'none', 'important');
-                    profileLink.style.setProperty('visibility', 'hidden', 'important');
-                    profileLink.style.setProperty('opacity', '0', 'important');
+                    profileLink.style.display = 'none';
+                    profileLink.style.visibility = 'hidden';
+                    profileLink.style.opacity = '0';
                 }
                 if (mobileProfileLink) {
-                    mobileProfileLink.style.setProperty('display', 'none', 'important');
-                    mobileProfileLink.style.setProperty('visibility', 'hidden', 'important');
-                    mobileProfileLink.style.setProperty('opacity', '0', 'important');
+                    mobileProfileLink.style.display = 'none';
+                    mobileProfileLink.style.visibility = 'hidden';
+                    mobileProfileLink.style.opacity = '0';
                 }
                 if (adminLink) {
-                    adminLink.style.setProperty('display', 'none', 'important');
-                    adminLink.style.setProperty('visibility', 'hidden', 'important');
-                    adminLink.style.setProperty('opacity', '0', 'important');
+                    adminLink.style.display = 'none';
+                    adminLink.style.visibility = 'hidden';
+                    adminLink.style.opacity = '0';
                 }
                 if (mobileAdminLink) {
-                    mobileAdminLink.style.setProperty('display', 'none', 'important');
-                    mobileAdminLink.style.setProperty('visibility', 'hidden', 'important');
-                    mobileAdminLink.style.setProperty('opacity', '0', 'important');
+                    mobileAdminLink.style.display = 'none';
+                    mobileAdminLink.style.visibility = 'hidden';
+                    mobileAdminLink.style.opacity = '0';
                 }
             }
         }
