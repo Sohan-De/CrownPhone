@@ -548,7 +548,44 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: opacity 0.3s ease, transform 0.5s ease;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading-shimmer 1.5s infinite;
+        }
+
+        .product-image.loaded {
+            animation: none;
+            background: none;
+        }
+
+        @keyframes loading-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .image-loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #dc3545;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+            z-index: 10;
+        }
+
+        .image-loading-spinner.show {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         .product-card:hover .product-image {
@@ -1687,17 +1724,39 @@
                 }, 500);
             }, 100);
 
-            // Initialize authentication status immediately and with delay
+        // Initialize authentication status immediately and with delay
+        checkAuthStatus();
+        
+        // Also check with a small delay to ensure Supabase is ready
+        setTimeout(() => {
             checkAuthStatus();
-            
-            // Also check with a small delay to ensure Supabase is ready
-            setTimeout(() => {
-                checkAuthStatus();
-            }, 500);
+        }, 500);
+        
+        // Initialize lazy loading for any existing images
+        setTimeout(() => {
+            if (typeof initializeLazyLoading === 'function') {
+                initializeLazyLoading();
+            }
+        }, 2000);
+        
+        // Performance monitoring
+        logImageLoadTime();
             
             // Add admin setup button for testing (remove in production)
             addAdminSetupButton();
         });
+
+        // Performance monitoring function
+        function logImageLoadTime() {
+            const images = document.querySelectorAll('.product-image');
+            images.forEach(img => {
+                const startTime = performance.now();
+                img.onload = function() {
+                    const loadTime = performance.now() - startTime;
+                    console.log(`Image loaded in ${loadTime.toFixed(2)}ms: ${this.alt}`);
+                };
+            });
+        }
 
         // Initialize navbar to show auth buttons by default
         function initializeNavbarDefault() {

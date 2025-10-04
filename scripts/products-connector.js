@@ -64,6 +64,11 @@ function displayProductsOnIndex(products) {
         const productCard = createProductCard(product);
         productsGrid.appendChild(productCard);
     });
+    
+    // Initialize lazy loading after products are added
+    setTimeout(() => {
+        initializeLazyLoading();
+    }, 100);
 }
 
 // Function to display products on the product list page
@@ -86,6 +91,11 @@ function displayProductsOnListPage(products) {
         const productCard = createProductCard(product, true);
         productsGrid.appendChild(productCard);
     });
+    
+    // Initialize lazy loading after products are added
+    setTimeout(() => {
+        initializeLazyLoading();
+    }, 100);
 }
 
 // Function to display products in new arrivals section
@@ -186,6 +196,21 @@ function displayNewArrivals(products) {
     }
 }
 
+// Image Compression Helper
+function compressImageUrl(originalUrl, width = 400, height = 260, quality = 80) {
+    if (!originalUrl || originalUrl.includes('placeholder')) {
+        return originalUrl;
+    }
+    
+    // For Unsplash images, add compression parameters
+    if (originalUrl.includes('unsplash.com')) {
+        return `${originalUrl}&w=${width}&h=${height}&q=${quality}&fit=crop&auto=format`;
+    }
+    
+    // For other images, return as is for now
+    return originalUrl;
+}
+
 // Function to create a product card
 function createProductCard(product, isListPage = false) {
     const card = document.createElement('div');
@@ -212,10 +237,20 @@ function createProductCard(product, isListPage = false) {
     // Determine which badge to show (prioritize new over featured)
     const badge = product.is_new ? newBadge : (product.is_feature ? featuredBadge : '');
     
+    // Compress image URL for better performance
+    const compressedImageUrl = compressImageUrl(product.image_url);
+    
     card.innerHTML = `
         ${badge}
         <div class="product-image-container" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
-            <img src="${product.image_url || 'https://via.placeholder.com/500x500.png?text=No+Image'}" alt="${product.name}" class="product-image">
+            <img 
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='260' viewBox='0 0 400 260'%3E%3Crect width='400' height='260' fill='%23f0f0f0'/%3E%3C/svg%3E"
+                data-src="${compressedImageUrl}"
+                alt="${product.name}" 
+                class="product-image lazy-load"
+                loading="lazy"
+            >
+            <div class="image-loading-spinner"></div>
         </div>
         <div class="product-content" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
             <h3 class="product-name">${product.name}</h3>
@@ -289,8 +324,52 @@ document.addEventListener('DOMContentLoaded', async function() {
     }, 1000);
 });
 
+// Lazy Loading Implementation
+function initializeLazyLoading() {
+    const images = document.querySelectorAll('.product-image.lazy-load');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                const spinner = img.parentElement.querySelector('.image-loading-spinner');
+                
+                // Show loading spinner
+                if (spinner) {
+                    spinner.classList.add('show');
+                }
+                
+                // Load the actual image
+                img.onload = function() {
+                    this.classList.add('loaded');
+                    if (spinner) {
+                        spinner.classList.remove('show');
+                    }
+                };
+                
+                img.onerror = function() {
+                    this.src = 'https://via.placeholder.com/400x260.png?text=Image+Not+Found';
+                    this.classList.add('loaded');
+                    if (spinner) {
+                        spinner.classList.remove('show');
+                    }
+                };
+                
+                img.src = img.dataset.src;
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px 0px',
+        threshold: 0.1
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
 // Make functions available globally
 window.fetchProductsFromSupabase = fetchProductsFromSupabase;
 window.displayProductsOnIndex = displayProductsOnIndex;
 window.displayProductsOnListPage = displayProductsOnListPage;
 window.filterProducts = filterProducts;
+window.initializeLazyLoading = initializeLazyLoading;
