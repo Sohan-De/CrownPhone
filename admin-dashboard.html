@@ -2690,6 +2690,175 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            /* Mobile overflow handling */
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
+            .container {
+                padding: 0 15px;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            .main-content {
+                padding: 20px 0;
+                overflow-x: hidden;
+            }
+            
+            /* Dashboard title mobile */
+            .dashboard-title {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+            
+            /* Tabs mobile */
+            .tabs {
+                flex-wrap: wrap;
+                gap: 5px;
+                padding: 8px;
+            }
+            
+            .tab-button {
+                padding: 8px 12px;
+                font-size: 14px;
+                flex: 1;
+                min-width: 0;
+            }
+            
+            /* Tab content mobile */
+            .tab-content {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            /* Tables mobile */
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .data-table {
+                min-width: 600px;
+            }
+            
+            /* Forms mobile */
+            .form-group {
+                margin-bottom: 15px;
+            }
+            
+            .form-group label {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            /* Buttons mobile */
+            .btn {
+                padding: 10px 15px;
+                font-size: 14px;
+                margin: 5px;
+            }
+            
+            /* Modals mobile */
+            .modal-content {
+                margin: 10px;
+                max-width: calc(100% - 20px);
+                max-height: calc(100vh - 20px);
+                overflow-y: auto;
+            }
+            
+            .modal-header {
+                padding: 15px;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .modal-footer {
+                padding: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .modal-footer .btn {
+                width: 100%;
+                margin: 2px 0;
+            }
+            
+            /* Stats cards mobile */
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 24px;
+            }
+            
+            .stat-label {
+                font-size: 12px;
+            }
+            
+            /* Search and filters mobile */
+            .search-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .search-box {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .filter-buttons {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            /* Pagination mobile */
+            .pagination {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            
+            .pagination button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            /* Action buttons mobile */
+            .action-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .action-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                width: 100%;
+                text-align: center;
+            }
+            
+            /* Hamburger menu */
             .hamburger-menu {
                 display: flex !important;
                 visibility: visible !important;
@@ -2710,6 +2879,93 @@
         }
 
         @media (max-width: 480px) {
+            /* Extra small mobile devices */
+            .container {
+                padding: 0 10px;
+            }
+            
+            .main-content {
+                padding: 15px 0;
+            }
+            
+            .dashboard-title {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .tabs {
+                padding: 5px;
+            }
+            
+            .tab-button {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+            
+            .tab-content {
+                padding: 10px;
+            }
+            
+            .data-table {
+                min-width: 500px;
+                font-size: 12px;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px 4px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 8px;
+                font-size: 12px;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            
+            .modal-content {
+                margin: 5px;
+                max-width: calc(100% - 10px);
+            }
+            
+            .stat-card {
+                padding: 10px;
+            }
+            
+            .stat-value {
+                font-size: 20px;
+            }
+            
+            .stat-label {
+                font-size: 10px;
+            }
+            
+            .search-box {
+                padding: 8px;
+                font-size: 12px;
+            }
+            
+            .filter-btn {
+                padding: 4px 8px;
+                font-size: 10px;
+            }
+            
+            .pagination button {
+                padding: 6px 8px;
+                font-size: 10px;
+            }
+            
+            .action-btn {
+                padding: 6px 8px;
+                font-size: 10px;
+            }
+            
+            /* Navigation */
             .nav-container {
                 padding: 0 0.5rem;
             }
