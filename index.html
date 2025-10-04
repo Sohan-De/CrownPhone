@@ -768,9 +768,20 @@
             font-family: Georgia, serif;
         }
         
+        /* Tablet responsive styles for reviews section */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .reviews-section {
+                padding: 70px 20px;
+            }
+            
+            .reviews-container {
+                padding: 0 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .reviews-section {
-                padding: 60px 0;
+                padding: 60px 20px;
             }
             
             .reviews-title {
@@ -1147,9 +1158,28 @@
             opacity: 0.9;
         }
         
+        /* Tablet responsive styles for new arrivals section */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .new-arrivals-swiper {
+                padding: 20px 20px 60px 20px;
+            }
+            
+            .swiper-button-next {
+                right: 20px;
+            }
+            
+            .swiper-button-prev {
+                left: 20px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .new-arrivals-section {
                 padding: 60px 0;
+            }
+            
+            .new-arrivals-swiper {
+                padding: 20px 20px 60px 20px;
             }
             
             .new-arrivals-title {
