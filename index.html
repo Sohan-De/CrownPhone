@@ -311,73 +311,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.3s ease, transform 0.5s ease;
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading-shimmer 1.5s infinite;
-        }
-
-        .product-image.loaded {
-            animation: none;
-            background: none;
-        }
-
-        /* Lazy loading for all images except hero */
-        .lazy-load {
-            transition: opacity 0.3s ease;
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading-shimmer 1.5s infinite;
-            position: relative;
-        }
-
-        .lazy-load.loaded {
-            animation: none;
-            background: none;
-        }
-
-        /* Loading spinner for lazy loaded images */
-        .image-loading-spinner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #dc3545;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            display: none;
-            z-index: 10;
-        }
-
-        .image-loading-spinner.show {
-            display: block;
-        }
-
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Hero showcase image - immediate loading */
-        .showcase-image {
-            width: 100%;
-            height: auto;
-            max-width: 600px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Review avatar container for spinner positioning */
-        .review-avatar {
-            position: relative;
-            display: inline-block;
-        }
-
-        @keyframes loading-shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+            transition: transform 0.5s ease;
         }
         
         .product-card:hover .product-image {
@@ -1341,8 +1275,8 @@
         .mobile-menu-title {
             background: linear-gradient(45deg, #dc3545, #c82333) !important;
             -webkit-background-clip: text !important;
-            background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
             color: transparent !important;
             margin: 0;
             font-size: 1.2rem;
@@ -1356,8 +1290,8 @@
         .nav-link {
             background: linear-gradient(45deg, #dc3545, #c82333) !important;
             -webkit-background-clip: text !important;
-            background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
             color: transparent !important;
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.3) !important;
             filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.2)) !important;
@@ -1406,8 +1340,8 @@
         .admin-link i, .mobile-admin-link i {
             background: linear-gradient(45deg, #dc3545, #c82333) !important;
             -webkit-background-clip: text !important;
-            background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
             color: transparent !important;
             text-shadow: none !important;
             filter: none !important;
@@ -1426,8 +1360,8 @@
         .logo-text, .footer-logo-text {
             background: linear-gradient(45deg, #dc3545, #c82333) !important;
             -webkit-background-clip: text !important;
-            background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
             color: transparent !important;
             font-weight: 600 !important;
             text-shadow: none !important;
@@ -1933,8 +1867,8 @@
             font-weight: 700;
             background: linear-gradient(45deg, #dc3545, #c82333) !important;
             -webkit-background-clip: text !important;
-            background-clip: text !important;
             -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
             color: transparent !important;
             text-shadow: none !important;
             filter: none !important;
@@ -3072,13 +3006,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             fixIOSBackground();
             fixMobileLayout();
-            
-            // Initialize lazy loading for all images (except hero)
-            setTimeout(() => {
-                initializeLazyLoading();
-                logImageLoadTime();
-                logHeroImageLoadTime();
-            }, 1000);
         });
         
         // Run on window resize
@@ -3098,30 +3025,6 @@
             fixIOSBackground();
             fixMobileLayout();
         }, 500);
-
-        // Performance monitoring function
-        function logImageLoadTime() {
-            const images = document.querySelectorAll('img.lazy-load');
-            images.forEach(img => {
-                const startTime = performance.now();
-                img.onload = function() {
-                    const loadTime = performance.now() - startTime;
-                    console.log(`Image loaded in ${loadTime.toFixed(2)}ms: ${this.alt}`);
-                };
-            });
-        }
-
-        // Log hero image load time separately
-        function logHeroImageLoadTime() {
-            const heroImage = document.querySelector('.showcase-image');
-            if (heroImage) {
-                const startTime = performance.now();
-                heroImage.onload = function() {
-                    const loadTime = performance.now() - startTime;
-                    console.log(`Hero image loaded in ${loadTime.toFixed(2)}ms: ${this.alt}`);
-                };
-            }
-        }
         setTimeout(function() {
             fixIOSBackground();
             fixMobileLayout();
@@ -3398,11 +3301,7 @@
                 <!-- Centered Product Showcase -->
                 <div class="hero-showcase">
                     <div class="product-showcase-container">
-                        <img 
-                            src="white-onblack-off.png" 
-                            alt="CrownPhone Device" 
-                            class="showcase-image"
-                        >
+                        <img src="white-onblack-off.png" alt="CrownPhone Device" class="showcase-image">
                         <div class="showcase-overlay">
                             <div class="showcase-badge">Featured Product</div>
                         </div>
@@ -3543,14 +3442,7 @@
                     <div class="review-card">
                         <div class="review-profile">
                             <div class="review-avatar">
-                                <img 
-                                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23f0f0f0'/%3E%3C/svg%3E"
-                                    data-src="./1.jpg" 
-                                    alt="Client Avatar"
-                                    class="lazy-load"
-                                    loading="lazy"
-                                >
-                                <div class="image-loading-spinner"></div>
+                                <img src="./1.jpg" alt="Client Avatar">
                             </div>
                             <div class="review-info">
                                 <h3 class="review-name">Michael Johnson</h3>
@@ -3573,14 +3465,7 @@
                     <div class="review-card">
                         <div class="review-profile">
                             <div class="review-avatar">
-                                <img 
-                                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23f0f0f0'/%3E%3C/svg%3E"
-                                    data-src="./2.jpg" 
-                                    alt="Client Avatar"
-                                    class="lazy-load"
-                                    loading="lazy"
-                                >
-                                <div class="image-loading-spinner"></div>
+                                <img src="./2.jpg" alt="Client Avatar">
                             </div>
                             <div class="review-info">
                                 <h3 class="review-name">Sarah Williams</h3>
@@ -3603,14 +3488,7 @@
                     <div class="review-card">
                         <div class="review-profile">
                             <div class="review-avatar">
-                                <img 
-                                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Crect width='60' height='60' fill='%23f0f0f0'/%3E%3C/svg%3E"
-                                    data-src="./3.jpg" 
-                                    alt="Client Avatar"
-                                    class="lazy-load"
-                                    loading="lazy"
-                                >
-                                <div class="image-loading-spinner"></div>
+                                <img src="./3.jpg" alt="Client Avatar">
                             </div>
                             <div class="review-info">
                                 <h3 class="review-name">David Chen</h3>
