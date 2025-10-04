@@ -1171,6 +1171,13 @@
             .swiper-button-prev {
                 left: 20px;
             }
+            
+            /* Force exactly 2 slides on tablet */
+            .new-arrivals-swiper .swiper-slide {
+                width: calc(50% - 15px) !important;
+                max-width: calc(50% - 15px) !important;
+                flex: 0 0 calc(50% - 15px) !important;
+            }
         }
         
         @media (max-width: 768px) {
@@ -1188,6 +1195,13 @@
             
             .new-arrival-image {
                 height: 180px;
+            }
+            
+            /* Force 1 slide on mobile (768px and below) */
+            .new-arrivals-swiper .swiper-slide {
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
             }
         }
         
@@ -1778,7 +1792,7 @@
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #111111 100%);
+                
                 z-index: -1;
             }
         }
@@ -2461,6 +2475,12 @@
                 animation: slideUpFadeInTablet 1.1s ease-out 0.7s forwards;
             }
             
+            /* Keep hero image same as desktop on tablet */
+            .hero-image {
+                max-width: 500px !important;
+            }
+        }
+            
             @keyframes slideUpFadeInTablet {
                 from {
                     opacity: 0;
@@ -2963,7 +2983,7 @@
                 // Fix hero section background
                 const heroSection = document.querySelector('.hero-section');
                 if (heroSection) {
-                    heroSection.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+                    heroSection.style.background = '';
                     heroSection.style.backgroundAttachment = 'scroll';
                     heroSection.style.webkitBackgroundAttachment = 'scroll';
                 }
@@ -3870,6 +3890,7 @@
                 slidesPerView: 1,
                 spaceBetween: 20,
                 loop: true,
+                centeredSlides: true,
                 speed: 800, // Smooth transition speed
                 autoplay: {
                     delay: 3000,
@@ -3915,21 +3936,24 @@
                 breakpoints: {
                     // when window width is >= 480px
                     480: {
-                        slidesPerView: 2,
+                        slidesPerView: 1,
                         spaceBetween: 20,
-                        speed: 700
+                        speed: 700,
+                        centeredSlides: true
                     },
-                    // when window width is >= 768px
+                    // when window width is >= 768px (tablet) - max 2 slides
                     768: {
-                        slidesPerView: 3,
+                        slidesPerView: 2,
                         spaceBetween: 30,
-                        speed: 700
+                        speed: 700,
+                        centeredSlides: false
                     },
-                    // when window width is >= 1024px
+                    // when window width is >= 1024px (desktop)
                     1024: {
                         slidesPerView: 4,
                         spaceBetween: 30,
-                        speed: 700
+                        speed: 700,
+                        centeredSlides: false
                     }
                 }
             });

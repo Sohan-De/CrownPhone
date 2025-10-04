@@ -969,6 +969,19 @@
                 transform: translate(-50%, -50%);
                 opacity: 1;
                 z-index: 10001;
+                transition: all 0.3s ease;
+                animation: modalFadeIn 0.3s ease forwards;
+            }
+            
+            @keyframes modalFadeIn {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
             }
             
             .video-iframe {
@@ -995,6 +1008,19 @@
                 max-height: 80vh;
                 opacity: 1;
                 z-index: 10001;
+                transition: all 0.3s ease;
+                animation: modalFadeInMobile 0.3s ease forwards;
+            }
+            
+            @keyframes modalFadeInMobile {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
             }
             
             .video-iframe {
@@ -1007,11 +1033,28 @@
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.5rem;
+            }
+            
+            .section-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .section-icon i {
+                font-size: 1.2rem;
             }
 
             .steps-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .step-number {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                margin: 0 auto 1.5rem auto !important;
+                text-align: center;
             }
 
             .support-grid {

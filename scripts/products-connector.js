@@ -22,8 +22,8 @@ async function fetchProductsFromSupabase(featured = null, isNew = null, limit = 
             query = query.eq('is_new', isNew);
         }
         
-        // Add limit and order
-        query = query.order('created_at', { ascending: false }).limit(limit);
+        // Add limit and order by display_order first, then created_at
+        query = query.order('display_order', { ascending: true }).order('created_at', { ascending: false }).limit(limit);
         
         // Execute the query
         const { data, error } = await query;

@@ -3305,6 +3305,11 @@
                     <input type="number" id="new-product-price" class="form-control" step="0.01" min="0" placeholder="29.99" required>
                 </div>
                 <div class="form-group">
+                    <label for="new-product-order">Display Order</label>
+                    <input type="number" id="new-product-order" class="form-control" min="0" placeholder="1" value="0">
+                    <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;">Lower numbers appear first (0 = first position)</small>
+                </div>
+                <div class="form-group">
                     <label for="new-product-image">Product Images (Max 4)</label>
                     <input type="file" id="new-product-image" class="form-control" accept="image/*" onchange="addSingleImage(this, 'new-product-preview-container')">
                     <small style="color: #ccc; font-size: 12px; margin-top: 5px; display: block;">Select one image at a time (up to 4 total)</small>
@@ -3370,6 +3375,11 @@
                 <div class="form-group">
                     <label for="edit-product-price">Price ($)</label>
                     <input type="number" id="edit-product-price" class="form-control" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-product-order">Display Order</label>
+                    <input type="number" id="edit-product-order" class="form-control" min="0" placeholder="1" value="0">
+                    <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;">Lower numbers appear first (0 = first position)</small>
                 </div>
                 <div class="form-group">
                     <label for="edit-product-image">Product Images (Max 4)</label>
@@ -3848,6 +3858,7 @@
                 const longDescription = document.getElementById('new-product-long-description').value;
                 const specifications = document.getElementById('new-product-specifications').value;
                 const price = document.getElementById('new-product-price').value;
+                const displayOrder = parseInt(document.getElementById('new-product-order').value) || 0;
                 // Get all selected images from the stored files array
                 const imageFiles = selectedFiles['new-product-preview-container'] || [];
                 const featured = document.getElementById('new-product-featured').value === 'true';
@@ -3909,7 +3920,7 @@
                 
                 // Save to Supabase if available
                 try {
-                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls);
+                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls, displayOrder);
                 } catch (error) {
                     console.warn('Database save failed, but product was added to UI:', error);
                     console.log('⚠️ Product added to UI. Database save failed - please check RLS policies.');
@@ -3988,6 +3999,7 @@
                             document.getElementById('edit-product-featured').value = product.is_feature ? 'true' : 'false';
                             document.getElementById('edit-product-new').value = product.is_new ? 'true' : 'false';
                             document.getElementById('edit-product-status').value = product.status;
+                            document.getElementById('edit-product-order').value = product.display_order || 0;
                             
                             // Display the modal
                             openModal('edit-product-modal');
@@ -4045,6 +4057,7 @@
                     document.getElementById('edit-product-featured').value = product.is_feature ? 'true' : 'false';
                     document.getElementById('edit-product-new').value = product.is_new ? 'true' : 'false';
                     document.getElementById('edit-product-status').value = product.status;
+                    document.getElementById('edit-product-order').value = product.display_order || 0;
                 }
                 
                 // Display the modal
@@ -4079,6 +4092,7 @@
                 const featured = document.getElementById('edit-product-featured').value === 'true';
                 const isNew = document.getElementById('edit-product-new').value === 'true';
                 const status = document.getElementById('edit-product-status').value;
+                const displayOrder = parseInt(document.getElementById('edit-product-order').value) || 0;
 
                 let imageUrl = '';
                 let imageUrls = [];
@@ -4138,7 +4152,7 @@
                 
                 // Save to Supabase if available
                 try {
-                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls);
+                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls, displayOrder);
                 } catch (error) {
                     console.warn('Database save failed, but product was updated in UI:', error);
                     console.log('⚠️ Product updated in UI. Database save failed - please check RLS policies.');
@@ -4564,7 +4578,7 @@
         window.deleteProduct = deleteProduct;
         
         // Database functions for products
-        async function saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, images = null) {
+        async function saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, images = null, displayOrder = 0) {
             try {
                 if (typeof supabase !== 'undefined') {
                     console.log('Attempting to save product to database:', { productId, name, price });
@@ -4599,6 +4613,7 @@
                                 is_feature: featured,
                                 is_new: isNew,
                                 status: status,
+                                display_order: displayOrder,
                                 updated_at: new Date().toISOString()
                             })
                             .eq('id', productId);
@@ -4630,6 +4645,7 @@
                                 is_feature: featured,
                                 is_new: isNew,
                                 status: status,
+                                display_order: displayOrder,
                                 created_at: new Date().toISOString(),
                                 updated_at: new Date().toISOString()
                             });
