@@ -680,6 +680,22 @@
             box-shadow: 0 10px 25px rgba(139, 0, 0, 0.4);
         }
         
+        /* Tablet Responsive - Vertical Layout */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .cart-content {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            
+            .cart-items-section {
+                order: 1;
+            }
+            
+            .cart-summary {
+                order: 2;
+            }
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .cart-container {

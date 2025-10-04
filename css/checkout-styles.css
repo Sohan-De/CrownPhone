@@ -180,7 +180,7 @@
     font-weight: 800;
     margin-bottom: 20px;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -257,7 +257,7 @@
     font-weight: 700;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -314,7 +314,7 @@
     font-weight: 800;
     display: inline;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -387,7 +387,7 @@
     border-top: 1px solid;
     border-image: linear-gradient(45deg, #ff0000, #8B0000) 1;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -440,7 +440,7 @@
     font-weight: 700;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -456,7 +456,7 @@
     position: absolute;
     top: -10px;
     left: 15px;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -555,7 +555,7 @@
     font-weight: 600;
     margin-bottom: 24px;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -626,8 +626,8 @@
 }
 
 .checkbox-container input[type="checkbox"]:checked + .checkmark {
-    background: #ff0000;
-    border-color: #ff0000;
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
+    border-color: linear-gradient(45deg, #dc3545, #c82333) ;
 }
 
 .checkbox-container input[type="checkbox"]:checked + .checkmark::after {
@@ -675,8 +675,8 @@
     flex-shrink: 0;
     height: 44px;
     box-sizing: border-box;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
-    color: #1a1a2e;
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
+    color: white;
     box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -736,7 +736,7 @@
 .security-icon {
     font-size: 24px;
     margin-top: 2px;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -749,7 +749,7 @@
     font-weight: 600;
     margin: 0 0 8px 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1217,7 +1217,7 @@
 }
 
 .payment-method-option input[type="radio"]:checked + .payment-method-card {
-    border-color: #ff0000;
+    border: 2px solid #dc3545 !important;
     background: rgba(255, 0, 0, 0.1);
     box-shadow: 
         0 0 30px rgba(255, 0, 0, 0.3),
@@ -1251,7 +1251,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(45deg, #ff0000, #8B0000);
+    background: linear-gradient(45deg, #dc3545, #c82333) ;
     border-radius: 50%;
     color: white;
     box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
