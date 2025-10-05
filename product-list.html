@@ -503,6 +503,93 @@
             line-height: 1.6;
         }
 
+        /* Filter Section Styling */
+        .filter-section {
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .filter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: #dc3545;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .filter-label i {
+            font-size: 1.2rem;
+        }
+
+        .quantity-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .filter-btn:hover {
+            background: rgba(220, 53, 69, 0.2);
+            border-color: rgba(220, 53, 69, 0.5);
+            color: #dc3545;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            border-color: #dc3545;
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .filter-btn.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+        }
+
+        /* Tablet Responsive Design */
+        @media (max-width: 1024px) and (min-width: 768px) {
+            .filter-container {
+                max-width: 600px;
+                padding: 0.8rem;
+            }
+            
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+            
+            .quantity-filter {
+                gap: 0.6rem;
+            }
+        }
+
         @keyframes gradientShift {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -597,14 +684,32 @@
         .product-rating {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 15px;
             color: #FFD700;
+        }
+
+        .rating-stars {
+            display: flex;
+            align-items: center;
         }
 
         .rating-count {
             color: #a0a0a0;
             font-size: 0.9rem;
             margin-left: 5px;
+        }
+
+        .product-device-number-inline {
+            font-size: 0.8rem;
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
         }
 
         .product-description {
@@ -1008,6 +1113,12 @@
             .products-container {
                 padding-top: 80px;
             }
+
+            /* Product cards full width on tablet */
+            .product-card {
+                width: 100%;
+                max-width: 100%;
+            }
         }
 
         /* Mobile Footer */
@@ -1307,7 +1418,26 @@
             <p class="products-subtitle">
                 Discover our comprehensive suite of screen mirroring and projection solutions designed for professionals, creators, and businesses.
             </p>
+        </div>
+
+        <!-- Device Quantity Filter Section -->
+        <div class="filter-section">
+            <div class="filter-container">
+                <div class="filter-label">
+                    <i class="fas fa-filter"></i>
+                    <span>Filter by Device Quantity:</span>
                 </div>
+                <div class="quantity-filter">
+                    <button class="filter-btn active" data-quantity="all">All Devices</button>
+                    <button class="filter-btn" data-quantity="5">5 Devices</button>
+                    <button class="filter-btn" data-quantity="10">10 Devices</button>
+                    <button class="filter-btn" data-quantity="15">15 Devices</button>
+                    <button class="filter-btn" data-quantity="20">20 Devices</button>
+                    <button class="filter-btn" data-quantity="25">25 Devices</button>
+                    <button class="filter-btn" data-quantity="30">30+ Devices</button>
+                </div>
+            </div>
+        </div>
                 
             
         <!-- Products Grid -->
@@ -1388,7 +1518,76 @@
             productCards.forEach(card => {
                 observer.observe(card);
             });
+
+            // Initialize device quantity filter
+            initializeDeviceQuantityFilter();
         });
+
+        // Device Quantity Filter Functionality
+        function initializeDeviceQuantityFilter() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const productsGrid = document.getElementById('productsGrid');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get the selected quantity
+                    const selectedQuantity = this.getAttribute('data-quantity');
+                    
+                    // Filter products based on quantity
+                    filterProductsByQuantity(selectedQuantity);
+                });
+            });
+        }
+
+        // Filter products by device quantity
+        function filterProductsByQuantity(quantity) {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const deviceNumberElement = card.querySelector('.product-device-number-inline');
+                let shouldShow = true;
+                
+                if (quantity !== 'all' && deviceNumberElement) {
+                    const deviceNumber = deviceNumberElement.textContent;
+                    const deviceCount = extractDeviceCount(deviceNumber);
+                    
+                    if (quantity === '30') {
+                        shouldShow = deviceCount >= 30;
+                    } else {
+                        shouldShow = deviceCount === parseInt(quantity);
+                    }
+                }
+                
+                // Show/hide card with animation
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(-20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // Extract device count from device number string
+        function extractDeviceCount(deviceNumber) {
+            // Extract number from device number (e.g., "Device: DEV-12345678" -> 12345678)
+            const match = deviceNumber.match(/\d+/);
+            return match ? parseInt(match[0]) : 1;
+        }
 
         // View Product Details functionality
         function viewProduct(productId) {

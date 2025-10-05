@@ -3310,6 +3310,11 @@
                     <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;">Lower numbers appear first (0 = first position)</small>
                 </div>
                 <div class="form-group">
+                    <label for="new-product-device-number">Device Number</label>
+                    <input type="text" id="new-product-device-number" class="form-control" placeholder="DEV-12345678" maxlength="50">
+                    <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;">Unique device identifier (e.g., DEV-12345678)</small>
+                </div>
+                <div class="form-group">
                     <label for="new-product-image">Product Images (Max 4)</label>
                     <input type="file" id="new-product-image" class="form-control" accept="image/*" onchange="addSingleImage(this, 'new-product-preview-container')">
                     <small style="color: #ccc; font-size: 12px; margin-top: 5px; display: block;">Select one image at a time (up to 4 total)</small>
@@ -3380,6 +3385,11 @@
                     <label for="edit-product-order">Display Order</label>
                     <input type="number" id="edit-product-order" class="form-control" min="0" placeholder="1" value="0">
                     <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;">Lower numbers appear first (0 = first position)</small>
+                </div>
+                <div class="form-group">
+                    <label for="edit-product-device-number">Device Number</label>
+                    <input type="text" id="edit-product-device-number" class="form-control" placeholder="DEV-12345678" maxlength="50">
+                    <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.8rem;">Unique device identifier (e.g., DEV-12345678)</small>
                 </div>
                 <div class="form-group">
                     <label for="edit-product-image">Product Images (Max 4)</label>
@@ -3859,6 +3869,7 @@
                 const specifications = document.getElementById('new-product-specifications').value;
                 const price = document.getElementById('new-product-price').value;
                 const displayOrder = parseInt(document.getElementById('new-product-order').value) || 0;
+                const deviceNumber = document.getElementById('new-product-device-number').value;
                 // Get all selected images from the stored files array
                 const imageFiles = selectedFiles['new-product-preview-container'] || [];
                 const featured = document.getElementById('new-product-featured').value === 'true';
@@ -3899,7 +3910,7 @@
                 }
                 
                 console.log('Adding new product:', {
-                    name, description, longDescription, specifications, price, imageUrl, featured, isNew, status
+                    name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, deviceNumber
                 });
                 
                 // Generate unique UUID for new product
@@ -3920,7 +3931,7 @@
                 
                 // Save to Supabase if available
                 try {
-                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls, displayOrder);
+                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls, displayOrder, deviceNumber);
                 } catch (error) {
                     console.warn('Database save failed, but product was added to UI:', error);
                     console.log('⚠️ Product added to UI. Database save failed - please check RLS policies.');
@@ -4000,6 +4011,7 @@
                             document.getElementById('edit-product-new').value = product.is_new ? 'true' : 'false';
                             document.getElementById('edit-product-status').value = product.status;
                             document.getElementById('edit-product-order').value = product.display_order || 0;
+                            document.getElementById('edit-product-device-number').value = product.device_number || '';
                             
                             // Display the modal
                             openModal('edit-product-modal');
@@ -4058,6 +4070,7 @@
                     document.getElementById('edit-product-new').value = product.is_new ? 'true' : 'false';
                     document.getElementById('edit-product-status').value = product.status;
                     document.getElementById('edit-product-order').value = product.display_order || 0;
+                    document.getElementById('edit-product-device-number').value = product.device_number || '';
                 }
                 
                 // Display the modal
@@ -4087,6 +4100,7 @@
                 const longDescription = document.getElementById('edit-product-long-description').value;
                 const specifications = document.getElementById('edit-product-specifications').value;
                 const price = document.getElementById('edit-product-price').value;
+                const deviceNumber = document.getElementById('edit-product-device-number').value;
                 // Get all selected images from the stored files array
                 const imageFiles = selectedFiles['edit-product-preview-container'] || [];
                 const featured = document.getElementById('edit-product-featured').value === 'true';
@@ -4137,7 +4151,7 @@
                 
                 console.log('Saving product:', {
                     id: productId,
-                    name, description, longDescription, specifications, price, imageUrl, featured, isNew, status
+                    name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, deviceNumber
                 });
                 
                 // Update the product in the UI
@@ -4152,7 +4166,7 @@
                 
                 // Save to Supabase if available
                 try {
-                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls, displayOrder);
+                    await saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, imageUrls, displayOrder, deviceNumber);
                 } catch (error) {
                     console.warn('Database save failed, but product was updated in UI:', error);
                     console.log('⚠️ Product updated in UI. Database save failed - please check RLS policies.');
@@ -4578,7 +4592,7 @@
         window.deleteProduct = deleteProduct;
         
         // Database functions for products
-        async function saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, images = null, displayOrder = 0) {
+        async function saveProductToDatabase(productId, name, description, longDescription, specifications, price, imageUrl, featured, isNew, status, images = null, displayOrder = 0, deviceNumber = null) {
             try {
                 if (typeof supabase !== 'undefined') {
                     console.log('Attempting to save product to database:', { productId, name, price });
@@ -4614,6 +4628,7 @@
                                 is_new: isNew,
                                 status: status,
                                 display_order: displayOrder,
+                                device_number: deviceNumber,
                                 updated_at: new Date().toISOString()
                             })
                             .eq('id', productId);
@@ -4646,6 +4661,7 @@
                                 is_new: isNew,
                                 status: status,
                                 display_order: displayOrder,
+                                device_number: deviceNumber,
                                 created_at: new Date().toISOString(),
                                 updated_at: new Date().toISOString()
                             });

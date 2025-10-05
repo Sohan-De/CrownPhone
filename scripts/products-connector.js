@@ -1,5 +1,17 @@
 // Products Connector - Connects Supabase products to index.html and product-list.html
 
+// Function to truncate description to specified word count
+function truncateDescription(description, maxWords) {
+    if (!description) return '';
+    
+    const words = description.split(' ');
+    if (words.length <= maxWords) {
+        return description;
+    }
+    
+    return words.slice(0, maxWords).join(' ') + '...';
+}
+
 // Function to fetch products from Supabase
 async function fetchProductsFromSupabase(featured = null, isNew = null, limit = 20) {
     try {
@@ -220,14 +232,17 @@ function createProductCard(product, isListPage = false) {
         <div class="product-content" onclick="viewProduct('${product.id}')" style="cursor: pointer;">
             <h3 class="product-name">${product.name}</h3>
             <div class="product-rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-                <span class="rating-count">(${Math.floor(Math.random() * 50) + 5})</span>
+                <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="rating-count">(${Math.floor(Math.random() * 50) + 5})</span>
+                </div>
+                ${product.device_number ? `<span class="product-device-number-inline">Device: ${product.device_number}</span>` : ''}
             </div>
-            <p class="product-description">${product.description}</p>
+            <p class="product-description">${truncateDescription(product.description, 4)}</p>
             <div class="product-price-container">
                 ${priceDisplay}
             </div>

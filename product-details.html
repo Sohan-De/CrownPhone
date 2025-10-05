@@ -165,7 +165,21 @@
             font-size: 0.8rem;
             font-weight: 600;
             z-index: 3;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            /* box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3); */
+        }
+
+        .image-badge.top-seller {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            
+            font-weight: 700;
+            
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .zoom-icon {
@@ -244,6 +258,36 @@
             color: rgba(255, 255, 255, 0.8);
             margin-bottom: 1.5rem;
             line-height: 1.5;
+        }
+
+        /* Device Number Styling */
+        .product-device-number {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
+            width: fit-content;
+            max-width: 300px;
+        }
+
+        .device-label {
+            font-size: 0.9rem;
+            color: #00d4ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .device-value {
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 500;
+            font-family: 'Courier New', monospace;
         }
 
         /* Rating Section */
@@ -1444,6 +1488,10 @@
                 <!-- Product Information -->
                 <div class="product-info">
                     <h1 class="product-title">CrownPhone Box Pro</h1>
+                    <div class="product-device-number" id="product-device-number" style="display: none;">
+                        <span class="device-label">Device Number:</span>
+                        <span class="device-value" id="device-value"></span>
+                    </div>
                     <p class="product-subtitle">Professional Screen Projection Hardware with Transparent Acrylic Casing and Advanced Electronics</p>
 
                     <!-- Rating Section -->
@@ -2327,6 +2375,18 @@
                 productTitle.textContent = product.name;
             }
 
+            // Update device number
+            const deviceNumberDiv = document.getElementById('product-device-number');
+            const deviceValue = document.getElementById('device-value');
+            if (deviceNumberDiv && deviceValue) {
+                if (product.device_number && product.device_number.trim()) {
+                    deviceValue.textContent = product.device_number;
+                    deviceNumberDiv.style.display = 'flex';
+                } else {
+                    deviceNumberDiv.style.display = 'none';
+                }
+            }
+
             // Update product subtitle
             const productSubtitle = document.querySelector('.product-subtitle');
             if (productSubtitle) {
@@ -2399,8 +2459,8 @@
                     productBadge.textContent = 'New';
                     productBadge.className = 'image-badge new';
                 } else if (product.is_feature) {
-                    productBadge.textContent = 'Featured';
-                    productBadge.className = 'image-badge';
+                    productBadge.textContent = 'Top Seller';
+                    productBadge.className = 'image-badge top-seller';
                 } else {
                     productBadge.style.display = 'none';
                 }
