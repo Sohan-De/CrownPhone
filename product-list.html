@@ -510,26 +510,38 @@
         }
 
         .filter-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 1rem;
+            padding: 1.5rem;
             backdrop-filter: blur(10px);
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .device-filter-container {
+            flex: 1;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .filter-label {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            color: #dc3545;
+            gap: 0.8rem;
+            margin-bottom: 0;
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1.1rem;
             font-weight: 600;
         }
 
         .filter-label i {
+            color: #dc3545;
             font-size: 1.2rem;
         }
 
@@ -573,20 +585,456 @@
             box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
         }
 
+        /* Range Slider Styles */
+        .range-slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .range-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            
+        }
+
+        .range-min, .range-max {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .range-current {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .range-slider-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .range-start-circle,
+        .range-end-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            flex-shrink: 0;
+        }
+
+        .range-start-circle {
+            background: rgba(220, 53, 69, 0.3);
+            border-color: rgba(220, 53, 69, 0.6);
+        }
+
+        .range-end-circle {
+            background: rgba(220, 53, 69, 0.3);
+            border-color: rgba(220, 53, 69, 0.6);
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .range-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
+        }
+
+        .range-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .range-slider::-moz-range-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.6);
+        }
+
+
+        .range-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .range-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .range-btn:hover {
+            background: rgba(220, 53, 69, 0.2);
+            border-color: rgba(220, 53, 69, 0.5);
+            color: #dc3545;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Price Filter Styles */
+        .price-filter-container {
+            flex: 1;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 0;
+        }
+
+        .price-filter-label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .price-filter-label i {
+            color: #dc3545;
+            font-size: 1.2rem;
+        }
+
+        .price-inputs {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .price-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .price-input-group label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .price-input {
+            width: 120px;
+            padding: 0.8rem 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .price-input:focus {
+            outline: none;
+            border-color: #dc3545;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(220, 53, 69, 0.3);
+        }
+
+        .price-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .price-separator {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 0.5rem;
+        }
+
+        .price-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .price-btn {
+            background: rgba(220, 53, 69, 0.2);
+            border: 2px solid rgba(220, 53, 69, 0.4);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .price-btn:hover {
+            background: rgba(220, 53, 69, 0.3);
+            border-color: rgba(220, 53, 69, 0.6);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .price-btn:active {
+            transform: translateY(0);
+        }
+
+        .range-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Unified Filter Actions */
+        .unified-filter-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .unified-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 150px;
+            justify-content: center;
+        }
+
+        .apply-btn {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            color: white;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .apply-btn:hover {
+            background: linear-gradient(45deg, #c82333, #a71e2a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        .reset-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .reset-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .unified-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Range Slider Active Track */
+        .range-slider::-webkit-slider-track {
+            background: linear-gradient(to right, 
+                rgba(220, 53, 69, 0.3) 0%, 
+                rgba(220, 53, 69, 0.1) 100%);
+            height: 8px;
+            border-radius: 5px;
+        }
+
+        .range-slider::-moz-range-track {
+            background: linear-gradient(to right, 
+                rgba(220, 53, 69, 0.3) 0%, 
+                rgba(220, 53, 69, 0.1) 100%);
+            height: 8px;
+            border-radius: 5px;
+            border: none;
+        }
+
         /* Tablet Responsive Design */
         @media (max-width: 1024px) and (min-width: 768px) {
             .filter-container {
-                max-width: 600px;
-                padding: 0.8rem;
+                max-width: 700px;
+                padding: 1rem;
+                gap: 1.5rem;
             }
             
-            .filter-btn {
-                padding: 0.5rem 1rem;
+            .range-slider-container {
+                gap: 1.2rem;
+            }
+            
+            .range-display {
+                max-width: 450px;
+            }
+            
+            .range-slider-wrapper {
+                max-width: 450px;
+            }
+            
+            .range-btn {
+                padding: 0.5rem 1.2rem;
                 font-size: 0.85rem;
             }
             
-            .quantity-filter {
-                gap: 0.6rem;
+            .price-filter-container {
+                padding: 0;
+            }
+            
+            .price-inputs {
+                gap: 1.2rem;
+            }
+            
+            .price-input {
+                width: 100px;
+            }
+        }
+        
+        /* Mobile Responsive Design for Range Slider */
+        @media (max-width: 768px) {
+            .filter-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .device-filter-container,
+            .price-filter-container {
+                width: 100%;
+            }
+            
+            .range-slider-container {
+                gap: 1rem;
+            }
+            
+            .range-display {
+                max-width: 100%;
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            
+            .range-current {
+                font-size: 1.1rem;
+                order: -1;
+            }
+            
+            .range-min, .range-max {
+                font-size: 0.8rem;
+            }
+            
+            .range-slider-wrapper {
+                max-width: 100%;
+                padding: 0 1rem;
+                gap: 0.3rem;
+            }
+            
+            .range-start-circle,
+            .range-end-circle {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .range-actions {
+                flex-direction: column;
+                gap: 0.8rem;
+                width: 100%;
+            }
+            
+            .range-btn {
+                width: 100%;
+                padding: 0.8rem 1rem;
+            }
+            
+            .price-filter-container {
+                padding: 0;
+            }
+            
+            .price-inputs {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .price-separator {
+                order: -1;
+                margin: 0;
+            }
+            
+            .price-input {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .price-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .price-btn {
+                width: 100%;
+                padding: 0.8rem 1rem;
+            }
+            
+            .unified-filter-actions {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .unified-btn {
+                width: 100%;
+                padding: 0.8rem 1.5rem;
             }
         }
 
@@ -1420,22 +1868,77 @@
             </p>
         </div>
 
-        <!-- Device Quantity Filter Section -->
+        <!-- Device Quantity Range Slider Section -->
         <div class="filter-section">
             <div class="filter-container">
+                <!-- Device Filter Section -->
+                <div class="device-filter-container">
                 <div class="filter-label">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Filter by Device Quantity Range:</span>
+                </div>
+                    <div class="range-slider-container">
+                        <div class="range-display">
+                            <span class="range-min">0</span>
+                            <span class="range-current" id="range-current">All Devices</span>
+                            <span class="range-max">100+</span>
+                        </div>
+                        <div class="range-slider-wrapper">
+                            <div class="range-start-circle"></div>
+                            <input type="range" 
+                                   id="device-range-slider" 
+                                   class="range-slider" 
+                                   min="0" 
+                                   max="100" 
+                                   value="0" 
+                                   step="5">
+                            <div class="range-end-circle"></div>
+                </div>
+                    </div>
+                </div>
+                
+                <!-- Price Filter Section -->
+                <div class="price-filter-container">
+                    <div class="price-filter-label">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span>Filter by Price Range:</span>
+                    </div>
+                    <div class="price-inputs">
+                        <div class="price-input-group">
+                            <label for="min-price">Min Price ($)</label>
+                            <input type="number" 
+                                   id="min-price" 
+                                   class="price-input" 
+                                   placeholder="0" 
+                                   min="0" 
+                                   step="0.01">
+                        </div>
+                        <div class="price-separator">
+                            <span>to</span>
+                        </div>
+                        <div class="price-input-group">
+                            <label for="max-price">Max Price ($)</label>
+                            <input type="number" 
+                                   id="max-price" 
+                                   class="price-input" 
+                                   placeholder="1000" 
+                                   min="0" 
+                                   step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Unified Filter Actions -->
+            <div class="unified-filter-actions">
+                <button class="unified-btn apply-btn" id="apply-all-filters-btn">
                     <i class="fas fa-filter"></i>
-                    <span>Filter by Device Quantity:</span>
-                </div>
-                <div class="quantity-filter">
-                    <button class="filter-btn active" data-quantity="all">All Devices</button>
-                    <button class="filter-btn" data-quantity="5">5 Devices</button>
-                    <button class="filter-btn" data-quantity="10">10 Devices</button>
-                    <button class="filter-btn" data-quantity="15">15 Devices</button>
-                    <button class="filter-btn" data-quantity="20">20 Devices</button>
-                    <button class="filter-btn" data-quantity="25">25 Devices</button>
-                    <button class="filter-btn" data-quantity="30">30+ Devices</button>
-                </div>
+                    Apply Filters
+                </button>
+                <button class="unified-btn reset-btn" id="reset-all-filters-btn">
+                    <i class="fas fa-undo"></i>
+                    Reset All
+                </button>
             </div>
         </div>
                 
@@ -1519,47 +2022,249 @@
                 observer.observe(card);
             });
 
-            // Initialize device quantity filter
-            initializeDeviceQuantityFilter();
+            // Initialize range slider
+            initializeRangeSlider();
+            
+            // Initialize price filter
+            initializePriceFilter();
+            
+            // Initialize unified filter actions
+            initializeUnifiedFilters();
         });
 
-        // Device Quantity Filter Functionality
-        function initializeDeviceQuantityFilter() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const productsGrid = document.getElementById('productsGrid');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Get the selected quantity
-                    const selectedQuantity = this.getAttribute('data-quantity');
-                    
-                    // Filter products based on quantity
-                    filterProductsByQuantity(selectedQuantity);
-                });
+        // Range Slider Functionality
+        function initializeRangeSlider() {
+            const rangeSlider = document.getElementById('device-range-slider');
+            const rangeCurrent = document.getElementById('range-current');
+
+            if (!rangeSlider || !rangeCurrent) return;
+
+            // Update display when slider changes
+            rangeSlider.addEventListener('input', function() {
+                const value = parseInt(this.value);
+                updateRangeDisplay(value);
             });
+            
+            // Initialize display
+            updateRangeDisplay(0);
+        }
+        
+        function updateRangeDisplay(value) {
+            const rangeCurrent = document.getElementById('range-current');
+            if (!rangeCurrent) return;
+            
+            if (value === 'all') {
+                rangeCurrent.textContent = 'All Devices';
+            } else if (value === 0) {
+                rangeCurrent.textContent = 'All Devices';
+            } else {
+                rangeCurrent.textContent = `${value}+ Devices`;
+            }
         }
 
-        // Filter products by device quantity
-        function filterProductsByQuantity(quantity) {
+        // Filter products by range
+        function filterProductsByRange(minQuantity) {
             const productCards = document.querySelectorAll('.product-card');
             
             productCards.forEach(card => {
                 const deviceNumberElement = card.querySelector('.product-device-number-inline');
                 let shouldShow = true;
                 
-                if (quantity !== 'all' && deviceNumberElement) {
+                // If minQuantity is 0, show all products
+                if (minQuantity === 0) {
+                    shouldShow = true;
+                } else if (deviceNumberElement) {
                     const deviceNumber = deviceNumberElement.textContent;
                     const deviceCount = extractDeviceCount(deviceNumber);
-                    
-                    if (quantity === '30') {
-                        shouldShow = deviceCount >= 30;
+                    shouldShow = deviceCount >= minQuantity;
+                }
+                
+                // Show/hide card with animation
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
                     } else {
-                        shouldShow = deviceCount === parseInt(quantity);
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(-20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+        
+        // Show all products
+        function showAllProducts() {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                card.style.display = 'block';
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        }
+
+        // Price Filter Functionality
+        function initializePriceFilter() {
+            const minPriceInput = document.getElementById('min-price');
+            const maxPriceInput = document.getElementById('max-price');
+
+            if (!minPriceInput || !maxPriceInput) return;
+
+            // Allow Enter key to apply filter
+            minPriceInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    applyAllFilters();
+                }
+            });
+
+            maxPriceInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    applyAllFilters();
+                }
+            });
+        }
+
+        // Filter products by price range
+        function filterProductsByPrice(minPrice, maxPrice) {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const priceElement = card.querySelector('.product-price');
+                let shouldShow = true;
+                
+                if (priceElement) {
+                    const priceText = priceElement.textContent;
+                    const price = extractPrice(priceText);
+                    
+                    if (price !== null) {
+                        shouldShow = price >= minPrice && price <= maxPrice;
+                    }
+                }
+                
+                // Show/hide card with animation
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(-20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // Extract price from price text
+        function extractPrice(priceText) {
+            // Remove currency symbols and extract number
+            const match = priceText.match(/[\d,]+\.?\d*/);
+            if (match) {
+                return parseFloat(match[0].replace(/,/g, ''));
+            }
+            return null;
+        }
+
+        // Unified Filter Actions
+        function initializeUnifiedFilters() {
+            const applyBtn = document.getElementById('apply-all-filters-btn');
+            const resetBtn = document.getElementById('reset-all-filters-btn');
+
+            if (!applyBtn || !resetBtn) return;
+
+            // Apply all filters
+            applyBtn.addEventListener('click', function() {
+                applyAllFilters();
+            });
+
+            // Reset all filters
+            resetBtn.addEventListener('click', function() {
+                resetAllFilters();
+            });
+        }
+
+        // Apply all active filters
+        function applyAllFilters() {
+            const rangeSlider = document.getElementById('device-range-slider');
+            const minPriceInput = document.getElementById('min-price');
+            const maxPriceInput = document.getElementById('max-price');
+
+            // Get device quantity filter value
+            const deviceQuantity = rangeSlider ? parseInt(rangeSlider.value) : 0;
+            
+            // Get price filter values
+            const minPrice = minPriceInput ? (parseFloat(minPriceInput.value) || 0) : 0;
+            const maxPrice = maxPriceInput ? (parseFloat(maxPriceInput.value) || Infinity) : Infinity;
+
+            // Validate price range
+            if (minPrice > maxPrice) {
+                alert('Minimum price cannot be greater than maximum price!');
+                return;
+            }
+
+            // Apply both filters
+            filterProductsByBothFilters(deviceQuantity, minPrice, maxPrice);
+        }
+
+        // Reset all filters
+        function resetAllFilters() {
+            const rangeSlider = document.getElementById('device-range-slider');
+            const minPriceInput = document.getElementById('min-price');
+            const maxPriceInput = document.getElementById('max-price');
+
+            // Reset device quantity filter
+            if (rangeSlider) {
+                rangeSlider.value = 0;
+                updateRangeDisplay(0);
+            }
+
+            // Reset price filter
+            if (minPriceInput) minPriceInput.value = '';
+            if (maxPriceInput) maxPriceInput.value = '';
+
+            // Show all products
+            showAllProducts();
+        }
+
+        // Filter products by both device quantity and price
+        function filterProductsByBothFilters(deviceQuantity, minPrice, maxPrice) {
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                const deviceNumberElement = card.querySelector('.product-device-number-inline');
+                const priceElement = card.querySelector('.product-price');
+                let shouldShow = true;
+                
+                // Check device quantity filter
+                if (deviceQuantity > 0 && deviceNumberElement) {
+                    const deviceNumber = deviceNumberElement.textContent;
+                    const deviceCount = extractDeviceCount(deviceNumber);
+                    if (deviceCount < deviceQuantity) {
+                        shouldShow = false;
+                    }
+                }
+                
+                // Check price filter
+                if (shouldShow && priceElement) {
+                    const priceText = priceElement.textContent;
+                    const price = extractPrice(priceText);
+                    if (price !== null && (price < minPrice || price > maxPrice)) {
+                        shouldShow = false;
                     }
                 }
                 
