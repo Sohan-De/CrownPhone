@@ -658,6 +658,205 @@
             }
         }
 
+        /* Telegram Support Section */
+        .telegram-support-section {
+            margin: 6rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .telegram-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .telegram-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .telegram-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 20px 40px rgba(220, 53, 69, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 20px 40px rgba(220, 53, 69, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 25px 50px rgba(220, 53, 69, 0.4); }
+        }
+
+        .telegram-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #dc3545, #c82333, #ff6b6b);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        .telegram-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .telegram-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .telegram-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 25px;
+            padding: 2.5rem;
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: slideInUp 1s ease-out;
+        }
+
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            margin-right: 1rem;
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .card-content {
+            margin-bottom: 2rem;
+        }
+
+        .card-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .feature i {
+            color: #dc3545;
+            font-size: 1rem;
+        }
+
+        .feature span {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .card-footer {
+            text-align: center;
+        }
+
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .telegram-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .telegram-btn:hover::before {
+            left: 100%;
+        }
+
+        .telegram-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(220, 53, 69, 0.4);
+        }
+
+        .support-btn {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+        }
+
+        .channel-btn {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+        }
+
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 968px) {
             .contact-hero h1 {
@@ -666,6 +865,14 @@
 
             .contact-form-section {
                 padding: 2rem;
+            }
+
+            .telegram-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .telegram-title {
+                font-size: 2.5rem;
             }
         }
 
@@ -677,6 +884,35 @@
             .contact-container {
                 padding: 100px 1rem 2rem;
             }
+
+            .telegram-container {
+                padding: 0;
+            }
+
+            .telegram-title {
+                font-size: 2rem;
+            }
+
+            .telegram-card {
+                padding: 2rem;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+            .telegram-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .telegram-card {
+                padding: 1.5rem;
+            }
+
+            .telegram-title {
+                font-size: 1.8rem;
+            }
+
         }
 
         /* Tablet and Mobile Navigation Fixes - Same as index.html */
@@ -952,6 +1188,88 @@
                         <span><i class="fas fa-rocket"></i> Send Message</span>
                     </button>
                 </form>
+            </div>
+        </div>
+
+        <!-- Telegram Support Section -->
+        <div class="telegram-support-section">
+            <div class="telegram-container">
+                <div class="telegram-header">
+                    <div class="telegram-icon">
+                        <i class="fab fa-telegram-plane"></i>
+                    </div>
+                    <h2 class="telegram-title">Get Instant Support</h2>
+                    <p class="telegram-subtitle">Join our Telegram community for real-time assistance and updates</p>
+                </div>
+
+                <div class="telegram-cards">
+                    <!-- Support Card -->
+                    <div class="telegram-card support-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h3>24/7 Support</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Get instant help from our support team via Telegram. We're always here to assist you!</p>
+                            <div class="card-features">
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Instant responses</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Technical assistance</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Priority support</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://t.me/Crownconnect" class="telegram-btn support-btn" target="_blank">
+                                <i class="fab fa-telegram-plane"></i>
+                                <span>Join Support</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Channel Card -->
+                    <div class="telegram-card channel-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-broadcast-tower"></i>
+                            </div>
+                            <h3>Official Channel</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Stay updated with the latest news, updates, and announcements from CrownPhone.</p>
+                            <div class="card-features">
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Latest updates</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Product news</span>
+                                </div>
+                                <div class="feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Exclusive offers</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://t.me/CrownConnectDevices" class="telegram-btn channel-btn" target="_blank">
+                                <i class="fab fa-telegram-plane"></i>
+                                <span>Join Channel</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
