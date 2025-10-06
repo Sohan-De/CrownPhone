@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     console.log('Checkout page initialization complete');
 });
 
-// Handle payment return from Zerocryptopay
+// Handle payment return from NOWPayments
 function handlePaymentReturn(status) {
     console.log('Payment return status:', status);
     
@@ -73,12 +73,66 @@ function handlePaymentReturn(status) {
         showLoading(true);
         updateButtonText('Processing Payment...');
         
-        // Check payment status periodically
-        setTimeout(() => {
-            // In a real implementation, you would check the payment status
-            // For now, we'll assume it succeeded after 5 seconds
-            showSuccess();
-        }, 5000);
+        // Check payment status with NOWPayments
+        checkNOWPaymentsStatus();
+    }
+}
+
+// Check NOWPayments payment status
+async function checkNOWPaymentsStatus() {
+    try {
+        const paymentId = localStorage.getItem('nowpayments_payment_id');
+        if (!paymentId) {
+            console.error('No payment ID found');
+            showError('Payment information not found. Please try again.');
+            return;
+        }
+        
+        console.log('Checking NOWPayments status for payment:', paymentId);
+        
+        const response = await fetch(`http://localhost:3001/api/check-payment-status?payment_id=${paymentId}`);
+        const result = await response.json();
+        
+        if (result.success) {
+            console.log('Payment status:', result.status);
+            
+            switch (result.status) {
+                case 'finished':
+                    showSuccess();
+                    break;
+                case 'failed':
+                case 'refunded':
+                    showError('Payment failed. Please try again.');
+                    break;
+                case 'partially_paid':
+                    showError('Partial payment received. Please complete the payment.');
+                    break;
+                case 'expired':
+                    showError('Payment expired. Please try again.');
+                    break;
+                case 'waiting':
+                case 'confirming':
+                    // Still processing, check again in 5 seconds
+                    setTimeout(() => {
+                        checkNOWPaymentsStatus();
+                    }, 5000);
+                    break;
+                default:
+                    console.log('Unknown payment status:', result.status);
+                    // Check again in 5 seconds
+                    setTimeout(() => {
+                        checkNOWPaymentsStatus();
+                    }, 5000);
+                    break;
+            }
+        } else {
+            console.error('Failed to check payment status:', result.error);
+            showError('Unable to verify payment status. Please contact support.');
+        }
+        
+    } catch (error) {
+        console.error('Error checking payment status:', error);
+        showError('Error verifying payment. Please contact support.');
     }
 }
 
@@ -823,6 +877,11 @@ function setupCryptoPayments() {
     const cryptoOptions = document.querySelectorAll('.crypto-option');
     cryptoOptions.forEach(option => {
         option.addEventListener('click', function() {
+            // Check if option is disabled
+            if (this.style.opacity === '0.5' || this.style.cursor === 'not-allowed') {
+                return; // Don't allow selection of disabled options
+            }
+            
             // Remove selected class from all options
             cryptoOptions.forEach(opt => opt.classList.remove('selected'));
             // Add selected class to clicked option
@@ -851,7 +910,7 @@ async function updateCryptoAmounts() {
     
     try {
         // Fetch real-time crypto prices from CoinGecko API
-        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,usd-coin,tether&vs_currencies=usd');
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,usd-coin,tether,litecoin,dogecoin,cardano,polkadot,ripple,bitcoin-cash&vs_currencies=usd');
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -865,18 +924,27 @@ async function updateCryptoAmounts() {
         const ethAmount = (totalUSD / (prices.ethereum?.usd || 3000)).toFixed(6);
         const usdcAmount = totalUSD.toFixed(2);
         const usdtAmount = totalUSD.toFixed(2);
+        const ltcAmount = (totalUSD / (prices.litecoin?.usd || 100)).toFixed(6);
+        const dogeAmount = (totalUSD / (prices.dogecoin?.usd || 0.08)).toFixed(2);
+        const adaAmount = (totalUSD / (prices.cardano?.usd || 0.5)).toFixed(2);
         
         // Update display with real amounts
         document.getElementById('btc-amount').textContent = `${btcAmount} BTC`;
         document.getElementById('eth-amount').textContent = `${ethAmount} ETH`;
         document.getElementById('usdc-amount').textContent = `${usdcAmount} USDC`;
         document.getElementById('usdt-amount').textContent = `${usdtAmount} USDT`;
+        document.getElementById('ltc-amount').textContent = `${ltcAmount} LTC`;
+        document.getElementById('doge-amount').textContent = `${dogeAmount} DOGE`;
+        document.getElementById('ada-amount').textContent = `${adaAmount} ADA`;
         
         // Add price info as tooltips
         document.getElementById('btc-amount').title = `~$${prices.bitcoin?.usd || 45000} per BTC`;
         document.getElementById('eth-amount').title = `~$${prices.ethereum?.usd || 3000} per ETH`;
         document.getElementById('usdc-amount').title = `~$${prices['usd-coin']?.usd || 1} per USDC`;
         document.getElementById('usdt-amount').title = `~$${prices.tether?.usd || 1} per USDT`;
+        document.getElementById('ltc-amount').title = `~$${prices.litecoin?.usd || 100} per LTC`;
+        document.getElementById('doge-amount').title = `~$${prices.dogecoin?.usd || 0.08} per DOGE`;
+        document.getElementById('ada-amount').title = `~$${prices.cardano?.usd || 0.5} per ADA`;
         
         // Update timestamp
         const timestamp = document.getElementById('price-timestamp');
@@ -893,6 +961,9 @@ async function updateCryptoAmounts() {
         document.getElementById('eth-amount').textContent = 'Price unavailable';
         document.getElementById('usdc-amount').textContent = 'Price unavailable';
         document.getElementById('usdt-amount').textContent = 'Price unavailable';
+        document.getElementById('ltc-amount').textContent = 'Price unavailable';
+        document.getElementById('doge-amount').textContent = 'Price unavailable';
+        document.getElementById('ada-amount').textContent = 'Price unavailable';
         
         // Show error message
         const walletStatus = document.getElementById('wallet-status');
@@ -960,7 +1031,7 @@ async function connectWallet(walletType) {
     }
 }
 
-// Process crypto payment with Zerocryptopay (Server-side approach)
+// Process crypto payment with NOWPayments (Server-side approach)
 async function processCryptoPayment() {
     const selectedCrypto = document.querySelector('.crypto-option.selected');
     if (!selectedCrypto) {
@@ -971,7 +1042,7 @@ async function processCryptoPayment() {
     const cryptoType = selectedCrypto.dataset.crypto;
     
     try {
-        console.log('Processing crypto payment with Zerocryptopay:', cryptoType);
+        console.log('Processing crypto payment with NOWPayments:', cryptoType);
         
         // Show loading state
         showLoading(true);
@@ -980,8 +1051,12 @@ async function processCryptoPayment() {
         // Generate unique order ID
         const orderId = 'order_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         
+        // Get customer information from form
+        const customerEmail = document.getElementById('email').value;
+        const customerName = document.getElementById('name').value;
+        
         // Call our server endpoint to create payment
-        const response = await fetch('/api/create-crypto-payment', {
+        const response = await fetch('http://localhost:3001/api/create-nowpayments-payment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -989,7 +1064,9 @@ async function processCryptoPayment() {
             body: JSON.stringify({
                 amount: currentPackage.price,
                 order_id: orderId,
-                crypto_type: cryptoType
+                crypto_type: cryptoType,
+                customer_email: customerEmail,
+                customer_name: customerName
             })
         });
         
@@ -997,12 +1074,25 @@ async function processCryptoPayment() {
         
         if (result.success) {
             console.log('Payment created successfully:', result);
-            console.log('Redirecting to:', result.paymentUrl);
+            console.log('Redirecting to:', result.payment_url);
             
-            // Redirect to Zerocryptopay payment page
-            window.location.href = result.paymentUrl;
+            // Store payment info for status checking
+            localStorage.setItem('nowpayments_payment_id', result.payment_id);
+            localStorage.setItem('nowpayments_order_id', result.order_id);
+            localStorage.setItem('nowpayments_crypto_amount', result.crypto_amount);
+            localStorage.setItem('nowpayments_crypto_type', result.crypto_type);
+            
+            // Redirect to NOWPayments payment page
+            window.location.href = result.payment_url;
         } else {
-            throw new Error(result.error || 'Failed to create payment');
+            // Handle specific error cases
+            if (result.error && result.error.includes('CURRENCY_UNAVAILABLE')) {
+                showError('This cryptocurrency is temporarily unavailable. Please try USDC, ETH, or BTC instead.');
+            } else if (result.error && result.error.includes('Can not get estimate')) {
+                showError('This cryptocurrency is not supported for direct conversion. Please try USDC, ETH, or BTC instead.');
+            } else {
+                throw new Error(result.error || 'Failed to create payment');
+            }
         }
         
     } catch (error) {

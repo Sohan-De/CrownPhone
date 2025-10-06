@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOWPayments Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NOWPayments Integration Test</h1>
+        <p>This page tests the NOWPayments API integration for CrownPhone.</p>
+        
+        <div class="test-section">
+            <h3>1. Test Payment Creation</h3>
+            <p>Create a test payment with NOWPayments:</p>
+            <button class="test-button" onclick="testCreatePayment()">Create Test Payment</button>
+            <div id="create-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>2. Test Payment Status Check</h3>
+            <p>Check the status of a payment (enter payment ID):</p>
+            <input type="text" id="payment-id" placeholder="Enter payment ID" style="width: 300px; padding: 5px;">
+            <button class="test-button" onclick="testCheckStatus()">Check Status</button>
+            <div id="status-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>3. Test Supported Cryptocurrencies</h3>
+            <p>Test different cryptocurrency options:</p>
+            <button class="test-button" onclick="testCryptoOptions()">Test Crypto Options</button>
+            <div id="crypto-result" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>4. Test Error Handling</h3>
+            <p>Test error scenarios:</p>
+            <button class="test-button" onclick="testErrorHandling()">Test Error Handling</button>
+            <div id="error-result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test payment creation
+        async function testCreatePayment() {
+            const resultDiv = document.getElementById('create-result');
+            resultDiv.textContent = 'Creating test payment...';
+            resultDiv.className = 'result info';
+            
+            try {
+                const response = await fetch('/api/create-nowpayments-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amount: 10.00,
+                        order_id: 'test_' + Date.now(),
+                        crypto_type: 'btc',
+                        customer_email: 'test@example.com',
+                        customer_name: 'Test Customer'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.textContent = `✅ Payment created successfully!\n\nPayment ID: ${result.payment_id}\nPayment URL: ${result.payment_url}\nCrypto Amount: ${result.crypto_amount} ${result.crypto_type}\nOrder ID: ${result.order_id}`;
+                    resultDiv.className = 'result success';
+                } else {
+                    resultDiv.textContent = `❌ Payment creation failed:\n${result.error}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+        
+        // Test payment status check
+        async function testCheckStatus() {
+            const paymentId = document.getElementById('payment-id').value;
+            const resultDiv = document.getElementById('status-result');
+            
+            if (!paymentId) {
+                resultDiv.textContent = 'Please enter a payment ID';
+                resultDiv.className = 'result error';
+                return;
+            }
+            
+            resultDiv.textContent = 'Checking payment status...';
+            resultDiv.className = 'result info';
+            
+            try {
+                const response = await fetch(`/api/check-payment-status?payment_id=${paymentId}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.textContent = `✅ Payment status retrieved!\n\nPayment ID: ${result.payment_id}\nStatus: ${result.status}\nAmount: ${result.amount} ${result.currency}\nPay Currency: ${result.pay_currency}\nPay Amount: ${result.pay_amount}`;
+                    resultDiv.className = 'result success';
+                } else {
+                    resultDiv.textContent = `❌ Status check failed:\n${result.error}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+        
+        // Test cryptocurrency options
+        async function testCryptoOptions() {
+            const resultDiv = document.getElementById('crypto-result');
+            resultDiv.textContent = 'Testing cryptocurrency options...';
+            resultDiv.className = 'result info';
+            
+            const cryptos = ['btc', 'eth', 'usdc', 'usdt', 'ltc', 'doge', 'ada'];
+            const results = [];
+            
+            for (const crypto of cryptos) {
+                try {
+                    const response = await fetch('/api/create-nowpayments-payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            amount: 1.00,
+                            order_id: `test_${crypto}_${Date.now()}`,
+                            crypto_type: crypto,
+                            customer_email: 'test@example.com',
+                            customer_name: 'Test Customer'
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    results.push(`${crypto.toUpperCase()}: ${result.success ? '✅ Success' : '❌ Failed - ' + result.error}`);
+                } catch (error) {
+                    results.push(`${crypto.toUpperCase()}: ❌ Error - ${error.message}`);
+                }
+            }
+            
+            resultDiv.textContent = `Cryptocurrency Test Results:\n\n${results.join('\n')}`;
+            resultDiv.className = 'result info';
+        }
+        
+        // Test error handling
+        async function testErrorHandling() {
+            const resultDiv = document.getElementById('error-result');
+            resultDiv.textContent = 'Testing error handling...';
+            resultDiv.className = 'result info';
+            
+            const tests = [
+                {
+                    name: 'Invalid amount',
+                    data: { amount: -10, order_id: 'test', crypto_type: 'btc' }
+                },
+                {
+                    name: 'Missing order ID',
+                    data: { amount: 10, crypto_type: 'btc' }
+                },
+                {
+                    name: 'Invalid crypto type',
+                    data: { amount: 10, order_id: 'test', crypto_type: 'invalid' }
+                }
+            ];
+            
+            const results = [];
+            
+            for (const test of tests) {
+                try {
+                    const response = await fetch('/api/create-nowpayments-payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(test.data)
+                    });
+                    
+                    const result = await response.json();
+                    results.push(`${test.name}: ${result.success ? '❌ Should have failed' : '✅ Correctly failed - ' + result.error}`);
+                } catch (error) {
+                    results.push(`${test.name}: ✅ Correctly failed - ${error.message}`);
+                }
+            }
+            
+            resultDiv.textContent = `Error Handling Test Results:\n\n${results.join('\n')}`;
+            resultDiv.className = 'result info';
+        }
+    </script>
+</body>
+</html>

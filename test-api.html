@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - NOWPayments</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .test-button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+        .test-button:hover { background: #0056b3; }
+        .result { margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 5px; white-space: pre-wrap; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>NOWPayments API Test</h1>
+    <p>Testing the local server API endpoints...</p>
+    
+    <div class="test-section">
+        <h3>Test Payment Creation</h3>
+        <button class="test-button" onclick="testCreatePayment()">Create Test Payment</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        async function testCreatePayment() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Creating test payment...';
+            resultDiv.className = 'result';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/create-nowpayments-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        amount: 10.00,
+                        order_id: 'test_' + Date.now(),
+                        crypto_type: 'btc',
+                        customer_email: 'test@example.com',
+                        customer_name: 'Test Customer'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultDiv.textContent = `✅ SUCCESS!\n\nPayment ID: ${result.payment_id}\nPayment URL: ${result.payment_url}\nCrypto Amount: ${result.crypto_amount} ${result.crypto_type}`;
+                    resultDiv.className = 'result success';
+                } else {
+                    resultDiv.textContent = `❌ FAILED: ${result.error}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ ERROR: ${error.message}`;
+                resultDiv.className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html>

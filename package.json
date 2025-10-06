@@ -1,0 +1,27 @@
+{
+  "name": "crownphone-nowpayments",
+  "version": "1.0.0",
+  "description": "CrownPhone NOWPayments crypto checkout integration",
+  "main": "local-server.js",
+  "scripts": {
+    "start": "node local-server.js",
+    "dev": "nodemon local-server.js",
+    "test": "node test-nowpayments.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "crypto",
+    "payment",
+    "nowpayments",
+    "bitcoin",
+    "ethereum"
+  ],
+  "author": "CrownPhone",
+  "license": "MIT"
+}
